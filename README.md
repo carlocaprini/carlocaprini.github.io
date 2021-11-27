@@ -1,51 +1,40 @@
-# Jekyll Theme - Mundana by WowThemes.net
+# Medusa Jekyll Theme
 
-[Live Demo](https://wowthemesnet.github.io/mundana-theme-jekyll/) &nbsp; | &nbsp; 
-[Download](https://github.com/wowthemesnet/mundana-theme-jekyll/archive/master.zip) &nbsp; | &nbsp; 
-[Buy me a coffe](https://www.wowthemes.net/donate/) &nbsp; | &nbsp; [Documentation](https://bootstrapstarter.com/mundana-theme-jekyll/) &nbsp; | &nbsp; 
-[WordPress version](https://www.wowthemes.net/themes/mundana-wordpress/) 
+[Live Demo](https://fazledyn.github.io/medusa-theme-jekyll/) &nbsp;
+[Download](https://github.com/wowthemesnet/mundana-theme-jekyll/archive/master.zip) &nbsp; 
 
-![mundana jekyll theme screenshot](assets/images/screenshot.jpg)
+![medusa jekyll theme homepage](assets/images/screenshot.png)
 
-### Documentation
+## What's new?
 
-[How to install & use](https://bootstrapstarter.com/bootstrap-templates/mundana-theme-jekyll/)
+- ### About Page
 
-### Contribute to Mundana repository
+    Added a new page called `about.html` in this theme. Where a profile page appears. This amazing blog theme is now a minimalized portfolio theme.
 
-1. In the top-right corner of this page, click **Fork**.
+- ### New Fonts Added
 
-2. Clone a copy of your fork on your local, replacing *YOUR-USERNAME* with your Github username.
+    Added 'Merriweather' font for post content and 'Lexend Deca' for post title. Improves readibility.
 
-   `git clone https://github.com/YOUR-USERNAME/mundana-theme-jekyll.git`
+    Hind Siliguri by Google Fonts has been added to this theme for supporting posts written in Bengali.
+    In order to use the font, add `lang: bn` line to the top of markdown file of the post.
 
-3. **Create a branch**: 
+- ### Elegant Homepage
 
-   `git checkout -b <my-new-feature-or-fix>`
+    Made some changes to the homepage of the previous Mundana Theme. It looks better now comparing to the previous one.
 
-4. **Make necessary changes and commit those changes**:
+- ### Removed Unnecessary Fat
 
-   `git add .`
-
-   `git commit -m "new feature or fix"`
-
-5. **Push changes**, replacing `<add-your-branch-name>` with the name of the branch you created earlier at step #3. :
-
-   `git push origin <add-your-branch-name>`
-
-6. Submit your changes for review. Go to your repository on GitHub, you'll see a **Compare & pull request** button. Click on that button. Now submit the pull request.
-
-That's it! Soon I'll be merging your changes into the master branch of this project. You will get a notification email once the changes have been merged. Thank you for your contribution.
+    Previously, it was more optimized for agency or online magazine. But now it can be used as a personal blog. Multiple author page has been deleted. Also comments has been deleted. Now, custom comment plugin can be used. Wish to introduce it next.
 
 
-### Copyright
+## Parent Theme
+[Mundana Jekyll Theme](https://bootstrapstarter.com/bootstrap-templates/mundana-theme-jekyll/)
 
-Copyright (C) 2019 WowThemes.net.
 
-Theme designed and developed by [Sal](https://www.wowthemes.net), *free* under MIT license. 
+## Copyright
+Theme mixed and mastered by [fazledyn](https://github.com/fazledyn)
+<br>
+Originally based onMundana Jekyll Theme developed by WowThemes.net.
 
-<a href="https://www.wowthemes.net/donate/" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
-### Live Demo
-
-[Live Demo](https://wowthemesnet.github.io/mundana-theme-jekyll/)
+Copyright 2020 under MIT License

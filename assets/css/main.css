@@ -60,11 +60,17 @@ html {
   width: device-width; }
 
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
-  display: block; }
+  display: block;
+}
+
+::selection{
+    color: #ffffff;
+    background: #00aa7dbe;
+}
 
 body {
   margin: 0;
-  font-family: "Segoe UI", "Helvetica Neue", "Arial";
+  font-family: 'Merriweather', "Helvetica Neue", "Arial";
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.6;
@@ -168,8 +174,8 @@ pre,
 code,
 kbd,
 samp {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 1em; }
+  font-family: "Inconsolata", Consolas, "Courier New", monospace;
+}
 
 pre {
   margin-top: 0;
@@ -426,7 +432,6 @@ mark,
   color: #6c757d; }
 
 code {
-  font-size: 87.5%;
   color: #ff0266;
   word-break: break-word; }
   a > code {
@@ -446,13 +451,10 @@ kbd {
 pre {    
     background: #eee;
     padding: 5px;
-    font-size:14px;
+    font-size:16px;
   display: block;
   color: #212529; }
-  pre code {
-    font-size: inherit;
-    color: inherit;
-    word-break: normal; }
+
 
 .pre-scrollable {
   max-height: 340px;
@@ -7152,7 +7154,7 @@ button.bg-lightblue:focus {
   font-weight: 400 !important; }
 
 .font-weight-bold {
-  font-weight: 700 !important; }
+  font-weight: 500 !important; }
 
 .font-italic {
   font-style: italic !important; }
