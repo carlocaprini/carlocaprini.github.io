@@ -1,0 +1,11 @@
+# List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
+tasks:
+  - name: Run preview
+    init: bundle install
+    before: gem install jekyll bundler
+    command: bundle exec jekyll serve --livereload
+
+# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
+ports:
+  - port: 4000
+    onOpen: open-preview
