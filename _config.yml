@@ -6,7 +6,7 @@ favicon: 'assets/images/favicon.ico'
 baseurl: ''
 # disqus: 'demowebsite'
 # email: 'wowthemesnet@gmail.com'
-mailchimp-list: 'https://gmail.us20.list-manage.com/subscribe/post?u=3805f7049125d3cfaa7ef661a&amp;id=0364d23938'
+# mailchimp-list: 'https://gmail.us20.list-manage.com/subscribe/post?u=3805f7049125d3cfaa7ef661a&amp;id=0364d23938'
 google_analytics: G-F6G0HN1JDJ
 
 include: ["_pages"]
