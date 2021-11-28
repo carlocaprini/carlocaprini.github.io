@@ -1,6 +1,8 @@
 # Site
 name: 'Thoughts & Tricks'
-description: 'Medusa is a child theme of Mundana Theme built on Jekyll'
+description: 'Personal thoughts and some tricks discovered along the way'
+tagline: Personal thoughts and some tricks discovered along the way
+
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/favicon.ico'
 baseurl: ''
@@ -11,6 +13,11 @@ google_analytics: G-F6G0HN1JDJ
 
 include: ["_pages"]
 permalink: posts/:title/
+
+locale: en_US
+
+twitter:
+  card: summary
 
 # Plugins
 plugins: 
