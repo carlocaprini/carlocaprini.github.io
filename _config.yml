@@ -1,0 +1,21 @@
+title: "Carlo Caprini"
+person:
+  name: "Carlo Caprini"
+  role: "Product leadership"
+description: "Product leader focused on building high‑impact products and teams."
+url: "https://carlocaprini.github.io"
+baseurl: ""
+
+markdown: kramdown
+
+permalink: pretty
+
+plugins:
+  - jekyll-feed
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - README.md
+
