@@ -50,7 +50,7 @@ credentials:
     - title: Product & Leadership
       items:
         - Negotiation Fundamentals — ESSEC Business School
-        - Leading Teams: Building Effective Team Cultures — University of Illinois
+        - "Leading Teams: Building Effective Team Cultures — University of Illinois"
         - Managing an Agile Team — Coursera
     - title: Developer & Platform Ecosystems
       items:
