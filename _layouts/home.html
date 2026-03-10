@@ -1,0 +1,145 @@
+---
+layout: default
+# Home page layout. Content from _data/home.yml
+---
+{% assign h = site.data.home %}
+<div class="page">
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          <span>{{ h.hero.label }}</span>
+        </div>
+        <h1 class="hero-title">
+          {{ h.hero.title_prefix }}<span class="highlight">{{ h.hero.title_highlight }}</span>
+        </h1>
+        {% for p in h.hero.subtitle_paragraphs %}
+          <p class="hero-subtitle">{{ p }}</p>
+        {% endfor %}
+        <div class="hero-meta">
+          {% for m in h.hero.meta %}
+            <div>
+              <label>{{ m.label }}</label>
+              <span>{{ m.value }}</span>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="hero-actions">
+          <a href="#contact" class="button-primary">{{ h.hero.actions.primary }}</a>
+        </div>
+      </div>
+      {% include hero-card.html %}
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container section-grid">
+      <div>
+        <div class="section-header">
+          <div>
+            <div class="section-eyebrow">{{ h.about.eyebrow }}</div>
+            <h2 class="section-title">{{ h.about.title }}</h2>
+          </div>
+        </div>
+        {% for p in h.about.paragraphs %}
+          <p class="body-text">{{ p }}</p>
+        {% endfor %}
+      </div>
+      <div>
+        <div class="section-header">
+          <div class="section-description">{{ h.about.pills_description | default: "Some of the areas where I focus most of my work." }}</div>
+        </div>
+        <div class="pill-list">
+          {% for pill in h.about.pills %}
+            <span class="pill pill-strong">{{ pill }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-i-work" class="section">
+    <div class="container section-grid-balanced">
+      <div>
+        <div class="section-header">
+          <div>
+            <div class="section-eyebrow">{{ h.how_i_work.eyebrow }}</div>
+            <h2 class="section-title">{{ h.how_i_work.title }}</h2>
+          </div>
+        </div>
+        {% for p in h.how_i_work.intro_paragraphs %}
+          <p class="body-text">{{ p }}</p>
+        {% endfor %}
+      </div>
+      <div class="card-list">
+        {% for c in h.how_i_work.cards %}
+          <article class="card">
+            <div class="card-header">
+              <h3 class="card-title">{{ c.title }}</h3>
+            </div>
+            <p class="card-body">{{ c.body }}</p>
+            <div class="card-tags">
+              {% for tag in c.tags %}
+                <span class="pill">{{ tag }}</span>
+              {% endfor %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section id="work" class="section">
+    <div class="container section-grid-balanced">
+      <div>
+        <div class="section-header">
+          <div>
+            <div class="section-eyebrow">{{ h.work.eyebrow }}</div>
+            <h2 class="section-title">{{ h.work.title }}</h2>
+          </div>
+          <p class="section-description">{{ h.work.description }}</p>
+        </div>
+      </div>
+      <div class="card-list">
+        {% for c in h.work.cards %}
+          <article class="card">
+            <div class="card-header">
+              <h3 class="card-title">{{ c.title }}</h3>
+            </div>
+            <p class="card-body">{{ c.body }}</p>
+            <div class="card-tags">
+              {% for tag in c.tags %}
+                <span class="pill">{{ tag }}</span>
+              {% endfor %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="container contact-grid">
+      <div>
+        <div class="section-header">
+          <div>
+            <div class="section-eyebrow">{{ h.contact.eyebrow }}</div>
+            <h2 class="section-title">{{ h.contact.title }}</h2>
+          </div>
+        </div>
+        {% for p in h.contact.paragraphs %}
+          <p class="contact-cta">{{ p }}</p>
+        {% endfor %}
+      </div>
+      <div class="contact-channels">
+        {% for ch in h.contact.channels %}
+          <div>
+            <div class="contact-label">{{ ch.label }}</div>
+            <a class="contact-link" href="{{ ch.url }}" target="_blank" rel="noreferrer">{{ ch.text }}</a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</div>

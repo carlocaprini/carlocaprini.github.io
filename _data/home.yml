@@ -1,0 +1,87 @@
+hero:
+  label: Home
+  title_prefix: "Designing products and platforms that "
+  title_highlight: "scale with their ecosystems"
+  subtitle_paragraphs:
+    - I help teams design scalable digital products, platform ecosystems and developer-friendly systems.
+    - With a background in software development and over a decade in product management, I focus on the intersection of product strategy, platform architecture and developer experience.
+  meta:
+    - label: Experience
+      value: 8+ years in product
+    - label: Focus
+      value: Platform Strategy, Developer Experience, Distributed Systems
+    - label: Strengths
+      value: Product Strategy, Platform Thinking, System Design
+  actions:
+    primary: Get in touch
+
+about:
+  eyebrow: About
+  title: Product as a long-term system
+  paragraphs:
+    - I started my career as a software developer in a small startup before moving into product management.
+    - Over the years I worked on complex digital platforms, helping teams design scalable systems and evolve product strategy as organizations grow.
+    - My work focuses on how platforms evolve over time and how product decisions shape large distributed systems.
+  pills_description: Some of the areas where I focus most of my work.
+  pills:
+    - Platform product strategy
+    - API platforms
+    - Developer experience
+    - Event-driven systems
+    - Observability platforms
+    - Distributed systems
+
+how_i_work:
+  eyebrow: How I work
+  title: The areas where I focus my work
+  intro_paragraphs:
+    - My work sits at the intersection of product strategy, platform architecture and developer ecosystems.
+    - I tend to focus on complex product systems where technology, product decisions and organizational structure are deeply connected.
+  cards:
+    - title: Platform product strategy
+      body: Defining the strategy and evolution of complex platform products, with a focus on APIs, developer ecosystems and long-term scalability.
+      tags:
+        - Platforms
+        - APIs
+        - Product strategy
+    - title: Developer ecosystems
+      body: Improving how developers interact with platforms through better APIs, SDKs, tooling and documentation, enabling faster adoption and sustainable growth.
+      tags:
+        - Developer experience
+        - SDKs
+        - Tooling
+    - title: Distributed product systems
+      body: "Working on product problems that emerge in large distributed systems: event-driven architectures, observability and platform extensibility."
+      tags:
+        - Event-driven
+        - Observability
+        - Distributed systems
+
+work:
+  eyebrow: Areas I've worked on
+  title: A few domains where I've spent significant time
+  description: A few domains where I've spent significant time working on product and platform strategy.
+  cards:
+    - title: Platform capabilities in large-scale commerce systems
+      body: Working on developer-facing platform components, including APIs, extensibility systems and observability tooling for distributed commerce infrastructure.
+      tags:
+        - Platform
+        - APIs
+        - Observability
+    - title: Developer tooling and SDK ecosystems
+      body: Driving the strategy for developer tooling, including SDKs and platform integrations, to improve adoption and developer productivity.
+      tags:
+        - Developer experience
+        - Developer tooling
+        - SDKs
+
+contact:
+  eyebrow: Contact
+  title: Let's connect
+  paragraphs:
+    - "If you're building products, platforms or developer ecosystems and would like to exchange ideas, I'd be happy to connect. The easiest way to reach me is via LinkedIn."
+    - Based in Italy, working with teams globally.
+  channels:
+    - label: LinkedIn
+      url: https://www.linkedin.com/in/carlocaprini/
+      text: carlocaprini

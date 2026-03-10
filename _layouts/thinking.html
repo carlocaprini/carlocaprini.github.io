@@ -1,0 +1,44 @@
+---
+layout: default
+# Layout for Thinking index. Expects: hero (label, title, paragraphs, actions), articles (title, url, summary)
+---
+<div class="page">
+  <section class="hero" style="margin-bottom: 2.25rem;">
+    <div class="container hero-grid" style="grid-template-columns: minmax(0, 1fr);">
+      <div>
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          <span>{{ page.hero.label }}</span>
+        </div>
+        <h1 class="hero-title" style="margin-bottom: 0.6rem;">
+          {% if page.hero.title_highlight %}
+            {{ page.hero.title_prefix }}<span class="highlight">{{ page.hero.title_highlight }}</span>
+          {% else %}
+            {{ page.hero.title }}
+          {% endif %}
+        </h1>
+        {% for p in page.hero.paragraphs %}
+          <p class="hero-subtitle" style="max-width: 44rem;">{{ p }}</p>
+        {% endfor %}
+        <div class="hero-actions" style="margin-top: 1.3rem;">
+          <a href="{{ '/' | relative_url }}#contact" class="button-primary">{{ page.hero.actions.primary }}</a>
+          <a href="{{ '/' | relative_url }}" class="button-ghost">{{ page.hero.actions.secondary }}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container article-list-wrap">
+      <h2 class="article-list-title">Articles</h2>
+      <ul class="article-list">
+        {% for a in page.articles %}
+          <li>
+            <a href="{{ a.url | relative_url }}">{{ a.title }}</a>
+            <span class="article-list-summary">{{ a.summary }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+</div>

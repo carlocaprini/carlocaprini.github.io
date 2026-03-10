@@ -1,0 +1,32 @@
+---
+layout: default
+# Layout for Thinking articles. Expects: title, permalink, intro (optional)
+---
+
+<div class="page">
+  <section class="hero" style="margin-bottom: 2rem;">
+    <div class="container hero-grid" style="grid-template-columns: minmax(0, 1fr);">
+      <div>
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          <span>Thinking</span>
+        </div>
+        <h1 class="hero-title" style="margin-bottom: 0.6rem;">{{ page.title }}</h1>
+        {% if page.intro %}
+          {% for p in page.intro %}
+            <p class="hero-subtitle" style="max-width: 44rem;">{{ p }}</p>
+          {% endfor %}
+        {% endif %}
+        <div class="hero-actions" style="margin-top: 1.3rem;">
+          <a href="{{ '/thinking/' | relative_url }}" class="button-ghost">Back to Thinking</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container article-body">
+      {{ content }}
+    </div>
+  </section>
+</div>
