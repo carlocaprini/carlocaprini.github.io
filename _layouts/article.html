@@ -27,6 +27,11 @@ layout: default
   <section class="section">
     <div class="container article-body">
       {{ content }}
+
+      <div class="article-signature">
+        <p class="article-signature-name">- {{ site.person.name | default: site.title }}</p>
+        <p class="article-signature-cta">If this content resonates with you, <a href="{{ '/' | relative_url }}#contact">let's connect</a>.</p>
+      </div>
     </div>
   </section>
 </div>
