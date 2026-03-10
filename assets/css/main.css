@@ -404,6 +404,74 @@ main {
   color: #9ca3af;
 }
 
+.article-body {
+  max-width: 720px;
+}
+
+.article-body h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 2rem 0 0.75rem;
+  color: #f9fafb;
+}
+
+.article-body h2:first-child {
+  margin-top: 0;
+}
+
+.article-body p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #9ca3af;
+  margin: 0 0 1rem;
+}
+
+.article-list-wrap {
+  max-width: 720px;
+}
+
+.article-list-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #9ca3af;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+}
+
+.article-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.article-list li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.article-list li:last-child {
+  border-bottom: none;
+}
+
+.article-list a {
+  color: #f9fafb;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.article-list a:hover {
+  color: #6366f1;
+}
+
+.article-list-summary {
+  display: block;
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin-top: 0.2rem;
+  line-height: 1.5;
+}
+
 .pill-list {
   display: flex;
   flex-wrap: wrap;
@@ -449,6 +517,15 @@ main {
 
 .card-title {
   font-size: 0.95rem;
+}
+
+.card-title-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-title-link:hover {
+  color: #6366f1;
 }
 
 .card-meta {
