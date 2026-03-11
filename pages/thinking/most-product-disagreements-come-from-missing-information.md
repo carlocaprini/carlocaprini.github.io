@@ -2,6 +2,10 @@
 layout: article
 title: Most product disagreements come from missing information
 permalink: /thinking/most-product-disagreements-come-from-missing-information/
+summary: Product discussions often look like disagreements of opinion. In reality, teams are often missing the same piece of information.
+related_notes:
+  - /thinking/managing-disagreements/
+  - /thinking/waiting-as-product-decision/
 intro:
   - Product discussions can quickly turn into disagreements, especially in larger organizations with many stakeholders and competing priorities.
   - In many cases the problem is not that people strongly disagree. The problem is that the information required to make a decision is incomplete or missing.

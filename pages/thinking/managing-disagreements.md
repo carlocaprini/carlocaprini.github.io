@@ -2,6 +2,10 @@
 layout: article
 title: The real job of a Product Manager is managing disagreements
 permalink: /thinking/managing-disagreements/
+summary: Much of product work is about helping smart people who see the problem differently find a way forward.
+related_notes:
+  - /thinking/waiting-as-product-decision/
+  - /thinking/most-product-disagreements-come-from-missing-information/
 intro:
   - People often describe product management as deciding what to build. In reality, the job often looks very different. Much of the time it's about helping smart people who see the problem differently find a way forward.
   - Disagreements are not an exception in product work. They are the norm.

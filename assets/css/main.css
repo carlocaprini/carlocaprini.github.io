@@ -404,6 +404,17 @@ main {
   color: #9ca3af;
 }
 
+.article-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.article-main {
+  min-width: 0;
+}
+
 .article-body {
   max-width: 720px;
 }
@@ -464,6 +475,64 @@ main {
 
 .article-signature-cta a:hover {
   text-decoration: underline;
+}
+
+.article-related {
+  position: sticky;
+  top: 6rem;
+  padding: 1.25rem 1rem;
+  background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.08), transparent 60%),
+    rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 1rem;
+}
+
+.article-related-title {
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9ca3af;
+  margin: 0 0 1rem;
+}
+
+.article-related-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.article-related-list li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.article-related-list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.article-related-list li:first-child {
+  padding-top: 0;
+}
+
+.article-related-list a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #f9fafb;
+  text-decoration: none;
+}
+
+.article-related-list a:hover {
+  color: #818cf8;
+}
+
+.article-related-summary {
+  display: block;
+  font-size: 0.82rem;
+  color: #9ca3af;
+  line-height: 1.5;
+  margin-top: 0.25rem;
 }
 
 .article-list-wrap {
@@ -679,6 +748,15 @@ main {
 }
 
 @media (max-width: 900px) {
+  .article-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .article-related {
+    position: static;
+    order: 2;
+  }
+
   .hero-grid,
   .section-grid,
   .section-grid-balanced,

@@ -25,13 +25,32 @@ layout: default
   </section>
 
   <section class="section">
-    <div class="container article-body">
-      {{ content }}
-
-      <div class="article-signature">
-        <p class="article-signature-name">- {{ site.person.name | default: site.title }}</p>
-        <p class="article-signature-cta">If this content resonates with you, <a href="{{ '/' | relative_url }}#contact">let's connect</a>.</p>
+    <div class="container article-layout">
+      <div class="article-main">
+        <div class="article-body">
+          {{ content }}
+        </div>
+        <div class="article-signature">
+          <p class="article-signature-name">- {{ site.person.name | default: site.title }}</p>
+          <p class="article-signature-cta">If this content resonates with you, <a href="{{ '/' | relative_url }}#contact">let's connect</a>.</p>
+        </div>
       </div>
+      {% if page.related_notes and page.related_notes.size > 0 %}
+      <aside class="article-related">
+        <h3 class="article-related-title">Related notes</h3>
+        <ul class="article-related-list">
+          {% for path in page.related_notes %}
+            {% assign note = site.pages | where: "url", path | first %}
+            {% if note and note.url != page.url %}
+            <li>
+              <a href="{{ path | relative_url }}">{{ note.title }}</a>
+              <span class="article-related-summary">{{ note.summary }}</span>
+            </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </aside>
+      {% endif %}
     </div>
   </section>
 </div>

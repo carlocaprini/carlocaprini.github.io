@@ -33,10 +33,13 @@ layout: default
       <h2 class="article-list-title">Notes</h2>
       <ul class="article-list">
         {% for a in page.articles %}
+          {% assign note = site.pages | where: "url", a.url | first %}
+          {% if note %}
           <li>
-            <a href="{{ a.url | relative_url }}">{{ a.title }}</a>
-            <span class="article-list-summary">{{ a.summary }}</span>
+            <a href="{{ a.url | relative_url }}">{{ note.title }}</a>
+            <span class="article-list-summary">{{ note.summary }}</span>
           </li>
+          {% endif %}
         {% endfor %}
       </ul>
     </div>
