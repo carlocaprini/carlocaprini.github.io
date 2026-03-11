@@ -71,6 +71,10 @@ Building something feels like moving forward.
 But building something is not always progress.
 Sometimes it simply means investing time and energy in the wrong direction.
 
+These situations often lead to strong discussions within product teams. Different people see the problem from different angles and the pressure to move forward quickly can amplify disagreements.
+
+This is not unusual. In fact, much of product work is about [helping teams navigate these disagreements and still find a way forward](/thinking/managing-disagreements/).
+
 ## When waiting is the better decision
 
 Waiting can be the smartest decision in several situations.

@@ -426,6 +426,18 @@ main {
   margin: 0 0 1rem;
 }
 
+.article-body a {
+  color: #818cf8;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(129, 140, 248, 0.4);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.article-body a:hover {
+  color: #a5b4fc;
+  border-bottom-color: #6366f1;
+}
+
 .article-signature {
   margin-top: 2.5rem;
   padding-top: 1.5rem;

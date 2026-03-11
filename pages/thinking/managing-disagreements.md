@@ -30,7 +30,6 @@ Disagreements about how something should be built are usually more complex.
 From a technical perspective, many things are possible. The real question is how much time, effort and risk a certain approach introduces.
 
 This is where many discussions actually happen.
-
 Should we build something quickly and iterate later? Or should we spend more time designing a more robust solution?
 
 Speed often comes at the cost of stability, performance or security. Doing things more carefully often comes at the cost of time.
@@ -49,15 +48,18 @@ Maybe the product is new. Maybe customers have not used a feature yet. Maybe the
 
 In those situations there are usually two possible paths.
 
-One option is to build something small and quick to test an assumption.
+* One option is to build something small and quick to test an assumption.
 
-The other option is to wait.
+* The other option is to wait.
 
 Waiting is often underrated. If customers truly need something that does not exist, they will usually ask for it. That signal alone can be extremely valuable.
 
 Experience and intuition still matter, of course. Looking at how other companies approach similar problems can also provide useful signals.
-
 But when information is limited, resisting the urge to overbuild is often a reasonable choice.
+
+In situations like these, teams often feel pressure to move forward anyway and build something just to reduce the uncertainty.
+
+But sometimes the more responsible decision is simply to wait and gather better signals before committing to a solution. I wrote more about this in another note on [why waiting is often one of the most underrated product decisions](/thinking/waiting-as-product-decision/).
 
 ## Taking a stand without making it personal
 
@@ -78,5 +80,4 @@ It also helps to remember that work relationships are still human relationships.
 ## Conclusion
 
 In the end, product work is not just about deciding what to build.
-
 It is about helping teams move forward when smart people disagree.
