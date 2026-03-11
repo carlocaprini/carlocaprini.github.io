@@ -13,6 +13,7 @@ permalink: pretty
 
 plugins:
   - jekyll-feed
+  - jekyll-sitemap
 
 exclude:
   - Gemfile
