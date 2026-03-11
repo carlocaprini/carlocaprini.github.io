@@ -17,4 +17,7 @@ articles:
   - title: The real job of a Product Manager is managing disagreements
     url: /thinking/managing-disagreements/
     summary: Much of product work is about helping smart people who see the problem differently find a way forward.
+  - title: Waiting is one of the most underrated product decisions
+    url: /thinking/waiting-as-product-decision/
+    summary: Product teams are often rewarded for shipping new things. But building something is not always progress. Sometimes the smartest decision is simply to wait.
 ---
