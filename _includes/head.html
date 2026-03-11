@@ -11,7 +11,15 @@
 {% assign page_image = site.url | append: site.baseurl | append: "/assets/og-thinking.png" %}
 {% else %}
 {% assign page_description = "Product and engineering professional writing occasional notes about product work, decision making and building software in teams." %}
-{% assign page_title = site.person.name | default: site.title %}
+{% assign site_name = site.person.name | default: site.title %}
+{% if page.url == "/" or page.url == "" %}
+{% assign meta_page_name = "Home" %}
+{% elsif page.title %}
+{% assign meta_page_name = page.title %}
+{% else %}
+{% assign meta_page_name = "Home" %}
+{% endif %}
+{% assign page_title = site_name | append: " - " | append: meta_page_name %}
 {% assign page_url = site.url | append: site.baseurl | append: page.url %}
 {% assign page_image = site.url | append: site.baseurl | append: "/assets/og-site.png" %}
 {% endif %}
