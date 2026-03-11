@@ -4,7 +4,37 @@
 <title>
   {% if page.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}
 </title>
-<meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace }}" />
+{% if page.layout == 'article' and page.summary %}
+{% assign page_description = page.summary | strip_html | normalize_whitespace %}
+{% assign page_title = page.title %}
+{% assign page_url = site.url | append: site.baseurl | append: page.url %}
+{% assign page_image = site.url | append: site.baseurl | append: "/assets/og-thinking.png" %}
+{% else %}
+{% assign page_description = "Product and engineering professional writing occasional notes about product work, decision making and building software in teams." %}
+{% assign page_title = site.person.name | default: site.title %}
+{% assign page_url = site.url | append: site.baseurl | append: page.url %}
+{% assign page_image = site.url | append: site.baseurl | append: "/assets/og-site.png" %}
+{% endif %}
+
+<meta name="description" content="{{ page_description | escape }}" />
+
+{% if page.layout == 'article' and page.summary %}
+<meta property="og:type" content="article">
+{% else %}
+<meta property="og:type" content="website">
+{% endif %}
+<meta name="author" content="{{ site.person.name | default: site.title }}">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="{{ page_title | escape }}">
+<meta property="og:description" content="{{ page_description | escape }}">
+<meta property="og:url" content="{{ page_url }}">
+<meta property="og:image" content="{{ page_image }}">
+<meta property="og:site_name" content="{{ site.person.name | default: site.title }}">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ page_title | escape }}">
+<meta name="twitter:description" content="{{ page_description | escape }}">
+<meta name="twitter:image" content="{{ page_image }}">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
