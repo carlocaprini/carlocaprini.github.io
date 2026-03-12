@@ -7,6 +7,8 @@ description: "Product leader focused on building high‑impact products and team
 url: "https://carlocaprini.github.io"
 baseurl: ""
 
+google_analytics: G-F6G0HN1JDJ
+
 markdown: kramdown
 
 permalink: pretty

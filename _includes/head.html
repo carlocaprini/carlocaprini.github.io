@@ -52,3 +52,11 @@
 
 <meta name="google-site-verification" content="VN2exVQzX61E6noxX6uwVa7fq7bZDYctCnMiTTfai5w" />
 
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '{{ site.google_analytics }}');
+</script>
