@@ -19,4 +19,5 @@ articles:
   - url: /thinking/waiting-as-product-decision/
   - url: /thinking/most-product-disagreements-come-from-missing-information/
   - url: /thinking/when-should-machine-learning-be-used/
+  - url: /thinking/product-decisions-are-mostly-trade-offs/
 ---
