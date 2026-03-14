@@ -32,14 +32,13 @@ layout: default
     <div class="container article-list-wrap">
       <h2 class="article-list-title">Notes</h2>
       <ul class="article-list">
-        {% for a in page.articles %}
-          {% assign note = site.pages | where: "url", a.url | first %}
-          {% if note %}
+        {% assign article_urls = page.articles | map: "url" %}
+        {% assign sorted_notes = site.pages | where_exp: "item", "article_urls contains item.url" | sort: "date" | reverse %}
+        {% for note in sorted_notes %}
           <li>
-            <a href="{{ a.url | relative_url }}">{{ note.title }}</a>
+            <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
             <span class="article-list-summary">{{ note.summary }}</span>
           </li>
-          {% endif %}
         {% endfor %}
       </ul>
     </div>

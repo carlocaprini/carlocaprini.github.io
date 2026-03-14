@@ -12,6 +12,9 @@ layout: default
           <span>Thinking</span>
         </div>
         <h1 class="hero-title" style="margin-bottom: 0.6rem;">{{ page.title }}</h1>
+        {% if page.date %}
+        <p class="hero-subtitle" style="margin-bottom: 0.6rem; font-size: 0.9rem; opacity: 0.8;">{{ page.date | date: "%B %Y" }}</p>
+        {% endif %}
         {% if page.intro %}
           {% for p in page.intro %}
             <p class="hero-subtitle" style="max-width: 44rem;">{{ p }}</p>
