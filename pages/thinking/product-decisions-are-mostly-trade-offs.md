@@ -23,13 +23,21 @@ Teams compare different approaches, evaluate their implications, and eventually 
 
 One of the most common trade-offs appears when dealing with urgent customer requests.
 
-There is almost always a *quick and dirty* solution that can be implemented quickly to address an immediate need. Customers often need something *yesterday*, and the pressure to respond fast can be very real.
+There is almost always a quick and dirty solution that can be implemented quickly to address an immediate need. Customers often need something *yesterday*, and the pressure to respond fast can be very real.
 
-It is also worth questioning how urgent these requests really are, and how much of that urgency turns into unnecessary pressure on teams. The sense of immediacy around customer requests is a topic worth exploring on its own.
+At the same time, it is worth questioning how urgent these requests really are. 
+The sense of immediacy around customer needs can easily turn into unnecessary pressure on teams.
+
+In many organizations, the perception of urgency also changes over time. 
+There are periods when customer requests dominate the agenda and teams feel constant pressure to respond quickly. 
+At other times, attention shifts toward broader strategic initiatives or new technological trends. 
+When this happens, requests that once seemed urgent can quickly move to the background.
 
 Providing a quick solution can remove some of that pressure in the short term. But it comes with a cost.
 
-The cost usually appears later, when the functionality needs to be maintained, extended, or generalized for other customers. Once something is released, customers start treating it as a stable capability of the product. Changing it later becomes much harder, especially if adoption has already started, regardless of any early-adopter or beta tags.
+The cost usually appears later, when the functionality needs to be maintained, extended, or generalized for other customers. 
+Once something is released, customers start treating it as a stable capability of the product.
+Changing it later becomes much harder, especially if adoption has already started, regardless of any early-adopter or beta labels.
 
 Sometimes these shortcuts are acceptable. Sometimes they're not.
 
