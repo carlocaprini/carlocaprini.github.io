@@ -8,7 +8,7 @@ related_notes:
   - /thinking/managing-disagreements/
   - /thinking/most-product-disagreements-come-from-missing-information/
 intro:
-  - Product discussions often look like debates about the right solution. In reality they are usually debates about trade-offs.
+  - Product discussions often look like debates about the right solution. In reality, they are debates about trade-offs.
   - Product teams rarely face problems with a single obvious solution. Instead they face multiple options, each with different benefits, costs and consequences.
 ---
 
