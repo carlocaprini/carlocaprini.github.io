@@ -9,8 +9,9 @@ related_notes:
   - /thinking/most-product-disagreements-come-from-missing-information/
 intro:
   - Product discussions often look like debates about the right solution. In reality, they are debates about trade-offs.
-  - Product discussions often look like debates about the right solution. In reality, they are debates about trade-offs.
   - Product teams rarely face problems with a single obvious solution. Instead they face multiple options, each with different benefits, costs and consequences.
+  - Which trade-off are we willing to accept?
+
 ---
 
 ## The illusion of the right solution
@@ -18,13 +19,14 @@ intro:
 Product discussions often look like debates about the best solution.
 But in reality, they are usually debates about trade-offs.
 
-Teams weigh different approaches, assess their implications, and select the most acceptable option given the constraints. What seems like a debate over the best solution is often about which compromise the team is willing to accept.
+Teams weigh different approaches, assess their implications, and select the most acceptable option given the constraints and circumstances.
+What seems like a debate over the best solution is often about which compromise the team is willing to accept.
 
 ## The pressure for quick solutions
 
 One of the most common trade-offs appears when dealing with urgent customer requests.
 
-There's usually a quick solution that meets urgent needs. The demand for speed is intense; customers want results immediately.
+There's usually a quick solution that meets urgent needs. The demand for speed is intense because customers want results immediately.
 
 At the same time, it is worth questioning how urgent these requests really are.
 The sense of immediacy around customer needs can easily turn into unnecessary pressure on teams.
@@ -38,11 +40,11 @@ Providing a quick solution can remove some of that pressure in the short term. B
 
 The cost usually appears later, when the functionality needs to be maintained, extended, or generalised for other customers.
 Once something is released, customers start treating it as a stable capability of the product.
-Changing it later becomes much harder, especially if adoption has already started, regardless of any early-adopter or beta labels.
+Changing it later becomes much harder, especially if adoption has already started, regardless of any *early adopter* or *beta* labels.
 
 Sometimes these shortcuts are acceptable. Sometimes they’re not.
 
-Transparency helps in those situations.
+As it always happens, transparency helps in those situations.
 If everyone understands that the solution is temporary and that additional work will be required later, the trade-off can be managed consciously.
 
 In practice, however, these trade-offs are not always discussed explicitly.
@@ -50,14 +52,14 @@ In practice, however, these trade-offs are not always discussed explicitly.
 ## Customers propose solutions
 
 Customer requests rarely come as pure descriptions of a problem.
-They often include a proposed solution as well.
+They often come as and include a proposed solution as well.
 
 This is natural. Customers understand their needs very well, but they usually have limited visibility into how a product is built internally.
 
 Part of the work of product and engineering teams is to detach from the proposed solution and go back to the underlying problem.
-Only then can the team evaluate whether the suggested approach actually makes sense.
+Only then can the team determine whether the suggested approach actually makes sense.
 
-Accepting the customer’s proposed solution might still be the right choice. But it should be a conscious decision, made after considering alternatives.
+Accepting the customer’s proposed solution might still be the right choice. However, it should be a deliberate decision, made after considering the alternatives.
 
 ## Different perspectives, different priorities
 
@@ -82,6 +84,6 @@ In my experience, it is rare to encounter a product problem with a single soluti
 
 Healthy teams understand that there are always multiple ways forward, none of them perfect. Instead of searching for the ideal solution, they try to understand the implications of each option and decide which compromise is acceptable.
 
-Because in product work, the real question is rarely what is the perfect solution.
+Because, in product work, the real question is rarely about what the perfect solution is.
 
 The real question is which trade-off are we willing to accept?
