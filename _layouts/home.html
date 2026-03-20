@@ -138,7 +138,11 @@ layout: default
         {% for ch in h.contact.channels %}
           <div>
             <div class="contact-label">{{ ch.label }}</div>
+            {% if ch.person_field == "linkedin" %}
+            <a class="contact-link" href="{{ site.data.person.linkedin }}" target="_blank" rel="noreferrer">{{ ch.text }}</a>
+            {% else %}
             <a class="contact-link" href="{{ ch.url }}" target="_blank" rel="noreferrer">{{ ch.text }}</a>
+            {% endif %}
           </div>
         {% endfor %}
       </div>

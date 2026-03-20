@@ -1,9 +1,7 @@
 title: "Carlo Caprini"
 tagline: "Product leadership"
-person:
-  name: "Carlo Caprini"
-  role: "Product leadership"
-  linkedin: "https://www.linkedin.com/in/carlocaprini/"
+# Person fields (name, role, article_signature_role, linkedin) live in _data/person.yml
+# so Liquid can read every key reliably (nested keys under person: in this file are not all exposed on site.person).
 description: "Product leader focused on building high‑impact products and teams."
 url: "https://carlocaprini.github.io"
 baseurl: ""

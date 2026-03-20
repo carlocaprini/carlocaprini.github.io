@@ -1,0 +1,6 @@
+# Site-wide profile (used in nav, footer, meta, article signatures).
+# Jekyll exposes this as site.data.person — all keys are available in Liquid.
+name: "Carlo Caprini"
+role: "Product leadership"
+article_signature_role: "Product Leadership & Strategy"
+linkedin: "https://www.linkedin.com/in/carlocaprini/"

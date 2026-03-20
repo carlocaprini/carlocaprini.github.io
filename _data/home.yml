@@ -82,6 +82,7 @@ contact:
     - "If you're building products, platforms or developer ecosystems and would like to exchange ideas, I'd be happy to connect. The easiest way to reach me is via LinkedIn."
     - Based in Italy, working with teams globally.
   channels:
+    # URL comes from _data/person.yml (person_field → layout resolves site.data.person.*).
     - label: LinkedIn
-      url: https://www.linkedin.com/in/carlocaprini/
+      person_field: linkedin
       text: carlocaprini

@@ -34,12 +34,12 @@ layout: default
           {{ content }}
         </div>
         <div class="article-signature">
-          <p class="article-signature-name">- {{ site.person.name | default: site.title }}</p>
-          <p class="article-signature-role">{{ site.person.article_signature_role | default: "Product Leadership & Strategy" }}</p>
+          <p class="article-signature-name">- {{ site.data.person.name | default: site.title }}</p>
+          <p class="article-signature-role">{{ site.data.person.article_signature_role }}</p>
           <p class="article-signature-links">
             <a href="{{ '/experience/' | relative_url }}">Experience</a>
             <span class="article-signature-sep"> - </span>
-            <a href="{{ site.person.linkedin | default: "https://www.linkedin.com/in/carlocaprini/" }}" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+            <a href="{{ site.data.person.linkedin }}" rel="noopener noreferrer" target="_blank">LinkedIn</a>
           </p>
         </div>
       </div>

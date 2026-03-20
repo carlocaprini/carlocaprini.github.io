@@ -8,8 +8,8 @@
       <header class="site-header">
         <div class="container nav">
           <div class="nav-left">
-            <a href="{{ '/' | relative_url }}#top" class="brand">{{ site.person.name | default: site.title }}</a>
-            <span class="tagline">{{ site.person.role | default: "Product leadership" }}</span>
+            <a href="{{ '/' | relative_url }}#top" class="brand">{{ site.data.person.name | default: site.title }}</a>
+            <span class="tagline">{{ site.data.person.role }}</span>
           </div>
           <nav class="nav-right">
             <a href="{{ '/' | relative_url }}">Home</a>
@@ -27,7 +27,7 @@
 
       <footer class="site-footer">
         <div class="container footer-inner">
-          <span>&copy; {{ site.time | date: "%Y" }} {{ site.person.name | default: site.title }}</span>
+          <span>&copy; {{ site.time | date: "%Y" }} {{ site.data.person.name | default: site.title }}</span>
           <span class="footer-meta">Built with Jekyll & Cursor &middot; Hosted on GitHub Pages</span>
         </div>
       </footer>
