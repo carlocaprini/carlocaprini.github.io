@@ -462,6 +462,31 @@ main {
   margin: 0 0 0.25rem;
 }
 
+.article-signature-role {
+  font-size: 0.9rem;
+  color: #9ca3af;
+  margin: 0 0 0.5rem;
+}
+
+.article-signature-links {
+  font-size: 0.9rem;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.article-signature-links a {
+  color: #6366f1;
+  text-decoration: none;
+}
+
+.article-signature-links a:hover {
+  text-decoration: underline;
+}
+
+.article-signature-sep {
+  color: #9ca3af;
+}
+
 .article-signature-cta {
   font-size: 0.9rem;
   color: #9ca3af;
