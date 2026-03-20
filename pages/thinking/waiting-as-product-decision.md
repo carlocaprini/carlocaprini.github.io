@@ -4,6 +4,9 @@ title: Waiting is one of the most underrated product decisions
 date: 2026-02-20
 permalink: /thinking/waiting-as-product-decision/
 summary: Product teams are often rewarded for shipping new things. But building something is not always progress. Sometimes the smartest decision is simply to wait.
+topics:
+  - decision-making
+  - execution
 related_notes:
   - /thinking/managing-disagreements/
   - /thinking/most-product-disagreements-come-from-missing-information/

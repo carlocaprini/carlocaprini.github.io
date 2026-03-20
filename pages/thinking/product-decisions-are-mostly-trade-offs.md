@@ -4,6 +4,8 @@ title: Product decisions are mostly trade-offs
 date: 2026-03-15
 permalink: /thinking/product-decisions-are-mostly-trade-offs/
 summary: Product discussions often look like debates about the right solution. In reality they are usually debates about which trade-off a team is willing to accept.
+topics:
+  - decision-making
 related_notes:
   - /thinking/managing-disagreements/
   - /thinking/most-product-disagreements-come-from-missing-information/

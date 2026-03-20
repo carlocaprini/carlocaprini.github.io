@@ -4,6 +4,9 @@ title: The urgency of customer requests
 date: 2026-03-20
 permalink: /thinking/the-urgency-of-customer-requests/
 summary: Not everything that feels urgent actually is. In product work, urgency is often created before it is understood, and reacting too quickly can lead to the wrong decisions.
+topics:
+  - decision-making
+  - execution
 related_notes:
   - /thinking/product-decisions-are-mostly-trade-offs/
   - /thinking/waiting-as-product-decision/

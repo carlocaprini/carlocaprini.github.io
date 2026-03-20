@@ -4,6 +4,8 @@ title: When should Machine Learning be used?
 date: 2020-08-27
 permalink: /thinking/when-should-machine-learning-be-used/
 summary: Machine Learning should only be used when there is enough meaningful data available. Without the right data, a rule engine is often the smarter choice.
+topics:
+  - decision-making
 related_notes:
   - /thinking/managing-disagreements/
 intro:
