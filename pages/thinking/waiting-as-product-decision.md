@@ -7,9 +7,6 @@ summary: Product teams are often rewarded for shipping new things. But building 
 topics:
   - decision-making
   - execution
-related_notes:
-  - /thinking/managing-disagreements/
-  - /thinking/most-product-disagreements-come-from-missing-information/
 intro:
   - Product teams are often rewarded for building and shipping new things.But building something is not always progress.
 

@@ -6,8 +6,6 @@ permalink: /thinking/when-should-machine-learning-be-used/
 summary: Machine Learning should only be used when there is enough meaningful data available. Without the right data, a rule engine is often the smarter choice.
 topics:
   - decision-making
-related_notes:
-  - /thinking/managing-disagreements/
 intro:
   - It has already been three years since our company started to propose consulting services focused on data science and Machine Learning — time really flies. I had the chance of working at various projects in different vertical domains and I tried to collect a few — and in my opinion key — insights that should always be considered when tackling such a topic.
   - Obviously Machine Learning is not trivial but, if approached and handled with the necessary precautions, it allows to create value out of data (which is by the way the core mission of U-Hopper) while simplifying and automating processes in various domains.

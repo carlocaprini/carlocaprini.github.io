@@ -7,9 +7,6 @@ summary: Product discussions often look like disagreements of opinion. In realit
 topics:
   - decision-making
   - team-dynamics
-related_notes:
-  - /thinking/managing-disagreements/
-  - /thinking/waiting-as-product-decision/
 intro:
   - Product discussions can quickly turn into disagreements, especially in larger organizations with many stakeholders and competing priorities.
   - In many cases the problem is not that people strongly disagree. The problem is that the information required to make a decision is incomplete or missing.

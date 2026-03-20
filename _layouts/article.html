@@ -2,6 +2,40 @@
 layout: default
 # Layout for Thinking articles. Expects: title, permalink, intro (optional)
 ---
+{% comment %}Related notes: same layout, shared topics, max 2, ranked by overlap (desc).{% endcomment %}
+{% assign related = "" | split: "" %}
+{% if page.topics and page.topics.size > 0 %}
+{% assign article_pages = site.pages | where: "layout", "article" | sort: "date" | reverse %}
+{% assign score_order = "10,9,8,7,6,5,4,3,2,1" | split: "," %}
+{% for score_str in score_order %}
+  {% if related.size < 2 %}
+    {% assign target_score = score_str | plus: 0 %}
+    {% for cand in article_pages %}
+      {% if related.size < 2 and cand.url != page.url %}
+        {% if cand.topics and cand.topics.size > 0 %}
+          {% assign shared_count = 0 %}
+          {% for t in page.topics %}
+            {% if cand.topics contains t %}
+              {% assign shared_count = shared_count | plus: 1 %}
+            {% endif %}
+          {% endfor %}
+          {% if shared_count == target_score %}
+            {% assign already = false %}
+            {% for r in related %}
+              {% if r.url == cand.url %}
+                {% assign already = true %}
+              {% endif %}
+            {% endfor %}
+            {% unless already %}
+              {% assign related = related | push: cand %}
+            {% endunless %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endfor %}
+{% endif %}
 
 <div class="page">
   <section class="hero" style="margin-bottom: 2rem;">
@@ -43,18 +77,15 @@ layout: default
           </p>
         </div>
       </div>
-      {% if page.related_notes and page.related_notes.size > 0 %}
+      {% if related.size > 0 %}
       <aside class="article-related">
         <h3 class="article-related-title">Related notes</h3>
         <ul class="article-related-list">
-          {% for path in page.related_notes %}
-            {% assign note = site.pages | where: "url", path | first %}
-            {% if note and note.url != page.url %}
+          {% for note in related %}
             <li>
-              <a href="{{ path | relative_url }}">{{ note.title }}</a>
+              <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
               <span class="article-related-summary">{{ note.summary }}</span>
             </li>
-            {% endif %}
           {% endfor %}
         </ul>
       </aside>

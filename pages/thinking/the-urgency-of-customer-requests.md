@@ -7,9 +7,6 @@ summary: Not everything that feels urgent actually is. In product work, urgency 
 topics:
   - decision-making
   - execution
-related_notes:
-  - /thinking/product-decisions-are-mostly-trade-offs/
-  - /thinking/waiting-as-product-decision/
 intro:
   - Not everything that feels urgent actually is.
   - In product work, urgency is often created before it is fully understood.
