@@ -8,7 +8,7 @@ topics:
   - decision-making
   - execution
 intro:
-  - Not everything that feels urgent actually is.
+  - Urgency is often a signal of pressure, not priority.
   - In product work, urgency is often created before it is fully understood.
 ---
 
@@ -54,7 +54,7 @@ To avoid creating pressure to react quickly, it is worth asking a few simple que
 
 * Is this improving the product, or solving a single use case?
 
-In those moments, what looks like an urgent request is often a trade-off decision in disguise.
+In those moments, what looks like an urgent request is often a [trade-off decision in disguise](/thinking/product-decisions-are-mostly-trade-offs/).
 And in many cases, reacting quickly leads to building something very specific for one customer.
 
 That is not a product improvement. 
@@ -88,6 +88,7 @@ Not all urgent requests should be treated the same.
 
 Some can be handled quickly using existing support or maintenance capacity.  
 Others require proper planning and should be scheduled like any other piece of work.
+In some cases, the right response is to [wait rather than act immediately](/thinking/waiting-as-product-decision/).
 
 Urgency often compresses the time available to think and react.
 Decisions are made faster, but not necessarily better.

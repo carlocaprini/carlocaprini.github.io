@@ -7,7 +7,7 @@ summary: Product discussions often look like debates about the right solution. I
 topics:
   - decision-making
 intro:
-  - Product discussions often look like debates about the right solution. In reality, they are debates about trade-offs.
+  - There are no perfect product decisinos. Only trade-offs.
   - Product teams rarely face problems with a single obvious solution. Instead they face multiple options, each with different benefits, costs and consequences.
   - Which trade-off are we willing to accept?
 
