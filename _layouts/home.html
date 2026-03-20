@@ -26,9 +26,9 @@ layout: default
           {% endfor %}
         </div>
         <div class="hero-actions">
-          <a href="#contact" class="button-primary">{{ h.hero.actions.primary }}</a>
+          <a href="{{ '/thinking/' | relative_url }}" class="button-primary">Thinking</a>
           <a href="{{ '/experience/' | relative_url }}" class="button-ghost">Experience</a>
-          <a href="{{ '/thinking/' | relative_url }}" class="button-ghost">Thinking</a>
+          <a href="#contact" class="button-ghost">{{ h.hero.actions.primary }}</a>
         </div>
       </div>
       {% include hero-card.html %}
