@@ -52,11 +52,30 @@
 
 <meta name="google-site-verification" content="VN2exVQzX61E6noxX6uwVa7fq7bZDYctCnMiTTfai5w" />
 
-<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
+{% if jekyll.environment == "production" and site.google_analytics %}
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', '{{ site.google_analytics }}');
+  (function () {
+    var GA_ID = "{{ site.google_analytics }}";
+    var h = location.hostname;
+    if (
+      location.protocol === "file:" ||
+      h === "localhost" ||
+      h === "127.0.0.1" ||
+      h === "::1"
+    ) {
+      return;
+    }
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_ID);
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    window.gtag = gtag;
+    gtag("js", new Date());
+    gtag("config", GA_ID);
+  })();
 </script>
+{% endif %}
