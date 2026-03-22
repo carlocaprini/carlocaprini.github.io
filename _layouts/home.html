@@ -15,7 +15,7 @@ layout: default
           {{ h.hero.title_prefix }}<span class="highlight">{{ h.hero.title_highlight }}</span>
         </h1>
         {% for p in h.hero.subtitle_paragraphs %}
-          <p class="hero-subtitle">{{ p }}</p>
+          <div class="hero-subtitle">{{ p | markdownify }}</div>
         {% endfor %}
         <div class="hero-meta">
           {% for m in h.hero.meta %}

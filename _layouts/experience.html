@@ -13,7 +13,9 @@ layout: default
         <h1 class="hero-title" style="margin-bottom: 0.6rem;">
           {{ page.hero.title_prefix }}<span class="highlight">{{ page.hero.title_highlight }}</span>
         </h1>
-        <p class="hero-subtitle" style="max-width: 44rem;">{{ page.hero.subtitle }}</p>
+        {% for p in page.hero.subtitle_paragraphs %}
+          <div class="hero-subtitle" style="max-width: 44rem;">{{ p | markdownify }}</div>
+        {% endfor %}
         <div class="hero-actions" style="margin-top: 1.3rem;">
           <a href="{{ '/thinking/' | relative_url }}" class="button-primary">Thinking</a>
           <a href="{{ '/' | relative_url }}" class="button-ghost">{{ page.hero.actions.secondary }}</a>

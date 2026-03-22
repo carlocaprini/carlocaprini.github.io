@@ -6,7 +6,9 @@ hero:
   label: Experience
   title_prefix: "From "
   title_highlight: "startup engineering to platform product leadership"
-  subtitle: A journey from software development to platform product leadership, working on APIs, developer ecosystems and distributed systems.
+  subtitle_paragraphs:
+    - A journey from software development to platform product leadership. I focus on APIs, developer ecosystems and distributed systems.
+    - I write about some of these topics in more detail in my [notes](/thinking/).
   actions:
     primary: Get in touch
     secondary: Back to home

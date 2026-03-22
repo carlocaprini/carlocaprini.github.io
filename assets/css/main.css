@@ -177,6 +177,26 @@ main {
   max-width: 32rem;
 }
 
+/* markdownify wraps content in <p>; keep spacing between stacked hero subtitles */
+.hero-subtitle + .hero-subtitle {
+  margin-top: 1rem;
+}
+
+.hero-subtitle > p {
+  margin: 0;
+}
+
+.hero-subtitle a {
+  color: #a5b4fc;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(99, 102, 241, 0.45);
+}
+
+.hero-subtitle a:hover {
+  color: #c7d2fe;
+  border-bottom-color: #6366f1;
+}
+
 .hero-meta {
   display: flex;
   flex-wrap: wrap;
