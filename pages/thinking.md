@@ -22,4 +22,5 @@ articles:
   - url: /thinking/when-should-machine-learning-be-used/
   - url: /thinking/product-decisions-are-mostly-trade-offs/
   - url: /thinking/the-urgency-of-customer-requests/
+  - url: /thinking/temporary-solutions-become-permanent/
 ---
