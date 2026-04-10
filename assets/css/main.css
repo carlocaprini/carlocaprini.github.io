@@ -610,17 +610,53 @@ main {
   border-bottom: none;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .influence-title {
   font-size: 0.98rem;
   font-weight: 500;
   color: #f9fafb;
   text-decoration: none;
+}
+
+.influence-title--external {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.influence-title-text {
   border-bottom: 1px solid rgba(129, 140, 248, 0.45);
+}
+
+.influence-title:hover .influence-title-text {
+  border-bottom-color: #6366f1;
 }
 
 .influence-title:hover {
   color: #a5b4fc;
-  border-bottom-color: #6366f1;
+}
+
+.influence-external-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  opacity: 0.5;
+  color: inherit;
+  translate: 0 1px;
+}
+
+.influence-title:hover .influence-external-icon {
+  opacity: 0.75;
 }
 
 .influence-author {
