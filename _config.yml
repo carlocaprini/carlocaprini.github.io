@@ -12,6 +12,10 @@ markdown: kramdown
 
 permalink: pretty
 
+collections:
+  influences:
+    output: false
+
 plugins:
   - jekyll-feed
   - jekyll-sitemap
