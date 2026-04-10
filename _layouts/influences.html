@@ -1,0 +1,42 @@
+---
+layout: default
+# Influences index: lists site.influences sorted by date (newest first).
+---
+{% assign influences_sorted = site.influences | sort: "date" | reverse %}
+<div class="page">
+  <section class="hero" style="margin-bottom: 2.25rem;">
+    <div class="container hero-grid" style="grid-template-columns: minmax(0, 1fr);">
+      <div>
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          <span>{{ page.hero.label }}</span>
+        </div>
+        <h1 class="hero-title" style="margin-bottom: 0.6rem;">{{ page.title }}</h1>
+        {% for p in page.hero.paragraphs %}
+          <p class="hero-subtitle" style="max-width: 44rem;">{{ p }}</p>
+        {% endfor %}
+        <div class="hero-actions" style="margin-top: 1.3rem;">
+          <a href="{{ '/thinking/' | relative_url }}" class="button-ghost">Thinking</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container article-list-wrap">
+      <h2 class="article-list-title">References</h2>
+      <ul class="influences-list">
+        {% for ref in influences_sorted %}
+          {% if ref.date %}
+          <li class="influence-item">
+            <a class="influence-title" href="{{ ref.url }}" target="_blank" rel="noopener noreferrer">{{ ref.title }}</a>
+            <span class="influence-author">{{ ref.author }}</span>
+            <p class="influence-summary">{{ ref.summary }}</p>
+            {% include influence-related-notes.html influence=ref %}
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+</div>

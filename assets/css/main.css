@@ -522,14 +522,28 @@ main {
   text-decoration: underline;
 }
 
-.article-related {
+.article-sidebar-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  min-width: 0;
+  align-self: start;
   position: sticky;
   top: 6rem;
+}
+
+.article-related {
   padding: 1.25rem 1rem;
   background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.08), transparent 60%),
     rgba(15, 23, 42, 0.85);
   border: 1px solid rgba(148, 163, 184, 0.18);
   border-radius: 1rem;
+}
+
+.article-related--readings {
+  border-color: rgba(99, 102, 241, 0.32);
+  background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.12), transparent 58%),
+    rgba(15, 23, 42, 0.88);
 }
 
 .article-related-title {
@@ -572,12 +586,77 @@ main {
   color: #818cf8;
 }
 
-.article-related-summary {
+.article-related-summary,
+.article-related-author {
   display: block;
   font-size: 0.82rem;
   color: #9ca3af;
   line-height: 1.5;
   margin-top: 0.25rem;
+}
+
+.influences-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.influence-item {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.influence-item:last-child {
+  border-bottom: none;
+}
+
+.influence-title {
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: #f9fafb;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(129, 140, 248, 0.45);
+}
+
+.influence-title:hover {
+  color: #a5b4fc;
+  border-bottom-color: #6366f1;
+}
+
+.influence-author {
+  display: block;
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin: 0.35rem 0 0.5rem;
+}
+
+.influence-summary {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.influence-related-note {
+  margin: 0.75rem 0 0;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #9ca3af;
+}
+
+.influence-related-note-label {
+  margin-right: 0.35rem;
+}
+
+.influence-related-note a {
+  color: #818cf8;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(129, 140, 248, 0.35);
+}
+
+.influence-related-note a:hover {
+  color: #a5b4fc;
+  border-bottom-color: #6366f1;
 }
 
 .article-list-wrap {
@@ -797,7 +876,7 @@ main {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .article-related {
+  .article-sidebar-stack {
     position: static;
     order: 2;
   }
@@ -813,8 +892,18 @@ main {
     gap: 2.2rem;
   }
 
+  /* Keep primary nav visible; wrapping is better than hiding links (Thinking, Influences, etc.). */
+  .nav {
+    flex-wrap: wrap;
+    row-gap: 0.65rem;
+  }
+
   .nav-right {
-    display: none;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    row-gap: 0.5rem;
+    column-gap: 1rem;
+    max-width: 100%;
   }
 }
 

@@ -1,8 +1,31 @@
 ---
 layout: default
-# Layout for Thinking articles. Expects: title, permalink, intro (optional)
+# Layout for Thinking articles. Expects: title, permalink, intro (optional), topics (optional)
 ---
-{% comment %}Related notes: same layout, shared topics, max 2, ranked by overlap (desc).{% endcomment %}
+{% comment %}Related reading: influences sharing at least one topic (case-insensitive), max 2, newest first.{% endcomment %}
+{% assign related_reading = "" | split: "" %}
+{% if page.topics and page.topics.size > 0 %}
+{% assign refs_by_date = site.influences | sort: "date" | reverse %}
+{% for ref in refs_by_date %}
+  {% assign ref_match = false %}
+  {% if related_reading.size < 2 and ref.date and ref.topics and ref.topics.size > 0 %}
+    {% for nt in page.topics %}
+      {% assign nt_l = nt | downcase | strip %}
+      {% for rt in ref.topics %}
+        {% assign rt_l = rt | downcase | strip %}
+        {% if nt_l == rt_l %}
+          {% assign ref_match = true %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    {% if ref_match %}
+      {% assign related_reading = related_reading | push: ref %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+{% endif %}
+
+{% comment %}Related notes: same layout, shared topics (case-insensitive), max 2, ranked by overlap count (desc).{% endcomment %}
 {% assign related = "" | split: "" %}
 {% if page.topics and page.topics.size > 0 %}
 {% assign article_pages = site.pages | where: "layout", "article" | sort: "date" | reverse %}
@@ -14,8 +37,16 @@ layout: default
       {% if related.size < 2 and cand.url != page.url %}
         {% if cand.topics and cand.topics.size > 0 %}
           {% assign shared_count = 0 %}
-          {% for t in page.topics %}
-            {% if cand.topics contains t %}
+          {% for nt in page.topics %}
+            {% assign nt_l = nt | downcase | strip %}
+            {% assign topic_found = false %}
+            {% for ct in cand.topics %}
+              {% assign ct_l = ct | downcase | strip %}
+              {% if nt_l == ct_l %}
+                {% assign topic_found = true %}
+              {% endif %}
+            {% endfor %}
+            {% if topic_found %}
               {% assign shared_count = shared_count | plus: 1 %}
             {% endif %}
           {% endfor %}
@@ -77,18 +108,37 @@ layout: default
           </p>
         </div>
       </div>
-      {% if related.size > 0 %}
-      <aside class="article-related">
-        <h3 class="article-related-title">Related notes</h3>
-        <ul class="article-related-list">
-          {% for note in related %}
-            <li>
-              <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
-              <span class="article-related-summary">{{ note.summary }}</span>
-            </li>
-          {% endfor %}
-        </ul>
-      </aside>
+      {% if related.size > 0 or related_reading.size > 0 %}
+      <div class="article-sidebar-stack">
+        {% if related.size > 0 %}
+        <aside class="article-related" aria-label="Related notes">
+          <h3 class="article-related-title">Related notes</h3>
+          <ul class="article-related-list">
+            {% for note in related %}
+              <li>
+                <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+                <span class="article-related-summary">{{ note.summary }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </aside>
+        {% endif %}
+        {% if related_reading.size > 0 %}
+        <aside class="article-related article-related--readings" aria-label="Related reading">
+          <h3 class="article-related-title">Related reading</h3>
+          <ul class="article-related-list">
+            {% for ref in related_reading %}
+              <li>
+                <a href="{{ ref.url }}" target="_blank" rel="noopener noreferrer">{{ ref.title }}</a>
+                {% if ref.author %}
+                <span class="article-related-author">{{ ref.author }}</span>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </aside>
+        {% endif %}
+      </div>
       {% endif %}
     </div>
   </section>

@@ -1,0 +1,10 @@
+{% assign infl = include.influence %}
+{% if infl.related_note %}
+  {% assign n = site.pages | where: "url", infl.related_note | first %}
+  {% if n %}
+<p class="influence-related-note">
+  <span class="influence-related-note-label">Related note:</span>
+  <a href="{{ n.url | relative_url }}">{{ n.title }}</a>
+</p>
+  {% endif %}
+{% endif %}
