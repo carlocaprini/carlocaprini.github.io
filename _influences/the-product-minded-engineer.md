@@ -1,6 +1,6 @@
 ---
 title: The Product-Minded Engineer
-url: https://newsletter.pragmaticengineer.com/p/the-product-minded-engineer
+external_url: https://newsletter.pragmaticengineer.com/p/the-product-minded-engineer
 author: Gergely Orosz
 date: 2026-04-02
 topics:

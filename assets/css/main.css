@@ -586,6 +586,16 @@ main {
   color: #818cf8;
 }
 
+.article-related-link--external {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.article-related-link:hover .influence-external-icon {
+  opacity: 0.75;
+}
+
 .article-related-summary,
 .article-related-author {
   display: block;
@@ -636,11 +646,6 @@ main {
 }
 
 .influence-title-text {
-  border-bottom: 1px solid rgba(129, 140, 248, 0.45);
-}
-
-.influence-title:hover .influence-title-text {
-  border-bottom-color: #6366f1;
 }
 
 .influence-title:hover {
@@ -960,4 +965,3 @@ main {
     margin-right: 0.5rem;
   }
 }
-

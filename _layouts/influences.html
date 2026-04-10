@@ -28,8 +28,9 @@ layout: default
       <ul class="influences-list">
         {% for ref in influences_sorted %}
           {% if ref.date %}
+          {% assign external_url = ref.external_url %}
           <li class="influence-item">
-            <a class="influence-title influence-title--external" href="{{ ref.url }}" target="_blank" rel="noopener noreferrer" title="Opens in a new tab">
+            <a class="influence-title influence-title--external" href="{{ external_url }}" target="_blank" rel="noopener noreferrer" title="Opens in a new tab">
               <span class="influence-title-text">{{ ref.title }}</span>
               <span class="influence-external-icon" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">

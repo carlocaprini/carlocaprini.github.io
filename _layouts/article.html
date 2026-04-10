@@ -128,8 +128,19 @@ layout: default
           <h3 class="article-related-title">Related reading</h3>
           <ul class="article-related-list">
             {% for ref in related_reading %}
+              {% assign external_url = ref.external_url %}
               <li>
-                <a href="{{ ref.url }}" target="_blank" rel="noopener noreferrer">{{ ref.title }}</a>
+                <a class="article-related-link article-related-link--external" href="{{ external_url }}" target="_blank" rel="noopener noreferrer" title="Opens in a new tab">
+                  <span class="article-related-link-text">{{ ref.title }}</span>
+                  <span class="influence-external-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                      <polyline points="15 3 21 3 21 9"/>
+                      <line x1="10" y1="14" x2="21" y2="3"/>
+                    </svg>
+                  </span>
+                  <span class="visually-hidden">(opens in new tab)</span>
+                </a>
                 {% if ref.author %}
                 <span class="article-related-author">{{ ref.author }}</span>
                 {% endif %}

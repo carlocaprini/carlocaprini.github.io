@@ -1,6 +1,6 @@
 ---
-title: "Amazon Founder Jeff Bezos: This Is How You Make Smart Decisions"
-url: https://www.inc.com/jeff-haden/amazon-founder-jeff-bezos-this-is-how-you-make-smart-decisions.html
+title: "This Is How Successful People Make Such Smart Decisions"
+external_url: https://www.inc.com/jeff-haden/amazon-founder-jeff-bezos-this-is-how-successful-people-make-such-smart-decisions.html
 author: Jeff Bezos
 date: 2026-04-01
 topics:
