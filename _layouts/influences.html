@@ -1,8 +1,8 @@
 ---
 layout: default
-# Influences index: lists site.influences sorted by date (newest first).
+# Influences index: lists site.influences sorted by editorial weight (highest first).
 ---
-{% assign influences_sorted = site.influences | sort: "date" | reverse %}
+{% assign weight_order = "5,4,3,2,1,0" | split: "," %}
 <div class="page">
   <section class="hero" style="margin-bottom: 2.25rem;">
     <div class="container hero-grid" style="grid-template-columns: minmax(0, 1fr);">
@@ -26,8 +26,12 @@ layout: default
     <div class="container article-list-wrap">
       <h2 class="article-list-title">Reading</h2>
       <ul class="influences-list">
-        {% for ref in influences_sorted %}
-          {% if ref.date %}
+        {% for weight_str in weight_order %}
+          {% assign target_weight = weight_str | plus: 0 %}
+          {% assign refs_by_title = site.influences | sort: "title" %}
+          {% for ref in refs_by_title %}
+            {% assign ref_weight = ref.weight | default: 0 | plus: 0 %}
+            {% if ref_weight == target_weight and ref.external_url %}
           {% assign external_url = ref.external_url %}
           <li class="influence-item">
             <a class="influence-title influence-title--external" href="{{ external_url }}" target="_blank" rel="noopener noreferrer" title="Opens in a new tab">
@@ -45,7 +49,8 @@ layout: default
             <p class="influence-summary">{{ ref.summary }}</p>
             {% include influence-related-notes.html influence=ref %}
           </li>
-          {% endif %}
+            {% endif %}
+          {% endfor %}
         {% endfor %}
       </ul>
     </div>

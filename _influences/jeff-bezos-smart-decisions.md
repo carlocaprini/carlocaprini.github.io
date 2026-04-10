@@ -2,7 +2,7 @@
 title: "This Is How Successful People Make Such Smart Decisions"
 external_url: https://www.inc.com/jeff-haden/amazon-founder-jeff-bezos-this-is-how-successful-people-make-such-smart-decisions.html
 author: Jeff Bezos
-date: 2026-04-01
+weight: 3
 topics:
   - decision-making
 related_note: /thinking/most-product-disagreements-come-from-missing-information/

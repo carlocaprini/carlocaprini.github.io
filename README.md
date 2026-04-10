@@ -20,7 +20,7 @@ Notes and external references are tagged with a `topics` array in front matter, 
 
 ### Canonical topics (notes and references)
 
-Thinking notes and Influences references use **only** these topic slugs (lowercase, hyphenated). Use **one** topic per note and per reference (a single-item `topics` array).
+Thinking notes and Influences references use **only** these topic slugs (lowercase, hyphenated). Use **one** topic per reference (a single-item `topics` array).
 
 - `decision-making`
 - `execution`
@@ -29,10 +29,10 @@ Thinking notes and Influences references use **only** these topic slugs (lowerca
 ### Behaviour (quick reference)
 
 - **Thinking → Thinking:** article layout picks up to two **related notes** by shared topics (overlap count, then date).
-- **Thinking → references:** up to two **related readings** from `_influences` by shared topics (newest first). Each influence must define `external_url:` in front matter for the outbound link target.
+- **Thinking → references:** up to two **related readings** from `_influences`, ranked by shared-topic overlap first and `weight:` second. Each influence must define `external_url:` in front matter for the outbound link target.
 - **Influences → Thinking:** optional `related_note:` on each file in `_influences/` (note `permalink` / URL path, e.g. `/thinking/my-slug/`). If set and the page exists, the reference shows **Related note:** with a link; omit the field if there is no link.
 
-To surface a reference on a note page, reuse topics on both sides. To choose which note appears under a reference on `/influences/`, set `related_note:` manually. Adding a new topic slug requires updating this list and every place that assumes the taxonomy.
+To surface a reference on a note page, reuse topics on both sides. To choose which note appears under a reference on `/influences/`, set `related_note:` manually. Order influences with `weight:` instead of `date:`. Higher weights appear first on `/influences/`, and break ties in related reading after topic overlap. Adding a new topic slug requires updating this list and every place that assumes the taxonomy.
 
 ## How this was built
 

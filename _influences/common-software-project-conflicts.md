@@ -2,7 +2,7 @@
 title: Common software project conflicts and how to navigate them
 external_url: https://www.stackbuilders.com/common-software-project-conflicts-and-how-to-navigate-them/
 author: StackBuilders
-date: 2026-04-04
+weight: 3
 topics:
   - team-dynamics
 related_note: /thinking/most-product-disagreements-come-from-missing-information/

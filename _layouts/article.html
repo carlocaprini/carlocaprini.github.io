@@ -2,25 +2,50 @@
 layout: default
 # Layout for Thinking articles. Expects: title, permalink, intro (optional), topics (optional)
 ---
-{% comment %}Related reading: influences sharing at least one topic (case-insensitive), max 2, newest first.{% endcomment %}
+{% comment %}Related reading: influences sharing topics, ranked by overlap count then editorial weight, max 2.{% endcomment %}
 {% assign related_reading = "" | split: "" %}
 {% if page.topics and page.topics.size > 0 %}
-{% assign refs_by_date = site.influences | sort: "date" | reverse %}
-{% for ref in refs_by_date %}
-  {% assign ref_match = false %}
-  {% if related_reading.size < 2 and ref.date and ref.topics and ref.topics.size > 0 %}
-    {% for nt in page.topics %}
-      {% assign nt_l = nt | downcase | strip %}
-      {% for rt in ref.topics %}
-        {% assign rt_l = rt | downcase | strip %}
-        {% if nt_l == rt_l %}
-          {% assign ref_match = true %}
-        {% endif %}
-      {% endfor %}
+{% assign refs_by_title = site.influences | sort: "title" %}
+{% assign score_order = "10,9,8,7,6,5,4,3,2,1" | split: "," %}
+{% assign weight_order = "5,4,3,2,1,0" | split: "," %}
+{% for score_str in score_order %}
+  {% if related_reading.size < 2 %}
+    {% assign target_score = score_str | plus: 0 %}
+    {% for weight_str in weight_order %}
+      {% if related_reading.size < 2 %}
+        {% assign target_weight = weight_str | plus: 0 %}
+        {% for ref in refs_by_title %}
+          {% if related_reading.size < 2 and ref.external_url and ref.topics and ref.topics.size > 0 %}
+            {% assign shared_count = 0 %}
+            {% for nt in page.topics %}
+              {% assign nt_l = nt | downcase | strip %}
+              {% assign topic_found = false %}
+              {% for rt in ref.topics %}
+                {% assign rt_l = rt | downcase | strip %}
+                {% if nt_l == rt_l %}
+                  {% assign topic_found = true %}
+                {% endif %}
+              {% endfor %}
+              {% if topic_found %}
+                {% assign shared_count = shared_count | plus: 1 %}
+              {% endif %}
+            {% endfor %}
+            {% assign ref_weight = ref.weight | default: 0 | plus: 0 %}
+            {% if shared_count == target_score and ref_weight == target_weight %}
+              {% assign already = false %}
+              {% for existing in related_reading %}
+                {% if existing.external_url == ref.external_url %}
+                  {% assign already = true %}
+                {% endif %}
+              {% endfor %}
+              {% unless already %}
+                {% assign related_reading = related_reading | push: ref %}
+              {% endunless %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
     {% endfor %}
-    {% if ref_match %}
-      {% assign related_reading = related_reading | push: ref %}
-    {% endif %}
   {% endif %}
 {% endfor %}
 {% endif %}
