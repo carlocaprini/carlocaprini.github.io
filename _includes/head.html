@@ -4,45 +4,55 @@
 <title>
   {% if page.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}
 </title>
-{% if page.layout == 'article' and page.summary %}
-{% assign page_description = page.summary | strip_html | normalize_whitespace %}
-{% assign page_title = page.title %}
-{% assign page_url = site.url | append: site.baseurl | append: page.url %}
-{% assign page_image = site.url | append: site.baseurl | append: "/assets/og-thinking.png" %}
-{% else %}
-{% assign page_description = "Product and engineering professional writing occasional notes about product work, decision making and building software in teams." %}
 {% assign site_name = site.data.person.name | default: site.title %}
-{% if page.url == "/" or page.url == "" %}
-{% assign meta_page_name = "Home" %}
-{% elsif page.title %}
-{% assign meta_page_name = page.title %}
-{% else %}
-{% assign meta_page_name = "Home" %}
-{% endif %}
-{% assign page_title = site_name | append: " - " | append: meta_page_name %}
 {% assign page_url = site.url | append: site.baseurl | append: page.url %}
-{% assign page_image = site.url | append: site.baseurl | append: "/assets/og-site.png" %}
+{% assign default_description = "Product and engineering professional writing occasional notes about product work, decision making and building software in teams." %}
+{% assign default_image_path = "/assets/og-site.png" %}
+{% assign default_og_type = "website" %}
+{% if page.layout == 'article' and page.summary %}
+  {% assign default_description = page.summary | strip_html | normalize_whitespace %}
+  {% assign default_image_path = "/assets/og-thinking.png" %}
+  {% assign default_og_type = "article" %}
 {% endif %}
+{% if page.url == "/" or page.url == "" %}
+  {% assign meta_page_name = "Home" %}
+{% elsif page.title %}
+  {% assign meta_page_name = page.title %}
+{% else %}
+  {% assign meta_page_name = "Home" %}
+{% endif %}
+{% assign default_title = site_name | append: " - " | append: meta_page_name %}
+{% if page.layout == 'article' and page.title %}
+  {% assign default_title = page.title %}
+{% endif %}
+{% assign page_title = page.meta_title | default: default_title %}
+{% assign page_description = page.meta_description | default: default_description %}
+{% assign page_image_path = page.meta_image | default: default_image_path %}
+{% assign page_image = site.url | append: site.baseurl | append: page_image_path %}
+{% assign page_image_alt = page.meta_image_alt | default: page_title %}
+{% assign og_type = page.meta_type | default: default_og_type %}
 
 <meta name="description" content="{{ page_description | escape }}" />
 
-{% if page.layout == 'article' and page.summary %}
-<meta property="og:type" content="article">
-{% else %}
-<meta property="og:type" content="website">
-{% endif %}
+<link rel="canonical" href="{{ page_url }}">
+
+<meta property="og:type" content="{{ og_type }}">
 <meta name="author" content="{{ site.data.person.name | default: site.title }}">
 <meta name="robots" content="index, follow">
 <meta property="og:title" content="{{ page_title | escape }}">
 <meta property="og:description" content="{{ page_description | escape }}">
 <meta property="og:url" content="{{ page_url }}">
 <meta property="og:image" content="{{ page_image }}">
+<meta property="og:image:alt" content="{{ page_image_alt | escape }}">
+<meta property="og:image:width" content="1536">
+<meta property="og:image:height" content="1024">
 <meta property="og:site_name" content="{{ site.data.person.name | default: site.title }}">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ page_title | escape }}">
 <meta name="twitter:description" content="{{ page_description | escape }}">
 <meta name="twitter:image" content="{{ page_image }}">
+<meta name="twitter:image:alt" content="{{ page_image_alt | escape }}">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

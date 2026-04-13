@@ -125,3 +125,54 @@ Over time, this should become:
 - a reference point for how I approach decisions and collaboration
 
 Not a collection of posts, but a system of ideas.
+
+---
+
+## AI Guidelines
+
+This repository is often edited with the support of AI tools.
+
+The AI must follow these rules when generating or editing content.
+
+### What to do
+
+- Help refine ideas, not invent them from scratch
+- Preserve the author's tone: direct, simple, and grounded
+- Prefer clarity over completeness
+- Keep content concise and focused on one idea
+- Suggest improvements explicitly (do not silently change meaning)
+- Check consistency with existing notes before proposing new content
+- Reuse and connect existing concepts whenever possible
+
+---
+
+### What NOT to do
+
+- Do not generate generic product advice
+- Do not introduce frameworks, step-by-step guides, or best practices
+- Do not add content just to make the text longer
+- Do not generalize abstractly without real grounding
+- Do not use buzzwords or corporate language
+- Do not change the author's voice into something more “polished”
+- Do not repeat common knowledge unless adding a new perspective
+
+---
+
+### Writing constraints
+
+- One idea per note
+- No unnecessary sections or structure
+- Avoid bullet lists unless strictly necessary
+- Keep paragraphs short
+- Prefer strong, simple statements over explanations
+
+---
+
+### When unsure
+
+If the AI is unsure whether something fits:
+
+- Ask for clarification
+- Or suggest it as an option, not as a final answer
+
+Do not fill gaps with assumptions.
