@@ -18,7 +18,16 @@ roles:
   description: A few roles that shaped my work in product, platform strategy and developer ecosystems.
   items:
     - title: Senior Product Manager
-      meta: commercetools · 2022 – Present
+      meta: PandaDoc · 2026 – Present
+      body:
+        - Working on the API platform, focusing on how developer-facing capabilities enable product evolution, integrations, and new interaction models.
+        - My work explores how APIs support emerging AI and agent-driven use cases, while balancing reliability, scalability, and long-term product coherence.
+      tags:
+        - Platform Strategy
+        - APIs
+        - Developer Ecosystem
+    - title: Senior Product Manager
+      meta: commercetools · 2022 – 2026
       body:
         - Leading product strategy and execution across developer-facing platform capabilities within the commercetools ecosystem.
         - My work focuses on APIs, platform extensibility, observability and developer tooling, partnering closely with engineering leadership to shape roadmaps and long-term platform evolution.
