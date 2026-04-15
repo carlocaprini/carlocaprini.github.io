@@ -113,6 +113,14 @@ body {
   width: 100%;
 }
 
+.nav-right a.is-active {
+  color: #f9fafb;
+}
+
+.nav-right a.is-active::after {
+  width: 100%;
+}
+
 main {
   flex: 1;
 }
