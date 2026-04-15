@@ -133,8 +133,13 @@ layout: default
           </p>
         </div>
       </div>
-      {% if related.size > 0 or related_reading.size > 0 %}
       <div class="article-sidebar-stack">
+        <aside class="article-page-nav" aria-label="On this page" id="article-page-nav" hidden>
+          <h3 class="article-related-title">On this page</h3>
+          <p class="article-page-nav-note">{{ page.title }}</p>
+          <ul class="article-page-nav-list" id="article-page-nav-list"></ul>
+        </aside>
+        {% if related.size > 0 or related_reading.size > 0 %}
         {% if related.size > 0 %}
         <aside class="article-related" aria-label="Related notes">
           <h3 class="article-related-title">Related notes</h3>
@@ -174,8 +179,78 @@ layout: default
           </ul>
         </aside>
         {% endif %}
+        {% endif %}
       </div>
-      {% endif %}
     </div>
   </section>
 </div>
+
+<script>
+  (function () {
+    var nav = document.getElementById("article-page-nav");
+    var list = document.getElementById("article-page-nav-list");
+    var body = document.querySelector(".article-body");
+    if (!nav || !list || !body) return;
+
+    var headings = body.querySelectorAll("h2[id]");
+    if (!headings.length) return;
+
+    var links = [];
+
+    headings.forEach(function (heading) {
+      var item = document.createElement("li");
+      var link = document.createElement("a");
+      link.href = "#" + heading.id;
+      link.textContent = heading.textContent;
+      link.setAttribute("data-target", heading.id);
+      item.appendChild(link);
+      list.appendChild(item);
+      links.push(link);
+    });
+
+    nav.hidden = false;
+
+    function setActive(id) {
+      links.forEach(function (link) {
+        var isActive = link.getAttribute("data-target") === id;
+        link.classList.toggle("is-active", isActive);
+        if (isActive) {
+          link.setAttribute("aria-current", "true");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+    }
+
+    function updateActiveSection() {
+      var scrollY = window.scrollY || window.pageYOffset;
+      var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      var documentHeight = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight
+      );
+      var activationOffset = 140;
+      var bottomThreshold = 40;
+
+      if (scrollY + viewportHeight >= documentHeight - bottomThreshold) {
+        setActive(headings[headings.length - 1].id);
+        return;
+      }
+
+      var activeId = headings[0].id;
+
+      headings.forEach(function (heading) {
+        var headingTop = heading.getBoundingClientRect().top + scrollY;
+        if (headingTop <= scrollY + activationOffset) {
+          activeId = heading.id;
+        }
+      });
+
+      setActive(activeId);
+    }
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+  })();
+</script>
