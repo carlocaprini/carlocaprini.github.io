@@ -4,6 +4,23 @@
     {% include head.html %}
   </head>
   <body>
+    {% assign current_url = page.url | default: "" %}
+    {% assign is_home = false %}
+    {% assign is_experience = false %}
+    {% assign is_thinking = false %}
+    {% assign is_influences = false %}
+    {% if current_url == "/" or current_url == "" %}
+      {% assign is_home = true %}
+    {% endif %}
+    {% if current_url == "/experience/" %}
+      {% assign is_experience = true %}
+    {% endif %}
+    {% if current_url == "/thinking/" or page.layout == "article" %}
+      {% assign is_thinking = true %}
+    {% endif %}
+    {% if current_url == "/influences/" %}
+      {% assign is_influences = true %}
+    {% endif %}
     <div class="site">
       <header class="site-header">
         <div class="container nav">
@@ -12,11 +29,11 @@
             <span class="tagline">{{ site.data.person.role }}</span>
           </div>
           <nav class="nav-right">
-            <a href="{{ '/' | relative_url }}">Home</a>
+            <a href="{{ '/' | relative_url }}" {% if is_home %}class="is-active" aria-current="page"{% endif %}>Home</a>
             <!-- <a href="{{ '/' | relative_url }}#about">About</a> -->
-            <a href="{{ '/experience/' | relative_url }}">Experience</a>
-            <a href="{{ '/thinking/' | relative_url }}">Thinking</a>
-            <a href="{{ '/influences/' | relative_url }}">Influences</a>
+            <a href="{{ '/experience/' | relative_url }}" {% if is_experience %}class="is-active" aria-current="page"{% endif %}>Experience</a>
+            <a href="{{ '/thinking/' | relative_url }}" {% if is_thinking %}class="is-active" aria-current="page"{% endif %}>Thinking</a>
+            <a href="{{ '/influences/' | relative_url }}" {% if is_influences %}class="is-active" aria-current="page"{% endif %}>Influences</a>
             <a href="{{ '/' | relative_url }}#contact">Contact</a>
           </nav>
         </div>
@@ -35,4 +52,3 @@
     </div>
   </body>
 </html>
-
