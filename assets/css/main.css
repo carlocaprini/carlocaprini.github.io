@@ -440,8 +440,9 @@ main {
 
 .article-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
-  gap: 2.5rem;
+  grid-template-columns: minmax(0, 620px) minmax(250px, 272px);
+  justify-content: space-between;
+  gap: 3rem;
   align-items: start;
 }
 
@@ -450,7 +451,7 @@ main {
 }
 
 .article-body {
-  max-width: 720px;
+  max-width: 620px;
 }
 
 .article-body h2 {
@@ -539,11 +540,11 @@ main {
 .article-sidebar-stack {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.5rem;
   min-width: 0;
   align-self: start;
   position: sticky;
-  top: 6rem;
+  top: 6.35rem;
 }
 
 .article-page-nav {
@@ -551,10 +552,10 @@ main {
 }
 
 .article-page-nav-note {
-  font-size: 0.84rem;
-  line-height: 1.5;
+  font-size: 0.86rem;
+  line-height: 1.6;
   color: #cbd5e1;
-  margin: 0 0 0.7rem;
+  margin: 0 0 0.85rem;
 }
 
 .article-page-nav-list {
@@ -570,9 +571,9 @@ main {
 
 .article-page-nav-list a {
   display: block;
-  padding: 0.38rem 0 0.38rem 0.85rem;
+  padding: 0.42rem 0 0.42rem 0.9rem;
   font-size: 0.84rem;
-  line-height: 1.45;
+  line-height: 1.5;
   color: #94a3b8;
   text-decoration: none;
   transition: color 0.15s ease;
@@ -600,17 +601,17 @@ main {
 }
 
 .article-related {
-  padding: 1.25rem 1rem;
+  padding: 1.35rem 1.1rem;
   background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.08), transparent 60%),
-    rgba(15, 23, 42, 0.85);
-  border: 1px solid rgba(148, 163, 184, 0.18);
+    rgba(15, 23, 42, 0.78);
+  border: 1px solid rgba(148, 163, 184, 0.15);
   border-radius: 1rem;
 }
 
 .article-related--readings {
-  border-color: rgba(99, 102, 241, 0.32);
-  background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.12), transparent 58%),
-    rgba(15, 23, 42, 0.88);
+  border-color: rgba(99, 102, 241, 0.24);
+  background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.1), transparent 58%),
+    rgba(15, 23, 42, 0.8);
 }
 
 .article-related-title {
@@ -619,7 +620,7 @@ main {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #9ca3af;
-  margin: 0 0 1rem;
+  margin: 0 0 0.9rem;
 }
 
 .article-related-list {
@@ -629,7 +630,7 @@ main {
 }
 
 .article-related-list li {
-  padding: 0.6rem 0;
+  padding: 0.72rem 0;
   border-bottom: 1px solid rgba(148, 163, 184, 0.12);
 }
 
@@ -668,8 +669,8 @@ main {
   display: block;
   font-size: 0.82rem;
   color: #9ca3af;
-  line-height: 1.5;
-  margin-top: 0.25rem;
+  line-height: 1.6;
+  margin-top: 0.32rem;
 }
 
 .influences-list {
