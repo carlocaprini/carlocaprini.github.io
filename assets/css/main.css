@@ -781,7 +781,7 @@ main {
 }
 
 .article-list li {
-  padding: 0.6rem 0;
+  padding: 1.25rem 0;
   border-bottom: 1px solid rgba(148, 163, 184, 0.15);
 }
 
@@ -792,19 +792,20 @@ main {
 .article-list a {
   color: #f9fafb;
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
+  font-weight: 500;
 }
 
 .article-list a:hover {
-  color: #6366f1;
+  color: #a5b4fc;
 }
 
 .article-list-summary {
   display: block;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: #9ca3af;
-  margin-top: 0.2rem;
-  line-height: 1.5;
+  margin-top: 0.35rem;
+  line-height: 1.7;
 }
 
 .pill-list {
