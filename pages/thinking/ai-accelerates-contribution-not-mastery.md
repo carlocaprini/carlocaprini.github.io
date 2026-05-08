@@ -13,7 +13,7 @@ intro:
   - But contribution and mastery are not the same thing.
 ---
 
-## Becoming useful no longer takes as long
+## Contribution starts earlier
 
 Traditionally, becoming productive in a new environment required time.
 
@@ -26,11 +26,13 @@ AI changes this dynamic significantly.
 Today, it is possible to start exploring and contributing much earlier.
 Instead of manually navigating documentation, repositories, dashboards or internal tools, people can describe what they are trying to understand and do, and let AI help retrieve and connect the relevant information.
 
-This changes the cost of accessing context.
+People no longer need to know exactly where information lives before starting the analysis.
+
+In practice, this can compress weeks or months of ramp-up into days.
 
 ## Accessing context becomes easier
 
-There are topics and questions that can be now explored conversationally, and much faster than before.
+There are topics and questions that can now be explored conversationally, and much faster than before.
 
 * Which customers are most affected by this problem?
 
@@ -40,11 +42,11 @@ There are topics and questions that can be now explored conversationally, and mu
 
 * What systems and APIs are involved in this process?
 
-And as a result, contribution happens earlier.
+As a result, contribution happens earlier.
 
 People can investigate problems, analyze systems, propose solutions and sometimes even implement changes before fully understanding all the underlying details.
 
-This creates a very different ramp-up experience.
+The difference compared to a few years ago is hard to ignore.
 
 ## Contribution is not mastery
 
@@ -83,4 +85,4 @@ Lower friction makes action easier, but it does not remove the long-term consequ
 
 As AI reduces the friction of interacting with systems, distinguishing between being productive and deeply understanding the system may become increasingly important.
 
-They are no longer the same milestone.
+AI is making the gap between contribution and understanding much more visible than before.
