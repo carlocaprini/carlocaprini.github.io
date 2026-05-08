@@ -16,6 +16,7 @@ hero:
     secondary: Back to home
 # Order of notes on the list. Title and summary come from each article's front matter.
 articles:
+  - url: /thinking/ai-accelerates-contribution-not-mastery/
   - url: /thinking/managing-disagreements/
   - url: /thinking/waiting-as-product-decision/
   - url: /thinking/most-product-disagreements-come-from-missing-information/
