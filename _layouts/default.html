@@ -46,7 +46,13 @@
       <footer class="site-footer">
         <div class="container footer-inner">
           <span>&copy; {{ site.time | date: "%Y" }} {{ site.data.person.name | default: site.title }}</span>
-          <span class="footer-meta">Built with Jekyll & Cursor &middot; Hosted on GitHub Pages</span>
+          <span class="footer-meta">
+            <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+            <span>&middot;</span>
+            <span>Built with Jekyll & Cursor</span>
+            <span>&middot;</span>
+            <span>Hosted on GitHub Pages</span>
+          </span>
         </div>
       </footer>
     </div>

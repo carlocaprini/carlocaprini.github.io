@@ -5,6 +5,7 @@ tagline: "Product leadership"
 description: "Product leader focused on building high‑impact products and teams."
 url: "https://carlocaprini.github.io"
 baseurl: ""
+timezone: Europe/Rome
 
 google_analytics: G-F6G0HN1JDJ
 
@@ -25,4 +26,3 @@ exclude:
   - Gemfile.lock
   - node_modules
   - README.md
-

@@ -1,0 +1,33 @@
+---
+layout: null
+permalink: /feed.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ site.title | xml_escape }} — Thinking</title>
+    <description>{{ site.description | xml_escape }}</description>
+    <link>{{ site.url }}{{ '/thinking/' | relative_url }}</link>
+    <atom:link href="{{ site.url }}{{ '/feed.xml' | relative_url }}" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+    {% assign thinking_pages = site.pages | where: "layout", "article" | sort: "date" | reverse %}
+    {% for note in thinking_pages %}
+    {% assign rendered_content = note.content | markdownify %}
+    {% assign absolute_href_root = 'href="' | append: site.url | append: '/' %}
+    {% assign absolute_src_root = 'src="' | append: site.url | append: '/' %}
+    {% assign rendered_content = rendered_content | replace: 'href="/', absolute_href_root %}
+    {% assign rendered_content = rendered_content | replace: 'src="/', absolute_src_root %}
+    <item>
+      <title>{{ note.title | xml_escape }}</title>
+      <description>{{ note.summary | default: note.excerpt | strip_html | normalize_whitespace | xml_escape }}</description>
+      <link>{{ site.url }}{{ note.url }}</link>
+      <guid isPermaLink="true">{{ site.url }}{{ note.url }}</guid>
+      {% if note.date %}
+      <pubDate>{{ note.date | date_to_rfc822 }}</pubDate>
+      {% endif %}
+      <content:encoded><![CDATA[{{ rendered_content }}]]></content:encoded>
+    </item>
+    {% endfor %}
+  </channel>
+</rss>

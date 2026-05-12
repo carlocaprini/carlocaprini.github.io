@@ -999,6 +999,16 @@ main {
   color: rgba(148, 163, 184, 0.8);
 }
 
+.footer-meta a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer-meta a:hover {
+  color: #f9fafb;
+  text-decoration: underline;
+}
+
 @media (max-width: 900px) {
   .article-layout {
     grid-template-columns: minmax(0, 1fr);
