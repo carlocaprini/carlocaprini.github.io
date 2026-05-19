@@ -28,9 +28,9 @@ layout: default
   </section>
 
   <section class="section">
-    <div class="container article-list-wrap">
+    <div class="container thinking-list-wrap">
       {% if page.start_here and page.start_here.articles %}
-      <div class="thinking-start-here">
+      <div class="thinking-start-here selected-notes-panel selected-notes-panel--compact">
         <div class="section-header">
           <div>
             <div class="section-eyebrow">{{ page.start_here.title }}</div>
@@ -50,17 +50,19 @@ layout: default
         </ul>
       </div>
       {% endif %}
-      <h2 class="article-list-title">All notes</h2>
-      <ul class="article-list">
-        {% assign article_urls = page.articles | map: "url" %}
-        {% assign sorted_notes = site.pages | where_exp: "item", "article_urls contains item.url" | sort: "date" | reverse %}
-        {% for note in sorted_notes %}
-          <li>
-            <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
-            <span class="article-list-summary">{{ note.summary }}</span>
-          </li>
-        {% endfor %}
-      </ul>
+      <div class="article-list-wrap">
+        <h2 class="article-list-title">All notes</h2>
+        <ul class="article-list">
+          {% assign article_urls = page.articles | map: "url" %}
+          {% assign sorted_notes = site.pages | where_exp: "item", "article_urls contains item.url" | sort: "date" | reverse %}
+          {% for note in sorted_notes %}
+            <li>
+              <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+              <span class="article-list-summary">{{ note.summary }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
   </section>
 </div>
