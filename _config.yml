@@ -23,7 +23,11 @@ plugins:
   - jekyll-sitemap
 
 exclude:
+  - GOAL.md
   - Gemfile
   - Gemfile.lock
+  - docker-compose.yml
   - node_modules
   - README.md
+  - _workspace
+  - _site
