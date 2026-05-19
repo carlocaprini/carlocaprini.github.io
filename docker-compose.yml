@@ -12,10 +12,10 @@ services:
       - bundle_cache:/usr/local/bundle
     environment:
       JEKYLL_ENV: development
+      TZ: Europe/Rome
       BUNDLE_PATH: /usr/local/bundle
       JEKYLL_UID: "${UID:-1000}"
       JEKYLL_GID: "${GID:-1000}"
 
 volumes:
   bundle_cache:
-

@@ -387,6 +387,32 @@ main {
   margin-bottom: 3rem;
 }
 
+.home-page > .section {
+  position: relative;
+}
+
+.home-page > .section + .section {
+  padding-top: 3.8rem;
+}
+
+.home-page > .section + .section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: calc(100% - 3rem);
+  max-width: 720px;
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(148, 163, 184, 0.28),
+    transparent
+  );
+  pointer-events: none;
+}
+
 .section-header {
   display: flex;
   flex-wrap: wrap;
@@ -415,10 +441,74 @@ main {
   max-width: 28rem;
 }
 
+.section-link {
+  display: inline-flex;
+  margin-top: 0.15rem;
+  color: #a5b4fc;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(129, 140, 248, 0.35);
+}
+
+.section-link:hover {
+  color: #c7d2fe;
+  border-bottom-color: #818cf8;
+}
+
 .section-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.6fr);
   gap: 2.8rem;
+}
+
+.selected-notes-panel {
+  position: relative;
+  overflow: hidden;
+  padding-top: 2.4rem;
+  padding-bottom: 2.4rem;
+  border: 1px solid rgba(96, 165, 250, 0.28);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 84% 16%, rgba(34, 211, 238, 0.16), transparent 28%),
+    radial-gradient(circle at 10% 100%, rgba(99, 102, 241, 0.16), transparent 34%),
+    linear-gradient(135deg, rgba(30, 64, 175, 0.3), rgba(15, 23, 42, 0.86));
+  box-shadow:
+    0 28px 90px rgba(2, 6, 23, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.selected-notes-panel::before {
+  content: "";
+  position: absolute;
+  top: 1.35rem;
+  right: 2rem;
+  width: 82px;
+  height: 82px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 999px;
+  background: radial-gradient(circle at 45% 42%, rgba(129, 140, 248, 0.34), transparent 34%);
+  opacity: 0.74;
+  pointer-events: none;
+}
+
+.selected-notes-panel::after {
+  content: "";
+  position: absolute;
+  top: 3rem;
+  right: 4.45rem;
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+  background: #22d3ee;
+  box-shadow:
+    0 0 0 8px rgba(34, 211, 238, 0.1),
+    0 0 26px rgba(34, 211, 238, 0.65);
+  pointer-events: none;
+}
+
+.selected-notes-panel > * {
+  position: relative;
+  z-index: 1;
 }
 
 .section-grid-balanced {
@@ -772,6 +862,10 @@ main {
   max-width: 720px;
 }
 
+.thinking-start-here {
+  margin-bottom: 2.6rem;
+}
+
 .article-list-title {
   font-size: 0.9rem;
   font-weight: 500;
@@ -808,6 +902,43 @@ main {
 }
 
 .article-list-summary {
+  display: block;
+  font-size: 0.9rem;
+  color: #9ca3af;
+  margin-top: 0.35rem;
+  line-height: 1.7;
+}
+
+.selected-notes-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.selected-notes-list li {
+  padding: 1.25rem 0;
+}
+
+.selected-notes-list li:first-child {
+  padding-top: 0;
+}
+
+.selected-notes-list li:last-child {
+  padding-bottom: 0;
+}
+
+.selected-notes-list a {
+  color: #f9fafb;
+  text-decoration: none;
+  font-size: 0.98rem;
+  font-weight: 500;
+}
+
+.selected-notes-list a:hover {
+  color: #a5b4fc;
+}
+
+.selected-notes-list span {
   display: block;
   font-size: 0.9rem;
   color: #9ca3af;
@@ -1030,6 +1161,11 @@ main {
     gap: 2.2rem;
   }
 
+  .selected-notes-panel {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
   /* Keep primary nav visible; wrapping is better than hiding links (Thinking, Influences, etc.). */
   .nav {
     flex-wrap: wrap;
@@ -1060,5 +1196,14 @@ main {
 
   .hero-card {
     margin-right: 0.5rem;
+  }
+
+  .selected-notes-panel {
+    border-radius: 22px;
+  }
+
+  .selected-notes-panel::before,
+  .selected-notes-panel::after {
+    opacity: 0.38;
   }
 }

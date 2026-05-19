@@ -32,6 +32,18 @@ about:
     - Observability platforms
     - Distributed systems
 
+selected_notes:
+  eyebrow: Start here
+  title: Selected notes
+  description: A short entry point into the Thinking section, where I collect notes on product work, teams and software systems.
+  links:
+    - url: /thinking/product-decisions-are-mostly-trade-offs/
+    - url: /thinking/most-product-disagreements-come-from-missing-information/
+    - url: /thinking/ai-accelerates-contribution-not-mastery/
+  action:
+    label: All notes
+    url: /thinking/
+
 how_i_work:
   eyebrow: How I work
   title: The areas where I focus my work

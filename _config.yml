@@ -4,6 +4,7 @@ tagline: "Product leadership"
 # so Liquid can read every key reliably (nested keys under person: in this file are not all exposed on site.person).
 description: "Product leader focused on building high‑impact products and teams."
 url: "https://carlocaprini.github.io"
+production_url: "https://carlocaprini.github.io"
 baseurl: ""
 timezone: Europe/Rome
 

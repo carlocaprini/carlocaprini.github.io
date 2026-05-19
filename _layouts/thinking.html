@@ -29,7 +29,28 @@ layout: default
 
   <section class="section">
     <div class="container article-list-wrap">
-      <h2 class="article-list-title">Notes</h2>
+      {% if page.start_here and page.start_here.articles %}
+      <div class="thinking-start-here">
+        <div class="section-header">
+          <div>
+            <div class="section-eyebrow">{{ page.start_here.title }}</div>
+          </div>
+          <p class="section-description">{{ page.start_here.description }}</p>
+        </div>
+        <ul class="selected-notes-list">
+          {% for item in page.start_here.articles %}
+            {% assign note = site.pages | where: "url", item.url | first %}
+            {% if note %}
+            <li>
+              <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+              <span>{{ note.summary }}</span>
+            </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      <h2 class="article-list-title">All notes</h2>
       <ul class="article-list">
         {% assign article_urls = page.articles | map: "url" %}
         {% assign sorted_notes = site.pages | where_exp: "item", "article_urls contains item.url" | sort: "date" | reverse %}

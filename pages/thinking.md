@@ -14,6 +14,13 @@ hero:
   actions:
     primary: Get in touch
     secondary: Back to home
+start_here:
+  title: Start here
+  description: Three notes that introduce the main threads of this section.
+  articles:
+    - url: /thinking/product-decisions-are-mostly-trade-offs/
+    - url: /thinking/most-product-disagreements-come-from-missing-information/
+    - url: /thinking/ai-accelerates-contribution-not-mastery/
 # Order of notes on the list. Title and summary come from each article's front matter.
 articles:
   - url: /thinking/ai-accelerates-contribution-not-mastery/

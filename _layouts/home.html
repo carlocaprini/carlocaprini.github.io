@@ -3,7 +3,7 @@ layout: default
 # Home page layout. Content from _data/home.yml
 ---
 {% assign h = site.data.home %}
-<div class="page">
+<div class="page home-page">
   <section class="hero">
     <div class="container hero-grid">
       <div>
@@ -32,6 +32,32 @@ layout: default
         </div>
       </div>
       {% include hero-card.html %}
+    </div>
+  </section>
+
+  <section id="selected-notes" class="section">
+    <div class="container section-grid selected-notes-panel">
+      <div>
+        <div class="section-header">
+          <div>
+            <div class="section-eyebrow">{{ h.selected_notes.eyebrow }}</div>
+            <h2 class="section-title">{{ h.selected_notes.title }}</h2>
+          </div>
+          <p class="section-description">{{ h.selected_notes.description }}</p>
+        </div>
+        <a class="section-link" href="{{ h.selected_notes.action.url | relative_url }}">{{ h.selected_notes.action.label }}</a>
+      </div>
+      <ul class="selected-notes-list">
+        {% for item in h.selected_notes.links %}
+          {% assign note = site.pages | where: "url", item.url | first %}
+          {% if note %}
+          <li>
+            <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+            <span>{{ note.summary }}</span>
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
     </div>
   </section>
 

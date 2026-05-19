@@ -1,12 +1,13 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" type="image/png" href="{{ '/assets/favicon.png' | relative_url }}" />
-<link rel="alternate" type="application/rss+xml" title="{{ site.title }} — Thinking feed" href="{{ '/feed.xml' | absolute_url }}" />
+{% assign canonical_site_url = site.production_url | default: site.url %}
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }} — Thinking feed" href="{{ canonical_site_url }}{{ '/feed.xml' | relative_url }}" />
 <title>
   {% if page.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}
 </title>
 {% assign site_name = site.data.person.name | default: site.title %}
-{% assign page_url = site.url | append: site.baseurl | append: page.url %}
+{% assign page_url = canonical_site_url | append: site.baseurl | append: page.url %}
 {% assign default_description = "Product and engineering professional writing occasional notes about product work, decision making and building software in teams." %}
 {% assign default_image_path = "/assets/og-site.png" %}
 {% assign default_og_type = "website" %}
@@ -29,7 +30,7 @@
 {% assign page_title = page.meta_title | default: default_title %}
 {% assign page_description = page.meta_description | default: default_description %}
 {% assign page_image_path = page.meta_image | default: default_image_path %}
-{% assign page_image = site.url | append: site.baseurl | append: page_image_path %}
+{% assign page_image = canonical_site_url | append: site.baseurl | append: page_image_path %}
 {% assign page_image_alt = page.meta_image_alt | default: page_title %}
 {% assign og_type = page.meta_type | default: default_og_type %}
 
@@ -54,6 +55,8 @@
 <meta name="twitter:description" content="{{ page_description | escape }}">
 <meta name="twitter:image" content="{{ page_image }}">
 <meta name="twitter:image:alt" content="{{ page_image_alt | escape }}">
+
+{% include structured-data.html %}
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
