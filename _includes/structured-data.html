@@ -16,9 +16,18 @@
     "@type": "Person",
     "@id": "{{ person_id }}",
     "name": {{ person_name | jsonify }},
-    "jobTitle": "Senior Product Manager",
-    "description": "Product leadership across platform strategy, developer experience, APIs, and distributed systems.",
+    "jobTitle": {{ site.data.person.job_title | default: "Senior Product Manager" | jsonify }},
+    "description": {{ site.data.person.description | default: "Product leadership across platform strategy, developer experience, APIs, and distributed systems." | jsonify }},
     "url": "{{ site_url }}/",
+    "worksFor": {
+      "@type": "Organization",
+      "name": {{ site.data.person.current_company | default: "PandaDoc" | jsonify }}
+    },
+    "homeLocation": {
+      "@type": "Country",
+      "name": {{ site.data.person.location | default: "Italy" | jsonify }}
+    },
+    "knowsAbout": {{ site.data.person.knows_about | jsonify }},
     "sameAs": [
       {{ site.data.person.linkedin | jsonify }}
     ]

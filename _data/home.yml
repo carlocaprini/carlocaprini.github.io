@@ -3,14 +3,14 @@ hero:
   title_prefix: "Designing products and platforms that "
   title_highlight: "scale with their ecosystems"
   subtitle_paragraphs:
-    - I help teams design scalable digital products, platform ecosystems and developer-friendly systems.
-    - With a background in software development and over a decade in the software industry, I focus on the intersection of product strategy, platform architecture and developer experience.
-    - I occasionally [write short notes](/thinking/) on product work, decision making and building software in teams.
+    - I work at PandaDoc on API platforms, developer-facing product capabilities and emerging AI-enabled interaction models.
+    - With a background in software development and over a decade in the software industry, I focus on the intersection of product strategy, platform architecture, developer experience and AI.
+    - I occasionally [write short notes](/thinking/) on product work, decision making, AI and building software in teams.
   meta:
     - label: Experience
       value: 8+ years in product
     - label: Focus
-      value: Platform Strategy, Developer Experience, Distributed Systems
+      value: Platform Strategy, APIs, AI-enabled Products
     - label: Strengths
       value: Product Strategy, Platform Thinking, System Design
   actions:
@@ -22,11 +22,12 @@ about:
   paragraphs:
     - I started my career as a software developer in a small startup before moving into product management.
     - Over the years I worked on complex digital platforms, helping teams design scalable systems and evolve product strategy as organizations grow.
-    - My work focuses on how platforms evolve over time and how product decisions shape large distributed systems.
+    - My work focuses on how platforms evolve over time, how product decisions shape large distributed systems, and how AI changes the way people interact with software.
   pills_description: Some of the areas where I focus most of my work.
   pills:
     - Platform product strategy
     - API platforms
+    - AI-enabled products
     - Developer experience
     - Event-driven systems
     - Observability platforms
@@ -48,14 +49,15 @@ how_i_work:
   eyebrow: How I work
   title: The areas where I focus my work
   intro_paragraphs:
-    - My work sits at the intersection of product strategy, platform architecture and developer ecosystems.
+    - My work sits at the intersection of product strategy, platform architecture, developer ecosystems and AI-enabled product capabilities.
     - I tend to focus on complex product systems where technology, product decisions and organizational structure are deeply connected.
   cards:
     - title: Platform product strategy
-      body: Defining the strategy and evolution of complex platform products, with a focus on APIs, developer ecosystems and long-term scalability.
+      body: Defining the strategy and evolution of complex platform products, with a focus on APIs, AI-enabled capabilities, developer ecosystems and long-term scalability.
       tags:
         - Platforms
         - APIs
+        - AI
         - Product strategy
     - title: Developer ecosystems
       body: Improving how developers interact with platforms through better APIs, SDKs, tooling and documentation, enabling faster adoption and sustainable growth.

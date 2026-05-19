@@ -2,6 +2,8 @@
 layout: thinking
 title: Thinking
 permalink: /thinking/
+meta_title: Thinking on Product, APIs and Software Systems | Carlo Caprini
+meta_description: Short notes by Carlo Caprini on product work, decision making, AI, trade-offs, software systems, and the dynamics of building in teams.
 hero:
   label: Thinking
   title_prefix: "Notes on "

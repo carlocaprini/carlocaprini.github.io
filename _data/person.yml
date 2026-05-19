@@ -2,5 +2,21 @@
 # Jekyll exposes this as site.data.person — all keys are available in Liquid.
 name: "Carlo Caprini"
 role: "Product leadership"
+job_title: "Senior Product Manager"
+current_company: "PandaDoc"
+location: "Italy"
+description: "Product leader focused on platform strategy, APIs, developer ecosystems, AI-enabled product capabilities, distributed systems, and product decision making."
 article_signature_role: "Product Leadership & Strategy"
 linkedin: "https://www.linkedin.com/in/carlocaprini/"
+knows_about:
+  - Platform strategy
+  - API platforms
+  - Developer ecosystems
+  - Developer experience
+  - Distributed systems
+  - Product decision making
+  - Product strategy
+  - AI-enabled product capabilities
+  - AI agents
+  - Software teams
+  - AI in software development

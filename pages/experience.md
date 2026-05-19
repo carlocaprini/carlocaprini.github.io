@@ -2,6 +2,8 @@
 layout: experience
 title: Experience
 permalink: /experience/
+meta_title: Experience | Carlo Caprini - PandaDoc, commercetools, U-Hopper
+meta_description: Carlo Caprini's experience across product management, platform strategy, APIs, developer ecosystems and distributed systems.
 hero:
   label: Experience
   title_prefix: "From "
