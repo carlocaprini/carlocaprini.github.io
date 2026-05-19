@@ -22,9 +22,15 @@ layout: default
     </div>
   </section>
 
-  <section class="section">
-    <div class="container article-list-wrap">
-      <h2 class="article-list-title">Reading</h2>
+  <section class="section influences-section">
+    <div class="container influences-wrap">
+      <div class="section-header influences-section-header">
+        <div>
+          <div class="section-eyebrow">Reading</div>
+          <h2 class="section-title">Readings connected to my Thinking</h2>
+          <p class="section-description">External articles that made me think and helped clarify, challenge or extend my <a href="{{ '/thinking/' | relative_url }}">notes</a>.</p>
+        </div>
+      </div>
       <ul class="influences-list">
         {% for weight_str in weight_order %}
           {% assign target_weight = weight_str | plus: 0 %}
@@ -34,20 +40,28 @@ layout: default
             {% if ref_weight == target_weight and ref.external_url %}
           {% assign external_url = ref.external_url %}
           <li class="influence-item">
-            <a class="influence-title influence-title--external" href="{{ external_url }}" target="_blank" rel="noopener noreferrer" title="Opens in a new tab">
-              <span class="influence-title-text">{{ ref.title }}</span>
-              <span class="influence-external-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                  <polyline points="15 3 21 3 21 9"/>
-                  <line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
-              </span>
-              <span class="visually-hidden">(opens in new tab)</span>
-            </a>
-            <span class="influence-author">{{ ref.author }}</span>
+            <div class="influence-card-meta">
+              {% if ref.author %}
+                <span class="influence-author">{{ ref.author }}</span>
+              {% endif %}
+            </div>
+            <h3 class="influence-card-title">
+              <a class="influence-title influence-title--external" href="{{ external_url }}" target="_blank" rel="noopener noreferrer" title="Opens in a new tab">
+                <span class="influence-title-text">{{ ref.title }}</span>
+                <span class="influence-external-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15 3 21 3 21 9"/>
+                    <line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                </span>
+                <span class="visually-hidden">(opens in new tab)</span>
+              </a>
+            </h3>
             <p class="influence-summary">{{ ref.summary }}</p>
-            {% include influence-related-notes.html influence=ref %}
+            <div class="influence-card-footer">
+              {% include influence-related-notes.html influence=ref %}
+            </div>
           </li>
             {% endif %}
           {% endfor %}
