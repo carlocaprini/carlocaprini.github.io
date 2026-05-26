@@ -1,10 +1,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" type="image/png" href="{{ '/assets/favicon.png' | relative_url }}" />
-{% assign canonical_site_url = site.production_url | default: site.url %}
+{% assign canonical_site_url = site.production_url | default: site.url | replace: "http://", "https://" %}
 <link rel="alternate" type="application/rss+xml" title="{{ site.title }} — Thinking feed" href="{{ canonical_site_url }}{{ '/feed.xml' | relative_url }}" />
 {% assign site_name = site.data.person.name | default: site.title %}
-{% assign page_url = canonical_site_url | append: site.baseurl | append: page.url %}
+{% assign page_url = page.url | absolute_url | replace: site.url, canonical_site_url %}
 {% assign default_description = "Product and engineering professional writing occasional notes about product work, decision making and building software in teams." %}
 {% assign default_image_path = "/assets/og-site.png" %}
 {% assign default_og_type = "website" %}
@@ -27,7 +27,7 @@
 {% assign page_title = page.meta_title | default: default_title %}
 {% assign page_description = page.meta_description | default: default_description %}
 {% assign page_image_path = page.meta_image | default: default_image_path %}
-{% assign page_image = canonical_site_url | append: site.baseurl | append: page_image_path %}
+{% assign page_image = page_image_path | absolute_url | replace: site.url, canonical_site_url %}
 {% assign page_image_alt = page.meta_image_alt | default: page_title %}
 {% assign og_type = page.meta_type | default: default_og_type %}
 
