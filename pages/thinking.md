@@ -25,6 +25,7 @@ start_here:
     - url: /thinking/ai-accelerates-contribution-not-mastery/
 # Order of notes on the list. Title and summary come from each article's front matter.
 articles:
+  - url: /thinking/shared-context-is-not-shared-understanding/
   - url: /thinking/ai-accelerates-contribution-not-mastery/
   - url: /thinking/managing-disagreements/
   - url: /thinking/waiting-as-product-decision/
