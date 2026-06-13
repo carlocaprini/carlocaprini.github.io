@@ -1,7 +1,7 @@
 ---
 layout: article
 title: Shared context is not shared understanding
-date: 2026-05-25
+date: 2026-06-13
 permalink: /thinking/shared-context-is-not-shared-understanding/
 summary: AI makes context easier to retrieve across teams. But easier access to information does not automatically create shared understanding, alignment, or better decisions.
 topics:
@@ -38,15 +38,12 @@ Two people can have access to the same dashboards, the same customer feedback, a
 One person sees a signal worth reshaping the roadmap around.
 Another sees temporary pressure that should not influence long-term direction.
 
-One person sees a risk that should slow the team down.
-Another sees a reason to move faster.
-
 The disagreement is no longer necessarily about access to information.
 It becomes a disagreement about interpretation.
 
 ## More information is not always better context
 
-This becomes even more visible as access to information becomes easier.
+This matters because easier access can also expand the conversation too much.
 
 There is a difference between _information relevant to the problem space_ and simply _more information_.
 
@@ -61,13 +58,7 @@ And once the problem space expands too much, finding a solution to the original 
 This does not mean different perspectives should be ignored.
 But it does mean that not every signal should carry the same weight within a specific decision context.
 
-Part of product work is maintaining clarity around:
-
-- the actual problem being solved
-
-- the constraints that matter
-
-- the goal the team is optimizing for
+Part of product work is maintaining clarity around the actual problem being solved, the constraints that matter, and the goal the team is optimizing for.
 
 Otherwise discussions slowly drift from solving a specific problem to debating every adjacent concern that could possibly matter.
 
@@ -87,15 +78,7 @@ Now teams can have much richer context available and still disagree.
 Not because someone is uninformed.
 But because understanding is not produced by access alone.
 
-Understanding depends on:
-
-- how people connect signals
-
-- how they frame the problem
-
-- how they evaluate constraints
-
-- how they judge consequences
+Understanding depends on how people connect signals, frame the problem, evaluate constraints, and judge consequences.
 
 This is one reason why structured customer research matters so much.
 
@@ -104,40 +87,19 @@ But it reduces ambiguity and improves the quality of the discussion.
 
 ## Retrieval becomes cheaper, prioritization becomes harder
 
-As context becomes easier to retrieve, another shift becomes visible.
+There is another shift.
 
 In many situations, agreeing on a possible solution becomes easier than agreeing on when the solution should actually be prioritized.
 
-The difficult part increasingly becomes:
-
-- deciding what matters most
-
-- comparing competing priorities
-
-- evaluating opportunity cost
-
-- deciding which initiatives deserve attention first
-
 The proposal itself is often no longer the hardest part.
-
-The harder discussion becomes where this sits relative to every other request, escalation, opportunity, and strategic initiative already competing for attention.
+The harder discussion becomes deciding what matters most, comparing competing priorities, evaluating opportunity cost, and understanding where this sits relative to every other request, escalation, opportunity, and strategic initiative already competing for attention.
 
 This is also why AI-assisted contribution can create false confidence.
 
 People can contribute much earlier because context becomes easier to query.
 But as I wrote in [AI accelerates contribution, not mastery](/thinking/ai-accelerates-contribution-not-mastery/), contributing earlier is not the same as understanding the system more deeply.
 
-Earlier contribution does not necessarily mean:
-
-- deeper understanding
-
-- stronger prioritization judgment
-
-- shared interpretation of the trade-offs involved
-
-AI reduces the friction of accessing information inside organizations.
-
-But once retrieval becomes cheap, interpretation and prioritization become much more visible as the real bottlenecks.
+Earlier contribution does not necessarily mean deeper understanding, stronger prioritization judgment, or shared interpretation of the trade-offs involved.
 
 Better access to context helps.
 
