@@ -39,8 +39,8 @@ selected_notes:
   description: A short entry point into the Thinking section, where I collect notes on product work, teams and software systems.
   links:
     - url: /thinking/product-decisions-are-mostly-trade-offs/
-    - url: /thinking/most-product-disagreements-come-from-missing-information/
     - url: /thinking/ai-accelerates-contribution-not-mastery/
+    - url: /thinking/shared-context-is-not-shared-understanding/
   action:
     label: All notes
     url: /thinking/

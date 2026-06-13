@@ -21,8 +21,8 @@ start_here:
   description: Three notes that introduce the main threads of this section.
   articles:
     - url: /thinking/product-decisions-are-mostly-trade-offs/
-    - url: /thinking/most-product-disagreements-come-from-missing-information/
     - url: /thinking/ai-accelerates-contribution-not-mastery/
+    - url: /thinking/shared-context-is-not-shared-understanding/
 # Order of notes on the list. Title and summary come from each article's front matter.
 articles:
   - url: /thinking/shared-context-is-not-shared-understanding/
