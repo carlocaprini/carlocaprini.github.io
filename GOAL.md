@@ -163,8 +163,11 @@ The AI must follow these rules when generating or editing content.
 - One idea per note
 - No unnecessary sections or structure
 - Avoid bullet lists unless strictly necessary
+- When using bullet or numbered lists, separate every item with an empty line to keep rendering correct on the site
 - Keep paragraphs short
 - Prefer strong, simple statements over explanations
+- Treat common AI-shaped patterns as review triggers, not defaults: "X is not Y", "it is not about X, it is about Y", overly clean three-step progressions, repeated contrast pairs, excessive colons, and neat generic endings
+- Prefer concrete observations, lived examples, tensions, and imperfect conclusions over lessons or advice
 
 ---
 

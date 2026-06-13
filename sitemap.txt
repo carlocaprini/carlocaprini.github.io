@@ -1,0 +1,9 @@
+---
+layout: null
+permalink: /sitemap.txt
+---
+{% assign canonical_site_url = site.production_url | default: site.url | replace: "http://", "https://" -%}
+{% assign sitemap_pages = site.html_pages | where_exp: "item", "item.sitemap != false" | sort: "url" -%}
+{% for item in sitemap_pages -%}
+{{ item.url | absolute_url | replace: site.url, canonical_site_url }}
+{% endfor -%}
