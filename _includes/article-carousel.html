@@ -1,0 +1,33 @@
+{% assign carousel = include.carousel %}
+{% if carousel and carousel.images and carousel.images.size > 0 %}
+<aside class="article-carousel{% if carousel.variant_class %} {{ carousel.variant_class }}{% endif %}" aria-label="{{ carousel.label | default: 'Visual summary' }}" data-carousel>
+  {% if carousel.title %}
+  <p class="article-carousel-title">{{ carousel.title }}</p>
+  {% endif %}
+  <div class="article-carousel-frame">
+    <div class="article-carousel-track">
+      {% for image in carousel.images %}
+      <figure class="article-carousel-slide{% if forloop.first %} is-active{% endif %}" data-carousel-slide>
+        <img src="{{ image.src | relative_url }}" alt="{{ image.alt | default: carousel.label | default: page.title | escape }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+      </figure>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="article-carousel-controls">
+    <button class="article-carousel-button" type="button" aria-label="Previous slide" data-carousel-prev>
+      <span aria-hidden="true">‹</span>
+    </button>
+    <div class="article-carousel-status" aria-live="polite">
+      <span data-carousel-current>1</span>/<span>{{ carousel.images.size }}</span>
+    </div>
+    <button class="article-carousel-button" type="button" aria-label="Next slide" data-carousel-next>
+      <span aria-hidden="true">›</span>
+    </button>
+  </div>
+  <div class="article-carousel-dots" aria-label="Carousel slides">
+    {% for image in carousel.images %}
+    <button class="article-carousel-dot{% if forloop.first %} is-active{% endif %}" type="button" aria-label="Show slide {{ forloop.index }}" data-carousel-dot="{{ forloop.index0 }}"></button>
+    {% endfor %}
+  </div>
+</aside>
+{% endif %}

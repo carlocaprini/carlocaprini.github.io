@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">AI accelerates contribution, not mastery</title>
+  <desc id="desc">Opening slide for a LinkedIn carousel.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#111735"/>
+      <stop offset="55%" stop-color="#081021"/>
+      <stop offset="100%" stop-color="#03101a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="72%" cy="20%" r="44%">
+      <stop offset="0%" stop-color="#26d9ff" stop-opacity=".38"/>
+      <stop offset="48%" stop-color="#316dff" stop-opacity=".14"/>
+      <stop offset="100%" stop-color="#03101a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="text" x1="0" x2="1">
+      <stop offset="0%" stop-color="#7c6cff"/>
+      <stop offset="100%" stop-color="#27d8f7"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1350" fill="url(#bg)"/>
+  <rect width="1080" height="1350" fill="url(#glow)"/>
+  <rect x="78" y="78" width="924" height="1194" rx="54" fill="#0d1731" opacity=".72" stroke="#2e5f91" stroke-width="2"/>
+  <circle cx="854" cy="222" r="54" fill="none" stroke="#4d7fb5" opacity=".45"/>
+  <circle cx="854" cy="222" r="11" fill="#27d8f7"/>
+  <circle cx="854" cy="222" r="28" fill="#27d8f7" opacity=".12"/>
+  <text x="116" y="160" fill="#93a4c0" font-family="Inter, Avenir, Helvetica, Arial, sans-serif" font-size="24" letter-spacing="7">THINKING</text>
+  <text x="116" y="488" fill="#f6f8ff" font-family="Inter, Avenir, Helvetica, Arial, sans-serif" font-size="78" font-weight="760">
+    <tspan x="116" dy="0">AI accelerates</tspan>
+    <tspan x="116" dy="92" fill="url(#text)">contribution,</tspan>
+    <tspan x="116" dy="92">not mastery</tspan>
+  </text>
+  <text x="116" y="820" fill="#b5c0d4" font-family="Inter, Avenir, Helvetica, Arial, sans-serif" font-size="34" line-height="1.5">
+    <tspan x="116" dy="0">Being useful earlier is not the same</tspan>
+    <tspan x="116" dy="52">as deeply understanding a system.</tspan>
+  </text>
+  <text x="116" y="1186" fill="#7788a6" font-family="Inter, Avenir, Helvetica, Arial, sans-serif" font-size="22">Carlo Caprini · Product, APIs, AI systems</text>
+</svg>

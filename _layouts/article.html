@@ -94,9 +94,9 @@ layout: default
 {% endif %}
 
 <div class="page">
-  <section class="hero" style="margin-bottom: 2rem;">
-    <div class="container hero-grid" style="grid-template-columns: minmax(0, 1fr);">
-      <div>
+  <section class="hero article-hero" style="margin-bottom: 2rem;">
+    <div class="container article-hero-grid{% if page.carousel or page.carousel_alt %} article-hero-grid--with-carousel{% endif %}">
+      <div class="article-hero-copy">
         <div class="hero-label">
           <span class="hero-label-dot"></span>
           <span>Thinking</span>
@@ -114,6 +114,12 @@ layout: default
           <a href="{{ '/thinking/' | relative_url }}" class="button-ghost">Back to Thinking</a>
         </div>
       </div>
+      {% if page.carousel or page.carousel_alt %}
+      <div class="article-carousel-stack">
+        {% include article-carousel.html carousel=page.carousel %}
+        {% include article-carousel.html carousel=page.carousel_alt %}
+      </div>
+      {% endif %}
     </div>
   </section>
 
@@ -252,5 +258,90 @@ layout: default
     updateActiveSection();
     window.addEventListener("scroll", updateActiveSection, { passive: true });
     window.addEventListener("resize", updateActiveSection);
+  })();
+</script>
+
+<script>
+  (function () {
+    var carousels = document.querySelectorAll("[data-carousel]");
+    if (!carousels.length) return;
+
+    carousels.forEach(function (carousel) {
+      var slides = carousel.querySelectorAll("[data-carousel-slide]");
+      var dots = carousel.querySelectorAll("[data-carousel-dot]");
+      var current = carousel.querySelector("[data-carousel-current]");
+      var prev = carousel.querySelector("[data-carousel-prev]");
+      var next = carousel.querySelector("[data-carousel-next]");
+      var track = carousel.querySelector(".article-carousel-track");
+      var index = 0;
+      var startX = 0;
+      var startY = 0;
+      var isPointerDown = false;
+
+      if (!slides.length) return;
+
+      function showSlide(nextIndex) {
+        index = (nextIndex + slides.length) % slides.length;
+
+        slides.forEach(function (slide, slideIndex) {
+          slide.classList.toggle("is-active", slideIndex === index);
+        });
+
+        dots.forEach(function (dot, dotIndex) {
+          var isActive = dotIndex === index;
+          dot.classList.toggle("is-active", isActive);
+          dot.setAttribute("aria-current", isActive ? "true" : "false");
+        });
+
+        if (current) current.textContent = String(index + 1);
+      }
+
+      if (prev) {
+        prev.addEventListener("click", function () {
+          showSlide(index - 1);
+        });
+      }
+
+      if (next) {
+        next.addEventListener("click", function () {
+          showSlide(index + 1);
+        });
+      }
+
+      dots.forEach(function (dot) {
+        dot.addEventListener("click", function () {
+          showSlide(Number(dot.getAttribute("data-carousel-dot")) || 0);
+        });
+      });
+
+      if (track && window.PointerEvent) {
+        track.addEventListener("pointerdown", function (event) {
+          if (event.pointerType === "mouse" && event.button !== 0) return;
+          isPointerDown = true;
+          startX = event.clientX;
+          startY = event.clientY;
+          track.setPointerCapture(event.pointerId);
+        });
+
+        track.addEventListener("pointerup", function (event) {
+          if (!isPointerDown) return;
+          isPointerDown = false;
+
+          var deltaX = event.clientX - startX;
+          var deltaY = event.clientY - startY;
+          var minSwipeDistance = 44;
+
+          if (Math.abs(deltaX) < minSwipeDistance || Math.abs(deltaX) <= Math.abs(deltaY)) {
+            return;
+          }
+
+          showSlide(deltaX < 0 ? index + 1 : index - 1);
+        });
+
+        track.addEventListener("pointercancel", function () {
+          isPointerDown = false;
+        });
+      }
+    });
   })();
 </script>

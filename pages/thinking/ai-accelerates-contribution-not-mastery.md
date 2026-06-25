@@ -7,6 +7,23 @@ summary: AI makes it possible to contribute much earlier in a new environment. B
 topics:
   - execution
   - team-dynamics
+carousel:
+  label: Visual summary of the note
+  images:
+    - src: /assets/carousels/ai-accelerates-contribution-not-mastery/slide-01.svg
+      alt: "Slide: AI accelerates contribution, not mastery."
+    - src: /assets/carousels/ai-accelerates-contribution-not-mastery/slide-02.svg
+      alt: "Slide: contribution starts earlier."
+    - src: /assets/carousels/ai-accelerates-contribution-not-mastery/slide-03.svg
+      alt: "Slide: accessing context becomes easier."
+    - src: /assets/carousels/ai-accelerates-contribution-not-mastery/slide-04.svg
+      alt: "Slide: contribution is not mastery."
+    - src: /assets/carousels/ai-accelerates-contribution-not-mastery/slide-05.svg
+      alt: "Slide: the illusion of understanding."
+    - src: /assets/carousels/ai-accelerates-contribution-not-mastery/slide-06.svg
+      alt: "Slide: what still takes time."
+    - src: /assets/carousels/ai-accelerates-contribution-not-mastery/slide-07.svg
+      alt: "Slide: AI changes access to context, not the need to build judgement."
 intro:
   - Traditionally, becoming productive in a new environment required time.
   - AI changes the cost of accessing context and makes earlier contribution possible.

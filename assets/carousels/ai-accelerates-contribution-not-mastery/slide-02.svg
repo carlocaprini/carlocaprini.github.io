@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Ramp-up used to require navigation</title>
+  <desc id="desc">Slide about traditional ramp-up.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop offset="0%" stop-color="#111735"/><stop offset="100%" stop-color="#03101a"/></linearGradient>
+    <radialGradient id="glow" cx="80%" cy="18%" r="44%"><stop offset="0%" stop-color="#27d8f7" stop-opacity=".32"/><stop offset="100%" stop-color="#03101a" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1080" height="1350" fill="url(#bg)"/>
+  <rect width="1080" height="1350" fill="url(#glow)"/>
+  <rect x="78" y="78" width="924" height="1194" rx="54" fill="#0d1731" opacity=".72" stroke="#2e5f91" stroke-width="2"/>
+  <text x="116" y="160" fill="#93a4c0" font-family="Inter, Avenir, Helvetica, Arial, sans-serif" font-size="24" letter-spacing="7">02</text>
+  <text x="116" y="402" fill="#f6f8ff" font-family="Inter, Avenir, Helvetica, Arial, sans-serif" font-size="70" font-weight="760">
+    <tspan x="116">Ramp-up used</tspan>
+    <tspan x="116" dy="86">to require</tspan>
+    <tspan x="116" dy="86" fill="#27d8f7">navigation</tspan>
+  </text>
+  <text x="116" y="748" fill="#b5c0d4" font-family="Inter, Avenir, Helvetica, Arial, sans-serif" font-size="34">
+    <tspan x="116">People first had to learn where</tspan>
+    <tspan x="116" dy="52">information lived, who owned what,</tspan>
+    <tspan x="116" dy="52">and why past decisions existed.</tspan>
+  </text>
+  <path d="M126 1096 H954" stroke="#27415f" stroke-width="2"/>
+  <text x="116" y="1186" fill="#7788a6" font-family="Inter, Avenir, Helvetica, Arial, sans-serif" font-size="22">AI accelerates contribution, not mastery</text>
+</svg>
