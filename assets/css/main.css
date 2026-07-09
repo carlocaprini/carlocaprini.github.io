@@ -1113,6 +1113,141 @@ main {
   margin-top: 0.85rem;
 }
 
+.experience-section {
+  margin-bottom: 4.2rem;
+}
+
+.experience-section-header {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 2rem;
+  align-items: end;
+  margin-bottom: 2.7rem;
+}
+
+.experience-timeline {
+  --timeline-line: rgba(148, 163, 184, 0.24);
+  --timeline-glow: rgba(34, 211, 238, 0.24);
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.experience-timeline::before {
+  content: "";
+  position: absolute;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background:
+    linear-gradient(to bottom, transparent, var(--timeline-line) 8%, var(--timeline-line) 92%, transparent),
+    linear-gradient(to bottom, transparent, var(--timeline-glow), transparent);
+  box-shadow: 0 0 34px rgba(34, 211, 238, 0.14);
+}
+
+.experience-timeline-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 4rem minmax(0, 1fr);
+  align-items: center;
+  min-height: 10rem;
+  margin-bottom: 1.35rem;
+}
+
+.experience-timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.experience-timeline-marker {
+  grid-column: 2;
+  justify-self: center;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 3.1rem;
+  height: 3.1rem;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.18), transparent 60%),
+    rgba(15, 23, 42, 0.96);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  box-shadow:
+    0 0 0 8px rgba(15, 23, 42, 0.88),
+    0 18px 44px rgba(2, 6, 23, 0.35);
+}
+
+.experience-timeline-dot {
+  width: 0.78rem;
+  height: 0.78rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #22d3ee, #818cf8);
+  box-shadow:
+    0 0 0 5px rgba(34, 211, 238, 0.12),
+    0 0 30px rgba(34, 211, 238, 0.55);
+}
+
+.experience-card {
+  position: relative;
+  grid-column: 1;
+  padding: 1.35rem 1.35rem 1.25rem;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 1.15rem;
+  background:
+    radial-gradient(circle at top left, rgba(34, 211, 238, 0.11), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.1), transparent 35%),
+    rgba(15, 23, 42, 0.82);
+  box-shadow: 0 22px 58px rgba(2, 6, 23, 0.28);
+}
+
+.experience-card::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -2rem;
+  width: 2rem;
+  height: 1px;
+  background: linear-gradient(to right, rgba(148, 163, 184, 0.34), transparent);
+}
+
+.experience-timeline-item:nth-child(even) .experience-card {
+  grid-column: 3;
+}
+
+.experience-timeline-item:nth-child(even) .experience-card::after {
+  right: auto;
+  left: -2rem;
+  background: linear-gradient(to left, rgba(148, 163, 184, 0.34), transparent);
+}
+
+.experience-card-kicker {
+  margin-bottom: 0.45rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #67e8f9;
+}
+
+.experience-card-title {
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
+  font-weight: 560;
+  color: #f9fafb;
+}
+
+.experience-card-body {
+  margin: 0 0 0.8rem;
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: #a5adba;
+}
+
+.experience-card-body:last-of-type {
+  margin-bottom: 0;
+}
+
 .thinking-list {
   display: flex;
   flex-direction: column;
@@ -1234,12 +1369,50 @@ main {
   .hero-grid,
   .section-grid,
   .section-grid-balanced,
+  .experience-section-header,
   .contact-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 
   .hero-grid {
     gap: 2.2rem;
+  }
+
+  .experience-section-header {
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+
+  .experience-timeline::before {
+    left: 1.55rem;
+  }
+
+  .experience-timeline-item {
+    grid-template-columns: 3.1rem minmax(0, 1fr);
+    min-height: auto;
+    align-items: start;
+    margin-bottom: 1.15rem;
+  }
+
+  .experience-timeline-marker {
+    grid-column: 1;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-top: 0.55rem;
+  }
+
+  .experience-card,
+  .experience-timeline-item:nth-child(even) .experience-card {
+    grid-column: 2;
+  }
+
+  .experience-card::after,
+  .experience-timeline-item:nth-child(even) .experience-card::after {
+    top: 1.9rem;
+    right: auto;
+    left: -1.05rem;
+    width: 1.05rem;
+    background: linear-gradient(to left, rgba(148, 163, 184, 0.34), transparent);
   }
 
   .influences-list {
@@ -1286,6 +1459,10 @@ main {
 
   .hero-card {
     margin-right: 0.5rem;
+  }
+
+  .experience-card {
+    padding: 1.15rem 1.05rem 1.1rem;
   }
 
   .selected-notes-panel {
