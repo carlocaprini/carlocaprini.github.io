@@ -3,6 +3,7 @@ layout: default
 # Influences index: lists site.influences sorted by editorial weight (highest first).
 ---
 {% assign weight_order = "5,4,3,2,1,0" | split: "," %}
+{% assign topic_order = "decision-making,execution,team-dynamics" | split: "," %}
 <div class="page">
   <section class="hero" style="margin-bottom: 2.25rem;">
     <div class="container hero-grid" style="grid-template-columns: minmax(0, 1fr);">
@@ -31,19 +32,40 @@ layout: default
           <p class="section-description">External articles that made me think and helped clarify, challenge or extend my <a href="{{ '/thinking/' | relative_url }}">notes</a>.</p>
         </div>
       </div>
-      <ul class="influences-list">
+
+      <div class="influence-topic-board" aria-label="Influence topics">
+        <button class="influence-topic-filter is-active" type="button" data-topic-filter="all">All</button>
+        {% for topic in topic_order %}
+          {% assign topic_count = 0 %}
+          {% for ref in site.influences %}
+            {% if ref.topics contains topic %}
+              {% assign topic_count = topic_count | plus: 1 %}
+            {% endif %}
+          {% endfor %}
+          <button class="influence-topic-filter influence-topic-filter--{{ topic }}" type="button" data-topic-filter="{{ topic }}">
+            <span>{{ topic | replace: "-", " " }}</span>
+            <span class="influence-topic-count">{{ topic_count }}</span>
+          </button>
+        {% endfor %}
+      </div>
+
+      <ul class="influences-list influence-board">
         {% for weight_str in weight_order %}
           {% assign target_weight = weight_str | plus: 0 %}
           {% assign refs_by_title = site.influences | sort: "title" %}
           {% for ref in refs_by_title %}
             {% assign ref_weight = ref.weight | default: 0 | plus: 0 %}
             {% if ref_weight == target_weight and ref.external_url %}
+          {% assign primary_topic = ref.topics | first | default: "general" %}
           {% assign external_url = ref.external_url %}
-          <li class="influence-item">
+          <li class="influence-item influence-item--{{ primary_topic }}" data-topics="{{ ref.topics | join: ' ' }}">
             <div class="influence-card-meta">
               {% if ref.author %}
                 <span class="influence-author">{{ ref.author }}</span>
               {% endif %}
+              {% for topic in ref.topics %}
+                <span class="influence-topic-pill">{{ topic | replace: "-", " " }}</span>
+              {% endfor %}
             </div>
             <h3 class="influence-card-title">
               <a class="influence-title influence-title--external" href="{{ external_url }}" target="_blank" rel="noopener noreferrer" title="Opens in a new tab">
@@ -70,3 +92,51 @@ layout: default
     </div>
   </section>
 </div>
+
+<script>
+  (function () {
+    var board = document.querySelector(".influence-board");
+    var filters = Array.prototype.slice.call(document.querySelectorAll(".influence-topic-filter"));
+    if (!board || filters.length === 0) return;
+
+    var items = Array.prototype.slice.call(board.querySelectorAll(".influence-item"));
+
+    function setFilter(topic) {
+      filters.forEach(function (button) {
+        button.classList.toggle("is-active", button.dataset.topicFilter === topic);
+      });
+
+      items.forEach(function (item) {
+        var topics = item.dataset.topics || "";
+        var isVisible = topic === "all" || topics.split(" ").indexOf(topic) !== -1;
+        item.hidden = !isVisible;
+      });
+    }
+
+    filters.forEach(function (button) {
+      button.addEventListener("click", function () {
+        setFilter(button.dataset.topicFilter || "all");
+      });
+    });
+
+    if (!("IntersectionObserver" in window)) return;
+
+    board.classList.add("is-observed");
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      rootMargin: "0px 0px -8% 0px",
+      threshold: 0.12
+    });
+
+    items.forEach(function (item) {
+      observer.observe(item);
+    });
+  })();
+</script>
