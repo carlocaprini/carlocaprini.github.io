@@ -1157,6 +1157,19 @@ main {
   margin-bottom: 1.35rem;
 }
 
+.experience-timeline.is-observed .experience-timeline-item {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+}
+
+.experience-timeline.is-observed .experience-timeline-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .experience-timeline-item:last-child {
   margin-bottom: 0;
 }
@@ -1201,6 +1214,16 @@ main {
     radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.1), transparent 35%),
     rgba(15, 23, 42, 0.82);
   box-shadow: 0 22px 58px rgba(2, 6, 23, 0.28);
+  transition:
+    border-color 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.experience-card:hover {
+  border-color: rgba(34, 211, 238, 0.34);
+  transform: translateY(-2px);
+  box-shadow: 0 26px 70px rgba(2, 6, 23, 0.36);
 }
 
 .experience-card::after {
@@ -1246,6 +1269,16 @@ main {
 
 .experience-card-body:last-of-type {
   margin-bottom: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .experience-timeline.is-observed .experience-timeline-item,
+  .experience-timeline.is-observed .experience-timeline-item.is-visible,
+  .experience-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 .thinking-list {
