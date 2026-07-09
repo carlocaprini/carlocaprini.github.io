@@ -1149,11 +1149,32 @@ main {
 }
 
 .experience-timeline-item {
+  --experience-accent: #22d3ee;
+  --experience-accent-soft: rgba(34, 211, 238, 0.12);
+  --experience-accent-border: rgba(34, 211, 238, 0.28);
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 5.8rem minmax(0, 1fr);
   align-items: start;
   margin-bottom: 1.65rem;
+}
+
+.experience-timeline-item--2 {
+  --experience-accent: #818cf8;
+  --experience-accent-soft: rgba(129, 140, 248, 0.12);
+  --experience-accent-border: rgba(129, 140, 248, 0.28);
+}
+
+.experience-timeline-item--3 {
+  --experience-accent: #34d399;
+  --experience-accent-soft: rgba(52, 211, 153, 0.11);
+  --experience-accent-border: rgba(52, 211, 153, 0.26);
+}
+
+.experience-timeline-item--4 {
+  --experience-accent: #38bdf8;
+  --experience-accent-soft: rgba(56, 189, 248, 0.11);
+  --experience-accent-border: rgba(56, 189, 248, 0.26);
 }
 
 .experience-timeline.is-observed .experience-timeline-item {
@@ -1184,22 +1205,23 @@ main {
   height: 3.1rem;
   border-radius: 999px;
   background:
-    radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.18), transparent 60%),
+    radial-gradient(circle at 50% 50%, var(--experience-accent-soft), transparent 60%),
     rgba(15, 23, 42, 0.96);
-  border: 1px solid rgba(148, 163, 184, 0.24);
+  border: 1px solid var(--experience-accent-border);
   box-shadow:
     0 0 0 8px rgba(15, 23, 42, 0.88),
-    0 18px 44px rgba(2, 6, 23, 0.35);
+    0 18px 44px rgba(2, 6, 23, 0.35),
+    0 0 34px var(--experience-accent-soft);
 }
 
 .experience-timeline-dot {
   width: 0.78rem;
   height: 0.78rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, #22d3ee, #818cf8);
+  background: var(--experience-accent);
   box-shadow:
-    0 0 0 5px rgba(34, 211, 238, 0.12),
-    0 0 30px rgba(34, 211, 238, 0.55);
+    0 0 0 5px var(--experience-accent-soft),
+    0 0 30px var(--experience-accent-border);
 }
 
 .experience-card {
@@ -1209,7 +1231,7 @@ main {
   border: 1px solid rgba(148, 163, 184, 0.18);
   border-radius: 1.15rem;
   background:
-    radial-gradient(circle at top left, rgba(34, 211, 238, 0.11), transparent 34%),
+    radial-gradient(circle at top left, var(--experience-accent-soft), transparent 34%),
     radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.1), transparent 35%),
     rgba(15, 23, 42, 0.82);
   box-shadow: 0 22px 58px rgba(2, 6, 23, 0.28);
@@ -1220,7 +1242,7 @@ main {
 }
 
 .experience-card:hover {
-  border-color: rgba(34, 211, 238, 0.34);
+  border-color: var(--experience-accent-border);
   transform: translateY(-2px);
   box-shadow: 0 26px 70px rgba(2, 6, 23, 0.36);
 }
@@ -1232,7 +1254,7 @@ main {
   right: -2rem;
   width: 2rem;
   height: 1px;
-  background: linear-gradient(to right, rgba(148, 163, 184, 0.34), transparent);
+  background: linear-gradient(to right, var(--experience-accent-border), transparent);
 }
 
 .experience-timeline-item:nth-child(even) .experience-card {
@@ -1242,7 +1264,7 @@ main {
 .experience-timeline-item:nth-child(even) .experience-card::after {
   right: auto;
   left: -2rem;
-  background: linear-gradient(to left, rgba(148, 163, 184, 0.34), transparent);
+  background: linear-gradient(to left, var(--experience-accent-border), transparent);
 }
 
 .experience-card-kicker {

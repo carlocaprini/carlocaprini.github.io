@@ -36,7 +36,7 @@ layout: default
 
       <ol class="experience-timeline" aria-label="{{ page.roles.title }}">
         {% for r in page.roles.items %}
-          <li class="experience-timeline-item">
+          <li class="experience-timeline-item experience-timeline-item--{{ forloop.index }}">
             <div class="experience-timeline-marker" aria-hidden="true">
               <span class="experience-timeline-dot"></span>
             </div>
