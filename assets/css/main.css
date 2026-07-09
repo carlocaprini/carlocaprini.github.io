@@ -1137,8 +1137,8 @@ main {
 .experience-timeline::before {
   content: "";
   position: absolute;
-  top: 0.4rem;
-  bottom: 0.4rem;
+  top: 1.65rem;
+  bottom: 1.65rem;
   left: 50%;
   width: 1px;
   transform: translateX(-50%);
@@ -1151,10 +1151,9 @@ main {
 .experience-timeline-item {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 4rem minmax(0, 1fr);
-  align-items: center;
-  min-height: 10rem;
-  margin-bottom: 1.35rem;
+  grid-template-columns: minmax(0, 1fr) 5.8rem minmax(0, 1fr);
+  align-items: start;
+  margin-bottom: 1.65rem;
 }
 
 .experience-timeline.is-observed .experience-timeline-item {
@@ -1179,11 +1178,13 @@ main {
   justify-self: center;
   position: relative;
   z-index: 2;
-  display: grid;
-  place-items: center;
-  width: 3.1rem;
-  height: 3.1rem;
-  border-radius: 999px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.34rem;
+  min-width: 5.1rem;
+  padding: 0.48rem 0.42rem 0.52rem;
+  border-radius: 1rem;
   background:
     radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.18), transparent 60%),
     rgba(15, 23, 42, 0.96);
@@ -1201,6 +1202,14 @@ main {
   box-shadow:
     0 0 0 5px rgba(34, 211, 238, 0.12),
     0 0 30px rgba(34, 211, 238, 0.55);
+}
+
+.experience-timeline-period {
+  font-size: 0.68rem;
+  line-height: 1.2;
+  color: #cbd5e1;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .experience-card {
@@ -1229,7 +1238,7 @@ main {
 .experience-card::after {
   content: "";
   position: absolute;
-  top: 50%;
+  top: 1.95rem;
   right: -2rem;
   width: 2rem;
   height: 1px;
@@ -1417,21 +1426,20 @@ main {
   }
 
   .experience-timeline::before {
-    left: 1.55rem;
+    top: 1.55rem;
+    bottom: 1.55rem;
+    left: 2.55rem;
   }
 
   .experience-timeline-item {
-    grid-template-columns: 3.1rem minmax(0, 1fr);
-    min-height: auto;
+    grid-template-columns: 5.1rem minmax(0, 1fr);
     align-items: start;
     margin-bottom: 1.15rem;
   }
 
   .experience-timeline-marker {
     grid-column: 1;
-    width: 2.75rem;
-    height: 2.75rem;
-    margin-top: 0.55rem;
+    min-width: 4.8rem;
   }
 
   .experience-card,

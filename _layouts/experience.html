@@ -36,9 +36,12 @@ layout: default
 
       <ol class="experience-timeline" aria-label="{{ page.roles.title }}">
         {% for r in page.roles.items %}
+          {% assign role_meta_parts = r.meta | split: "·" %}
+          {% assign role_period = role_meta_parts | last | strip %}
           <li class="experience-timeline-item">
             <div class="experience-timeline-marker" aria-hidden="true">
               <span class="experience-timeline-dot"></span>
+              <span class="experience-timeline-period">{{ role_period }}</span>
             </div>
             <article class="experience-card">
               <div class="experience-card-kicker">{{ r.meta }}</div>
