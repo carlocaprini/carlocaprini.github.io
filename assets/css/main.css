@@ -784,7 +784,8 @@ main {
   padding: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 1.1rem;
+  align-items: start;
 }
 
 .influence-item {
@@ -843,6 +844,10 @@ main {
   border-color: var(--influence-accent-border);
   box-shadow: 0 22px 64px rgba(2, 6, 23, 0.34);
   transform: translateY(-2px);
+}
+
+.influence-item:nth-child(even) {
+  margin-top: 1.4rem;
 }
 
 .influence-item::before {
@@ -1610,6 +1615,10 @@ main {
 
   .influences-list {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .influence-item:nth-child(even) {
+    margin-top: 0;
   }
 
   .selected-notes-panel {
