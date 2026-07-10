@@ -3,20 +3,20 @@ layout: default
 # Layout for Experience page. Expects: hero, roles, credentials
 ---
 <div class="page">
-  <section class="hero" style="margin-bottom: 2.25rem;">
-    <div class="container hero-grid" style="grid-template-columns: minmax(0, 1fr);">
+  <section class="hero hero--compact">
+    <div class="container hero-grid hero-grid--single">
       <div>
         <div class="hero-label">
           <span class="hero-label-dot"></span>
           <span>{{ page.hero.label }}</span>
         </div>
-        <h1 class="hero-title" style="margin-bottom: 0.6rem;">
+        <h1 class="hero-title hero-title--compact">
           {{ page.hero.title_prefix }}<span class="highlight">{{ page.hero.title_highlight }}</span>
         </h1>
         {% for p in page.hero.subtitle_paragraphs %}
-          <div class="hero-subtitle" style="max-width: 44rem;">{{ p | markdownify }}</div>
+          <div class="hero-subtitle hero-subtitle--wide">{{ p | markdownify }}</div>
         {% endfor %}
-        <div class="hero-actions" style="margin-top: 1.3rem;">
+        <div class="hero-actions hero-actions--compact">
           <a href="{{ '/thinking/' | relative_url }}" class="button-primary">Thinking</a>
           <a href="{{ '/' | relative_url }}" class="button-ghost">{{ page.hero.actions.secondary }}</a>
         </div>
