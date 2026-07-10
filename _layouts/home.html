@@ -12,23 +12,14 @@ layout: default
           <span>{{ h.hero.label }}</span>
         </div>
         <h1 class="hero-title">
-          {{ h.hero.title_prefix }}<span class="highlight">{{ h.hero.title_highlight }}</span>
+          {{ h.hero.title_prefix }}<span class="highlight">{{ h.hero.title_highlight }}</span>.
         </h1>
         {% for p in h.hero.subtitle_paragraphs %}
           <div class="hero-subtitle">{{ p | markdownify }}</div>
         {% endfor %}
-        <div class="hero-meta">
-          {% for m in h.hero.meta %}
-            <div>
-              <label>{{ m.label }}</label>
-              <span>{{ m.value }}</span>
-            </div>
-          {% endfor %}
-        </div>
         <div class="hero-actions">
-          <a href="{{ '/thinking/' | relative_url }}" class="button-primary">Thinking</a>
-          <a href="{{ '/experience/' | relative_url }}" class="button-ghost">Experience</a>
-          <a href="#contact" class="button-ghost">{{ h.hero.actions.primary }}</a>
+          <a href="{{ h.hero.actions.primary.url | relative_url }}" class="button-primary">{{ h.hero.actions.primary.label }}</a>
+          <a href="{{ h.hero.actions.secondary.url | relative_url }}" class="button-ghost">{{ h.hero.actions.secondary.label }}</a>
         </div>
       </div>
       {% include hero-card.html %}
@@ -61,51 +52,25 @@ layout: default
     </div>
   </section>
 
-  <section id="about" class="section">
-    <div class="container section-grid">
+  <section id="where-i-can-help" class="section home-help-section">
+    <div class="container">
       <div>
         <div class="section-header">
           <div>
-            <div class="section-eyebrow">{{ h.about.eyebrow }}</div>
-            <h2 class="section-title">{{ h.about.title }}</h2>
+            <div class="section-eyebrow">{{ h.where_i_can_help.eyebrow }}</div>
+            <h2 class="section-title">{{ h.where_i_can_help.title }}</h2>
           </div>
-        </div>
-        {% for p in h.about.paragraphs %}
-          <p class="body-text">{{ p }}</p>
-        {% endfor %}
-      </div>
-      <div>
-        <div class="section-header">
-          <div class="section-description">{{ h.about.pills_description | default: "Some of the areas where I focus most of my work." }}</div>
-        </div>
-        <div class="pill-list">
-          {% for pill in h.about.pills %}
-            <span class="pill pill-strong">{{ pill }}</span>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="how-i-work" class="section">
-    <div class="container section-grid-balanced">
-      <div>
-        <div class="section-header">
           <div>
-            <div class="section-eyebrow">{{ h.how_i_work.eyebrow }}</div>
-            <h2 class="section-title">{{ h.how_i_work.title }}</h2>
+            {% for p in h.where_i_can_help.paragraphs %}
+              <p class="section-description section-description-stacked">{{ p }}</p>
+            {% endfor %}
           </div>
         </div>
-        {% for p in h.how_i_work.intro_paragraphs %}
-          <p class="body-text">{{ p }}</p>
-        {% endfor %}
       </div>
-      <div class="card-list">
-        {% for c in h.how_i_work.cards %}
-          <article class="card">
-            <div class="card-header">
-              <h3 class="card-title">{{ c.title }}</h3>
-            </div>
+      <div class="home-help-grid">
+        {% for c in h.where_i_can_help.cards %}
+          <article class="card home-help-card">
+            <h3 class="card-title">{{ c.title }}</h3>
             <p class="card-body">{{ c.body }}</p>
             <div class="card-tags">
               {% for tag in c.tags %}
@@ -115,32 +80,37 @@ layout: default
           </article>
         {% endfor %}
       </div>
+      <div class="home-help-footer">
+        <p>{{ h.where_i_can_help.boundary_note }}</p>
+        <div>
+          <span>{{ h.where_i_can_help.cta.text }}</span>
+          <a class="section-link" href="{{ h.where_i_can_help.cta.url | relative_url }}">{{ h.where_i_can_help.cta.label }}</a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="work" class="section">
+  <section id="explore" class="section">
     <div class="container section-grid-balanced">
       <div>
         <div class="section-header">
           <div>
-            <div class="section-eyebrow">{{ h.work.eyebrow }}</div>
-            <h2 class="section-title">{{ h.work.title }}</h2>
+            <div class="section-eyebrow">{{ h.explore.eyebrow }}</div>
+            <h2 class="section-title">{{ h.explore.title }}</h2>
           </div>
-          <p class="section-description">{{ h.work.description }}</p>
         </div>
+        <p class="body-text">{{ h.explore.description }}</p>
       </div>
-      <div class="card-list">
-        {% for c in h.work.cards %}
-          <article class="card">
+      <div class="home-explore-grid">
+        {% for c in h.explore.cards %}
+          <article class="card home-explore-card">
             <div class="card-header">
-              <h3 class="card-title">{{ c.title }}</h3>
+              <h3 class="card-title">
+                <a class="card-title-link" href="{{ c.url | relative_url }}">{{ c.title }}</a>
+              </h3>
             </div>
             <p class="card-body">{{ c.body }}</p>
-            <div class="card-tags">
-              {% for tag in c.tags %}
-                <span class="pill">{{ tag }}</span>
-              {% endfor %}
-            </div>
+            <a class="section-link" href="{{ c.url | relative_url }}">Open</a>
           </article>
         {% endfor %}
       </div>
