@@ -238,16 +238,27 @@ Rules:
 - Entire card should be clickable.
 - Hover can reveal an arrow, but the card should work without relying on hover.
 
-### Support / Service Cards
+### Support Split
 
 Use for `Where I can help` and future advisory/service descriptions.
 
+This pattern is intentionally different from `Map Cards`. It should feel more consultative and operational, while `Map Cards` should feel more navigational and conceptual.
+
+Structure:
+
+- left column: eyebrow, title, explanatory body copy, short advisory note and CTA
+- right column: vertical capability list
+- each capability: accent marker, compact surface, title, body, optional tags
+- mobile: stack intro first, capability list second
+
 Rules:
 
-- Keep as cards, not as one large dark block.
-- Use the same accent cycle as Experience, Influences and Map.
+- Use the canonical accent cycle for capability markers: cyan, indigo, emerald.
+- Keep capability surfaces lighter and more compact than full cards.
+- Keep CTA and boundary/advisory copy in the left column, not as a separate full-width footer panel.
+- Avoid making this section look like another three-card row; that creates visual duplication with `Map Cards`.
 - Avoid yellow unless there is a deliberate warm semantic reason.
-- Footer notes should be short and confident.
+- Notes should be short and confident.
 
 ### Influence Cards
 
