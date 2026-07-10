@@ -1,4 +1,7 @@
 <aside class="hero-side">
+  {% assign current_year = site.time | date: "%Y" | plus: 0 %}
+  {% assign career_start_year = site.data.person.career_start_year | default: 2013 | plus: 0 %}
+  {% assign experience_years = current_year | minus: career_start_year %}
   <div class="hero-card">
     <div class="hero-card-badge">
       <span></span>
@@ -6,7 +9,7 @@
     </div>
     <div class="hero-metrics">
       <div class="metric">
-        <div class="metric-value">10+ years</div>
+        <div class="metric-value">{{ experience_years }}+ years</div>
         <div class="metric-label">across engineering and product</div>
       </div>
       <div class="metric">
