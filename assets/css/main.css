@@ -565,49 +565,82 @@ main {
   gap: 2.8rem;
 }
 
-.home-help-section .section-header {
-  align-items: flex-start;
-}
-
-.home-help-grid {
+.home-help-layout {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 3rem;
+  align-items: start;
 }
 
-.card.home-help-card {
+.home-help-intro {
+  max-width: 31rem;
+}
+
+.home-help-intro .section-title {
+  margin-bottom: 1.55rem;
+}
+
+.home-help-note {
+  margin-top: 1.5rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.16);
+  color: #9ca3af;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.home-help-note p {
+  margin: 0 0 0.85rem;
+}
+
+.home-help-note span {
+  display: block;
+  color: #cbd5e1;
+}
+
+.home-help-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+.home-help-item {
   --home-help-accent: var(--accent-cyan);
   --home-help-accent-soft: var(--accent-cyan-soft);
   --home-help-accent-border: var(--accent-cyan-border);
   position: relative;
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-  overflow: hidden;
-  border-color: rgba(148, 163, 184, 0.16);
-  background:
-    radial-gradient(circle at top right, var(--home-help-accent-soft), transparent 36%),
-    rgba(15, 23, 42, 0.7);
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  gap: 0.95rem;
+  padding: 1rem 0 1.05rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.13);
 }
 
-.card.home-help-card:nth-child(2) {
+.home-help-item:first-child {
+  padding-top: 0;
+}
+
+.home-help-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.home-help-item:nth-child(2) {
   --home-help-accent: var(--accent-indigo);
   --home-help-accent-soft: var(--accent-indigo-soft);
   --home-help-accent-border: var(--accent-indigo-border);
 }
 
-.card.home-help-card:nth-child(3) {
+.home-help-item:nth-child(3) {
   --home-help-accent: var(--accent-emerald);
   --home-help-accent-soft: var(--accent-emerald-soft);
   --home-help-accent-border: var(--accent-emerald-border);
 }
 
-.card.home-help-card::before {
-  content: "";
-  display: block;
-  width: 1.05rem;
-  height: 1.05rem;
-  margin-bottom: 0.9rem;
+.home-help-item-marker {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.2rem;
   border-radius: 999px;
   background: var(--home-help-accent);
   box-shadow:
@@ -615,36 +648,37 @@ main {
     0 0 24px var(--home-help-accent-border);
 }
 
-.card.home-help-card:hover {
-  border-color: var(--home-help-accent-border);
-}
-
-.card.home-help-card .card-tags {
-  margin-top: auto;
-  padding-top: 0.85rem;
-}
-
-.home-help-footer {
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
-  gap: 1.6rem;
-  margin-top: 1.1rem;
-  padding: 1rem 1.1rem;
-  border-radius: 1rem;
+.home-help-item-content {
+  padding: 1rem 1.05rem;
   border: 1px solid rgba(148, 163, 184, 0.16);
-  background: rgba(2, 6, 23, 0.22);
-  color: #9ca3af;
-  font-size: 0.88rem;
-  line-height: 1.65;
+  border-radius: 1rem;
+  background:
+    radial-gradient(circle at top right, var(--home-help-accent-soft), transparent 36%),
+    rgba(15, 23, 42, 0.54);
+  transition: border-color 0.18s ease, transform 0.18s ease;
 }
 
-.home-help-footer p {
+.home-help-item:hover .home-help-item-content {
+  border-color: var(--home-help-accent-border);
+  transform: translateY(-1px);
+}
+
+.home-help-item h3 {
+  margin: 0 0 0.45rem;
+  color: #f9fafb;
+  font-size: 0.98rem;
+  font-weight: 560;
+}
+
+.home-help-item p {
   margin: 0;
+  color: #9ca3af;
+  font-size: 0.9rem;
+  line-height: 1.7;
 }
 
-.home-help-footer span {
-  display: block;
-  color: #cbd5e1;
+.home-help-item .card-tags {
+  margin-top: 0.75rem;
 }
 
 .home-map-section {
@@ -1855,9 +1889,8 @@ main {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .home-help-grid,
   .home-explore-grid,
-  .home-help-footer,
+  .home-help-layout,
   .home-map-header {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -1980,7 +2013,12 @@ main {
     opacity: 0.38;
   }
 
-  .home-help-footer {
+  .home-help-item {
+    grid-template-columns: 1.65rem minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+
+  .home-help-item-content {
     padding: 0.95rem;
   }
 }
