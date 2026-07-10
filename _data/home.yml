@@ -45,9 +45,9 @@ selected_notes:
 
 where_i_can_help:
   eyebrow: Where I can help
-  title: Support for teams working through product, platform and technical decision challenges.
+  title: Support for teams working through product, platform and technical decisions.
   paragraphs:
-    - I occasionally work with digital product teams and technical leaders on problems that sit between product strategy, engineering constraints and how teams make decisions.
+    - I occasionally work with digital product teams and technical leaders on situations that sit between product strategy, engineering constraints and how teams make decisions.
     - The work is usually about clarifying trade-offs, understanding risks, improving alignment and shaping practical next steps without losing sight of the system around the decision.
   cards:
     - title: Product and platform decision support
@@ -71,23 +71,23 @@ where_i_can_help:
         - Agent workflows
         - Context access
         - Decision quality
-  boundary_note: My role is usually advisory; context analysis, facilitation, recommendations and small improvement experiments. I do not replace internal teams or take over delivery.
+  boundary_note: Advisory work focused on context analysis, facilitation, recommendations and the introduction of better decision-making and operating flows.
   cta:
-    text: If this sounds close to a challenge you're facing, let's talk.
+    text: If this is the kind of support that could help your team, let's talk.
     label: Start a conversation
     url: /#contact
 
 explore:
-  eyebrow: Explore
-  title: Three entry points
-  description: "Different ways into the same work: notes, experience and external readings connected to product, platforms and teams."
+  eyebrow: Map
+  title: Three ways into the same work
+  description: "Roles, notes and readings are different entry points into the same set of questions: how products, platforms and teams evolve over time."
   cards:
-    - title: Thinking
-      url: /thinking/
-      body: Short notes on product decisions, trade-offs, AI, team dynamics and software systems.
     - title: Experience
       url: /experience/
       body: The roles and systems that shaped my work across engineering, product and platform strategy.
+    - title: Thinking
+      url: /thinking/
+      body: Short notes on product decisions, trade-offs, AI, complexity and building software in teams.
     - title: Influences
       url: /influences/
       body: External readings connected to the notes, ideas and questions I keep coming back to.
@@ -141,7 +141,7 @@ contact:
   eyebrow: Contact
   title: Let's connect
   paragraphs:
-    - "If you're working through product, platform, API, AI or team decision challenges and something here resonates, I'm happy to connect."
+    - "If product, platform, API, AI or team decision work here resonates, I'm happy to connect."
     - The easiest way to reach me is via LinkedIn.
     - Based in Italy, working with teams globally.
   channels:

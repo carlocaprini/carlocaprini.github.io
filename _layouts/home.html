@@ -90,27 +90,28 @@ layout: default
     </div>
   </section>
 
-  <section id="explore" class="section">
-    <div class="container section-grid-balanced">
-      <div>
-        <div class="section-header">
-          <div>
-            <div class="section-eyebrow">{{ h.explore.eyebrow }}</div>
-            <h2 class="section-title">{{ h.explore.title }}</h2>
-          </div>
+  <section id="explore" class="section home-map-section">
+    <div class="container">
+      <div class="home-map-header">
+        <div>
+          <div class="section-eyebrow">{{ h.explore.eyebrow }}</div>
+          <h2 class="section-title">{{ h.explore.title }}</h2>
         </div>
-        <p class="body-text">{{ h.explore.description }}</p>
+        <p class="section-description">{{ h.explore.description }}</p>
       </div>
       <div class="home-explore-grid">
         {% for c in h.explore.cards %}
           <article class="card home-explore-card">
-            <div class="card-header">
-              <h3 class="card-title">
-                <a class="card-title-link" href="{{ c.url | relative_url }}">{{ c.title }}</a>
-              </h3>
+            <a class="home-map-card-link" href="{{ c.url | relative_url }}">
+              <span class="home-map-marker" aria-hidden="true"></span>
+              <span class="home-map-index">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+              <span class="home-map-title">{{ c.title }}</span>
+              <span class="home-map-body">{{ c.body }}</span>
+            </a>
+            <div class="home-map-line" aria-hidden="true"></div>
+            <div class="home-map-arrow" aria-hidden="true">
+              <span></span>
             </div>
-            <p class="card-body">{{ c.body }}</p>
-            <a class="section-link" href="{{ c.url | relative_url }}">Open</a>
           </article>
         {% endfor %}
       </div>
