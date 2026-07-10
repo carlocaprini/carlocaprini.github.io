@@ -82,12 +82,12 @@ explore:
   title: Three ways into the same work
   description: "Roles, notes and readings are different entry points into the same set of questions: how products, platforms and teams evolve over time."
   cards:
-    - title: Experience
-      url: /experience/
-      body: The roles and systems that shaped my work across engineering, product and platform strategy.
     - title: Thinking
       url: /thinking/
       body: Short notes on product decisions, trade-offs, AI, complexity and building software in teams.
+    - title: Experience
+      url: /experience/
+      body: The roles and systems that shaped my work across engineering, product and platform strategy.
     - title: Influences
       url: /influences/
       body: External readings connected to the notes, ideas and questions I keep coming back to.
