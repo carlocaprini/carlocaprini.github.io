@@ -31,8 +31,8 @@
           <nav class="nav-right">
             <a href="{{ '/' | relative_url }}" {% if is_home %}class="is-active" aria-current="page"{% endif %}>Home</a>
             <!-- <a href="{{ '/' | relative_url }}#about">About</a> -->
-            <a href="{{ '/experience/' | relative_url }}" {% if is_experience %}class="is-active" aria-current="page"{% endif %}>Experience</a>
             <a href="{{ '/thinking/' | relative_url }}" {% if is_thinking %}class="is-active" aria-current="page"{% endif %}>Thinking</a>
+            <a href="{{ '/experience/' | relative_url }}" {% if is_experience %}class="is-active" aria-current="page"{% endif %}>Experience</a>
             <a href="{{ '/influences/' | relative_url }}" {% if is_influences %}class="is-active" aria-current="page"{% endif %}>Influences</a>
             <a href="{{ '/' | relative_url }}#contact">Contact</a>
           </nav>
@@ -48,10 +48,6 @@
           <span>&copy; {{ site.time | date: "%Y" }} {{ site.data.person.name | default: site.title }}</span>
           <span class="footer-meta">
             <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
-            <span>&middot;</span>
-            <span>Built with Jekyll & Cursor</span>
-            <span>&middot;</span>
-            <span>Hosted on GitHub Pages</span>
           </span>
         </div>
       </footer>

@@ -1,20 +1,18 @@
 hero:
-  label: Home
-  title_prefix: "Designing products and platforms that "
-  title_highlight: "scale with their ecosystems"
+  label: Product · Platforms · Decisions
+  title_prefix: "Helping software teams reason through "
+  title_highlight: "product and platform decisions"
   subtitle_paragraphs:
-    - I work at PandaDoc on API platforms, developer-facing product capabilities and emerging AI-enabled interaction models.
-    - With a background in software development and over a decade in the software industry, I focus on the intersection of product strategy, platform architecture, developer experience and AI.
-    - I occasionally [write short notes](/thinking/) on product work, decision making, AI and building software in teams.
-  meta:
-    - label: Experience
-      value: 8+ years in product
-    - label: Focus
-      value: Platform Strategy, APIs, AI-enabled Products
-    - label: Strengths
-      value: Product Strategy, Platform Thinking, System Design
+    - I work at the intersection of product strategy, platform systems, developer experience and AI-enabled product capabilities.
+    - I write short notes on decision making, trade-offs, team dynamics and the realities of building software products over time.
+    - I occasionally help teams clarify product, platform and technical decisions when the problem sits between product, engineering and organization.
   actions:
-    primary: Get in touch
+    primary:
+      label: Read notes
+      url: /thinking/
+    secondary:
+      label: Start a conversation
+      url: /#contact
 
 about:
   eyebrow: About
@@ -36,7 +34,7 @@ about:
 selected_notes:
   eyebrow: Start here
   title: Selected notes
-  description: A short entry point into the Thinking section, where I collect notes on product work, teams and software systems.
+  description: A short entry point into how I think about product decisions, trade-offs, team dynamics and software systems.
   links:
     - url: /thinking/product-decisions-are-mostly-trade-offs/
     - url: /thinking/ai-accelerates-contribution-not-mastery/
@@ -44,6 +42,55 @@ selected_notes:
   action:
     label: All notes
     url: /thinking/
+
+where_i_can_help:
+  eyebrow: Where I can help
+  title: Support for teams working through product, platform and technical decisions.
+  paragraphs:
+    - I occasionally work with digital product teams and technical leaders on situations that sit between product strategy, engineering constraints and how teams make decisions.
+    - The work is usually about clarifying trade-offs, understanding risks, improving alignment and shaping practical next steps without losing sight of the system around the decision.
+  cards:
+    - title: Product and platform decision support
+      body: Helping teams reason through product directions where customer needs, technical constraints and long-term system consequences are tightly connected.
+      tags:
+        - Product strategy
+        - Technical trade-offs
+        - Risk assessment
+        - Prioritization
+    - title: API and developer ecosystem strategy
+      body: Helping teams think through APIs, developer-facing capabilities, integration models and platform coherence as products evolve.
+      tags:
+        - API platforms
+        - Developer experience
+        - Extensibility
+        - Platform coherence
+    - title: AI-enabled product capabilities
+      body: Helping teams evaluate where AI changes interaction models, workflows, ownership and the boundary between automation and product judgment.
+      tags:
+        - AI adoption
+        - Agent workflows
+        - Context access
+        - Decision quality
+  boundary_note: Advisory work focused on context analysis, facilitation, recommendations and the introduction of better decision-making and operating flows.
+  cta:
+    text: If this is the kind of support that could help your team, let's talk.
+    label: Start a conversation
+    url: /#contact
+
+explore:
+  eyebrow: Map
+  title: Three ways into the same work
+  description: "Roles, notes and readings are different entry points into the same set of questions: how products, platforms and teams evolve over time."
+  cards:
+    - title: Thinking
+      url: /thinking/
+      body: Short notes on product decisions, trade-offs, AI, complexity and building software in teams.
+    - title: Experience
+      url: /experience/
+      body: The roles and systems that shaped my work across engineering, product and platform strategy.
+    - title: Influences
+      url: /influences/
+      body: External readings connected to the notes, ideas and questions I keep coming back to.
 
 how_i_work:
   eyebrow: How I work
@@ -94,7 +141,8 @@ contact:
   eyebrow: Contact
   title: Let's connect
   paragraphs:
-    - "If you're building products, platforms or developer ecosystems and would like to exchange ideas, I'd be happy to connect. The easiest way to reach me is via LinkedIn."
+    - "If product, platform, API, AI or team decision work here resonates, I'm happy to connect."
+    - The easiest way to reach me is via LinkedIn.
     - Based in Italy, working with teams globally.
   channels:
     # URL comes from _data/person.yml (person_field → layout resolves site.data.person.*).
