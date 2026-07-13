@@ -1,11 +1,10 @@
 hero:
   label: Product · Platforms · Decisions
-  title_prefix: "Helping software teams reason through "
-  title_highlight: "product and platform decisions"
+  title_prefix: "Product decisions in "
+  title_highlight: "complex software systems"
   subtitle_paragraphs:
-    - I work at the intersection of product strategy, platform systems, developer experience and AI-enabled product capabilities.
-    - I write short notes on decision making, trade-offs, team dynamics and the realities of building software products over time.
-    - I occasionally help teams clarify product, platform and technical decisions when the problem sits between product, engineering and organization.
+    - "I write about the moments where product work becomes difficult: unclear priorities, urgent requests, technical trade-offs, platform evolution and teams interpreting the same context in different ways."
+    - "I occasionally help software teams slow down complex decisions just enough to understand the real problem, the risks involved and the trade-offs they are accepting."
   actions:
     primary:
       label: Read notes
@@ -34,7 +33,7 @@ about:
 selected_notes:
   eyebrow: Start here
   title: Selected notes
-  description: A short entry point into how I think about product decisions, trade-offs, team dynamics and software systems.
+  description: Start with a few notes on trade-offs, urgency, AI, shared context and the way teams make decisions under pressure.
   links:
     - url: /thinking/product-decisions-are-mostly-trade-offs/
     - url: /thinking/ai-accelerates-contribution-not-mastery/
@@ -45,52 +44,52 @@ selected_notes:
 
 where_i_can_help:
   eyebrow: Where I can help
-  title: Support for teams working through product, platform and technical decisions.
+  title: The problems I tend to be useful around.
   paragraphs:
-    - I occasionally work with digital product teams and technical leaders on situations that sit between product strategy, engineering constraints and how teams make decisions.
-    - The work is usually about clarifying trade-offs, understanding risks, improving alignment and shaping practical next steps without losing sight of the system around the decision.
+    - Most of my work sits where product direction, technical constraints and team dynamics meet.
+    - I occasionally help teams make sense of decisions that are hard to evaluate from only one perspective.
   cards:
-    - title: Product and platform decision support
-      body: Helping teams reason through product directions where customer needs, technical constraints and long-term system consequences are tightly connected.
+    - title: When several directions look reasonable
+      body: "A team needs to decide what to build, what to postpone, and which trade-offs are worth accepting across customers, delivery and long-term system consequences."
       tags:
-        - Product strategy
-        - Technical trade-offs
-        - Risk assessment
+        - Trade-offs
         - Prioritization
-    - title: API and developer ecosystem strategy
-      body: Helping teams think through APIs, developer-facing capabilities, integration models and platform coherence as products evolve.
+        - Risk
+        - Decision clarity
+    - title: When an API becomes a product surface
+      body: APIs, integrations or developer-facing capabilities start shaping the product experience for customers, partners, internal teams or AI agents.
       tags:
         - API platforms
         - Developer experience
-        - Extensibility
+        - Integrations
         - Platform coherence
-    - title: AI-enabled product capabilities
-      body: Helping teams evaluate where AI changes interaction models, workflows, ownership and the boundary between automation and product judgment.
+    - title: When AI moves faster than understanding
+      body: Prototypes, automation or agent workflows make something possible, but the team still needs to understand reliability, ownership, user value and product fit.
       tags:
         - AI adoption
         - Agent workflows
-        - Context access
-        - Decision quality
-  boundary_note: Advisory work focused on context analysis, facilitation, recommendations and the introduction of better decision-making and operating flows.
+        - Ownership
+        - Product fit
+  boundary_note: "This is usually advisory work: understanding the context, clarifying the decision and shaping practical next steps. I do not replace internal teams or take over delivery."
   cta:
-    text: If this is the kind of support that could help your team, let's talk.
+    text: If this sounds close to something your team is working through, let's talk.
     label: Start a conversation
     url: /#contact
 
 explore:
-  eyebrow: Map
-  title: Three ways into the same work
-  description: "Roles, notes and readings are different entry points into the same set of questions: how products, platforms and teams evolve over time."
+  eyebrow: Explore
+  title: Three ways into the site
+  description: Notes, experience and readings are different entry points into the same questions.
   cards:
     - title: Thinking
       url: /thinking/
-      body: Short notes on product decisions, trade-offs, AI, complexity and building software in teams.
+      body: Short notes on trade-offs, AI, urgency, shared context and product work in software teams.
     - title: Experience
       url: /experience/
       body: The roles and systems that shaped my work across engineering, product and platform strategy.
     - title: Influences
       url: /influences/
-      body: External readings connected to the notes, ideas and questions I keep coming back to.
+      body: External readings connected to the questions I keep coming back to.
 
 how_i_work:
   eyebrow: How I work
@@ -141,7 +140,7 @@ contact:
   eyebrow: Contact
   title: Let's connect
   paragraphs:
-    - "If product, platform, API, AI or team decision work here resonates, I'm happy to connect."
+    - "If something here connects with a decision your team is working through, I am happy to connect."
     - The easiest way to reach me is via LinkedIn.
     - Based in Italy, working with teams globally.
   channels:
