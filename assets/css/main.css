@@ -1517,6 +1517,17 @@ main {
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 
+.article-list .content-topic-link {
+  padding: 0.11rem 0.42rem;
+  font-size: 0.66rem;
+  font-weight: 400;
+}
+
+.article-list .content-topic-link::before {
+  width: 0.25rem;
+  height: 0.25rem;
+}
+
 .content-topic-link::before {
   content: "";
   width: 0.3rem;
