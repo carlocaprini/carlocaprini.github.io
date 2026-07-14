@@ -12,9 +12,6 @@ hero:
   paragraphs:
     - Short reflections from product and engineering work in complex software systems.
     - Each note stands on its own, but together they trace recurring questions about how teams choose, build and learn over time.
-  actions:
-    primary: Get in touch
-    secondary: Back to home
 start_here:
   title: Start here
   description: Three notes that introduce the main threads of this section.

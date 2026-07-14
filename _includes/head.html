@@ -5,7 +5,7 @@
 <link rel="alternate" type="application/rss+xml" title="{{ site.title }} — Thinking feed" href="{{ canonical_site_url }}{{ '/feed.xml' | relative_url }}" />
 {% assign site_name = site.data.person.name | default: site.title %}
 {% assign page_url = page.url | absolute_url | replace: site.url, canonical_site_url %}
-{% assign default_description = "Product and engineering professional writing occasional notes about product work, decision making and building software in teams." %}
+{% assign default_description = site.description %}
 {% assign default_image_path = "/assets/og-site.png" %}
 {% assign default_og_type = "website" %}
 {% if page.layout == 'article' and page.summary %}

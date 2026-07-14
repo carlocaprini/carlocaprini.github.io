@@ -105,9 +105,11 @@ layout: default
             <div class="card-header">
               <h3 class="card-title">{{ group.title }}</h3>
             </div>
-            {% for credential in group.items %}
-              <p class="card-body">• {{ credential }}</p>
-            {% endfor %}
+            <ul class="credential-list">
+              {% for credential in group.items %}
+                <li>{{ credential }}</li>
+              {% endfor %}
+            </ul>
           </article>
         {% endfor %}
       </div>

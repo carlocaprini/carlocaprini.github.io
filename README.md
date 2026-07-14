@@ -36,6 +36,10 @@ Thinking notes and Influences references use **only** these topic slugs (lowerca
 
 To surface a reference on a note page, reuse topics on both sides. To choose which note appears under a reference on `/influences/`, set `related_note:` manually. Order influences with `weight:` instead of `date:`. Higher weights appear first on `/influences/`, and break ties in related reading after topic overlap. Adding a new topic slug requires updating this list and every place that assumes the taxonomy.
 
+## Editorial metadata
+
+Set `last_modified_at` on a Thinking note only when its editorial content changes. Do not update it for topic mapping, layout, styling, related-content logic or other presentation-only work. Index pages can update `last_modified_at` when their public structure or copy changes.
+
 ## How this was built
 
 The site was built with [Cursor](https://cursor.com) — vibe coding, as they say. I described what I wanted, iterated on structure and content, and let the AI handle most of the plumbing. Some of it also came from fragments of historical knowledge: Jekyll, Liquid, GitHub Pages, that kind of thing.

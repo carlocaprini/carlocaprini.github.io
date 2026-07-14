@@ -2,11 +2,14 @@
 # frozen_string_literal: true
 
 require "json"
+require "date"
 require "rexml/document"
 require "set"
 require "uri"
+require "yaml"
 
 SITE_DIR = File.expand_path("../_site", __dir__)
+SOURCE_DIR = File.expand_path("..", __dir__)
 SITE_URL = "https://carlocaprini.github.io"
 SITE_HOST = URI(SITE_URL).host
 
@@ -72,6 +75,19 @@ end
 
 def html_ids(html)
   html.scan(/\sid=(["'])(.*?)\1/).map { |(_, id)| id }.to_set
+end
+
+def front_matter(path)
+  source = read_file(path)
+  return {} unless source
+
+  match = source.match(/\A---\s*\n(.*?)\n---\s*\n/m)
+  return {} unless match
+
+  YAML.safe_load(match[1], permitted_classes: [Date], aliases: true) || {}
+rescue Psych::SyntaxError => e
+  fail_check("#{path.delete_prefix("#{SOURCE_DIR}/")}: invalid front matter: #{e.message.lines.first&.strip}")
+  {}
 end
 
 required_files = %w[
@@ -151,7 +167,7 @@ if feed
   end
 end
 
-canonical_urls = Set.new
+canonical_urls = []
 html_files = Dir.glob(site_path("**/*.html")).sort
 fail_check("No generated HTML files found") if html_files.empty?
 
@@ -161,10 +177,18 @@ html_files.each do |file|
 
   relative = relative_site_path(file)
   ids = html_ids(html)
+  all_ids = html.scan(/\sid=(["'])(.*?)\1/).map { |(_, id)| id }
+  duplicate_ids = all_ids.group_by(&:itself).select { |_, values| values.size > 1 }.keys
 
   fail_check("#{relative}: unrendered Liquid tag found") if html.match?(/({{.*?}}|{%.*?%})/m)
   fail_check("#{relative}: missing <title>") unless html.match?(%r{<title>.+?</title>}im)
   fail_check("#{relative}: missing meta description") unless html.match?(%r{<meta\s+name=["']description["']}i)
+  fail_check("#{relative}: root html language must be English") unless html.match?(%r{<html\s+lang=["']en["']}i)
+  fail_check("#{relative}: expected exactly one h1") unless html.scan(%r{<h1\b}i).size == 1
+  fail_check("#{relative}: duplicate ids: #{duplicate_ids.join(', ')}") unless duplicate_ids.empty?
+  fail_check("#{relative}: missing skip link") unless html.match?(%r{<a\s+class=["']skip-link["']\s+href=["']#top["']}i)
+  fail_check("#{relative}: missing Open Graph title") unless html.match?(%r{<meta\s+property=["']og:title["']}i)
+  fail_check("#{relative}: missing Open Graph description") unless html.match?(%r{<meta\s+property=["']og:description["']}i)
 
   canonical_match = html.match(%r{<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']}i)
   if canonical_match
@@ -213,6 +237,18 @@ html_files.each do |file|
     fail_check("#{relative}: missing local asset #{src}") unless File.file?(target)
   end
 
+  html.scan(%r{<a\b[^>]*>}i).each do |anchor|
+    next unless anchor.match?(%r{\starget=["']_blank["']}i)
+
+    rel = anchor[%r{\srel=["']([^"']*)["']}i, 1].to_s.split
+    fail_check("#{relative}: target=_blank link missing noopener") unless rel.include?("noopener")
+    fail_check("#{relative}: target=_blank link missing noreferrer") unless rel.include?("noreferrer")
+  end
+
+  html.scan(%r{<img\b[^>]*>}i).each do |image|
+    fail_check("#{relative}: image missing alt attribute") unless image.match?(%r{\salt=["'][^"']*["']}i)
+  end
+
   html.scan(%r{<script\s+type=["']application/ld\+json["']\s*>(.*?)</script>}im).each do |(json_ld)|
     JSON.parse(json_ld)
   rescue JSON::ParserError => e
@@ -222,6 +258,40 @@ end
 
 duplicate_canonicals = canonical_urls.group_by(&:itself).select { |_, values| values.size > 1 }.keys
 fail_check("Duplicate canonical URLs: #{duplicate_canonicals.join(', ')}") unless duplicate_canonicals.empty?
+
+topics_data = YAML.safe_load_file(File.join(SOURCE_DIR, "_data/topics.yml"), aliases: true) || []
+canonical_topics = topics_data.filter_map { |topic| topic["slug"] }.to_set
+fail_check("Canonical topic data is empty") if canonical_topics.empty?
+
+note_data = {}
+Dir.glob(File.join(SOURCE_DIR, "pages/thinking/*.md")).sort.each do |path|
+  data = front_matter(path)
+  relative = path.delete_prefix("#{SOURCE_DIR}/")
+  topics = Array(data["topics"])
+
+  fail_check("#{relative}: missing summary") if data["summary"].to_s.strip.empty?
+  fail_check("#{relative}: must define one or two topics") unless topics.size.between?(1, 2)
+  unknown_topics = topics.reject { |topic| canonical_topics.include?(topic) }
+  fail_check("#{relative}: unknown topics: #{unknown_topics.join(', ')}") unless unknown_topics.empty?
+  note_data[data["permalink"]] = data if data["permalink"]
+end
+
+Dir.glob(File.join(SOURCE_DIR, "_influences/*.md")).sort.each do |path|
+  data = front_matter(path)
+  relative = path.delete_prefix("#{SOURCE_DIR}/")
+  topics = Array(data["topics"])
+
+  fail_check("#{relative}: missing external_url") if data["external_url"].to_s.strip.empty?
+  fail_check("#{relative}: missing summary") if data["summary"].to_s.strip.empty?
+  fail_check("#{relative}: must define one or two topics") unless topics.size.between?(1, 2)
+  unknown_topics = topics.reject { |topic| canonical_topics.include?(topic) }
+  fail_check("#{relative}: unknown topics: #{unknown_topics.join(', ')}") unless unknown_topics.empty?
+
+  related_note = data["related_note"]
+  if related_note && !note_data.key?(related_note)
+    fail_check("#{relative}: related_note does not match a Thinking permalink: #{related_note}")
+  end
+end
 
 if @errors.any?
   warn "\nSite validation failed:"

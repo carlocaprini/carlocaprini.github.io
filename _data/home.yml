@@ -23,23 +23,6 @@ hero:
         body: Adoption, ownership and the gap between output and judgment.
     note: These themes connect notes, professional experience and external readings into one evolving body of work.
 
-about:
-  eyebrow: About
-  title: Product as a long-term system
-  paragraphs:
-    - I started my career as a software developer in a small startup before moving into product management.
-    - Over the years I worked on complex digital platforms, helping teams design scalable systems and evolve product strategy as organizations grow.
-    - My work focuses on how platforms evolve over time, how product decisions shape large distributed systems, and how AI changes the way people interact with software.
-  pills_description: Some of the areas where I focus most of my work.
-  pills:
-    - Platform product strategy
-    - API platforms
-    - AI-enabled products
-    - Developer experience
-    - Event-driven systems
-    - Observability platforms
-    - Distributed systems
-
 selected_notes:
   eyebrow: Start here
   title: Selected notes
@@ -80,51 +63,6 @@ explore:
     - title: Influences
       url: /influences/
       body: External readings connected to the questions I keep coming back to.
-
-how_i_work:
-  eyebrow: How I work
-  title: The areas where I focus my work
-  intro_paragraphs:
-    - My work sits at the intersection of product strategy, platform architecture, developer ecosystems and AI-enabled product capabilities.
-    - I tend to focus on complex product systems where technology, product decisions and organizational structure are deeply connected.
-  cards:
-    - title: Platform product strategy
-      body: Defining the strategy and evolution of complex platform products, with a focus on APIs, AI-enabled capabilities, developer ecosystems and long-term scalability.
-      tags:
-        - Platforms
-        - APIs
-        - AI
-        - Product strategy
-    - title: Developer ecosystems
-      body: Improving how developers interact with platforms through better APIs, SDKs, tooling and documentation, enabling faster adoption and sustainable growth.
-      tags:
-        - Developer experience
-        - SDKs
-        - Tooling
-    - title: Distributed product systems
-      body: "Working on product problems that emerge in large distributed systems: event-driven architectures, observability and platform extensibility."
-      tags:
-        - Event-driven
-        - Observability
-        - Distributed systems
-
-work:
-  eyebrow: Areas I've worked on
-  title: A few domains where I've spent significant time
-  description: A few domains where I've spent significant time working on product and platform strategy.
-  cards:
-    - title: Platform capabilities in large-scale commerce systems
-      body: Working on developer-facing platform components, including APIs, extensibility systems and observability tooling for distributed commerce infrastructure.
-      tags:
-        - Platform
-        - APIs
-        - Observability
-    - title: Developer tooling and SDK ecosystems
-      body: Driving the strategy for developer tooling, including SDKs and platform integrations, to improve adoption and developer productivity.
-      tags:
-        - Developer experience
-        - Developer tooling
-        - SDKs
 
 contact:
   eyebrow: Contact

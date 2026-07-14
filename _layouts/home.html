@@ -121,9 +121,9 @@ layout: default
           <div>
             <div class="contact-label">{{ ch.label }}</div>
             {% if ch.person_field == "linkedin" %}
-            <a class="contact-link" href="{{ site.data.person.linkedin }}" target="_blank" rel="noreferrer">{{ ch.text }}</a>
+            <a class="contact-link" href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer">{{ ch.text }}<span class="visually-hidden"> (opens in new tab)</span></a>
             {% else %}
-            <a class="contact-link" href="{{ ch.url }}" target="_blank" rel="noreferrer">{{ ch.text }}</a>
+            <a class="contact-link" href="{{ ch.url }}" target="_blank" rel="noopener noreferrer">{{ ch.text }}<span class="visually-hidden"> (opens in new tab)</span></a>
             {% endif %}
           </div>
         {% endfor %}
