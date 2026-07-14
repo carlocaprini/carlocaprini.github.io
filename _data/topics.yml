@@ -1,8 +1,11 @@
-- slug: decision-making
-  label: Decision making
+- slug: product-decisions
+  label: Product decisions
 
-- slug: execution
-  label: Execution
+- slug: ai-and-automation
+  label: AI and automation
 
-- slug: team-dynamics
-  label: Team dynamics
+- slug: software-systems
+  label: Software systems
+
+- slug: teams-and-collaboration
+  label: Teams and collaboration

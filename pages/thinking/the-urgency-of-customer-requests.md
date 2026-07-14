@@ -6,8 +6,7 @@ last_modified_at: 2026-07-14
 permalink: /thinking/the-urgency-of-customer-requests/
 summary: Not everything that feels urgent is a real priority. In product work, reacting before urgency is understood can lead teams to the wrong decisions.
 topics:
-  - decision-making
-  - execution
+  - product-decisions
 intro:
   - Urgency is often a signal of pressure, not priority.
   - In product work, urgency is often created before it is fully understood.

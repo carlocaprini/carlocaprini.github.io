@@ -58,12 +58,12 @@ layout: default
             <div class="section-eyebrow">Browse by theme</div>
             <h2 class="thinking-topic-title" id="thinking-topic-title">Follow a recurring question.</h2>
           </div>
-          <button class="thinking-topic-reset is-active" type="button" data-thinking-topic="all" aria-pressed="true">
-            All notes
-            <span class="thinking-topic-count">{{ sorted_notes.size }}</span>
-          </button>
         </div>
-        <div class="thinking-topic-board">
+        <div class="topic-filter-board">
+          <button class="topic-filter is-active" type="button" data-thinking-topic="all" aria-pressed="true">
+            <span>All notes</span>
+            <span class="topic-filter-count">{{ sorted_notes.size }}</span>
+          </button>
           {% for topic in site.data.topics %}
             {% assign topic_count = 0 %}
             {% for note in sorted_notes %}
@@ -71,10 +71,10 @@ layout: default
                 {% assign topic_count = topic_count | plus: 1 %}
               {% endif %}
             {% endfor %}
-            <button class="thinking-topic-filter thinking-topic-filter--{{ topic.slug }}" id="{{ topic.slug }}" type="button" data-thinking-topic="{{ topic.slug }}" aria-pressed="false">
-              <span class="thinking-topic-marker" aria-hidden="true"></span>
+            <button class="topic-filter topic-filter--{{ topic.slug }}" id="{{ topic.slug }}" type="button" data-thinking-topic="{{ topic.slug }}" aria-pressed="false">
+              <span class="topic-filter-marker" aria-hidden="true"></span>
               <span>{{ topic.label }}</span>
-              <span class="thinking-topic-count">{{ topic_count }}</span>
+              <span class="topic-filter-count">{{ topic_count }}</span>
             </button>
           {% endfor %}
         </div>

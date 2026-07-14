@@ -273,6 +273,17 @@ Keep:
 
 Topic accents should map to the canonical accent colors. If more topics are added, reuse accents cyclically or introduce a documented semantic mapping.
 
+The canonical public topic taxonomy is shared by Thinking notes and Influences:
+
+- Product decisions: indigo
+- AI and automation: cyan
+- Software systems: sky
+- Teams and collaboration: emerald
+
+Use no more than two topics per item. The first topic is the primary theme and determines the accent used by Influence cards.
+
+Thinking and Influences must use the same shared topic-filter component: identical pills, markers, counts, active states, spacing, and topic colors. Section-specific filter variants should not be introduced.
+
 ### Article Layout
 
 Article pages should stay calmer than index pages.

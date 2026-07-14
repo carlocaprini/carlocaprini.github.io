@@ -5,8 +5,7 @@ date: 2026-02-20
 permalink: /thinking/waiting-as-product-decision/
 summary: Product teams are often rewarded for shipping new things. But building something is not always progress. Sometimes the smartest decision is simply to wait.
 topics:
-  - decision-making
-  - execution
+  - product-decisions
 intro:
   - Product teams are often rewarded for building and shipping new things.But building something is not always progress.
 

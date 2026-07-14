@@ -16,15 +16,16 @@ To stop: `Ctrl+C`.
 
 ## Topics (Thinking notes & Influences)
 
-Notes and external references are tagged with a `topics` array in front matter, using **only** the three canonical slugs below. **Shared topics** drive automatic **related readings** on note pages (and related notes between notes). The **Influences** index does **not** infer a note from topics: each reference may set an optional `related_note:` to one internal URL. Use lowercase, hyphenated topic labels consistently.
+Notes and external references are tagged with a `topics` array in front matter, using **only** the four canonical slugs below. **Shared topics** drive automatic **related readings** on note pages (and related notes between notes). The **Influences** index does **not** infer a note from topics: each reference may set an optional `related_note:` to one internal URL. Use lowercase, hyphenated topic labels consistently.
 
 ### Canonical topics (notes and references)
 
-Thinking notes and Influences references use **only** these topic slugs (lowercase, hyphenated). Use **one** topic per reference (a single-item `topics` array).
+Thinking notes and Influences references use **only** these topic slugs (lowercase, hyphenated). Use no more than two topics per item and list the most characteristic topic first.
 
-- `decision-making`
-- `execution`
-- `team-dynamics`
+- `product-decisions`
+- `ai-and-automation`
+- `software-systems`
+- `teams-and-collaboration`
 
 ### Behaviour (quick reference)
 

@@ -5,8 +5,8 @@ date: 2026-05-08
 permalink: /thinking/ai-accelerates-contribution-not-mastery/
 summary: AI makes it possible to contribute much earlier in a new environment. But contributing faster is not the same as deeply understanding the system.
 topics:
-  - execution
-  - team-dynamics
+  - ai-and-automation
+  - teams-and-collaboration
 intro:
   - Traditionally, becoming productive in a new environment required time.
   - AI changes the cost of accessing context and makes earlier contribution possible.

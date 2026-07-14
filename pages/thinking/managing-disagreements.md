@@ -5,8 +5,8 @@ date: 2025-01-12
 permalink: /thinking/managing-disagreements/
 summary: Much of product work is about helping smart people who see the problem differently find a way forward.
 topics:
-  - team-dynamics
-  - decision-making
+  - teams-and-collaboration
+  - product-decisions
 intro:
   - People often describe product management as deciding what to build. In reality, the job often looks very different. Much of the time it's about helping smart people who see the problem differently find a way forward.
   - Disagreements are not an exception in product work. They are the norm.

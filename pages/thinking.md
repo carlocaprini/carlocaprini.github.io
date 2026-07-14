@@ -3,12 +3,12 @@ layout: thinking
 title: Thinking
 permalink: /thinking/
 meta_title: Notes on Product Decisions and Software Teams | Carlo Caprini
-meta_description: Connected notes by Carlo Caprini on decision making, execution, team dynamics, AI, product work, and complex software systems.
+meta_description: Connected notes by Carlo Caprini on product decisions, AI and automation, software systems, teams, and collaboration.
 last_modified_at: 2026-07-14
 hero:
   label: Thinking
   title_prefix: "Notes on "
-  title_highlight: "decisions, execution and team dynamics"
+  title_highlight: "product decisions, AI, software systems and teams"
   paragraphs:
     - Short reflections from product and engineering work in complex software systems.
     - Each note stands on its own, but together they trace recurring questions about how teams choose, build and learn over time.

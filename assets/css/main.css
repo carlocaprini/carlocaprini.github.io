@@ -1088,19 +1088,25 @@ main {
     transform 0.18s ease;
 }
 
-.influence-item--decision-making {
+.influence-item--product-decisions {
   --influence-accent: #818cf8;
   --influence-accent-soft: rgba(129, 140, 248, 0.11);
   --influence-accent-border: rgba(129, 140, 248, 0.3);
 }
 
-.influence-item--execution {
+.influence-item--ai-and-automation {
   --influence-accent: #22d3ee;
   --influence-accent-soft: rgba(34, 211, 238, 0.1);
   --influence-accent-border: rgba(34, 211, 238, 0.28);
 }
 
-.influence-item--team-dynamics {
+.influence-item--software-systems {
+  --influence-accent: #38bdf8;
+  --influence-accent-soft: rgba(56, 189, 248, 0.1);
+  --influence-accent-border: rgba(56, 189, 248, 0.28);
+}
+
+.influence-item--teams-and-collaboration {
   --influence-accent: #34d399;
   --influence-accent-soft: rgba(52, 211, 153, 0.1);
   --influence-accent-border: rgba(52, 211, 153, 0.28);
@@ -1258,52 +1264,80 @@ main {
   border-bottom-color: #818cf8;
 }
 
-.influence-topic-board {
+.topic-filter-board {
   display: flex;
   flex-wrap: wrap;
   gap: 0.65rem;
+}
+
+.influences-topic-board {
   margin: 0 0 1.25rem;
 }
 
-.influence-topic-filter {
+.topic-filter {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.36rem 0.72rem;
-  border-radius: 999px;
+  min-height: 2.35rem;
+  padding: 0.4rem 0.72rem;
   border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 999px;
   color: #9ca3af;
-  background: rgba(15, 23, 42, 0.78);
+  background: rgba(15, 23, 42, 0.72);
   font: inherit;
   font-size: 0.78rem;
-  text-transform: capitalize;
   cursor: pointer;
-  transition:
-    border-color 0.16s ease,
-    color 0.16s ease,
-    background 0.16s ease;
+  scroll-margin-top: 6rem;
+  transition: color 0.16s ease, border-color 0.16s ease, background 0.16s ease;
 }
 
-.influence-topic-filter:hover,
-.influence-topic-filter.is-active {
+.topic-filter:hover,
+.topic-filter.is-active {
   color: #f9fafb;
   border-color: rgba(148, 163, 184, 0.34);
   background: rgba(30, 41, 59, 0.9);
 }
 
-.influence-topic-filter--decision-making.is-active {
-  border-color: rgba(129, 140, 248, 0.44);
+.topic-filter--product-decisions.is-active {
+  border-color: rgba(129, 140, 248, 0.46);
 }
 
-.influence-topic-filter--execution.is-active {
-  border-color: rgba(34, 211, 238, 0.42);
+.topic-filter--ai-and-automation.is-active {
+  border-color: rgba(34, 211, 238, 0.44);
 }
 
-.influence-topic-filter--team-dynamics.is-active {
-  border-color: rgba(52, 211, 153, 0.42);
+.topic-filter--software-systems.is-active {
+  border-color: rgba(56, 189, 248, 0.44);
 }
 
-.influence-topic-count {
+.topic-filter--teams-and-collaboration.is-active {
+  border-color: rgba(52, 211, 153, 0.44);
+}
+
+.topic-filter-marker {
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: 999px;
+  background: #818cf8;
+  box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.1);
+}
+
+.topic-filter--ai-and-automation .topic-filter-marker {
+  background: #22d3ee;
+  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.1);
+}
+
+.topic-filter--software-systems .topic-filter-marker {
+  background: #38bdf8;
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
+}
+
+.topic-filter--teams-and-collaboration .topic-filter-marker {
+  background: #34d399;
+  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.1);
+}
+
+.topic-filter-count {
   display: inline-grid;
   place-items: center;
   min-width: 1.25rem;
@@ -1379,7 +1413,6 @@ main {
   border-bottom: 1px solid rgba(148, 163, 184, 0.15);
 }
 
-.thinking-topic-heading,
 .thinking-list-heading {
   display: flex;
   align-items: flex-end;
@@ -1396,87 +1429,6 @@ main {
   color: #f9fafb;
   font-size: 1rem;
   font-weight: 500;
-}
-
-.thinking-topic-board {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-}
-
-.thinking-topic-filter,
-.thinking-topic-reset {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-height: 2.35rem;
-  padding: 0.4rem 0.72rem;
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  border-radius: 999px;
-  color: #9ca3af;
-  background: rgba(15, 23, 42, 0.72);
-  font: inherit;
-  font-size: 0.78rem;
-  cursor: pointer;
-  transition: color 0.16s ease, border-color 0.16s ease, background 0.16s ease;
-}
-
-.thinking-topic-filter {
-  scroll-margin-top: 6rem;
-}
-
-.thinking-topic-reset {
-  flex: 0 0 auto;
-}
-
-.thinking-topic-filter:hover,
-.thinking-topic-filter.is-active,
-.thinking-topic-reset:hover,
-.thinking-topic-reset.is-active {
-  color: #f9fafb;
-  border-color: rgba(148, 163, 184, 0.34);
-  background: rgba(30, 41, 59, 0.9);
-}
-
-.thinking-topic-filter--decision-making.is-active {
-  border-color: rgba(129, 140, 248, 0.46);
-}
-
-.thinking-topic-filter--execution.is-active {
-  border-color: rgba(34, 211, 238, 0.44);
-}
-
-.thinking-topic-filter--team-dynamics.is-active {
-  border-color: rgba(52, 211, 153, 0.44);
-}
-
-.thinking-topic-marker {
-  width: 0.48rem;
-  height: 0.48rem;
-  border-radius: 999px;
-  background: #818cf8;
-  box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.1);
-}
-
-.thinking-topic-filter--execution .thinking-topic-marker {
-  background: #22d3ee;
-  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.1);
-}
-
-.thinking-topic-filter--team-dynamics .thinking-topic-marker {
-  background: #34d399;
-  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.1);
-}
-
-.thinking-topic-count {
-  display: inline-grid;
-  place-items: center;
-  min-width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 999px;
-  color: #cbd5e1;
-  background: rgba(148, 163, 184, 0.12);
-  font-size: 0.7rem;
 }
 
 .thinking-list-heading {
@@ -1563,18 +1515,23 @@ main {
   line-height: 1.35;
 }
 
-.thinking-note-topic--decision-making,
-.article-topic-link--decision-making {
+.thinking-note-topic--product-decisions,
+.article-topic-link--product-decisions {
   border-color: rgba(129, 140, 248, 0.25);
 }
 
-.thinking-note-topic--execution,
-.article-topic-link--execution {
+.thinking-note-topic--ai-and-automation,
+.article-topic-link--ai-and-automation {
   border-color: rgba(34, 211, 238, 0.24);
 }
 
-.thinking-note-topic--team-dynamics,
-.article-topic-link--team-dynamics {
+.thinking-note-topic--software-systems,
+.article-topic-link--software-systems {
+  border-color: rgba(56, 189, 248, 0.24);
+}
+
+.thinking-note-topic--teams-and-collaboration,
+.article-topic-link--teams-and-collaboration {
   border-color: rgba(52, 211, 153, 0.24);
 }
 
@@ -2242,15 +2199,6 @@ main {
   .selected-notes-panel::before,
   .selected-notes-panel::after {
     opacity: 0.38;
-  }
-
-  .thinking-topic-heading {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .thinking-topic-reset {
-    order: 2;
   }
 
   .home-help-item {

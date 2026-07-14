@@ -3,7 +3,6 @@ layout: default
 # Influences index: lists site.influences sorted by editorial weight (highest first).
 ---
 {% assign weight_order = "5,4,3,2,1,0" | split: "," %}
-{% assign topic_order = "decision-making,execution,team-dynamics" | split: "," %}
 <div class="page">
   <section class="hero hero--compact">
     <div class="container hero-grid hero-grid--single">
@@ -33,18 +32,22 @@ layout: default
         </div>
       </div>
 
-      <div class="influence-topic-board" aria-label="Influence topics">
-        <button class="influence-topic-filter is-active" type="button" data-topic-filter="all">All</button>
-        {% for topic in topic_order %}
+      <div class="topic-filter-board influences-topic-board" aria-label="Influence topics">
+        <button class="topic-filter is-active" type="button" data-topic-filter="all" aria-pressed="true">
+          <span>All readings</span>
+          <span class="topic-filter-count">{{ site.influences.size }}</span>
+        </button>
+        {% for topic in site.data.topics %}
           {% assign topic_count = 0 %}
           {% for ref in site.influences %}
-            {% if ref.topics contains topic %}
+            {% if ref.topics contains topic.slug %}
               {% assign topic_count = topic_count | plus: 1 %}
             {% endif %}
           {% endfor %}
-          <button class="influence-topic-filter influence-topic-filter--{{ topic }}" type="button" data-topic-filter="{{ topic }}">
-            <span>{{ topic | replace: "-", " " }}</span>
-            <span class="influence-topic-count">{{ topic_count }}</span>
+          <button class="topic-filter topic-filter--{{ topic.slug }}" type="button" data-topic-filter="{{ topic.slug }}" aria-pressed="false">
+            <span class="topic-filter-marker" aria-hidden="true"></span>
+            <span>{{ topic.label }}</span>
+            <span class="topic-filter-count">{{ topic_count }}</span>
           </button>
         {% endfor %}
       </div>
@@ -64,7 +67,8 @@ layout: default
                 <span class="influence-author">{{ ref.author }}</span>
               {% endif %}
               {% for topic in ref.topics %}
-                <span class="influence-topic-pill">{{ topic | replace: "-", " " }}</span>
+                {% assign topic_data = site.data.topics | where: "slug", topic | first %}
+                <span class="influence-topic-pill">{{ topic_data.label | default: topic }}</span>
               {% endfor %}
             </div>
             <h3 class="influence-card-title">
@@ -96,14 +100,16 @@ layout: default
 <script>
   (function () {
     var board = document.querySelector(".influence-board");
-    var filters = Array.prototype.slice.call(document.querySelectorAll(".influence-topic-filter"));
+    var filters = Array.prototype.slice.call(document.querySelectorAll("[data-topic-filter]"));
     if (!board || filters.length === 0) return;
 
     var items = Array.prototype.slice.call(board.querySelectorAll(".influence-item"));
 
     function setFilter(topic) {
       filters.forEach(function (button) {
-        button.classList.toggle("is-active", button.dataset.topicFilter === topic);
+        var isActive = button.dataset.topicFilter === topic;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", isActive ? "true" : "false");
       });
 
       items.forEach(function (item) {
