@@ -284,6 +284,25 @@ Use no more than two topics per item. The first topic is the primary theme and d
 
 Thinking and Influences must use the same shared topic-filter component: identical pills, markers, counts, active states, spacing, and topic colors. Section-specific filter variants should not be introduced.
 
+### Topic Hubs
+
+Topic hubs are the knowledge-base layer connecting Thinking and Influences.
+
+Keep:
+
+- compact single-column hero
+- shared topic navigation immediately after the hero
+- editorial note list before external readings
+- standard Influence cards for readings
+- canonical topic colors and labels
+
+Avoid:
+
+- dashboard metrics
+- graph-like decoration without navigational value
+- chronological emphasis
+- search controls until the content volume justifies them
+
 ### Article Layout
 
 Article pages should stay calmer than index pages.

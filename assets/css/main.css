@@ -890,9 +890,30 @@ main {
 }
 
 .article-signature {
+  position: relative;
+  overflow: hidden;
   margin-top: 2.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(148, 163, 184, 0.2);
+  padding: 1.25rem 1.3rem 1.3rem;
+  border: 1px solid rgba(129, 140, 248, 0.2);
+  border-radius: 1rem;
+  background:
+    radial-gradient(circle at top right, rgba(34, 211, 238, 0.08), transparent 38%),
+    rgba(15, 23, 42, 0.66);
+}
+
+.article-signature-identity {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.article-signature-marker {
+  flex: 0 0 auto;
+  width: 0.68rem;
+  height: 0.68rem;
+  border-radius: 999px;
+  background: #22d3ee;
+  box-shadow: 0 0 0 6px rgba(34, 211, 238, 0.1);
 }
 
 .article-signature-name {
@@ -905,22 +926,25 @@ main {
 .article-signature-role {
   font-size: 0.9rem;
   color: #9ca3af;
-  margin: 0 0 0.5rem;
-}
-
-.article-signature-cta {
-  font-size: 0.9rem;
-  color: #9ca3af;
   margin: 0;
 }
 
-.article-signature-cta a {
-  color: #6366f1;
-  text-decoration: none;
+.article-signature-note {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #9ca3af;
+  margin: 1rem 0 0;
 }
 
-.article-signature-cta a:hover {
-  text-decoration: underline;
+.article-signature-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem 1.2rem;
+  margin-top: 0.9rem;
+}
+
+.article-signature-link {
+  margin: 0;
 }
 
 .article-sidebar-stack {
@@ -1286,6 +1310,7 @@ main {
   background: rgba(15, 23, 42, 0.72);
   font: inherit;
   font-size: 0.78rem;
+  text-decoration: none;
   cursor: pointer;
   scroll-margin-top: 6rem;
   transition: color 0.16s ease, border-color 0.16s ease, background 0.16s ease;
@@ -1365,7 +1390,13 @@ main {
   color: #cbd5e1;
   background: var(--influence-accent-soft);
   font-size: 0.72rem;
-  text-transform: capitalize;
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.influence-topic-pill:hover {
+  color: #f9fafb;
+  border-color: var(--influence-accent);
 }
 
 .influence-card-title {
@@ -1513,6 +1544,13 @@ main {
   background: rgba(15, 23, 42, 0.72);
   font-size: 0.7rem;
   line-height: 1.35;
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.thinking-note-topic:hover {
+  color: #f9fafb;
+  border-color: rgba(148, 163, 184, 0.42);
 }
 
 .thinking-note-topic--product-decisions,
@@ -1541,12 +1579,46 @@ main {
 
 .article-topic-link {
   text-decoration: none;
-  transition: color 0.15s ease, border-color 0.15s ease;
 }
 
 .article-topic-link:hover {
   color: #f9fafb;
   border-color: rgba(148, 163, 184, 0.42);
+}
+
+.topic-hub-wrap {
+  max-width: 960px;
+}
+
+.topic-hub-switcher {
+  margin-bottom: 3rem;
+  padding-bottom: 2.2rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.topic-hub-section-header {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 2.5rem;
+  align-items: start;
+  margin-bottom: 1.6rem;
+}
+
+.topic-hub-section-header .section-description {
+  margin: 0;
+  max-width: 34rem;
+}
+
+.topic-hub-note-list-wrap {
+  margin: 0 auto;
+}
+
+.topic-hub-readings-section {
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.topic-hub-influences {
+  margin-top: 0.25rem;
 }
 
 .selected-notes-list {
@@ -2065,6 +2137,7 @@ main {
   .section-grid,
   .section-grid-balanced,
   .experience-section-header,
+  .topic-hub-section-header,
   .contact-grid {
     grid-template-columns: minmax(0, 1fr);
   }

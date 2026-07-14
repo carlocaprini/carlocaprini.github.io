@@ -32,6 +32,7 @@ Thinking notes and Influences references use **only** these topic slugs (lowerca
 - **Thinking → Thinking:** article layout picks up to two **related notes** by shared topics (overlap count, then date).
 - **Thinking → references:** up to two **related readings** from `_influences`, ranked by shared-topic overlap first and `weight:` second. Each influence must define `external_url:` in front matter for the outbound link target.
 - **Influences → Thinking:** optional `related_note:` on each file in `_influences/` (note `permalink` / URL path, e.g. `/thinking/my-slug/`). If set and the page exists, the reference shows **Related note:** with a link; omit the field if there is no link.
+- **Topic hubs:** `/topics/<slug>/` combines every public Thinking note and Influence carrying that canonical topic. Topic labels on notes, articles, and Influence cards link to the corresponding hub.
 
 To surface a reference on a note page, reuse topics on both sides. To choose which note appears under a reference on `/influences/`, set `related_note:` manually. Order influences with `weight:` instead of `date:`. Higher weights appear first on `/influences/`, and break ties in related reading after topic overlap. Adding a new topic slug requires updating this list and every place that assumes the taxonomy.
 

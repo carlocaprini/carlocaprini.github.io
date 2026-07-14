@@ -109,7 +109,7 @@ layout: default
         <div class="article-topic-list" aria-label="Themes">
           {% for article_topic in page.topics %}
             {% assign topic_data = site.data.topics | where: "slug", article_topic | first %}
-            <a class="article-topic-link article-topic-link--{{ article_topic }}" href="{{ '/thinking/' | relative_url }}#{{ article_topic }}">{{ topic_data.label | default: article_topic }}</a>
+            <a class="article-topic-link article-topic-link--{{ article_topic }}" href="{{ '/topics/' | append: article_topic | append: '/' | relative_url }}">{{ topic_data.label | default: article_topic }}</a>
           {% endfor %}
         </div>
         {% endif %}
@@ -132,11 +132,18 @@ layout: default
           {{ content }}
         </div>
         <div class="article-signature">
-          <p class="article-signature-name">{{ site.data.person.name | default: site.title }}</p>
-          <p class="article-signature-role">{{ site.data.person.article_signature_role }}</p>
-          <p class="article-signature-cta">
-            Explore the <a href="{{ '/experience/' | relative_url }}">experience behind these notes</a>, or <a href="{{ site.data.person.linkedin }}" rel="noopener noreferrer" target="_blank">continue the conversation on LinkedIn</a>.
-          </p>
+          <div class="article-signature-identity">
+            <span class="article-signature-marker" aria-hidden="true"></span>
+            <div>
+              <p class="article-signature-name">{{ site.data.person.name | default: site.title }}</p>
+              <p class="article-signature-role">{{ site.data.person.article_signature_role }}</p>
+            </div>
+          </div>
+          <p class="article-signature-note">These notes connect observations from product and engineering work with the consequences that appear over time.</p>
+          <div class="article-signature-actions">
+            <a class="section-link article-signature-link" href="{{ '/experience/' | relative_url }}">Experience behind the notes <span aria-hidden="true">→</span></a>
+            <a class="section-link article-signature-link" href="{{ site.data.person.linkedin }}" rel="noopener noreferrer" target="_blank">Continue on LinkedIn <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in new tab)</span></a>
+          </div>
         </div>
       </div>
       <div class="article-sidebar-stack">

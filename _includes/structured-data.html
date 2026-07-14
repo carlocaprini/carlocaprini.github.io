@@ -124,6 +124,30 @@
 </script>
 {% endif %}
 
+{% if page.layout == "topic" %}
+{% assign topic_data = site.data.topics | where: "slug", page.topic | first %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "{{ page_url }}#collection",
+  "url": "{{ page_url }}",
+  "name": {{ page.title | jsonify }},
+  "description": {{ page.meta_description | default: topic_data.description | jsonify }},
+  "inLanguage": "en",
+  "about": {
+    "@type": "Thing",
+    "name": {{ topic_data.label | jsonify }},
+    "description": {{ topic_data.description | jsonify }}
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "{{ website_id }}"
+  }
+}
+</script>
+{% endif %}
+
 {% if page.url == "/thinking/" and page.articles %}
 {% assign article_urls = page.articles | map: "url" %}
 {% assign sorted_notes = site.pages | where_exp: "item", "article_urls contains item.url" | sort: "date" | reverse %}
