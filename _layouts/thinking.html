@@ -29,6 +29,8 @@ layout: default
 
   <section class="section">
     <div class="container thinking-list-wrap">
+      {% assign article_urls = page.articles | map: "url" %}
+      {% assign sorted_notes = site.pages | where_exp: "item", "article_urls contains item.url" | sort: "date" | reverse %}
       {% if page.start_here and page.start_here.articles %}
       <div class="thinking-start-here selected-notes-panel selected-notes-panel--compact">
         <div class="section-header">
@@ -50,15 +52,51 @@ layout: default
         </ul>
       </div>
       {% endif %}
+      <nav class="thinking-topic-navigation" aria-labelledby="thinking-topic-title">
+        <div class="thinking-topic-heading">
+          <div>
+            <div class="section-eyebrow">Browse by theme</div>
+            <h2 class="thinking-topic-title" id="thinking-topic-title">Follow a recurring question.</h2>
+          </div>
+          <button class="thinking-topic-reset is-active" type="button" data-thinking-topic="all" aria-pressed="true">
+            All notes
+            <span class="thinking-topic-count">{{ sorted_notes.size }}</span>
+          </button>
+        </div>
+        <div class="thinking-topic-board">
+          {% for topic in site.data.topics %}
+            {% assign topic_count = 0 %}
+            {% for note in sorted_notes %}
+              {% if note.topics contains topic.slug %}
+                {% assign topic_count = topic_count | plus: 1 %}
+              {% endif %}
+            {% endfor %}
+            <button class="thinking-topic-filter thinking-topic-filter--{{ topic.slug }}" id="{{ topic.slug }}" type="button" data-thinking-topic="{{ topic.slug }}" aria-pressed="false">
+              <span class="thinking-topic-marker" aria-hidden="true"></span>
+              <span>{{ topic.label }}</span>
+              <span class="thinking-topic-count">{{ topic_count }}</span>
+            </button>
+          {% endfor %}
+        </div>
+      </nav>
       <div class="article-list-wrap">
-        <h2 class="article-list-title">All notes</h2>
-        <ul class="article-list">
-          {% assign article_urls = page.articles | map: "url" %}
-          {% assign sorted_notes = site.pages | where_exp: "item", "article_urls contains item.url" | sort: "date" | reverse %}
+        <div class="thinking-list-heading">
+          <h2 class="article-list-title" id="all-notes">All notes</h2>
+          <p class="thinking-filter-status" id="thinking-filter-status" aria-live="polite">Showing all {{ sorted_notes.size }} notes</p>
+        </div>
+        <ul class="article-list" id="thinking-note-list">
           {% for note in sorted_notes %}
-            <li>
+            <li data-thinking-note-topics="{{ note.topics | join: ' ' }}">
               <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
               <span class="article-list-summary">{{ note.summary }}</span>
+              {% if note.topics and note.topics.size > 0 %}
+              <span class="thinking-note-topics" aria-label="Themes">
+                {% for note_topic in note.topics %}
+                  {% assign topic_data = site.data.topics | where: "slug", note_topic | first %}
+                  <span class="thinking-note-topic thinking-note-topic--{{ note_topic }}">{{ topic_data.label | default: note_topic }}</span>
+                {% endfor %}
+              </span>
+              {% endif %}
             </li>
           {% endfor %}
         </ul>
@@ -66,3 +104,60 @@ layout: default
     </div>
   </section>
 </div>
+
+<script>
+  (function () {
+    var controls = document.querySelectorAll("[data-thinking-topic]");
+    var notes = document.querySelectorAll("[data-thinking-note-topics]");
+    var status = document.getElementById("thinking-filter-status");
+    var listTitle = document.getElementById("all-notes");
+    if (!controls.length || !notes.length || !status || !listTitle) return;
+
+    function labelFor(topic) {
+      if (topic === "all") return "all";
+      var control = document.querySelector('[data-thinking-topic="' + topic + '"]');
+      return control ? control.querySelector("span:nth-child(2)").textContent.trim() : topic;
+    }
+
+    function showTopic(topic, updateHash) {
+      var visibleCount = 0;
+
+      controls.forEach(function (control) {
+        var isActive = control.getAttribute("data-thinking-topic") === topic;
+        control.classList.toggle("is-active", isActive);
+        control.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+
+      notes.forEach(function (note) {
+        var topics = note.getAttribute("data-thinking-note-topics").split(" ");
+        var isVisible = topic === "all" || topics.indexOf(topic) !== -1;
+        note.hidden = !isVisible;
+        if (isVisible) visibleCount += 1;
+      });
+
+      listTitle.textContent = topic === "all" ? "All notes" : labelFor(topic);
+      status.textContent = topic === "all"
+        ? "Showing all " + visibleCount + " notes"
+        : "Showing " + visibleCount + " notes";
+
+      if (updateHash && window.history && window.history.replaceState) {
+        window.history.replaceState(null, "", topic === "all" ? "#all-notes" : "#" + topic);
+      }
+    }
+
+    controls.forEach(function (control) {
+      control.addEventListener("click", function () {
+        showTopic(control.getAttribute("data-thinking-topic"), true);
+      });
+    });
+
+    var requestedTopic = window.location.hash.replace("#", "");
+    var requestedControl = document.querySelector('[data-thinking-topic="' + requestedTopic + '"]');
+    showTopic(requestedControl ? requestedTopic : "all", false);
+    if (requestedControl) {
+      window.requestAnimationFrame(function () {
+        requestedControl.scrollIntoView({ block: "start" });
+      });
+    }
+  })();
+</script>

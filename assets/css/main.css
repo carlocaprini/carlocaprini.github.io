@@ -908,25 +908,6 @@ main {
   margin: 0 0 0.5rem;
 }
 
-.article-signature-links {
-  font-size: 0.9rem;
-  color: #9ca3af;
-  margin: 0;
-}
-
-.article-signature-links a {
-  color: #6366f1;
-  text-decoration: none;
-}
-
-.article-signature-links a:hover {
-  text-decoration: underline;
-}
-
-.article-signature-sep {
-  color: #9ca3af;
-}
-
 .article-signature-cta {
   font-size: 0.9rem;
   color: #9ca3af;
@@ -1391,6 +1372,127 @@ main {
   margin-bottom: 2.6rem;
 }
 
+.thinking-topic-navigation {
+  max-width: 720px;
+  margin: 0 auto 2.8rem;
+  padding-bottom: 2.4rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.thinking-topic-heading,
+.thinking-list-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.thinking-topic-heading {
+  margin-bottom: 1rem;
+}
+
+.thinking-topic-title {
+  margin: 0.45rem 0 0;
+  color: #f9fafb;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.thinking-topic-board {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.thinking-topic-filter,
+.thinking-topic-reset {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.35rem;
+  padding: 0.4rem 0.72rem;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 999px;
+  color: #9ca3af;
+  background: rgba(15, 23, 42, 0.72);
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: color 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+
+.thinking-topic-filter {
+  scroll-margin-top: 6rem;
+}
+
+.thinking-topic-reset {
+  flex: 0 0 auto;
+}
+
+.thinking-topic-filter:hover,
+.thinking-topic-filter.is-active,
+.thinking-topic-reset:hover,
+.thinking-topic-reset.is-active {
+  color: #f9fafb;
+  border-color: rgba(148, 163, 184, 0.34);
+  background: rgba(30, 41, 59, 0.9);
+}
+
+.thinking-topic-filter--decision-making.is-active {
+  border-color: rgba(129, 140, 248, 0.46);
+}
+
+.thinking-topic-filter--execution.is-active {
+  border-color: rgba(34, 211, 238, 0.44);
+}
+
+.thinking-topic-filter--team-dynamics.is-active {
+  border-color: rgba(52, 211, 153, 0.44);
+}
+
+.thinking-topic-marker {
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: 999px;
+  background: #818cf8;
+  box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.1);
+}
+
+.thinking-topic-filter--execution .thinking-topic-marker {
+  background: #22d3ee;
+  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.1);
+}
+
+.thinking-topic-filter--team-dynamics .thinking-topic-marker {
+  background: #34d399;
+  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.1);
+}
+
+.thinking-topic-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 999px;
+  color: #cbd5e1;
+  background: rgba(148, 163, 184, 0.12);
+  font-size: 0.7rem;
+}
+
+.thinking-list-heading {
+  margin-bottom: 0.2rem;
+}
+
+.thinking-list-heading .article-list-title {
+  margin-bottom: 0;
+}
+
+.thinking-filter-status {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.76rem;
+}
+
 .article-list-title {
   font-size: 0.9rem;
   font-weight: 500;
@@ -1415,6 +1517,10 @@ main {
   border-bottom: none;
 }
 
+.article-list li[hidden] {
+  display: none;
+}
+
 .article-list a {
   color: #f9fafb;
   text-decoration: none;
@@ -1432,6 +1538,58 @@ main {
   color: #9ca3af;
   margin-top: 0.35rem;
   line-height: 1.7;
+}
+
+.thinking-note-topics,
+.article-topic-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+}
+
+.thinking-note-topics {
+  margin-top: 0.7rem;
+}
+
+.thinking-note-topic,
+.article-topic-link {
+  display: inline-flex;
+  padding: 0.14rem 0.48rem;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 999px;
+  color: #94a3b8;
+  background: rgba(15, 23, 42, 0.72);
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
+.thinking-note-topic--decision-making,
+.article-topic-link--decision-making {
+  border-color: rgba(129, 140, 248, 0.25);
+}
+
+.thinking-note-topic--execution,
+.article-topic-link--execution {
+  border-color: rgba(34, 211, 238, 0.24);
+}
+
+.thinking-note-topic--team-dynamics,
+.article-topic-link--team-dynamics {
+  border-color: rgba(52, 211, 153, 0.24);
+}
+
+.article-topic-list {
+  margin: -0.25rem 0 1.1rem;
+}
+
+.article-topic-link {
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.article-topic-link:hover {
+  color: #f9fafb;
+  border-color: rgba(148, 163, 184, 0.42);
 }
 
 .selected-notes-list {
@@ -2084,6 +2242,15 @@ main {
   .selected-notes-panel::before,
   .selected-notes-panel::after {
     opacity: 0.38;
+  }
+
+  .thinking-topic-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .thinking-topic-reset {
+    order: 2;
   }
 
   .home-help-item {

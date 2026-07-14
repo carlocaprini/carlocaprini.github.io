@@ -105,6 +105,14 @@ layout: default
         {% if page.date %}
         <p class="hero-subtitle hero-date">{{ page.date | date: "%B %Y" }}</p>
         {% endif %}
+        {% if page.topics and page.topics.size > 0 %}
+        <div class="article-topic-list" aria-label="Themes">
+          {% for article_topic in page.topics %}
+            {% assign topic_data = site.data.topics | where: "slug", article_topic | first %}
+            <a class="article-topic-link article-topic-link--{{ article_topic }}" href="{{ '/thinking/' | relative_url }}#{{ article_topic }}">{{ topic_data.label | default: article_topic }}</a>
+          {% endfor %}
+        </div>
+        {% endif %}
         {% if page.intro %}
           {% for p in page.intro %}
             <p class="hero-subtitle hero-subtitle--wide">{{ p }}</p>
@@ -124,12 +132,10 @@ layout: default
           {{ content }}
         </div>
         <div class="article-signature">
-          <p class="article-signature-name">- {{ site.data.person.name | default: site.title }}</p>
+          <p class="article-signature-name">{{ site.data.person.name | default: site.title }}</p>
           <p class="article-signature-role">{{ site.data.person.article_signature_role }}</p>
-          <p class="article-signature-links">
-            <a href="{{ '/experience/' | relative_url }}">Experience</a>
-            <span class="article-signature-sep"> - </span>
-            <a href="{{ site.data.person.linkedin }}" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+          <p class="article-signature-cta">
+            Explore the <a href="{{ '/experience/' | relative_url }}">experience behind these notes</a>, or <a href="{{ site.data.person.linkedin }}" rel="noopener noreferrer" target="_blank">continue the conversation on LinkedIn</a>.
           </p>
         </div>
       </div>
