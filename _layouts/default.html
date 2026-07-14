@@ -28,7 +28,7 @@
             <a href="{{ '/' | relative_url }}#top" class="brand">{{ site.data.person.name | default: site.title }}</a>
             <span class="tagline">{{ site.data.person.role }}</span>
           </div>
-          <nav class="nav-right">
+          <nav class="nav-right" aria-label="Primary navigation">
             <a href="{{ '/' | relative_url }}" {% if is_home %}class="is-active" aria-current="page"{% endif %}>Home</a>
             <!-- <a href="{{ '/' | relative_url }}#about">About</a> -->
             <a href="{{ '/thinking/' | relative_url }}" {% if is_thinking %}class="is-active" aria-current="page"{% endif %}>Thinking</a>

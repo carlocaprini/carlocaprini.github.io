@@ -2,8 +2,9 @@
 layout: article
 title: The urgency of customer requests
 date: 2026-03-20
+last_modified_at: 2026-07-14
 permalink: /thinking/the-urgency-of-customer-requests/
-summary: Not everything that feels urgent actually is. In product work, urgency is often created before it is understood, and reacting too quickly can lead to the wrong decisions.
+summary: Not everything that feels urgent is a real priority. In product work, reacting before urgency is understood can lead teams to the wrong decisions.
 topics:
   - decision-making
   - execution
@@ -33,7 +34,7 @@ Do we need to change priorities right away?
 Focus is lost, and the discussion becomes driven by pressure instead of clarity.
 
 This often happens when information is shared too early, or when stakeholders bypass product and engineering leadership and go directly to teams.
-When urgency comes from higher up, it immediately influences the conversation becase few people are comfortable pushing back.
+When urgency comes from higher up, it immediately influences the conversation because few people are comfortable pushing back.
 
 ## When urgency is not real
 

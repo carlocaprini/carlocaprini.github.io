@@ -3,6 +3,24 @@
 {% assign page_url = page.url | absolute_url | replace: site.url, canonical_site_url %}
 {% assign person_name = site.data.person.name | default: site.title %}
 {% assign person_id = site_url | append: "/#person" %}
+{% assign website_id = site_url | append: "/#website" %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "{{ website_id }}",
+  "url": "{{ site_url }}/",
+  "name": {{ site.title | jsonify }},
+  "description": {{ site.description | jsonify }},
+  "inLanguage": "en",
+  "publisher": {
+    "@type": "Person",
+    "@id": "{{ person_id }}",
+    "name": {{ person_name | jsonify }}
+  }
+}
+</script>
 
 {% if page.url == "/" or page.url == "" %}
 <script type="application/ld+json">
@@ -28,9 +46,7 @@
       "name": {{ site.data.person.location | default: "Italy" | jsonify }}
     },
     "knowsAbout": {{ site.data.person.knows_about | jsonify }},
-    "sameAs": [
-      {{ site.data.person.linkedin | jsonify }}
-    ]
+    "sameAs": {{ site.data.person.same_as | default: empty | jsonify }}
   }
 }
 </script>
@@ -39,6 +55,7 @@
 {% if page.layout == "article" %}
 {% assign article_description = page.meta_description | default: page.summary | default: site.description %}
 {% assign article_keywords = page.topics | default: empty %}
+{% assign article_image_path = page.meta_image | default: "/assets/og-thinking.png" %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -47,8 +64,10 @@
   "headline": {{ page.title | jsonify }},
   "description": {{ article_description | strip_html | normalize_whitespace | jsonify }},
   "url": "{{ page_url }}",
-  "datePublished": "{{ page.date | date: "%Y-%m-%d" }}",
-  "dateModified": "{{ page.last_modified_at | default: page.date | date: "%Y-%m-%d" }}",
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+  "inLanguage": "en",
+  "image": "{{ article_image_path | absolute_url | replace: site.url, canonical_site_url }}",
   "author": {
     "@type": "Person",
     "@id": "{{ person_id }}",
@@ -63,6 +82,10 @@
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "{{ page_url }}"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "{{ website_id }}"
   },
   "keywords": {{ article_keywords | jsonify }}
 }

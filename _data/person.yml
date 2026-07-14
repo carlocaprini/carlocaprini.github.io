@@ -9,6 +9,9 @@ career_start_year: 2013
 description: "Product leader focused on platform strategy, APIs, developer ecosystems, AI-enabled product capabilities, distributed systems, and product decision making."
 article_signature_role: "Product Leadership & Strategy"
 linkedin: "https://www.linkedin.com/in/carlocaprini/"
+same_as:
+  - "https://www.linkedin.com/in/carlocaprini/"
+  - "https://github.com/carlocaprini"
 knows_about:
   - Platform strategy
   - API platforms

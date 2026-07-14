@@ -2,8 +2,9 @@
 layout: article
 title: Temporary solutions become permanent
 date: 2026-04-01
+last_modified_at: 2026-07-14
 permalink: /thinking/temporary-solutions-become-permanent/
-summary: Temporary solutions are often necessary, but once they are adopted they tend to become part of the product. What starts as a quick fix can quietly turn into a long-term constraint.
+summary: Temporary solutions are often necessary, but once adopted they become part of the product and can quietly turn into long-term constraints.
 topics:
   - decision-making
   - execution
@@ -79,7 +80,7 @@ In many cases, it is the right decision. But it should also be a conscious one.
 
 What looks like a quick fix is often a decision that will shape the product for a long time.
 
-Managing temporary solutions
+## Managing temporary solutions
 
 Temporary solutions are therefore not the problem.
 
