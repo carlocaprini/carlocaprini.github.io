@@ -1,17 +1,27 @@
 hero:
-  label: Product · Platforms · Decisions
-  title_prefix: "Product decisions in "
-  title_highlight: "complex software systems"
+  label: Product · Software · AI · Organisations
+  title_prefix: "Notes on "
+  title_highlight: "product decisions in complex software systems"
   subtitle_paragraphs:
-    - "I write about the moments where product work becomes difficult: unclear priorities, urgent requests, technical trade-offs, platform evolution and teams interpreting the same context in different ways."
-    - "I occasionally help software teams slow down complex decisions just enough to understand the real problem, the risks involved and the trade-offs they are accepting."
+    - "I write practical notes about the moments where product and engineering work become difficult: unclear priorities, technical trade-offs, platform evolution, AI adoption and teams interpreting the same context in different ways."
+    - "The site connects those ideas with the experience behind them and selected readings that have shaped how I think."
   actions:
     primary:
-      label: Read notes
-      url: /thinking/
+      label: Start with selected notes
+      url: /#selected-notes
     secondary:
-      label: Start a conversation
-      url: /#contact
+      label: Explore the site
+      url: /#explore
+  snapshot:
+    badge: Ideas on this site
+    items:
+      - title: Decisions
+        body: Trade-offs, priorities and what enters implementation.
+      - title: Platforms
+        body: APIs, developer ecosystems and long-term evolution.
+      - title: AI in practice
+        body: Adoption, ownership and the gap between output and judgment.
+    note: These themes connect notes, professional experience and external readings into one evolving body of work.
 
 about:
   eyebrow: About
@@ -43,38 +53,18 @@ selected_notes:
     url: /thinking/
 
 where_i_can_help:
-  eyebrow: Where I can help
-  title: The problems I tend to be useful around.
+  eyebrow: Recurring questions
+  title: The situations I keep coming back to.
   paragraphs:
-    - Most of my work sits where product direction, technical constraints and team dynamics meet.
-    - I occasionally help teams make sense of decisions that are hard to evaluate from only one perspective.
+    - My notes often start where product direction, technical constraints and team dynamics meet.
+    - These are some of the questions that connect what I write with the work and systems I have experienced.
   cards:
     - title: When several directions look reasonable
-      body: "A team needs to decide what to build, what to postpone, and which trade-offs are worth accepting across customers, delivery and long-term system consequences."
-      tags:
-        - Trade-offs
-        - Prioritization
-        - Risk
-        - Decision clarity
+      body: "How do teams decide what to build, what to postpone, and which trade-offs are worth accepting across customers, delivery and long-term system consequences?"
     - title: When an API becomes a product surface
-      body: APIs, integrations or developer-facing capabilities start shaping the product experience for customers, partners, internal teams or AI agents.
-      tags:
-        - API platforms
-        - Developer experience
-        - Integrations
-        - Platform coherence
+      body: What changes when APIs, integrations and developer-facing capabilities start shaping the product experience for customers, partners, internal teams or AI agents?
     - title: When AI moves faster than understanding
-      body: Prototypes, automation or agent workflows make something possible, but the team still needs to understand reliability, ownership, user value and product fit.
-      tags:
-        - AI adoption
-        - Agent workflows
-        - Ownership
-        - Product fit
-  boundary_note: "This is usually advisory work: understanding the context, clarifying the decision and shaping practical next steps. I do not replace internal teams or take over delivery."
-  cta:
-    text: If this sounds close to something your team is working through, let's talk.
-    label: Start a conversation
-    url: /#contact
+      body: What still needs to be understood when prototypes, automation or agent workflows make something possible before reliability, ownership and product fit are clear?
 
 explore:
   eyebrow: Explore
@@ -138,9 +128,9 @@ work:
 
 contact:
   eyebrow: Contact
-  title: Let's connect
+  title: Continue the conversation
   paragraphs:
-    - "If something here connects with a decision your team is working through, I am happy to connect."
+    - "If a note here connects with a product, platform or team question you are working through, I am always interested in comparing perspectives."
     - The easiest way to reach me is via LinkedIn.
     - Based in Italy, working with teams globally.
   channels:

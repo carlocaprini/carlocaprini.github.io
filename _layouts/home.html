@@ -60,11 +60,6 @@ layout: default
         {% for p in h.where_i_can_help.paragraphs %}
           <p class="body-text">{{ p }}</p>
         {% endfor %}
-        <div class="home-help-note">
-          <p>{{ h.where_i_can_help.boundary_note }}</p>
-          <span>{{ h.where_i_can_help.cta.text }}</span>
-          <a class="section-link" href="{{ h.where_i_can_help.cta.url | relative_url }}">{{ h.where_i_can_help.cta.label }}</a>
-        </div>
       </div>
       <div class="home-help-list">
         {% for c in h.where_i_can_help.cards %}
@@ -73,11 +68,6 @@ layout: default
             <div class="home-help-item-content">
               <h3>{{ c.title }}</h3>
               <p>{{ c.body }}</p>
-              <div class="card-tags">
-              {% for tag in c.tags %}
-                <span class="pill">{{ tag }}</span>
-              {% endfor %}
-              </div>
             </div>
           </article>
         {% endfor %}
