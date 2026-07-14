@@ -8,7 +8,7 @@
     {% endif %}
     {% for topic in ref.topics %}
       {% assign topic_data = site.data.topics | where: "slug", topic | first %}
-      <a class="influence-topic-pill" href="{{ '/topics/' | append: topic | append: '/' | relative_url }}">{{ topic_data.label | default: topic }}</a>
+      <a class="content-topic-link content-topic-link--{{ topic }}" href="{{ '/knowledge/' | relative_url }}#{{ topic }}">{{ topic_data.label | default: topic }}</a>
     {% endfor %}
   </div>
   <h3 class="influence-card-title">

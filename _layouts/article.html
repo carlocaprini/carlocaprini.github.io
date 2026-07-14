@@ -105,14 +105,6 @@ layout: default
         {% if page.date %}
         <p class="hero-subtitle hero-date">{{ page.date | date: "%B %Y" }}</p>
         {% endif %}
-        {% if page.topics and page.topics.size > 0 %}
-        <div class="article-topic-list" aria-label="Themes">
-          {% for article_topic in page.topics %}
-            {% assign topic_data = site.data.topics | where: "slug", article_topic | first %}
-            <a class="article-topic-link article-topic-link--{{ article_topic }}" href="{{ '/topics/' | append: article_topic | append: '/' | relative_url }}">{{ topic_data.label | default: article_topic }}</a>
-          {% endfor %}
-        </div>
-        {% endif %}
         {% if page.intro %}
           {% for p in page.intro %}
             <p class="hero-subtitle hero-subtitle--wide">{{ p }}</p>
@@ -139,10 +131,9 @@ layout: default
               <p class="article-signature-role">{{ site.data.person.article_signature_role }}</p>
             </div>
           </div>
-          <p class="article-signature-note">These notes connect observations from product and engineering work with the consequences that appear over time.</p>
           <div class="article-signature-actions">
-            <a class="section-link article-signature-link" href="{{ '/experience/' | relative_url }}">Experience behind the notes <span aria-hidden="true">→</span></a>
-            <a class="section-link article-signature-link" href="{{ site.data.person.linkedin }}" rel="noopener noreferrer" target="_blank">Continue on LinkedIn <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in new tab)</span></a>
+            <a class="section-link article-signature-link" href="{{ '/experience/' | relative_url }}">Experience <span aria-hidden="true">→</span></a>
+            <a class="section-link article-signature-link" href="{{ '/#contact' | relative_url }}">Contact <span aria-hidden="true">→</span></a>
           </div>
         </div>
       </div>
@@ -152,6 +143,18 @@ layout: default
           <p class="article-page-nav-note">{{ page.title }}</p>
           <ul class="article-page-nav-list" id="article-page-nav-list"></ul>
         </aside>
+        {% if page.topics and page.topics.size > 0 %}
+        <aside class="article-topic-explore" aria-label="Explore themes in the knowledge base">
+          <h3 class="article-related-title">Knowledge base</h3>
+          <p class="article-topic-explore-note">Explore the themes connected to this note.</p>
+          <div class="article-topic-list" aria-label="Themes">
+            {% for article_topic in page.topics %}
+              {% assign topic_data = site.data.topics | where: "slug", article_topic | first %}
+              <a class="content-topic-link content-topic-link--{{ article_topic }}" href="{{ '/knowledge/' | relative_url }}#{{ article_topic }}">{{ topic_data.label | default: article_topic }}</a>
+            {% endfor %}
+          </div>
+        </aside>
+        {% endif %}
         {% if related.size > 0 or related_reading.size > 0 %}
         {% if related.size > 0 %}
         <aside class="article-related" aria-label="Related notes">

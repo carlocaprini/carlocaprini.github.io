@@ -124,8 +124,7 @@
 </script>
 {% endif %}
 
-{% if page.layout == "topic" %}
-{% assign topic_data = site.data.topics | where: "slug", page.topic | first %}
+{% if page.layout == "knowledge" %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -133,13 +132,17 @@
   "@id": "{{ page_url }}#collection",
   "url": "{{ page_url }}",
   "name": {{ page.title | jsonify }},
-  "description": {{ page.meta_description | default: topic_data.description | jsonify }},
+  "description": {{ page.meta_description | jsonify }},
   "inLanguage": "en",
-  "about": {
-    "@type": "Thing",
-    "name": {{ topic_data.label | jsonify }},
-    "description": {{ topic_data.description | jsonify }}
-  },
+  "about": [
+    {% for topic in site.data.topics %}
+    {
+      "@type": "Thing",
+      "name": {{ topic.label | jsonify }},
+      "description": {{ topic.description | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
   "isPartOf": {
     "@type": "WebSite",
     "@id": "{{ website_id }}"

@@ -929,18 +929,11 @@ main {
   margin: 0;
 }
 
-.article-signature-note {
-  font-size: 0.9rem;
-  line-height: 1.7;
-  color: #9ca3af;
-  margin: 1rem 0 0;
-}
-
 .article-signature-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem 1.2rem;
-  margin-top: 0.9rem;
+  margin-top: 1rem;
 }
 
 .article-signature-link {
@@ -1382,23 +1375,6 @@ main {
   padding-right: 1.6rem;
 }
 
-.influence-topic-pill {
-  display: inline-flex;
-  padding: 0.13rem 0.48rem;
-  border-radius: 999px;
-  border: 1px solid var(--influence-accent-border);
-  color: #cbd5e1;
-  background: var(--influence-accent-soft);
-  font-size: 0.72rem;
-  text-decoration: none;
-  transition: color 0.15s ease, border-color 0.15s ease;
-}
-
-.influence-topic-pill:hover {
-  color: #f9fafb;
-  border-color: var(--influence-accent);
-}
-
 .influence-card-title {
   margin: 0 0 1rem;
   font-size: 1rem;
@@ -1523,102 +1499,202 @@ main {
   line-height: 1.7;
 }
 
-.thinking-note-topics,
+.content-topic-list,
 .article-topic-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.42rem;
+  gap: 0.35rem 0.5rem;
 }
 
-.thinking-note-topics {
-  margin-top: 0.7rem;
+.content-topic-list {
+  margin-top: 0.6rem;
 }
 
-.thinking-note-topic,
-.article-topic-link {
+.content-topic-link {
   display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
   padding: 0.14rem 0.48rem;
   border: 1px solid rgba(148, 163, 184, 0.18);
   border-radius: 999px;
   color: #94a3b8;
-  background: rgba(15, 23, 42, 0.72);
-  font-size: 0.7rem;
+  background: rgba(15, 23, 42, 0.48);
+  font-size: 0.66rem;
   line-height: 1.35;
   text-decoration: none;
   transition: color 0.15s ease, border-color 0.15s ease;
 }
 
-.thinking-note-topic:hover {
+.content-topic-link::before {
+  content: "";
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 999px;
+  background: #818cf8;
+}
+
+.content-topic-link:hover {
   color: #f9fafb;
   border-color: rgba(148, 163, 184, 0.42);
 }
 
-.thinking-note-topic--product-decisions,
-.article-topic-link--product-decisions {
+.content-topic-link--product-decisions {
   border-color: rgba(129, 140, 248, 0.25);
 }
 
-.thinking-note-topic--ai-and-automation,
-.article-topic-link--ai-and-automation {
+.content-topic-link--ai-and-automation {
   border-color: rgba(34, 211, 238, 0.24);
 }
 
-.thinking-note-topic--software-systems,
-.article-topic-link--software-systems {
+.content-topic-link--ai-and-automation::before {
+  background: #22d3ee;
+}
+
+.content-topic-link--software-systems {
   border-color: rgba(56, 189, 248, 0.24);
 }
 
-.thinking-note-topic--teams-and-collaboration,
-.article-topic-link--teams-and-collaboration {
+.content-topic-link--software-systems::before {
+  background: #38bdf8;
+}
+
+.content-topic-link--teams-and-collaboration {
   border-color: rgba(52, 211, 153, 0.24);
 }
 
+.content-topic-link--teams-and-collaboration::before {
+  background: #34d399;
+}
+
 .article-topic-list {
-  margin: -0.25rem 0 1.1rem;
+  margin-top: 0.42rem;
 }
 
-.article-topic-link {
-  text-decoration: none;
+.article-topic-explore {
+  padding: 0 0 0.2rem;
 }
 
-.article-topic-link:hover {
-  color: #f9fafb;
-  border-color: rgba(148, 163, 184, 0.42);
+.article-topic-explore-note {
+  margin: -0.2rem 0 0;
+  color: #94a3b8;
+  font-size: 0.84rem;
+  line-height: 1.6;
 }
 
-.topic-hub-wrap {
+.knowledge-wrap {
   max-width: 960px;
 }
 
-.topic-hub-switcher {
-  margin-bottom: 3rem;
-  padding-bottom: 2.2rem;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
-}
-
-.topic-hub-section-header {
+.knowledge-intro,
+.knowledge-topic-header {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
   gap: 2.5rem;
   align-items: start;
-  margin-bottom: 1.6rem;
 }
 
-.topic-hub-section-header .section-description {
+.knowledge-intro {
+  margin-bottom: 1.5rem;
+}
+
+.knowledge-intro .section-description {
   margin: 0;
   max-width: 34rem;
 }
 
-.topic-hub-note-list-wrap {
+.knowledge-topic-navigation {
+  margin-bottom: 2.6rem;
+  padding-bottom: 2.2rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.knowledge-topic-panel[hidden] {
+  display: none;
+}
+
+.knowledge-topic-header {
+  padding: 1.45rem 1.4rem;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 1rem;
+  background:
+    radial-gradient(circle at top right, rgba(129, 140, 248, 0.08), transparent 38%),
+    rgba(15, 23, 42, 0.58);
+}
+
+.knowledge-topic-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+}
+
+.knowledge-topic-marker {
+  flex: 0 0 auto;
+  width: 0.62rem;
+  height: 0.62rem;
+  margin-top: 0.35rem;
+  border-radius: 999px;
+  background: #818cf8;
+  box-shadow: 0 0 0 6px rgba(129, 140, 248, 0.1);
+}
+
+.knowledge-topic-marker--ai-and-automation {
+  background: #22d3ee;
+  box-shadow: 0 0 0 6px rgba(34, 211, 238, 0.1);
+}
+
+.knowledge-topic-marker--software-systems {
+  background: #38bdf8;
+  box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.1);
+}
+
+.knowledge-topic-marker--teams-and-collaboration {
+  background: #34d399;
+  box-shadow: 0 0 0 6px rgba(52, 211, 153, 0.1);
+}
+
+.knowledge-topic-title {
+  margin: 0.4rem 0 0;
+  color: #f9fafb;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.knowledge-topic-description {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+
+.knowledge-topic-counts {
+  margin: 0.65rem 0 0;
+  color: #64748b;
+  font-size: 0.76rem;
+}
+
+.knowledge-content-section {
+  margin-top: 2.8rem;
+}
+
+.knowledge-content-heading {
+  margin-bottom: 1rem;
+}
+
+.knowledge-content-heading .section-title {
+  margin-top: 0.45rem;
+}
+
+.knowledge-note-list-wrap {
   margin: 0 auto;
 }
 
-.topic-hub-readings-section {
+.knowledge-readings-section {
+  padding-top: 2.6rem;
   border-top: 1px solid rgba(148, 163, 184, 0.12);
 }
 
-.topic-hub-influences {
-  margin-top: 0.25rem;
+.knowledge-influences-list {
+  margin-top: 1.1rem;
 }
 
 .selected-notes-list {
@@ -2137,7 +2213,8 @@ main {
   .section-grid,
   .section-grid-balanced,
   .experience-section-header,
-  .topic-hub-section-header,
+  .knowledge-intro,
+  .knowledge-topic-header,
   .contact-grid {
     grid-template-columns: minmax(0, 1fr);
   }

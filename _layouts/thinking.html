@@ -21,6 +21,7 @@ layout: default
           <p class="hero-subtitle hero-subtitle--wide">{{ p }}</p>
         {% endfor %}
         <div class="hero-actions hero-actions--compact">
+          <a href="{{ '/knowledge/' | relative_url }}" class="button-primary">Knowledge base</a>
           <a href="{{ '/influences/' | relative_url }}" class="button-ghost">Influences</a>
         </div>
       </div>
@@ -90,10 +91,10 @@ layout: default
               <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
               <span class="article-list-summary">{{ note.summary }}</span>
               {% if note.topics and note.topics.size > 0 %}
-              <span class="thinking-note-topics" aria-label="Themes">
+              <span class="content-topic-list" aria-label="Themes">
                 {% for note_topic in note.topics %}
                   {% assign topic_data = site.data.topics | where: "slug", note_topic | first %}
-                  <a class="thinking-note-topic thinking-note-topic--{{ note_topic }}" href="{{ '/topics/' | append: note_topic | append: '/' | relative_url }}">{{ topic_data.label | default: note_topic }}</a>
+                  <a class="content-topic-link content-topic-link--{{ note_topic }}" href="{{ '/knowledge/' | relative_url }}#{{ note_topic }}">{{ topic_data.label | default: note_topic }}</a>
                 {% endfor %}
               </span>
               {% endif %}

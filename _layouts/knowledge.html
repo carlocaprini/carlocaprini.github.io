@@ -1,0 +1,153 @@
+---
+layout: default
+# Knowledge base index. Expects hero and uses the canonical topics data file.
+---
+<div class="page">
+  <section class="hero hero--compact">
+    <div class="container hero-grid hero-grid--single">
+      <div>
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          <span>{{ page.hero.label }}</span>
+        </div>
+        <h1 class="hero-title hero-title--compact">
+          {{ page.hero.title_prefix }}<span class="highlight">{{ page.hero.title_highlight }}</span>
+        </h1>
+        {% for paragraph in page.hero.paragraphs %}
+          <p class="hero-subtitle hero-subtitle--wide">{{ paragraph }}</p>
+        {% endfor %}
+        <div class="hero-actions hero-actions--compact">
+          <a href="{{ '/thinking/' | relative_url }}" class="button-ghost">Thinking</a>
+          <a href="{{ '/influences/' | relative_url }}" class="button-ghost">Influences</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section knowledge-section">
+    <div class="container knowledge-wrap">
+      <div class="knowledge-intro">
+        <div>
+          <div class="section-eyebrow">Explore by theme</div>
+          <h2 class="section-title">One knowledge base, four connected views.</h2>
+        </div>
+        <p class="section-description">The introduction above stays constant. Selecting a theme changes only the context and material below.</p>
+      </div>
+
+      <nav class="topic-filter-board knowledge-topic-navigation" aria-label="Knowledge base topics">
+        {% for topic in site.data.topics %}
+          <button class="topic-filter topic-filter--{{ topic.slug }}{% if forloop.first %} is-active{% endif %}" id="knowledge-filter-{{ topic.slug }}" type="button" data-knowledge-topic="{{ topic.slug }}" aria-controls="knowledge-panel-{{ topic.slug }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">
+            <span class="topic-filter-marker" aria-hidden="true"></span>
+            <span>{{ topic.label }}</span>
+          </button>
+        {% endfor %}
+      </nav>
+
+      <div class="knowledge-topic-panels">
+        {% for topic in site.data.topics %}
+          {% assign all_notes = site.pages | where: "layout", "article" %}
+          {% assign topic_notes = all_notes | where_exp: "note", "note.topics contains topic.slug" | sort: "date" | reverse %}
+          {% assign topic_influences = site.influences | where_exp: "ref", "ref.topics contains topic.slug" %}
+          <section class="knowledge-topic-panel" id="knowledge-panel-{{ topic.slug }}" data-knowledge-topic-panel="{{ topic.slug }}" aria-labelledby="knowledge-filter-{{ topic.slug }}"{% unless forloop.first %} hidden{% endunless %}>
+            <header class="knowledge-topic-header">
+              <div class="knowledge-topic-heading">
+                <span class="knowledge-topic-marker knowledge-topic-marker--{{ topic.slug }}" aria-hidden="true"></span>
+                <div>
+                  <div class="section-eyebrow">Selected theme</div>
+                  <h2 class="knowledge-topic-title">{{ topic.label }}</h2>
+                </div>
+              </div>
+              <div>
+                <p class="knowledge-topic-description">{{ topic.description }}</p>
+                <p class="knowledge-topic-counts">{{ topic_notes.size }} {% if topic_notes.size == 1 %}note{% else %}notes{% endif %} <span aria-hidden="true">·</span> {{ topic_influences.size }} {% if topic_influences.size == 1 %}reading{% else %}readings{% endif %}</p>
+              </div>
+            </header>
+
+            <div class="knowledge-content-section">
+              <div class="knowledge-content-heading">
+                <div class="section-eyebrow">Thinking</div>
+                <h3 class="section-title">Notes in this theme</h3>
+              </div>
+              <div class="article-list-wrap knowledge-note-list-wrap">
+                <ul class="article-list knowledge-note-list">
+                  {% for note in topic_notes %}
+                    <li>
+                      <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+                      <span class="article-list-summary">{{ note.summary }}</span>
+                      <span class="content-topic-list" aria-label="Themes">
+                        {% for note_topic in note.topics %}
+                          {% assign note_topic_data = site.data.topics | where: "slug", note_topic | first %}
+                          <a class="content-topic-link content-topic-link--{{ note_topic }}" href="{{ '/knowledge/' | relative_url }}#{{ note_topic }}">{{ note_topic_data.label | default: note_topic }}</a>
+                        {% endfor %}
+                      </span>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+
+            <div class="knowledge-content-section knowledge-readings-section">
+              <div class="knowledge-content-heading">
+                <div class="section-eyebrow">Influences</div>
+                <h3 class="section-title">Reading around the theme</h3>
+              </div>
+              <ul class="influences-list knowledge-influences-list">
+                {% assign weight_order = "5,4,3,2,1,0" | split: "," %}
+                {% for weight_str in weight_order %}
+                  {% assign target_weight = weight_str | plus: 0 %}
+                  {% assign refs_by_title = topic_influences | sort: "title" %}
+                  {% for ref in refs_by_title %}
+                    {% assign ref_weight = ref.weight | default: 0 | plus: 0 %}
+                    {% if ref_weight == target_weight and ref.external_url %}
+                      {% include influence-card.html ref=ref %}
+                    {% endif %}
+                  {% endfor %}
+                {% endfor %}
+              </ul>
+            </div>
+          </section>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  (function () {
+    var controls = Array.prototype.slice.call(document.querySelectorAll("[data-knowledge-topic]"));
+    var panels = Array.prototype.slice.call(document.querySelectorAll("[data-knowledge-topic-panel]"));
+    if (!controls.length || !panels.length) return;
+
+    function selectTopic(topic, updateHash) {
+      var selected = controls.some(function (control) {
+        return control.dataset.knowledgeTopic === topic;
+      }) ? topic : controls[0].dataset.knowledgeTopic;
+
+      controls.forEach(function (control) {
+        var isActive = control.dataset.knowledgeTopic === selected;
+        control.classList.toggle("is-active", isActive);
+        control.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+
+      panels.forEach(function (panel) {
+        panel.hidden = panel.dataset.knowledgeTopicPanel !== selected;
+      });
+
+      if (updateHash && window.history && window.history.replaceState) {
+        window.history.replaceState(null, "", "#" + selected);
+      }
+    }
+
+    controls.forEach(function (control) {
+      control.addEventListener("click", function () {
+        selectTopic(control.dataset.knowledgeTopic, true);
+      });
+    });
+
+    window.addEventListener("hashchange", function () {
+      selectTopic(window.location.hash.replace("#", ""), false);
+    });
+
+    selectTopic(window.location.hash.replace("#", ""), false);
+  })();
+</script>

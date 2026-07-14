@@ -284,20 +284,25 @@ Use no more than two topics per item. The first topic is the primary theme and d
 
 Thinking and Influences must use the same shared topic-filter component: identical pills, markers, counts, active states, spacing, and topic colors. Section-specific filter variants should not be introduced.
 
-### Topic Hubs
+### Knowledge Base
 
-Topic hubs are the knowledge-base layer connecting Thinking and Influences.
+The Knowledge Base is a single, stable thematic layer connecting Thinking and Influences. It is intentionally absent from the global navigation to avoid duplicating those two destinations.
 
 Keep:
 
-- compact single-column hero
-- shared topic navigation immediately after the hero
+- one generic hero that does not change with the selected topic
+- explicit Knowledge Base entry points from Thinking and Influences
+- shared topic navigation below the generic introduction
+- a selected-topic explanation before its content
 - editorial note list before external readings
 - standard Influence cards for readings
 - canonical topic colors and labels
+- compact content-topic links that are visually distinct from the larger filter controls
 
 Avoid:
 
+- separate topic pages with topic-specific heroes
+- adding Knowledge Base to the global navigation
 - dashboard metrics
 - graph-like decoration without navigational value
 - chronological emphasis
