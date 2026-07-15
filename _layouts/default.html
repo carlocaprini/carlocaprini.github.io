@@ -36,6 +36,16 @@
             <a href="{{ '/influences/' | relative_url }}" {% if is_influences %}class="is-active" aria-current="page"{% endif %}>Influences</a>
             <a href="{{ '/' | relative_url }}#contact">Contact</a>
           </nav>
+          <details class="mobile-nav">
+            <summary>Menu</summary>
+            <nav class="mobile-nav-panel" aria-label="Mobile navigation">
+              <a href="{{ '/' | relative_url }}" {% if is_home %}class="is-active" aria-current="page"{% endif %}>Home</a>
+              <a href="{{ '/thinking/' | relative_url }}" {% if is_thinking %}class="is-active" aria-current="page"{% endif %}>Thinking</a>
+              <a href="{{ '/experience/' | relative_url }}" {% if is_experience %}class="is-active" aria-current="page"{% endif %}>Experience</a>
+              <a href="{{ '/influences/' | relative_url }}" {% if is_influences %}class="is-active" aria-current="page"{% endif %}>Influences</a>
+              <a href="{{ '/' | relative_url }}#contact">Contact</a>
+            </nav>
+          </details>
         </div>
       </header>
 
@@ -52,5 +62,13 @@
         </div>
       </footer>
     </div>
+    <script>
+      document.querySelectorAll(".mobile-nav-panel a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          var menu = link.closest("details");
+          if (menu) menu.removeAttribute("open");
+        });
+      });
+    </script>
   </body>
 </html>
