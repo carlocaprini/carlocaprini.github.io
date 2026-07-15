@@ -4,7 +4,7 @@ title: Knowledge base
 permalink: /knowledge/
 meta_title: Knowledge Base | Product, AI and Software Systems | Carlo Caprini
 meta_description: Explore Carlo Caprini's connected notes and curated readings about product decisions, AI and automation, software systems, teams, and collaboration.
-last_modified_at: 2026-07-14
+last_modified_at: 2026-07-15
 hero:
   label: Knowledge base
   title_prefix: "Ideas connected across "

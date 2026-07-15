@@ -4,7 +4,7 @@ title: Experience
 permalink: /experience/
 meta_title: Product and Engineering Experience | Carlo Caprini
 meta_description: The experience behind Carlo Caprini's writing on product decisions, API platforms, AI adoption and engineering collaboration.
-last_modified_at: 2026-07-14
+last_modified_at: 2026-07-15
 hero:
   label: Experience
   title_prefix: "Experience behind "
@@ -57,8 +57,8 @@ evidence:
         - Startup growth
         - Trade-offs
       related_note:
-        title: Product decisions are mostly trade-offs
-        url: /thinking/product-decisions-are-mostly-trade-offs/
+        title: The transition to Product Management starts before the title changes
+        url: /thinking/the-transition-to-product-management-starts-before-the-title-changes/
 career_context:
   eyebrow: Career context
   title: A path across engineering and product.
