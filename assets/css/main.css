@@ -2236,6 +2236,10 @@ main {
     padding-bottom: 2rem;
   }
 
+  .selected-notes-panel.container {
+    width: calc(100% - (2 * var(--page-gutter)));
+  }
+
   .selected-notes-panel--compact {
     padding-right: 1.75rem;
     padding-left: 1.75rem;
@@ -2243,7 +2247,71 @@ main {
 
 }
 
-@media (max-width: 760px) {
+@media (min-width: 641px) and (max-width: 900px) {
+  .home-explore-grid {
+    gap: 0.8rem;
+  }
+
+  .home-explore-card,
+  .home-map-card-link {
+    min-height: 0;
+  }
+
+  .home-map-card-link {
+    display: grid;
+    grid-template-columns: 1.5rem minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    column-gap: 1rem;
+    padding: 1rem 4.25rem 1.05rem 1.15rem;
+  }
+
+  .home-map-marker {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    align-self: center;
+    margin: 0;
+  }
+
+  .home-map-index,
+  .home-map-title,
+  .home-map-body {
+    grid-column: 2;
+  }
+
+  .home-map-index {
+    grid-row: 1;
+    margin-bottom: 0.35rem;
+  }
+
+  .home-map-title {
+    grid-row: 2;
+    margin-bottom: 0.35rem;
+  }
+
+  .home-map-body {
+    grid-row: 3;
+    max-width: 38rem;
+    line-height: 1.55;
+  }
+
+  .home-map-line {
+    display: none;
+  }
+
+  .home-map-arrow {
+    top: 50%;
+    right: 1.15rem;
+    bottom: auto;
+    opacity: 0.72;
+    transform: translateY(-50%);
+  }
+
+  .home-explore-card:hover .home-map-arrow {
+    transform: translateY(-50%);
+  }
+}
+
+@media (max-width: 900px) {
   .nav {
     gap: 1rem;
   }
