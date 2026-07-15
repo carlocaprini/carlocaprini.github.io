@@ -6,8 +6,8 @@ last_modified_at: 2026-07-14
 permalink: /thinking/shared-context-is-not-shared-understanding/
 summary: AI makes context easier to retrieve, but access to the same information does not automatically create shared understanding, alignment, or better decisions.
 topics:
-  - decision-making
-  - team-dynamics
+  - ai-and-automation
+  - teams-and-collaboration
 intro:
   - AI is dramatically reducing the cost of accessing context inside organizations.
   - But shared access to information does not automatically produce shared understanding.

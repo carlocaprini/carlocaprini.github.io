@@ -1,0 +1,15 @@
+- slug: product-decisions
+  label: Product decisions
+  description: How teams frame trade-offs, priorities and commitments when no option is complete.
+
+- slug: ai-and-automation
+  label: AI and automation
+  description: How AI changes contribution, automation and product capability without removing judgment or system constraints.
+
+- slug: software-systems
+  label: Software systems
+  description: How architecture, platforms and temporary choices shape what products can become.
+
+- slug: teams-and-collaboration
+  label: Teams and collaboration
+  description: How context, disagreement and collaboration affect decisions across product and engineering.

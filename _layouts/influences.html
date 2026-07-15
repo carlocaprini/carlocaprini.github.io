@@ -3,7 +3,6 @@ layout: default
 # Influences index: lists site.influences sorted by editorial weight (highest first).
 ---
 {% assign weight_order = "5,4,3,2,1,0" | split: "," %}
-{% assign topic_order = "decision-making,execution,team-dynamics" | split: "," %}
 <div class="page">
   <section class="hero hero--compact">
     <div class="container hero-grid hero-grid--single">
@@ -17,6 +16,7 @@ layout: default
           <p class="hero-subtitle hero-subtitle--wide">{{ p }}</p>
         {% endfor %}
         <div class="hero-actions hero-actions--compact">
+          <a href="{{ '/knowledge/' | relative_url }}" class="button-primary">Knowledge base</a>
           <a href="{{ '/thinking/' | relative_url }}" class="button-ghost">Thinking</a>
         </div>
       </div>
@@ -33,18 +33,22 @@ layout: default
         </div>
       </div>
 
-      <div class="influence-topic-board" aria-label="Influence topics">
-        <button class="influence-topic-filter is-active" type="button" data-topic-filter="all">All</button>
-        {% for topic in topic_order %}
+      <div class="topic-filter-board influences-topic-board" aria-label="Influence topics">
+        <button class="topic-filter is-active" type="button" data-topic-filter="all" aria-pressed="true">
+          <span>All readings</span>
+          <span class="topic-filter-count">{{ site.influences.size }}</span>
+        </button>
+        {% for topic in site.data.topics %}
           {% assign topic_count = 0 %}
           {% for ref in site.influences %}
-            {% if ref.topics contains topic %}
+            {% if ref.topics contains topic.slug %}
               {% assign topic_count = topic_count | plus: 1 %}
             {% endif %}
           {% endfor %}
-          <button class="influence-topic-filter influence-topic-filter--{{ topic }}" type="button" data-topic-filter="{{ topic }}">
-            <span>{{ topic | replace: "-", " " }}</span>
-            <span class="influence-topic-count">{{ topic_count }}</span>
+          <button class="topic-filter topic-filter--{{ topic.slug }}" type="button" data-topic-filter="{{ topic.slug }}" aria-pressed="false">
+            <span class="topic-filter-marker" aria-hidden="true"></span>
+            <span>{{ topic.label }}</span>
+            <span class="topic-filter-count">{{ topic_count }}</span>
           </button>
         {% endfor %}
       </div>
@@ -56,35 +60,7 @@ layout: default
           {% for ref in refs_by_title %}
             {% assign ref_weight = ref.weight | default: 0 | plus: 0 %}
             {% if ref_weight == target_weight and ref.external_url %}
-          {% assign primary_topic = ref.topics | first | default: "general" %}
-          {% assign external_url = ref.external_url %}
-          <li class="influence-item influence-item--{{ primary_topic }}" data-topics="{{ ref.topics | join: ' ' }}">
-            <div class="influence-card-meta">
-              {% if ref.author %}
-                <span class="influence-author">{{ ref.author }}</span>
-              {% endif %}
-              {% for topic in ref.topics %}
-                <span class="influence-topic-pill">{{ topic | replace: "-", " " }}</span>
-              {% endfor %}
-            </div>
-            <h3 class="influence-card-title">
-              <a class="influence-title influence-title--external" href="{{ external_url }}" target="_blank" rel="noopener noreferrer" title="Opens in a new tab">
-                <span class="influence-title-text">{{ ref.title }}</span>
-                <span class="influence-external-icon" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                    <polyline points="15 3 21 3 21 9"/>
-                    <line x1="10" y1="14" x2="21" y2="3"/>
-                  </svg>
-                </span>
-                <span class="visually-hidden">(opens in new tab)</span>
-              </a>
-            </h3>
-            <p class="influence-summary">{{ ref.summary }}</p>
-            <div class="influence-card-footer">
-              {% include influence-related-notes.html influence=ref %}
-            </div>
-          </li>
+              {% include influence-card.html ref=ref %}
             {% endif %}
           {% endfor %}
         {% endfor %}
@@ -96,14 +72,16 @@ layout: default
 <script>
   (function () {
     var board = document.querySelector(".influence-board");
-    var filters = Array.prototype.slice.call(document.querySelectorAll(".influence-topic-filter"));
+    var filters = Array.prototype.slice.call(document.querySelectorAll("[data-topic-filter]"));
     if (!board || filters.length === 0) return;
 
     var items = Array.prototype.slice.call(board.querySelectorAll(".influence-item"));
 
     function setFilter(topic) {
       filters.forEach(function (button) {
-        button.classList.toggle("is-active", button.dataset.topicFilter === topic);
+        var isActive = button.dataset.topicFilter === topic;
+        button.classList.toggle("is-active", isActive);
+        button.setAttribute("aria-pressed", isActive ? "true" : "false");
       });
 
       items.forEach(function (item) {

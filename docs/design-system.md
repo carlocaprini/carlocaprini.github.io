@@ -1,9 +1,9 @@
 # Site Design System
 
-Date: 2026-07-10
+Date: 2026-07-14
 Status: Reference for future site changes
 
-This document defines the visual language for the site. It is based on the current direction across Home, Thinking, Experience and Influences, especially the more dynamic work introduced in Experience and Influences.
+This document defines the visual language for the site. It is based on the current direction across Home, Thinking, Experience, Influences, the Knowledge Base and individual notes.
 
 ## Design Intent
 
@@ -192,6 +192,8 @@ Do not reuse timeline styling for non-chronological content.
 - compact brand pill
 - nav links with underline on hover/active
 - order: Home, Thinking, Experience, Influences, Contact
+- preserve the full navigation on smaller screens by moving it to a clear second row rather than hiding destinations
+- use a visible keyboard focus state across navigation and other interactive controls
 
 Do not add more top-level links unless a new section becomes a major permanent destination. Contact can remain an anchor.
 
@@ -273,6 +275,55 @@ Keep:
 
 Topic accents should map to the canonical accent colors. If more topics are added, reuse accents cyclically or introduce a documented semantic mapping.
 
+The canonical public topic taxonomy is shared by Thinking notes and Influences:
+
+- Product decisions: indigo
+- AI and automation: cyan
+- Software systems: sky
+- Teams and collaboration: emerald
+
+Use no more than two topics per item. The first topic is the primary theme and determines the accent used by Influence cards.
+
+Thinking and Influences must use the same shared topic-filter component: identical pills, markers, counts, active states, spacing, and topic colors. Section-specific filter variants should not be introduced.
+
+### Content Topic Links
+
+Content topic links connect an individual note or reading to its thematic view in the Knowledge Base. They are intentionally smaller than filter controls because they describe content rather than change the current view.
+
+Keep:
+
+- compact pill shape
+- small semantic color marker
+- canonical topic label and color
+- direct link to `/knowledge/#topic-slug`
+- no count or active state
+
+Do not use the larger filter control inside cards, article metadata or sidebars.
+
+### Knowledge Base
+
+The Knowledge Base is a single, stable thematic layer connecting Thinking and Influences. It is intentionally absent from the global navigation to avoid duplicating those two destinations.
+
+Keep:
+
+- one generic hero that does not change with the selected topic
+- explicit Knowledge Base entry points from Thinking and Influences
+- shared topic navigation below the generic introduction
+- a selected-topic explanation before its content
+- editorial note list before external readings
+- standard Influence cards for readings
+- canonical topic colors and labels
+- compact content-topic links that are visually distinct from the larger filter controls
+
+Avoid:
+
+- separate topic pages with topic-specific heroes
+- adding Knowledge Base to the global navigation
+- dashboard metrics
+- graph-like decoration without navigational value
+- chronological emphasis
+- search controls until the content volume justifies them
+
 ### Article Layout
 
 Article pages should stay calmer than index pages.
@@ -288,6 +339,25 @@ Avoid:
 
 - heavy animation inside articles
 - too many visual panels competing with the text
+
+The article sidebar order is: on-page navigation, Knowledge Base themes, related notes, related readings. At narrower widths the stack moves below the article instead of becoming a compressed side column.
+
+### Article Signature
+
+The signature is a compact identity surface at the end of each note. It should establish authorship and offer useful next steps without adding generic positioning copy.
+
+Keep:
+
+- name and short role label
+- one restrained accent marker
+- standard editorial links to Experience and Contact
+- the same link treatment used elsewhere on the site
+
+Avoid biographies, promotional claims or duplicate summaries of the article.
+
+### Credentials
+
+Credentials are supporting evidence, not a primary visual destination. Render them as semantic lists inside standard cards; do not create a new certification badge system or another accent family.
 
 ### Footer
 
@@ -352,6 +422,18 @@ Minimum rules:
 - Decorative markers should use `aria-hidden="true"`.
 - Motion must respect `prefers-reduced-motion`.
 - Mobile layout must be checked for horizontal overflow.
+- Every page must expose a keyboard skip link to the main content.
+- Links and buttons must have an obvious `:focus-visible` treatment, not only hover feedback.
+- Lists of credentials, related material and navigation items should use semantic list markup.
+- Links opening a new tab must communicate that behavior to assistive technology and use `noopener noreferrer`.
+
+## Editorial Metadata
+
+- Public pages need a specific title and meta description when the site-wide fallback would be too generic.
+- New or materially revised index pages should set `last_modified_at` so sitemap metadata remains useful.
+- For Thinking notes, change `last_modified_at` only when the note's editorial content changes. Taxonomy, layout, styling, related-content logic and metadata-only maintenance do not count as a content change.
+- Topic labels and descriptions live in `_data/topics.yml`; do not duplicate the canonical taxonomy in page content or layout logic.
+- Remove obsolete data fields when a section is retired instead of leaving hidden alternative positioning copy in `_data` files.
 
 ## Implementation
 
@@ -368,6 +450,7 @@ The CSS should use design tokens for recurring values:
   --accent-cyan: #22d3ee;
   --accent-indigo: #818cf8;
   --accent-emerald: #34d399;
+  --accent-sky: #38bdf8;
   --radius-card: 1rem;
   --radius-panel: 1.4rem;
 }

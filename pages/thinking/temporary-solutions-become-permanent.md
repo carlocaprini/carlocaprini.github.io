@@ -6,8 +6,8 @@ last_modified_at: 2026-07-14
 permalink: /thinking/temporary-solutions-become-permanent/
 summary: Temporary solutions are often necessary, but once adopted they become part of the product and can quietly turn into long-term constraints.
 topics:
-  - decision-making
-  - execution
+  - software-systems
+  - product-decisions
 intro:
   - Temporary solutions are often necessary.
   - But once they are adopted, they rarely stay temporary.

@@ -2,20 +2,18 @@
 layout: thinking
 title: Thinking
 permalink: /thinking/
-meta_title: Thinking on Product, APIs and Software Systems | Carlo Caprini
-meta_description: Short notes by Carlo Caprini on product work, decision making, AI, trade-offs, software systems, and the dynamics of building in teams.
+meta_title: Notes on Product Decisions and Software Teams | Carlo Caprini
+meta_description: Connected notes by Carlo Caprini on product decisions, AI and automation, software systems, teams, and collaboration.
+meta_image: /assets/og-thinking-v2.png
+meta_image_alt: Thinking by Carlo Caprini, notes on product decisions, AI, software systems and teams.
+last_modified_at: 2026-07-14
 hero:
   label: Thinking
   title_prefix: "Notes on "
-  title_highlight: "product work, decision making and building software in teams"
+  title_highlight: "product decisions, AI, software systems and teams"
   paragraphs:
-    - Short reflections on product work, decision making, and the dynamics of building software in teams.
-    - After more than a decade working across engineering and product roles, I've developed a strong interest in how teams make decisions, navigate trade-offs, and deal with disagreement while building complex systems.
-    - This section collects reflections, working notes and lessons learned along the way.
-    - They evolve over time as ideas get refined and connected.
-  actions:
-    primary: Get in touch
-    secondary: Back to home
+    - Short reflections from product and engineering work in complex software systems.
+    - Each note stands on its own, but together they trace recurring questions about how teams choose, build and learn over time.
 start_here:
   title: Start here
   description: Three notes that introduce the main threads of this section.

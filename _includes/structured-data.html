@@ -55,7 +55,7 @@
 {% if page.layout == "article" %}
 {% assign article_description = page.meta_description | default: page.summary | default: site.description %}
 {% assign article_keywords = page.topics | default: empty %}
-{% assign article_image_path = page.meta_image | default: "/assets/og-thinking.png" %}
+{% assign article_image_path = page.meta_image | default: "/assets/og-thinking-v2.png" %}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -87,7 +87,12 @@
     "@type": "WebSite",
     "@id": "{{ website_id }}"
   },
-  "keywords": {{ article_keywords | jsonify }}
+  "keywords": [
+    {% for article_topic in article_keywords %}
+      {% assign topic_data = site.data.topics | where: "slug", article_topic | first %}
+      {{ topic_data.label | default: article_topic | jsonify }}{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
 }
 </script>
 
@@ -115,6 +120,33 @@
       "item": "{{ page_url }}"
     }
   ]
+}
+</script>
+{% endif %}
+
+{% if page.layout == "knowledge" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "{{ page_url }}#collection",
+  "url": "{{ page_url }}",
+  "name": {{ page.title | jsonify }},
+  "description": {{ page.meta_description | jsonify }},
+  "inLanguage": "en",
+  "about": [
+    {% for topic in site.data.topics %}
+    {
+      "@type": "Thing",
+      "name": {{ topic.label | jsonify }},
+      "description": {{ topic.description | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "{{ website_id }}"
+  }
 }
 </script>
 {% endif %}

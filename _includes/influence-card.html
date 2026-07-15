@@ -1,0 +1,31 @@
+{% assign ref = include.ref %}
+{% assign primary_topic = ref.topics | first | default: "general" %}
+{% assign external_url = ref.external_url %}
+<li class="influence-item influence-item--{{ primary_topic }}" data-topics="{{ ref.topics | join: ' ' }}">
+  <div class="influence-card-meta">
+    {% if ref.author %}
+      <span class="influence-author">{{ ref.author }}</span>
+    {% endif %}
+    {% for topic in ref.topics %}
+      {% assign topic_data = site.data.topics | where: "slug", topic | first %}
+      <a class="content-topic-link content-topic-link--{{ topic }}" href="{{ '/knowledge/' | relative_url }}#{{ topic }}">{{ topic_data.label | default: topic }}</a>
+    {% endfor %}
+  </div>
+  <h3 class="influence-card-title">
+    <a class="influence-title influence-title--external" href="{{ external_url }}" target="_blank" rel="noopener noreferrer" title="Opens in a new tab">
+      <span class="influence-title-text">{{ ref.title }}</span>
+      <span class="influence-external-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </span>
+      <span class="visually-hidden">(opens in new tab)</span>
+    </a>
+  </h3>
+  <p class="influence-summary">{{ ref.summary }}</p>
+  <div class="influence-card-footer">
+    {% include influence-related-notes.html influence=ref %}
+  </div>
+</li>

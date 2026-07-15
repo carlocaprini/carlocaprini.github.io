@@ -16,23 +16,29 @@ To stop: `Ctrl+C`.
 
 ## Topics (Thinking notes & Influences)
 
-Notes and external references are tagged with a `topics` array in front matter, using **only** the three canonical slugs below. **Shared topics** drive automatic **related readings** on note pages (and related notes between notes). The **Influences** index does **not** infer a note from topics: each reference may set an optional `related_note:` to one internal URL. Use lowercase, hyphenated topic labels consistently.
+Notes and external references are tagged with a `topics` array in front matter, using **only** the four canonical slugs below. **Shared topics** drive automatic **related readings** on note pages (and related notes between notes). The **Influences** index does **not** infer a note from topics: each reference may set an optional `related_note:` to one internal URL. Use lowercase, hyphenated topic labels consistently.
 
 ### Canonical topics (notes and references)
 
-Thinking notes and Influences references use **only** these topic slugs (lowercase, hyphenated). Use **one** topic per reference (a single-item `topics` array).
+Thinking notes and Influences references use **only** these topic slugs (lowercase, hyphenated). Use no more than two topics per item and list the most characteristic topic first.
 
-- `decision-making`
-- `execution`
-- `team-dynamics`
+- `product-decisions`
+- `ai-and-automation`
+- `software-systems`
+- `teams-and-collaboration`
 
 ### Behaviour (quick reference)
 
 - **Thinking → Thinking:** article layout picks up to two **related notes** by shared topics (overlap count, then date).
 - **Thinking → references:** up to two **related readings** from `_influences`, ranked by shared-topic overlap first and `weight:` second. Each influence must define `external_url:` in front matter for the outbound link target.
 - **Influences → Thinking:** optional `related_note:` on each file in `_influences/` (note `permalink` / URL path, e.g. `/thinking/my-slug/`). If set and the page exists, the reference shows **Related note:** with a link; omit the field if there is no link.
+- **Knowledge base:** `/knowledge/` combines public Thinking notes and Influences in four thematic views. Topic labels link to the relevant view through a stable hash, such as `/knowledge/#ai-and-automation`.
 
 To surface a reference on a note page, reuse topics on both sides. To choose which note appears under a reference on `/influences/`, set `related_note:` manually. Order influences with `weight:` instead of `date:`. Higher weights appear first on `/influences/`, and break ties in related reading after topic overlap. Adding a new topic slug requires updating this list and every place that assumes the taxonomy.
+
+## Editorial metadata
+
+Set `last_modified_at` on a Thinking note only when its editorial content changes. Do not update it for topic mapping, layout, styling, related-content logic or other presentation-only work. Index pages can update `last_modified_at` when their public structure or copy changes.
 
 ## How this was built
 

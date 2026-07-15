@@ -1,8 +1,8 @@
 ---
 layout: default
-# Layout for Experience page. Expects: hero, roles, credentials
+# Layout for Experience page. Expects: hero, evidence, career_context, credentials
 ---
-<div class="page">
+<div class="page experience-page">
   <section class="hero hero--compact">
     <div class="container hero-grid hero-grid--single">
       <div>
@@ -11,43 +11,73 @@ layout: default
           <span>{{ page.hero.label }}</span>
         </div>
         <h1 class="hero-title hero-title--compact">
-          {{ page.hero.title_prefix }}<span class="highlight">{{ page.hero.title_highlight }}</span>
+          {{ page.hero.title_prefix }}<span class="highlight">{{ page.hero.title_highlight }}</span>.
         </h1>
         {% for p in page.hero.subtitle_paragraphs %}
           <div class="hero-subtitle hero-subtitle--wide">{{ p | markdownify }}</div>
         {% endfor %}
         <div class="hero-actions hero-actions--compact">
-          <a href="{{ '/thinking/' | relative_url }}" class="button-primary">Thinking</a>
+          <a href="{{ '/thinking/' | relative_url }}" class="button-primary">Read the notes</a>
           <a href="{{ '/' | relative_url }}" class="button-ghost">{{ page.hero.actions.secondary }}</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section experience-section">
+  <section class="section experience-evidence-section">
     <div class="container">
       <div class="experience-section-header">
         <div>
-          <div class="section-eyebrow">{{ page.roles.eyebrow }}</div>
-          <h2 class="section-title">{{ page.roles.title }}</h2>
+          <div class="section-eyebrow">{{ page.evidence.eyebrow }}</div>
+          <h2 class="section-title">{{ page.evidence.title }}</h2>
         </div>
-        <p class="section-description">{{ page.roles.description }}</p>
+        <p class="section-description">{{ page.evidence.description }}</p>
       </div>
 
-      <ol class="experience-timeline" aria-label="{{ page.roles.title }}">
-        {% for r in page.roles.items %}
+      <div class="experience-evidence-grid">
+        {% for item in page.evidence.items %}
+          <article class="experience-evidence-card">
+            <div class="experience-evidence-marker" aria-hidden="true"></div>
+            <div class="experience-card-kicker">{{ item.meta }}</div>
+            <h3 class="experience-card-title">{{ item.title }}</h3>
+            <p class="experience-card-body">{{ item.body }}</p>
+            <div class="card-tags">
+              {% for tag in item.tags %}
+                <span class="pill">{{ tag }}</span>
+              {% endfor %}
+            </div>
+            <a class="experience-related-note" href="{{ item.related_note.url | relative_url }}">
+              <span>Related note</span>
+              {{ item.related_note.title }}
+            </a>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section experience-career-section">
+    <div class="container">
+      <div class="experience-section-header">
+        <div>
+          <div class="section-eyebrow">{{ page.career_context.eyebrow }}</div>
+          <h2 class="section-title">{{ page.career_context.title }}</h2>
+        </div>
+        <p class="section-description">{{ page.career_context.description }}</p>
+      </div>
+
+      <ol class="experience-timeline" aria-label="{{ page.career_context.title }}">
+        {% for item in page.career_context.items %}
           <li class="experience-timeline-item experience-timeline-item--{{ forloop.index }}">
             <div class="experience-timeline-marker" aria-hidden="true">
               <span class="experience-timeline-dot"></span>
             </div>
             <article class="experience-card">
-              <div class="experience-card-kicker">{{ r.meta }}</div>
-              <h3 class="experience-card-title">{{ r.title }}</h3>
-              {% for p in r.body %}
-                <p class="experience-card-body">{{ p }}</p>
-              {% endfor %}
+              <div class="experience-card-kicker">{{ item.company }} · {{ item.period }}</div>
+              <h3 class="experience-card-title">{{ item.role }}</h3>
+              <p class="experience-card-body">{{ item.summary }}</p>
               <div class="card-tags">
-                {% for tag in r.tags %}
+                {% for tag in item.tags %}
                   <span class="pill">{{ tag }}</span>
                 {% endfor %}
               </div>
@@ -58,7 +88,7 @@ layout: default
     </div>
   </section>
 
-  <section id="credentials" class="section">
+  <section id="credentials" class="section experience-credentials-section">
     <div class="container section-grid-balanced">
       <div>
         <div class="section-header">
@@ -70,14 +100,16 @@ layout: default
         </div>
       </div>
       <div class="card-list">
-        {% for c in page.credentials.items %}
+        {% for group in page.credentials.items %}
           <article class="card">
             <div class="card-header">
-              <h3 class="card-title">{{ c.title }}</h3>
+              <h3 class="card-title">{{ group.title }}</h3>
             </div>
-            {% for item in c.items %}
-              <p class="card-body">• {{ item }}</p>
-            {% endfor %}
+            <ul class="credential-list">
+              {% for credential in group.items %}
+                <li>{{ credential }}</li>
+              {% endfor %}
+            </ul>
           </article>
         {% endfor %}
       </div>
