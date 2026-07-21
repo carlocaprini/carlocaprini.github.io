@@ -123,16 +123,6 @@ It can also become a trap. If I start creating articles because March looks hung
 
 Empty space has to remain a valid state. The game should make progress visible, not manufacture pressure to publish.
 
-## Another small service with a real job
+[August helped me collaborate with AI on the work itself](/thinking/i-built-august-because-copy-and-paste-was-not-collaboration/). March gives that work a possible place in the plan.
 
-March did not begin as the planning module of a personal operating system.
-
-It began because I wanted to answer a few practical questions without rebuilding the context each time: What is ready? Where is the plan thin? What needs attention next? What should remain unfinished?
-
-The service is small enough to answer those questions directly.
-
-After [I stopped trying to build Jarvis](/thinking/i-stopped-trying-to-build-jarvis/), this was the second time that starting from a smaller job worked better.
-
-[August helped me collaborate with AI on the work itself](/thinking/i-built-august-because-copy-and-paste-was-not-collaboration/).
-
-March helps me collaborate with AI on what that work might become next.
+The test is whether I can still look at an empty month and leave it alone.

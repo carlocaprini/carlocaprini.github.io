@@ -129,4 +129,4 @@ For August, the order mattered more than the technology. I already had the job, 
 
 August can grow, and it already has. But each addition still has to answer the same question: does it help me continue a piece of thinking with AI without losing its state or my ownership of the result?
 
-That is the connection back to [why I stopped trying to build Jarvis](/thinking/i-stopped-trying-to-build-jarvis/): August began with a job I already had, rather than a system still looking for one.
+That question is the boundary [Jarvis did not have](/thinking/i-stopped-trying-to-build-jarvis/): if an addition does not help me continue a real piece of work, it does not belong in August.

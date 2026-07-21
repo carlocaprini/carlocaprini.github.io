@@ -75,4 +75,4 @@ I stopped trying to build Jarvis as the first product. I have not stopped wantin
 
 Today, I have a few small services that help with work I genuinely care about, and an AI collaboration layer that helps me work across them.
 
-I do not know whether these pieces will eventually become something I would call Jarvis. For now, I am keeping the parts I actually use and seeing what, if anything, grows between them.
+I do not know whether these pieces will eventually become something I would call Jarvis. For now, I am keeping the parts I actually use. That is already more than I could say about the first version.
