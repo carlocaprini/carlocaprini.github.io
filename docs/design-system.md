@@ -435,6 +435,12 @@ Minimum rules:
 - Topic labels and descriptions live in `_data/topics.yml`; do not duplicate the canonical taxonomy in page content or layout logic.
 - Remove obsolete data fields when a section is retired instead of leaving hidden alternative positioning copy in `_data` files.
 
+### Markdown source formatting
+
+- Leave one blank source line before and after every Markdown list.
+
+- Always separate consecutive list items with one blank source line. Apply this consistently to editorial content and documentation so lists remain readable and easy to edit in raw Markdown.
+
 ## Implementation
 
 The CSS should use design tokens for recurring values:

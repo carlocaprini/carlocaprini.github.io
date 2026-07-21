@@ -2,7 +2,7 @@
 layout: article
 title: I stopped trying to build Jarvis
 date: 2026-08-01
-last_modified_at: 2026-07-20
+last_modified_at: 2026-07-21
 published: true
 permalink: /thinking/i-stopped-trying-to-build-jarvis/
 summary: I started with a general AI assistant and no recurring job for it. The useful parts appeared only after I built smaller services around work I was already doing.
@@ -14,7 +14,8 @@ topics:
   - software-systems
 series: building-my-ai-operating-system
 series_order: 1
-show_related_notes: false
+related_notes:
+  - /thinking/i-built-august-because-copy-and-paste-was-not-collaboration/
 intro:
   - I began with decisions and action items before I had a recurring job for them.
   - The useful parts appeared only after I built smaller services around work I was already doing.
@@ -44,7 +45,7 @@ Those seemed like sensible things for a personal system to remember. I had chose
 
 I wanted a system for decisions and action items, but I could not answer the practical question: decisions and action items for what? I assumed the context would not matter. It did.
 
-In retrospect, those concepts could have been useful inside the workflows that eventually became August and March. Both deal with work that has a state, unresolved decisions, and clear next actions.
+In retrospect, those concepts could have been useful inside the workflows that eventually became [August](/thinking/i-built-august-because-copy-and-paste-was-not-collaboration/) and March. Both deal with work that has a state, unresolved decisions, and clear next actions.
 
 Putting them together inside Jarvis still did not give me a reason to use it for anything repeatedly. The system made sense on paper, but it was not helping me with work I was actually doing. So I left it.
 

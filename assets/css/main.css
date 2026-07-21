@@ -689,6 +689,8 @@ main {
 }
 
 .thinking-series-episodes {
+  display: grid;
+  gap: 1rem;
   align-self: start;
   margin: 0;
   padding: 0;

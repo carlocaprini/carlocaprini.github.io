@@ -50,9 +50,16 @@ layout: default
 {% endfor %}
 {% endif %}
 
-{% comment %}Related notes: same layout, shared topics (case-insensitive), max 2, ranked by overlap count (desc).{% endcomment %}
+{% comment %}Related notes: use an explicit editorial selection when provided; otherwise rank notes sharing the same topics.{% endcomment %}
 {% assign related = "" | split: "" %}
-{% if page.topics and page.topics.size > 0 %}
+{% if page.related_notes and page.related_notes.size > 0 %}
+  {% for related_url in page.related_notes %}
+    {% assign explicit_note = site.pages | where: "url", related_url | first %}
+    {% if explicit_note and explicit_note.url != page.url %}
+      {% assign related = related | push: explicit_note %}
+    {% endif %}
+  {% endfor %}
+{% elsif page.topics and page.topics.size > 0 %}
 {% assign article_pages = site.pages | where: "layout", "article" | sort: "date" | reverse %}
 {% assign score_order = "10,9,8,7,6,5,4,3,2,1" | split: "," %}
 {% for score_str in score_order %}
