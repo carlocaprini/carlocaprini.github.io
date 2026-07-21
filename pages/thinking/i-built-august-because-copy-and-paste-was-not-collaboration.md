@@ -18,13 +18,13 @@ related_notes:
   - /thinking/i-stopped-trying-to-build-jarvis/
   - /thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/
 intro:
-  - I needed a better way to work on a document with AI.
-  - The model could help with the text. What was missing was a place where we could continue the work without reconstructing its state each time.
+  - I needed a way to keep working on a document with AI without rebuilding the context in every conversation.
+  - The AI could help with the text. But we did not have a comfortable place to continue the work together.
 ---
 
 After [I stopped trying to build Jarvis](/thinking/i-stopped-trying-to-build-jarvis/), I did not immediately need another platform. But I still wanted to build.
 
-I needed a better way to work on a document with AI.
+I needed a way to keep working on a document with AI without rebuilding the context in every conversation.
 
 AI models were already useful. I could paste a draft into a conversation and ask for a different structure, a critical reading, a clearer paragraph, or questions I had not considered.
 
@@ -64,7 +64,7 @@ I provide the experiences, opinions, constraints, and examples. I can reject a s
 
 AI is very good at making a draft look complete. It can smooth over a missing argument or invent a convincing bridge between two ideas. The result may read better while representing my thinking less honestly.
 
-Sometimes the useful result is a better paragraph. Sometimes it is leaving an honest gap visible until I know what belongs there.
+A useful review may improve a paragraph. It may also leave an honest gap visible until I know what belongs there.
 
 ## August became the shared workspace
 
@@ -90,9 +90,9 @@ I can inspect what changed and decide what to keep.
 
 Once the review state lives with the document, I am not limited to the model or interface I happen to have open.
 
-August exposes a dedicated interface for AI agents through MCP, a standard way for them to use the service's tools and data. I can ask agents such as ChatGPT or Claude to read the current document, inspect the existing review, and contribute comments or proposed changes directly. They do not need a pasted copy or my summary of what happened in the previous session.
+August exposes a dedicated interface for AI agents through MCP, a protocol that gives them access to specific tools and data exposed by the service. Today, I can ask agents such as ChatGPT or Claude to read the current document, inspect the existing review, and contribute comments or proposed changes directly. They do not need a pasted copy or my summary of what happened in the previous session.
 
-I also built specialized reviewer profiles into August that can run locally.
+I also built specialized reviewer profiles into August that can run locally. Each profile is a reusable set of review instructions, not a separate model.
 
 Some are deliberately general: an editor looks at the writing, while a reader looks for the points where the argument becomes difficult to follow. Others use a more specific perspective, such as a developer, a founder, or my future self.
 
@@ -100,7 +100,7 @@ I do not treat these profiles as a panel that votes on the correct version. They
 
 Their feedback still arrives as comments and suggestions. I can compare conflicting readings, accept a precise change, reject an elegant one, or leave the question open.
 
-The useful part is not having more reviewers. It is letting different reviewers contribute without losing the document's history or my responsibility for the result.
+The useful part is not having more reviewers. More feedback also creates more filtering work. August helps when it keeps that work visible and lets different reviewers contribute without losing the document's history or my responsibility for the result.
 
 ## It started with things I wanted to publish
 
@@ -110,7 +110,7 @@ The job already existed. I was writing, asking AI for feedback, and losing time 
 
 August did not need to invent a new habit. It made an existing one less fragmented.
 
-This article went through the same process. AI helped me recognize that the story needed a different center, while I remained in control of the rewrite.
+This article went through the same process. Feedback from AI helped me recognize that the story needed a different center, while I remained in control of the rewrite.
 
 ## The scope expanded after the job was clear
 
@@ -128,7 +128,7 @@ Jarvis began with the shape of a large system and then looked for jobs to place 
 
 August began with work I was already doing badly: collaborating with AI on a document through copy and paste.
 
-The order mattered more than the technology. I already had the job, the friction, and a way to tell whether the tool was helping.
+For August, the order mattered more than the technology. I already had the job, the friction, and a way to tell whether the tool was helping.
 
 August can grow, and it already has. But each addition still has to answer the same question: does it help me continue a piece of thinking with AI without losing its state or my ownership of the result?
 
