@@ -1,7 +1,7 @@
 ---
 layout: article
 title: I stopped trying to build Jarvis
-date: 2026-08-01
+date: "2026-07-21T09:00:00+02:00"
 last_modified_at: 2026-07-21
 published: true
 permalink: /thinking/i-stopped-trying-to-build-jarvis/
@@ -14,6 +14,7 @@ topics:
   - software-systems
 series: building-my-ai-operating-system
 series_order: 1
+show_related_notes: false
 intro:
   - I began with decisions and action items before I had a recurring job for them.
   - The useful parts appeared only after I built smaller services around work I was already doing.

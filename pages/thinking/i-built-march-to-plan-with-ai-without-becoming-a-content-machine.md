@@ -1,7 +1,7 @@
 ---
 layout: article
 title: I built March to plan with AI without becoming a content machine
-date: 2026-09-01
+date: "2026-07-21T11:00:00+02:00"
 last_modified_at: 2026-07-21
 published: true
 permalink: /thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/
@@ -14,6 +14,7 @@ topics:
   - product-decisions
 series: building-my-ai-operating-system
 series_order: 3
+show_related_notes: false
 intro:
   - I wanted a clear view of the months ahead.
   - I did not want a content calendar telling me to feed the machine.
@@ -44,6 +45,13 @@ When I use a traditional content calendar, every visible date can start to feel 
 March treats the plan differently.
 
 It gives me a runway: a view of what may be published over the coming months and the state of each piece.
+
+<figure class="article-figure">
+  <a class="article-figure-link" href="/assets/march-publishing-runway-july-2026.png" aria-label="Open the March publishing runway image at full size">
+    <img src="/assets/march-publishing-runway-july-2026.png" alt="March coverage horizon from June to October 2026, showing published and planned work alongside available future slots." width="987" height="385" loading="lazy" decoding="async">
+  </a>
+  <figcaption>March keeps the publishing runway visible without treating every available slot as a commitment. Snapshot from 21 July 2026.</figcaption>
+</figure>
 
 Something can be only an idea. It can be in development, ready, or already published. A planned month gives the work context without granting permission to publish it.
 

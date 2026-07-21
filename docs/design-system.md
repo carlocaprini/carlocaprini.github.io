@@ -420,6 +420,13 @@ Article pages should stay calmer than index pages.
 Keep:
 
 - single-column hero
+
+- at most one documentary figure when a real interface materially grounds the argument
+
+- descriptive alt text, intrinsic image dimensions and a dated caption for screenshots of changing product state
+
+- a full-resolution link when interface details may become too small at article or mobile width
+
 - readable article width around `620px`
 - sticky side stack for page nav and related content
 - related cards with restrained accents
@@ -427,6 +434,9 @@ Keep:
 Avoid:
 
 - heavy animation inside articles
+
+- generic illustrations, feature-tour galleries or screenshots whose private details require extensive explanation
+
 - too many visual panels competing with the text
 
 The article sidebar order is: on-page navigation, Knowledge Base themes, related notes, related readings. At narrower widths the stack moves below the article instead of becoming a compressed side column.

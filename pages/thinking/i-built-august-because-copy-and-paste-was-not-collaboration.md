@@ -1,7 +1,7 @@
 ---
 layout: article
 title: I built August because copy and paste was not collaboration
-date: 2026-08-02
+date: "2026-07-21T10:00:00+02:00"
 last_modified_at: 2026-07-21
 published: true
 permalink: /thinking/i-built-august-because-copy-and-paste-was-not-collaboration/
@@ -14,6 +14,7 @@ topics:
   - teams-and-collaboration
 series: building-my-ai-operating-system
 series_order: 2
+show_related_notes: false
 intro:
   - I needed a way to keep working on a document with AI without rebuilding the context in every conversation.
   - The AI could help with the text. But we did not have a comfortable place to continue the work together.

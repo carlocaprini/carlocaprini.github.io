@@ -1029,7 +1029,6 @@ main {
 
 .series-service-list {
   margin: 0;
-  border-top: 1px solid var(--color-line);
 }
 
 .series-service-item {
@@ -1038,6 +1037,10 @@ main {
   gap: 1.25rem;
   padding: 1.15rem 0;
   border-bottom: 1px solid var(--color-line);
+}
+
+.series-service-item:last-child {
+  border-bottom: none;
 }
 
 .series-service-item dt {
@@ -1485,6 +1488,48 @@ main {
 .article-body a:hover {
   color: #a5b4fc;
   border-bottom-color: #6366f1;
+}
+
+.article-figure {
+  margin: 2rem 0 2.2rem;
+}
+
+.article-figure-link {
+  display: block;
+  overflow: hidden;
+  border: 1px solid rgba(34, 211, 238, 0.24);
+  border-radius: 1rem;
+  background: rgba(2, 6, 23, 0.72);
+  box-shadow:
+    0 18px 48px rgba(2, 6, 23, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  cursor: zoom-in;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.article-body .article-figure-link {
+  border-bottom-color: rgba(34, 211, 238, 0.24);
+}
+
+.article-figure-link:hover {
+  border-color: rgba(103, 232, 249, 0.46);
+  box-shadow:
+    0 22px 58px rgba(2, 6, 23, 0.42),
+    0 0 28px rgba(34, 211, 238, 0.07);
+  transform: translateY(-1px);
+}
+
+.article-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.article-figure figcaption {
+  margin-top: 0.75rem;
+  color: #7f8da3;
+  font-size: 0.76rem;
+  line-height: 1.65;
 }
 
 .article-signature {
@@ -1983,6 +2028,12 @@ main {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .article-figure-link,
+  .article-figure-link:hover {
+    transform: none;
+    transition: none;
+  }
+
   .home-series-preview,
   .home-series-preview::before {
     animation: none;

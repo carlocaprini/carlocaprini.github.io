@@ -1,7 +1,7 @@
 building-my-ai-operating-system:
   title: Building My Own AI Operating System
   url: /series/building-my-ai-operating-system/
-  description: First-person notes from building a personal AI-first operating system, starting with the failed attempt to make one general assistant useful.
+  description: My notes from building a personal AI-first operating system, starting with the failed attempt to make one general assistant useful.
   context: The series follows the decisions, boundaries and failure modes that appear as separate tools begin to form a system that can work across them.
   intro:
     - This series follows my attempt to build a personal AI operating system by starting from work I already do, rather than from one universal assistant.
