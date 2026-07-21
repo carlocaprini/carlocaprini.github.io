@@ -1,0 +1,4 @@
+building-my-ai-operating-system:
+  title: Building My Own AI Operating System
+  description: First-person notes from building a personal AI-first operating system, starting with the failed attempt to make one general assistant useful.
+  context: The series follows the decisions, boundaries and failure modes that appear as Friday, August and March move from separate tools towards a system that can work across them.

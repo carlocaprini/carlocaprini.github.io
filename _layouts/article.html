@@ -93,6 +93,22 @@ layout: default
 {% endfor %}
 {% endif %}
 
+{% comment %}Previous/next within a series. Only published pages are present in site.pages, so links appear when an adjacent episode is actually available.{% endcomment %}
+{% assign series_previous = nil %}
+{% assign series_next = nil %}
+{% if page.series and page.series_order %}
+  {% assign previous_order = page.series_order | minus: 1 %}
+  {% assign next_order = page.series_order | plus: 1 %}
+  {% assign article_series_pages = site.pages | where: "series", page.series %}
+  {% for series_page in article_series_pages %}
+    {% if series_page.series_order == previous_order %}
+      {% assign series_previous = series_page %}
+    {% elsif series_page.series_order == next_order %}
+      {% assign series_next = series_page %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
 <div class="page">
   <section class="hero hero--article">
     <div class="container hero-grid hero-grid--single">
@@ -104,6 +120,15 @@ layout: default
         <h1 class="hero-title hero-title--compact">{{ page.title }}</h1>
         {% if page.date %}
         <p class="hero-subtitle hero-date">{{ page.date | date: "%B %Y" }}</p>
+        {% endif %}
+        {% if page.series %}
+          {% assign article_series = site.data.series[page.series] %}
+          {% if article_series %}
+          <div class="article-series-context" aria-label="Series information">
+            <a href="{{ '/thinking/' | append: '#' | append: page.series | relative_url }}">{{ article_series.title }}</a>
+            {% if page.series_order %}<span>Episode {% if page.series_order < 10 %}0{% endif %}{{ page.series_order }}</span>{% endif %}
+          </div>
+          {% endif %}
         {% endif %}
         {% if page.intro %}
           {% for p in page.intro %}
@@ -123,6 +148,22 @@ layout: default
         <div class="article-body">
           {{ content }}
         </div>
+        {% if series_previous or series_next %}
+        <nav class="article-series-navigation" aria-label="Series navigation">
+          {% if series_previous %}
+          <a class="article-series-navigation-link article-series-navigation-link--previous" href="{{ series_previous.url | relative_url }}">
+            <span class="article-series-navigation-label">Previous episode</span>
+            <span>{{ series_previous.title }}</span>
+          </a>
+          {% endif %}
+          {% if series_next %}
+          <a class="article-series-navigation-link article-series-navigation-link--next" href="{{ series_next.url | relative_url }}">
+            <span class="article-series-navigation-label">Next episode</span>
+            <span>{{ series_next.title }}</span>
+          </a>
+          {% endif %}
+        </nav>
+        {% endif %}
         <div class="article-signature">
           <div class="article-signature-identity">
             <span class="article-signature-marker" aria-hidden="true"></span>
@@ -156,7 +197,7 @@ layout: default
         </aside>
         {% endif %}
         {% if related.size > 0 or related_reading.size > 0 %}
-        {% if related.size > 0 %}
+        {% if related.size > 0 and page.show_related_notes != false %}
         <aside class="article-related" aria-label="Related notes">
           <h3 class="article-related-title">Related notes</h3>
           <ul class="article-related-list">

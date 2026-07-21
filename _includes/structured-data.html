@@ -83,10 +83,17 @@
     "@type": "WebPage",
     "@id": "{{ page_url }}"
   },
-  "isPartOf": {
-    "@type": "WebSite",
-    "@id": "{{ website_id }}"
-  },
+  "isPartOf": [
+    {
+      "@type": "WebSite",
+      "@id": "{{ website_id }}"
+    }{% if page.series %}{% assign structured_series = site.data.series[page.series] %}{% if structured_series %},
+    {
+      "@type": "CreativeWorkSeries",
+      "name": {{ structured_series.title | jsonify }},
+      "url": "{{ site_url }}/thinking/#{{ page.series }}"
+    }{% endif %}{% endif %}
+  ],
   "keywords": [
     {% for article_topic in article_keywords %}
       {% assign topic_data = site.data.topics | where: "slug", article_topic | first %}
