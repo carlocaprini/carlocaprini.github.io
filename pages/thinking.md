@@ -25,6 +25,7 @@ featured_series:
   slug: building-my-ai-operating-system
 # Order of notes on the list. Title and summary come from each article's front matter.
 articles:
+  - url: /thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/
   - url: /thinking/i-built-august-because-copy-and-paste-was-not-collaboration/
   - url: /thinking/i-stopped-trying-to-build-jarvis/
   - url: /thinking/the-transition-to-product-management-starts-before-the-title-changes/

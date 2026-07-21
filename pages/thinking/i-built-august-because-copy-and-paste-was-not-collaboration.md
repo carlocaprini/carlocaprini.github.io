@@ -16,6 +16,7 @@ series: building-my-ai-operating-system
 series_order: 2
 related_notes:
   - /thinking/i-stopped-trying-to-build-jarvis/
+  - /thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/
 intro:
   - I needed a better way to work on a document with AI.
   - The model could help with the text. What was missing was a place where we could continue the work without reconstructing its state each time.
