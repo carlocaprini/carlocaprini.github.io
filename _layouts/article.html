@@ -132,7 +132,11 @@ layout: default
           {% assign article_series = site.data.series[page.series] %}
           {% if article_series %}
           <div class="article-series-context" aria-label="Series information">
-            <a href="{{ '/thinking/' | append: '#' | append: page.series | relative_url }}">{{ article_series.title }}</a>
+            {% if article_series.url %}
+              <a href="{{ article_series.url | relative_url }}">{{ article_series.title }}</a>
+            {% else %}
+              <a href="{{ '/thinking/' | append: '#' | append: page.series | relative_url }}">{{ article_series.title }}</a>
+            {% endif %}
             {% if page.series_order %}<span>Episode {% if page.series_order < 10 %}0{% endif %}{{ page.series_order }}</span>{% endif %}
           </div>
           {% endif %}

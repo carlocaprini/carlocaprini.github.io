@@ -1,6 +1,7 @@
 # Site Design System
 
 Date: 2026-07-14
+Last updated: 2026-07-21
 Status: Reference for future site changes
 
 This document defines the visual language for the site. It is based on the current direction across Home, Thinking, Experience, Influences, the Knowledge Base and individual notes.
@@ -60,7 +61,25 @@ Use this canonical accent cycle:
 4. Sky: `#38bdf8`
    Optional supporting accent.
 
-Use yellow sparingly. `#facc15` can work as a rare warm signal, but it is not part of the core card cycle.
+### Featured Content Spectrum
+
+Warm colors may be used to promote a small number of deliberately featured items. They extend the visual language without becoming new semantic colors:
+
+- Yellow: `#fde047`
+  Primary warm signal, label or high-contrast starting point for a call to action.
+
+- Orange: `#fb923c`
+  Transitional color between yellow and coral.
+
+- Coral: `#fb7185`
+  Expressive glow, gradient endpoint or small animated signal.
+
+- Deep red: `#be185d`
+  Dark background layer only; do not use it for body text or small controls.
+
+Connect the warm spectrum back to the site by retaining one established cool accent, normally cyan or indigo. A featured surface can therefore move from yellow and coral into blue without looking detached from the rest of the system.
+
+Warm colors are campaign accents, not taxonomy. Do not use them to redefine topic colors, metadata, status labels or the standard card cycle.
 
 Each accent should usually have three forms:
 
@@ -94,6 +113,40 @@ Recommended style:
 - optional small signal dot or ring
 
 Use sparingly. A page should generally have one major editorial panel, not many.
+
+### Featured Content Panels
+
+Use when a specific series, launch or time-sensitive editorial destination deserves more attention than surrounding content.
+
+Recommended style:
+
+- one warm-to-cool gradient surface combining yellow, orange or coral with an existing cyan, blue or indigo accent
+
+- a brighter border and controlled glow that remain legible against the dark page background
+
+- one dominant call to action using the warm spectrum and dark text
+
+- one or two abstract decorative signals, kept behind the content and hidden from assistive technology
+
+- slow ambient movement in the surface rather than movement of headings, descriptions or controls
+
+The promoted content must remain recognizable as part of the site: keep the standard radius, typography, spacing and editorial language. Color and motion provide emphasis; they should not introduce a separate visual brand.
+
+Use no more than one high-emphasis featured panel in the same viewport. Nearby panels should stay calmer so the visual hierarchy remains unambiguous.
+
+Do not use this treatment for ordinary navigation, repeated cards, all items in a collection or content that is merely new.
+
+### Emphasis Levels
+
+Choose the lowest level that communicates the intended hierarchy:
+
+1. Standard card: dark neutral surface, subtle border and optional semantic accent.
+
+2. Editorial panel: deeper cool gradient, signal marker and stronger grouping.
+
+3. Featured content panel: warm-to-cool spectrum, contained glow, ambient motion and a dominant call to action.
+
+Only level three introduces the warm featured spectrum. If several components compete at that level, none of them will feel featured.
 
 ### Cards
 
@@ -324,6 +377,38 @@ Avoid:
 - chronological emphasis
 - search controls until the content volume justifies them
 
+### Editorial Series
+
+A series receives a dedicated page once it contains enough published or publication-ready notes to form a useful reading path. Keep the series out of the global navigation; Thinking remains its primary entry point.
+
+Keep:
+
+- one compact series preview in Thinking with title, short description, episode count and a single link
+
+- a contained warm-to-cool spectrum in the Thinking preview, with yellow and coral as campaign accents rather than new global topic colors
+
+- slow ambient movement that gives the preview energy without moving its content, and a fully static treatment under `prefers-reduced-motion`
+
+- one stable `/series/series-slug/` page with a concise introduction, shared vocabulary and the complete ordered episode list
+
+- vocabulary that introduces only services and concepts already covered by available episodes
+
+- every episode in the general Thinking list and Knowledge Base topics
+
+- series title and episode number in article heroes, linked back to the dedicated page
+
+- previous and next navigation only when an adjacent episode exists
+
+Avoid:
+
+- rendering the full episode collection inside Thinking
+
+- adding Series to the global navigation
+
+- exposing planned episode titles before their notes are available on the site
+
+- turning the series page into a product landing page or roadmap
+
 ### Article Layout
 
 Article pages should stay calmer than index pages.
@@ -379,10 +464,26 @@ Approved motion:
 - soft border/glow change
 - optional arrow reveal on interactive cards
 
+- slow ambient gradient movement on a single featured content panel
+
+- gentle drift or pulse of non-essential decorative signals inside that panel
+
 Rules:
 
 - Always support `prefers-reduced-motion`.
-- Avoid constant looping animation unless it communicates state.
+
+- Keep ambient loops slow: roughly `12-16s` for gradient movement, `7-10s` for a drifting glow and at least `3s` for a pulse.
+
+- Keep text, labels and controls stationary. Motion should occur behind content or in small decorative signals.
+
+- Stop ambient animation completely under `prefers-reduced-motion`; do not merely shorten its duration.
+
+- Avoid constant looping animation outside a deliberately featured surface unless it communicates state.
+
+- Avoid combining ambient motion with scroll reveal, parallax or large transforms on the same component.
+
+- Hover movement should remain small, normally no more than `translateY(-2px)`.
+
 - Avoid motion inside dense reading surfaces.
 
 ## Content Voice

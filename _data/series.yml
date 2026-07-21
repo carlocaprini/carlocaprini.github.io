@@ -1,4 +1,15 @@
 building-my-ai-operating-system:
   title: Building My Own AI Operating System
+  url: /series/building-my-ai-operating-system/
   description: First-person notes from building a personal AI-first operating system, starting with the failed attempt to make one general assistant useful.
-  context: The series follows the decisions, boundaries and failure modes that appear as Friday, August and March move from separate tools towards a system that can work across them.
+  context: The series follows the decisions, boundaries and failure modes that appear as separate tools begin to form a system that can work across them.
+  intro:
+    - This series follows my attempt to build a personal AI operating system by starting from work I already do, rather than from one universal assistant.
+    - August keeps documents, versions and review state together. March makes the publishing runway visible without turning it into a commitment. Both give AI explicit state to work with while authorship, priorities and decisions remain mine.
+  services:
+    - name: August
+      concept: Document continuity
+      description: A shared workspace for developing documents with AI while keeping versions, review state and unresolved questions visible.
+    - name: March
+      concept: Editorial runway
+      description: A view of what may be published, what is ready and where intentional gaps remain, without turning the plan into a promise.

@@ -91,7 +91,7 @@
     {
       "@type": "CreativeWorkSeries",
       "name": {{ structured_series.title | jsonify }},
-      "url": "{{ site_url }}/thinking/#{{ page.series }}"
+      "url": "{{ structured_series.url | absolute_url | replace: site.url, canonical_site_url }}"
     }{% endif %}{% endif %}
   ],
   "keywords": [
@@ -120,15 +120,101 @@
       "name": "Thinking",
       "item": "{{ site_url }}/thinking/"
     },
+    {% if page.series %}{% assign breadcrumb_series = site.data.series[page.series] %}{% if breadcrumb_series and breadcrumb_series.url %}
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ breadcrumb_series.title | jsonify }},
+      "item": "{{ breadcrumb_series.url | absolute_url | replace: site.url, canonical_site_url }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": {{ page.title | jsonify }},
+      "item": "{{ page_url }}"
+    }
+    {% else %}
     {
       "@type": "ListItem",
       "position": 3,
       "name": {{ page.title | jsonify }},
       "item": "{{ page_url }}"
     }
+    {% endif %}{% else %}
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ page.title | jsonify }},
+      "item": "{{ page_url }}"
+    }
+    {% endif %}
   ]
 }
 </script>
+{% endif %}
+
+{% if page.layout == "series" and page.series_slug %}
+{% assign structured_series = site.data.series[page.series_slug] %}
+{% assign structured_series_notes = site.pages | where: "series", page.series_slug | sort: "series_order" %}
+{% if structured_series %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWorkSeries",
+  "@id": "{{ page_url }}#series",
+  "url": "{{ page_url }}",
+  "name": {{ structured_series.title | jsonify }},
+  "description": {{ page.meta_description | default: structured_series.description | jsonify }},
+  "inLanguage": "en",
+  "creator": {
+    "@type": "Person",
+    "@id": "{{ person_id }}",
+    "name": {{ person_name | jsonify }}
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "{{ website_id }}"
+  },
+  "hasPart": [
+    {% for note in structured_series_notes %}
+    {
+      "@type": "BlogPosting",
+      "position": {{ note.series_order }},
+      "name": {{ note.title | jsonify }},
+      "url": "{{ note.url | absolute_url | replace: site.url, canonical_site_url }}"
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ site_url }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Thinking",
+      "item": "{{ site_url }}/thinking/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ structured_series.title | jsonify }},
+      "item": "{{ page_url }}"
+    }
+  ]
+}
+</script>
+{% endif %}
 {% endif %}
 
 {% if page.layout == "knowledge" %}

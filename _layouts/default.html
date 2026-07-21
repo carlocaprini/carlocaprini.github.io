@@ -16,7 +16,7 @@
     {% if current_url == "/experience/" %}
       {% assign is_experience = true %}
     {% endif %}
-    {% if current_url == "/thinking/" or page.layout == "article" %}
+    {% if current_url == "/thinking/" or page.layout == "article" or page.layout == "series" %}
       {% assign is_thinking = true %}
     {% endif %}
     {% if current_url == "/influences/" %}

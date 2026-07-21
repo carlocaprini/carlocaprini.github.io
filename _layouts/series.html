@@ -1,0 +1,83 @@
+---
+layout: default
+# Layout for a dedicated editorial series page. Expects: series_slug.
+---
+{% assign series_data = site.data.series[page.series_slug] %}
+{% assign series_notes = site.pages | where: "series", page.series_slug | sort: "series_order" %}
+
+<div class="page series-page">
+  <section class="hero hero--compact series-hero">
+    <div class="container hero-grid hero-grid--single">
+      <div>
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          <span>Series</span>
+        </div>
+        <h1 class="hero-title hero-title--compact">{{ series_data.title }}</h1>
+        <p class="hero-subtitle hero-subtitle--wide">{{ series_data.description }}</p>
+        <div class="hero-actions hero-actions--compact">
+          <a href="{{ '/thinking/' | relative_url }}" class="button-ghost">Back to Thinking</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section series-overview-section">
+    <div class="container series-overview">
+      <div class="series-overview-copy">
+        <div class="section-eyebrow">The system so far</div>
+        <h2 class="section-title">Separate services, explicit responsibilities.</h2>
+        {% for paragraph in series_data.intro %}
+          <p>{{ paragraph }}</p>
+        {% endfor %}
+      </div>
+
+      <dl class="series-service-list">
+        {% for service in series_data.services %}
+          <div class="series-service-item">
+            <dt>
+              <span>{{ service.name }}</span>
+              <small>{{ service.concept }}</small>
+            </dt>
+            <dd>{{ service.description }}</dd>
+          </div>
+        {% endfor %}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section series-episodes-section" aria-labelledby="series-episodes-title">
+    <div class="container">
+      <div class="experience-section-header series-episodes-header">
+        <div>
+          <div class="section-eyebrow">Episodes</div>
+          <h2 class="section-title" id="series-episodes-title">Notes in this series.</h2>
+        </div>
+        <p class="section-description">Each note follows one concrete job, boundary or failure mode as the system evolves.</p>
+      </div>
+
+      <ol class="series-page-episodes">
+        {% for note in series_notes %}
+          <li>
+            <a href="{{ note.url | relative_url }}">
+              <span class="series-page-episode-number">Episode {% if note.series_order < 10 %}0{% endif %}{{ note.series_order }}</span>
+              <span class="series-page-episode-content">
+                <span class="series-page-episode-title">{{ note.title }}</span>
+                <span class="series-page-episode-summary">{{ note.summary }}</span>
+                {% if note.topics and note.topics.size > 0 %}
+                  <span class="content-topic-list" aria-label="Themes">
+                    {% for note_topic in note.topics %}
+                      {% assign topic_data = site.data.topics | where: "slug", note_topic | first %}
+                      <span class="content-topic-link content-topic-link--{{ note_topic }}">{{ topic_data.label | default: note_topic }}</span>
+                    {% endfor %}
+                  </span>
+                {% endif %}
+              </span>
+              <span class="series-page-episode-action" aria-hidden="true">→</span>
+            </a>
+          </li>
+        {% endfor %}
+      </ol>
+    </div>
+  </section>
+</div>
