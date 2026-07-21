@@ -14,8 +14,6 @@ topics:
   - product-decisions
 series: building-my-ai-operating-system
 series_order: 3
-related_notes:
-  - /thinking/i-built-august-because-copy-and-paste-was-not-collaboration/
 intro:
   - I wanted a clear view of the months ahead.
   - I did not want a content calendar telling me to feed the machine.

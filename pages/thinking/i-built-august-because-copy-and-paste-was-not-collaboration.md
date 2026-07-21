@@ -14,9 +14,6 @@ topics:
   - teams-and-collaboration
 series: building-my-ai-operating-system
 series_order: 2
-related_notes:
-  - /thinking/i-stopped-trying-to-build-jarvis/
-  - /thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/
 intro:
   - I needed a way to keep working on a document with AI without rebuilding the context in every conversation.
   - The AI could help with the text. But we did not have a comfortable place to continue the work together.

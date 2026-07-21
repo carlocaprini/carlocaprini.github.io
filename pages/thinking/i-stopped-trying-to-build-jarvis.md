@@ -14,8 +14,6 @@ topics:
   - software-systems
 series: building-my-ai-operating-system
 series_order: 1
-related_notes:
-  - /thinking/i-built-august-because-copy-and-paste-was-not-collaboration/
 intro:
   - I began with decisions and action items before I had a recurring job for them.
   - The useful parts appeared only after I built smaller services around work I was already doing.
