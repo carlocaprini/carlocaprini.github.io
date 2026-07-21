@@ -35,6 +35,12 @@ selected_notes:
     label: All notes
     url: /thinking/
 
+featured_series:
+  slug: building-my-ai-operating-system
+  eyebrow: Featured series
+  description: Three notes on building August and March as bounded AI services, while keeping judgment and editorial control with the person doing the work.
+  action: Explore the series
+
 where_i_can_help:
   eyebrow: Recurring questions
   title: The situations I keep coming back to.

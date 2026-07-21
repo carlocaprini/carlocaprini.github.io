@@ -27,28 +27,48 @@ layout: default
   </section>
 
   <section id="selected-notes" class="section">
-    <div class="container section-grid selected-notes-panel">
-      <div>
-        <div class="section-header">
-          <div>
-            <div class="section-eyebrow">{{ h.selected_notes.eyebrow }}</div>
-            <h2 class="section-title">{{ h.selected_notes.title }}</h2>
+    {% assign home_series = site.data.series[h.featured_series.slug] %}
+    {% assign home_series_notes = site.pages | where: "series", h.featured_series.slug | sort: "series_order" %}
+    <div class="container home-featured-grid">
+      <div class="home-start-here selected-notes-panel">
+        <div>
+          <div class="section-header">
+            <div>
+              <div class="section-eyebrow">{{ h.selected_notes.eyebrow }}</div>
+              <h2 class="section-title">{{ h.selected_notes.title }}</h2>
+            </div>
+            <p class="section-description">{{ h.selected_notes.description }}</p>
           </div>
-          <p class="section-description">{{ h.selected_notes.description }}</p>
+          <a class="section-link" href="{{ h.selected_notes.action.url | relative_url }}">{{ h.selected_notes.action.label }}</a>
         </div>
-        <a class="section-link" href="{{ h.selected_notes.action.url | relative_url }}">{{ h.selected_notes.action.label }}</a>
+        <ul class="selected-notes-list">
+          {% for item in h.selected_notes.links %}
+            {% assign note = site.pages | where: "url", item.url | first %}
+            {% if note %}
+            <li>
+              <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+              <span>{{ note.summary }}</span>
+            </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
       </div>
-      <ul class="selected-notes-list">
-        {% for item in h.selected_notes.links %}
-          {% assign note = site.pages | where: "url", item.url | first %}
-          {% if note %}
-          <li>
-            <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
-            <span>{{ note.summary }}</span>
-          </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
+      {% if home_series and home_series_notes.size > 0 %}
+      <section class="home-series-preview" aria-labelledby="home-series-title">
+        <div>
+          <div class="home-series-heading-row">
+            <span class="home-series-signal" aria-hidden="true"></span>
+            <div class="section-eyebrow">{{ h.featured_series.eyebrow }}</div>
+          </div>
+          <h2 class="home-series-title" id="home-series-title">{{ home_series.title }}</h2>
+          <p class="home-series-description">{{ h.featured_series.description }}</p>
+        </div>
+        <div class="home-series-action">
+          <span class="home-series-count">{{ home_series_notes.size }} episodes</span>
+          <a class="section-link" href="{{ home_series.url | relative_url }}">{{ h.featured_series.action }} <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+      {% endif %}
     </div>
   </section>
 

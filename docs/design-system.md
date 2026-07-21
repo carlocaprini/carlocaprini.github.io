@@ -132,6 +132,8 @@ Recommended style:
 
 The promoted content must remain recognizable as part of the site: keep the standard radius, typography, spacing and editorial language. Color and motion provide emphasis; they should not introduce a separate visual brand.
 
+On Home, prefer a compact featured variant using the canonical cyan, indigo and emerald palette. It may retain slower ambient movement, but should remain calmer than the primary promotional treatment on a destination page such as Thinking.
+
 Use no more than one high-emphasis featured panel in the same viewport. Nearby panels should stay calmer so the visual hierarchy remains unambiguous.
 
 Do not use this treatment for ordinary navigation, repeated cards, all items in a collection or content that is merely new.
@@ -384,6 +386,8 @@ A series receives a dedicated page once it contains enough published or publicat
 Keep:
 
 - one compact series preview in Thinking with title, short description, episode count and a single link
+
+- one calmer compact preview beside Start Here on Home when the series is an active editorial focus; stack it below Start Here when the available width is not sufficient
 
 - a contained warm-to-cool spectrum in the Thinking preview, with yellow and coral as campaign accents rather than new global topic colors
 
