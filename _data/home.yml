@@ -7,7 +7,7 @@ hero:
     - "The site connects those ideas with the experience behind them and selected readings that have shaped how I think."
   actions:
     primary:
-      label: Start with selected notes
+      label: Read selected notes
       url: /#selected-notes
     secondary:
       label: Explore the site
@@ -26,7 +26,7 @@ hero:
 selected_notes:
   eyebrow: Start here
   title: Selected notes
-  description: Start with a few notes on trade-offs, urgency, AI, shared context and the way teams make decisions under pressure.
+  description: A short route through trade-offs, urgency, AI, shared context and the way teams make decisions under pressure.
   links:
     - url: /thinking/product-decisions-are-mostly-trade-offs/
     - url: /thinking/ai-accelerates-contribution-not-mastery/
@@ -34,6 +34,12 @@ selected_notes:
   action:
     label: All notes
     url: /thinking/
+
+featured_series:
+  slug: building-my-ai-operating-system
+  eyebrow: Featured series
+  description: Three notes on building August and March as bounded AI services, while keeping judgment and editorial control with the person doing the work.
+  action: Explore the series
 
 where_i_can_help:
   eyebrow: Recurring questions

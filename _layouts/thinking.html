@@ -32,6 +32,11 @@ layout: default
     <div class="container thinking-list-wrap">
       {% assign article_urls = page.articles | map: "url" %}
       {% assign sorted_notes = site.pages | where_exp: "item", "article_urls contains item.url" | sort: "date" | reverse %}
+      {% if page.featured_series and page.featured_series.slug %}
+        {% assign featured_series = site.data.series[page.featured_series.slug] %}
+        {% assign series_notes = site.pages | where: "series", page.featured_series.slug | sort: "series_order" %}
+      {% endif %}
+      <div class="thinking-entry-grid">
       {% if page.start_here and page.start_here.articles %}
       <div class="thinking-start-here selected-notes-panel selected-notes-panel--compact">
         <div class="section-header">
@@ -53,6 +58,23 @@ layout: default
         </ul>
       </div>
       {% endif %}
+      {% if featured_series and series_notes.size > 0 %}
+        <section class="thinking-series-preview" id="{{ page.featured_series.slug }}" aria-labelledby="thinking-series-title">
+          <div>
+            <div class="thinking-series-heading-row">
+              <span class="thinking-series-signal" aria-hidden="true"></span>
+              <div class="section-eyebrow">Ongoing series</div>
+            </div>
+            <h2 class="thinking-series-title" id="thinking-series-title">{{ featured_series.title }}</h2>
+            <p class="thinking-series-description">{{ featured_series.description }}</p>
+          </div>
+          <div class="thinking-series-preview-action">
+            <span class="thinking-series-count">{{ series_notes.size }} episodes</span>
+            <a class="section-link" href="{{ featured_series.url | relative_url }}">Explore the series <span aria-hidden="true">→</span></a>
+          </div>
+        </section>
+      {% endif %}
+      </div>
       <nav class="thinking-topic-navigation" aria-labelledby="thinking-topic-title">
         <div class="thinking-topic-heading">
           <div>
