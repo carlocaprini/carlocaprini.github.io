@@ -5,11 +5,17 @@ building-my-ai-operating-system:
   context: The series follows the decisions, boundaries and failure modes that appear as separate tools begin to form a system that can work across them.
   intro:
     - This series follows my attempt to build a personal AI operating system by starting from work I already do, rather than from one universal assistant.
-    - August keeps documents, versions and review state together. March makes the publishing runway visible without turning it into a commitment. Both give AI explicit state to work with while authorship, priorities and decisions remain mine.
+    - August keeps documents, versions and review state together. March makes the publishing runway visible without turning it into a commitment. Friday now coordinates signals across them while each service remains responsible for its own work.
   services:
+    - name: Jarvis
+      concept: Failed attempt
+      description: A general orchestration system that began with decisions and action items before it had a recurring job.
     - name: August
       concept: Document continuity
       description: A shared workspace for developing documents with AI while keeping versions, review state and unresolved questions visible.
     - name: March
       concept: Editorial runway
       description: A view of what may be published, what is ready and where intentional gaps remain, without turning the plan into a promise.
+    - name: Friday
+      concept: Working orchestrator
+      description: The ongoing second attempt, built around noticing what may deserve attention across bounded services without replacing them.
