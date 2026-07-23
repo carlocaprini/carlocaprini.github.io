@@ -12,7 +12,7 @@ building-my-ai-operating-system:
       description: A general orchestration system that began with decisions and action items before it had a recurring job.
     - name: August
       concept: Document continuity
-      description: A shared workspace for developing documents with AI while keeping versions, review state and unresolved questions visible.
+      description: A private, local review workspace for developing documents with AI while keeping versions, review state and unresolved questions visible.
     - name: March
       concept: Editorial runway
       description: A view of what may be published, what is ready and where intentional gaps remain, without turning the plan into a promise.
