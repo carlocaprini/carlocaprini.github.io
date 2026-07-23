@@ -2,11 +2,11 @@
 layout: article
 title: I built August because copy and paste was not collaboration
 date: "2026-07-21T10:00:00+02:00"
-last_modified_at: 2026-07-21
+last_modified_at: 2026-07-23
 published: true
 permalink: /thinking/i-built-august-because-copy-and-paste-was-not-collaboration/
 summary: AI could help with a document, but the work around each answer kept falling apart. I built August to keep the draft, its review state and my decisions in one place.
-meta_description: Why Carlo Caprini built August as a shared workspace for developing documents with AI while preserving continuity, authorship and human judgment.
+meta_description: Why Carlo Caprini built August as a private, local review workspace for developing documents with AI while preserving continuity, authorship and human judgment.
 meta_image: /assets/og-thinking-v2.png
 meta_image_alt: Thinking by Carlo Caprini, notes on product decisions, AI, software systems and teams.
 topics:
@@ -44,9 +44,9 @@ Which version are we discussing? Which suggestion did I accept? Which one did I 
 
 I was spending too much time carrying those answers between the AI, the conversation, and the document.
 
-That work was not intellectually difficult but it was constant.
+That work was not intellectually difficult, but it was constant.
 
-So I kept on tinkering and started building August to remove that friction.
+I started building a private, local workspace around that friction. I called it August.
 
 ## I did not want the AI to write instead of me
 
@@ -64,9 +64,13 @@ AI is very good at making a draft look complete. It can smooth over a missing ar
 
 A useful review may improve a paragraph. It may also leave an honest gap visible until I know what belongs there.
 
-## August became the shared workspace
+## August became my review workspace
 
-I did not find another tool that made this way of working comfortable enough for me, and maybe I did not even look for it too hard. Instead, I built the one I wanted, and I keep working on improving it.
+Document collaboration, comments, suggestions, and version history are established patterns. My professional experience around document products has also shaped how I think about review, permissions, and ownership.
+
+August is not a claim to have invented those ideas. It is my private, local implementation of a narrower workflow: continuing document review with AI while keeping the state of the work and the final decisions under my control.
+
+I built it around the way I wanted to work, and I keep improving it as that work changes.
 
 The document remains easy to read and edit. Around it, August keeps the parts that are otherwise scattered across conversations and editors:
 
@@ -88,9 +92,11 @@ I can inspect what changed and decide what to keep.
 
 Once the review state lives with the document, I am not limited to the model or interface I happen to have open.
 
-August exposes a dedicated interface for AI agents through MCP, a protocol that gives them access to specific tools and data exposed by the service. Today, I can ask agents such as ChatGPT or Claude to read the current document, inspect the existing review, and contribute comments or proposed changes directly. They do not need a pasted copy or my summary of what happened in the previous session.
+Because August is part of my private system, I added a dedicated MCP interface for the agents I use. MCP gives them access to a limited set of tools and data exposed by August.
 
-I also built specialized reviewer profiles into August that can run locally. Each profile is a reusable set of review instructions, not a separate model.
+Agents such as ChatGPT or Claude can read the current document and its review state, then return comments or proposed changes to the same workspace. I do not need to give them a pasted copy or reconstruct the previous session.
+
+I also use specialized reviewer profiles that run locally. Each profile is a reusable set of review instructions, not a separate model.
 
 Some are deliberately general: an editor looks at the writing, while a reader looks for the points where the argument becomes difficult to follow. Others use a more specific perspective, such as a developer, a founder, or my future self.
 
@@ -100,9 +106,9 @@ Their feedback still arrives as comments and suggestions. I can compare conflict
 
 The useful part is not having more reviewers. More feedback also creates more filtering work. August helps when it keeps that work visible and lets different reviewers contribute without losing the document's history or my responsibility for the result.
 
-## It started with things I wanted to publish
+## The first job was content I wanted to publish
 
-The first use was deliberately narrow: documents and content I might publish as an article, a longer note, or something that had not found its final format yet.
+The first job I gave August was deliberately narrow: documents and content I might publish as an article, a longer note, or something that had not found its final format yet.
 
 The job already existed. I was writing, asking AI for feedback, and losing time moving the work between tools.
 
@@ -124,9 +130,9 @@ August expanded because that pattern repeated, not because it started as the hom
 
 Jarvis began with the shape of a large system and then looked for jobs to place inside it.
 
-August began with work I was already doing badly: collaborating with AI on a document through copy and paste.
+August did not invent a new kind of document review. It gave established review patterns a smaller job inside my own system: helping me continue a piece of thinking with AI instead of carrying its state through copy and paste.
 
-For August, the order mattered more than the technology. I already had the job, the friction, and a way to tell whether the tool was helping.
+That was the important difference from Jarvis. I had a specific job, a friction I could observe, and a way to tell whether my implementation was helping.
 
 August can grow, and it already has. But each addition still has to answer the same question: does it help me continue a piece of thinking with AI without losing its state or my ownership of the result?
 
