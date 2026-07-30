@@ -1,7 +1,7 @@
 # Site Design System
 
 Date: 2026-07-14
-Last updated: 2026-07-21
+Last updated: 2026-07-30
 Status: Reference for future site changes
 
 This document defines the visual language for the site. It is based on the current direction across Home, Thinking, Experience, Influences, the Knowledge Base and individual notes.
@@ -401,6 +401,8 @@ Keep:
 
 - series title and episode number in article heroes, linked back to the dedicated page
 
+- one calm context box inside each episode when readers need orientation after arriving directly on a note; it should contain the shared series framing, one episode-specific sentence and a single link to the dedicated series page
+
 - previous and next navigation only when an adjacent episode exists
 
 Avoid:
@@ -410,6 +412,8 @@ Avoid:
 - adding Series to the global navigation
 
 - exposing planned episode titles before their notes are available on the site
+
+- styling the in-article context box as another featured or promotional panel
 
 - turning the series page into a product landing page or roadmap
 

@@ -2,7 +2,7 @@
 layout: article
 title: Why I started building Friday
 date: "2026-07-22T09:00:00+02:00"
-last_modified_at: 2026-07-22
+last_modified_at: 2026-07-30
 published: true
 permalink: /thinking/why-i-started-building-friday/
 summary: Friday is my second attempt at the original Jarvis ambition. It began when August and March created a concrete coordination problem between them.
@@ -14,6 +14,7 @@ topics:
   - software-systems
 series: building-my-ai-operating-system
 series_order: 4
+series_context: "Friday returns to the original ambition from a different starting point: two bounded services already doing useful work."
 show_related_notes: false
 intro:
   - I stopped building Jarvis because it had no recurring job.
@@ -25,6 +26,8 @@ I [stopped building Jarvis](/thinking/i-stopped-trying-to-build-jarvis/) because
 Then I built [August](/thinking/i-built-august-because-copy-and-paste-was-not-collaboration/) and [March](/thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/).
 
 Friday is my second attempt at the original ambition. It began when those two useful services created a new problem between them.
+
+{% include series-context.html %}
 
 ## The problem was not asking
 

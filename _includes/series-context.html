@@ -1,0 +1,14 @@
+{% assign entry_series = site.data.series[page.series] %}
+{% if entry_series and entry_series.entry_context and page.series_context %}
+<aside class="article-series-entry" aria-label="Series context">
+  <p class="article-series-entry-label">
+    {% if entry_series.url %}
+      <a href="{{ entry_series.url | relative_url }}">About this series</a>
+    {% else %}
+      <span>About this series</span>
+    {% endif %}
+  </p>
+  <p>{{ entry_series.entry_context }}</p>
+  <p>{{ page.series_context }}</p>
+</aside>
+{% endif %}

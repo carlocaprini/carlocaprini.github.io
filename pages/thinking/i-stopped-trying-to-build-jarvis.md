@@ -2,7 +2,7 @@
 layout: article
 title: I stopped trying to build Jarvis
 date: "2026-07-21T09:00:00+02:00"
-last_modified_at: 2026-07-21
+last_modified_at: 2026-07-30
 published: true
 permalink: /thinking/i-stopped-trying-to-build-jarvis/
 summary: I started with a general AI assistant and no recurring job for it. The useful parts appeared only after I built smaller services around work I was already doing.
@@ -14,6 +14,7 @@ topics:
   - software-systems
 series: building-my-ai-operating-system
 series_order: 1
+series_context: "The series starts with the failed general assistant and the reset around smaller services."
 show_related_notes: false
 intro:
   - I began with decisions and action items before I had a recurring job for them.
@@ -23,6 +24,8 @@ intro:
 For years, I have wanted something like Jarvis.
 
 Not necessarily the voice, the holograms, or a system running an Iron Man suit—although that would still be so cool, and I still aim for it. What interested me most was having an intelligence that knew what I was working on, kept track of the moving pieces, and could help without needing the whole situation explained again every time.
+
+{% include series-context.html %}
 
 ## The ambition came before the job
 
@@ -44,7 +47,7 @@ Those seemed like sensible things for a personal system to remember. I had chose
 
 I wanted a system for decisions and action items, but I could not answer the practical question: decisions and action items for what? I assumed the context would not matter. It did.
 
-In retrospect, those concepts could have been useful inside the workflows that eventually became [August](/thinking/i-built-august-because-copy-and-paste-was-not-collaboration/) and March. Both deal with work that has a state, unresolved decisions, and clear next actions.
+In retrospect, those concepts could have been useful inside the workflows that eventually became [August](/thinking/i-built-august-because-copy-and-paste-was-not-collaboration/) and [March](/thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/). Both deal with work that has a state, unresolved decisions, and clear next actions.
 
 Putting them together inside Jarvis still did not give me a reason to use it for anything repeatedly. The system made sense on paper, but it was not helping me with work I was actually doing. So I left it.
 
