@@ -1,26 +1,39 @@
 import { expect, test } from "@playwright/test";
+import { readFile } from "node:fs/promises";
 
-const coreRoutes = [
-  "/",
-  "/thinking/",
-  "/experience/",
-  "/influences/",
-  "/knowledge/",
-  "/series/building-my-ai-operating-system/",
+const publicRoutes = (await readFile("_site/sitemap.txt", "utf8"))
+  .split("\n")
+  .map((line) => line.trim())
+  .filter(Boolean)
+  .map((url) => new URL(url).pathname);
+
+const seriesRoutes = [
   "/thinking/i-stopped-trying-to-build-jarvis/",
   "/thinking/i-built-august-because-copy-and-paste-was-not-collaboration/",
   "/thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/",
   "/thinking/why-i-started-building-friday/"
 ];
 
-const seriesRoutes = coreRoutes.slice(6);
+const runtimeErrors = new WeakMap();
 
 test.beforeEach(async ({ page }) => {
-  await page.route("https://fonts.googleapis.com/**", (route) => route.abort());
-  await page.route("https://fonts.gstatic.com/**", (route) => route.abort());
+  const errors = [];
+  runtimeErrors.set(page, errors);
+  page.on("pageerror", (error) => errors.push(`pageerror: ${error.message}`));
+  page.on("console", (message) => {
+    if (message.type() === "error") errors.push(`console: ${message.text()}`);
+  });
+
+  await page.route("https://fonts.googleapis.com/**", (route) =>
+    route.fulfill({ status: 200, contentType: "text/css", body: "" })
+  );
 });
 
-for (const route of coreRoutes) {
+test.afterEach(async ({ page }) => {
+  expect(runtimeErrors.get(page)).toEqual([]);
+});
+
+for (const route of publicRoutes) {
   test(`${route} renders without horizontal overflow`, async ({ page }) => {
     const response = await page.goto(route);
 
