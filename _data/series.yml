@@ -3,6 +3,7 @@ building-my-ai-operating-system:
   url: /series/building-my-ai-operating-system/
   description: My notes from building a personal AI-first operating system, starting with the failed attempt to make one general assistant useful.
   context: The series follows the decisions, boundaries and failure modes that appear as separate tools begin to form a system that can work across them.
+  entry_context: After abandoning a general Jarvis-like assistant, I started building smaller AI-first services around recurring work and connecting them only when a concrete coordination problem appeared.
   intro:
     - This series follows my attempt to build a personal AI operating system by starting from work I already do, rather than from one universal assistant.
     - August keeps documents, versions and review state together. March makes the publishing runway visible without turning it into a commitment. Friday now coordinates signals across them while each service remains responsible for its own work.

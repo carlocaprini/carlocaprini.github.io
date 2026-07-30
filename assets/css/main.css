@@ -968,10 +968,10 @@ main {
   margin: 1.75rem 0 2rem;
   padding: 1.15rem 1.25rem;
   border: 1px solid var(--accent-indigo-border);
-  border-left: 3px solid #818cf8;
+  border-left: 3px solid var(--accent-indigo);
   border-radius: var(--radius-card);
   background:
-    linear-gradient(135deg, rgb(99 102 241 / 0.11), transparent 72%),
+    linear-gradient(135deg, var(--accent-indigo-soft), transparent 72%),
     var(--color-surface-soft);
 }
 
@@ -979,7 +979,7 @@ main {
   margin: 0;
   color: var(--color-text-secondary);
   font-size: 0.91rem;
-  line-height: 1.65;
+  line-height: 1.7;
 }
 
 .article-series-entry p + p {
@@ -988,7 +988,7 @@ main {
 
 .article-series-entry .article-series-entry-label {
   margin-bottom: 0.6rem;
-  color: #a5b4fc;
+  color: var(--accent-indigo);
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -997,7 +997,7 @@ main {
 
 .article-series-entry-label a {
   color: inherit;
-  text-decoration-color: rgb(165 180 252 / 0.55);
+  text-decoration-color: var(--accent-indigo-border);
   text-underline-offset: 0.2em;
 }
 
