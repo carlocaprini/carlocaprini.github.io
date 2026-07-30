@@ -121,6 +121,17 @@ required_files.each do |file|
   fail_check("Missing generated file: #{file}") unless File.file?(site_path(file))
 end
 
+forbidden_files = %w[
+  package.json
+  package-lock.json
+  playwright.config.js
+]
+
+forbidden_files.each do |file|
+  fail_check("Development file leaked into generated site: #{file}") if File.exist?(site_path(file))
+end
+fail_check("Browser tests leaked into generated site") if File.exist?(site_path("tests"))
+
 sitemap_locs = []
 sitemap_xml = read_file(site_path("sitemap.xml"))
 if sitemap_xml

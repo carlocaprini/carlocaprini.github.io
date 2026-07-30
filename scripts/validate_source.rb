@@ -282,7 +282,7 @@ dependabot = read_yaml(dependabot_path) || {}
 fail_check(".github/dependabot.yml: version must be 2") unless dependabot["version"] == 2
 updates = Array(dependabot["updates"])
 ecosystems = updates.map { |update| update["package-ecosystem"] }.compact
-%w[bundler github-actions].each do |ecosystem|
+%w[bundler github-actions npm].each do |ecosystem|
   update = updates.find { |entry| entry["package-ecosystem"] == ecosystem }
   if update.nil?
     fail_check(".github/dependabot.yml: missing #{ecosystem} updates")
@@ -295,7 +295,7 @@ ecosystems = updates.map { |update| update["package-ecosystem"] }.compact
   end
 end
 
-unexpected_ecosystems = ecosystems - %w[bundler github-actions]
+unexpected_ecosystems = ecosystems - %w[bundler github-actions npm]
 unless unexpected_ecosystems.empty?
   fail_check(".github/dependabot.yml: undocumented ecosystems: #{unexpected_ecosystems.join(', ')}")
 end
