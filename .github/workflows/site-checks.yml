@@ -34,7 +34,12 @@ jobs:
           bundler-cache: true
 
       - name: Check Ruby syntax
-        run: ruby -c scripts/validate_site.rb
+        run: |
+          ruby -c scripts/validate_source.rb
+          ruby -c scripts/validate_site.rb
+
+      - name: Validate source contracts
+        run: ruby scripts/validate_source.rb
 
       - name: Configure GitHub Pages
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
