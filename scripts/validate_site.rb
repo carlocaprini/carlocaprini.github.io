@@ -77,6 +77,24 @@ def html_ids(html)
   html.scan(/\sid=(["'])(.*?)\1/).map { |(_, id)| id }.to_set
 end
 
+def meta_content(html, attribute, value)
+  tag = html[%r{<meta\b[^>]*\b#{Regexp.escape(attribute)}=["']#{Regexp.escape(value)}["'][^>]*>}i]
+  tag&.[](%r{\bcontent=["']([^"']+)["']}i, 1)
+end
+
+def validate_generated_url(relative, label, value)
+  unless value&.start_with?("#{SITE_URL}/")
+    fail_check("#{relative}: #{label} must use the canonical site URL")
+    return
+  end
+
+  path = normalize_local_path(value)
+  return if path.nil?
+
+  target = generated_file_for_path(path)
+  fail_check("#{relative}: #{label} points to a missing file: #{value}") unless File.file?(target)
+end
+
 def front_matter(path)
   source = read_file(path)
   return {} unless source
@@ -147,8 +165,21 @@ sitemap_txt = read_file(site_path("sitemap.txt"))
 if sitemap_txt
   text_urls = sitemap_txt.lines.map(&:strip).reject(&:empty?)
   fail_check("sitemap.txt does not contain URLs") if text_urls.empty?
+  duplicates = text_urls.group_by(&:itself).select { |_, values| values.size > 1 }.keys
+  fail_check("Duplicate URLs in sitemap.txt: #{duplicates.join(', ')}") unless duplicates.empty?
   text_urls.each do |url|
     fail_check("Non-canonical sitemap.txt URL: #{url}") unless url.start_with?("#{SITE_URL}/")
+  end
+
+  unless sitemap_locs.empty?
+    missing_from_text = sitemap_locs.to_set - text_urls.to_set
+    extra_in_text = text_urls.to_set - sitemap_locs.to_set
+    unless missing_from_text.empty?
+      fail_check("sitemap.txt is missing sitemap.xml URLs: #{missing_from_text.to_a.join(', ')}")
+    end
+    unless extra_in_text.empty?
+      fail_check("sitemap.txt contains URLs absent from sitemap.xml: #{extra_in_text.to_a.join(', ')}")
+    end
   end
 end
 
@@ -185,10 +216,27 @@ html_files.each do |file|
   fail_check("#{relative}: missing meta description") unless html.match?(%r{<meta\s+name=["']description["']}i)
   fail_check("#{relative}: root html language must be English") unless html.match?(%r{<html\s+lang=["']en["']}i)
   fail_check("#{relative}: expected exactly one h1") unless html.scan(%r{<h1\b}i).size == 1
+  fail_check("#{relative}: expected exactly one main landmark") unless html.scan(%r{<main\b}i).size == 1
+  fail_check("#{relative}: main landmark must expose id=top") unless html.match?(%r{<main\b[^>]*\bid=["']top["']}i)
   fail_check("#{relative}: duplicate ids: #{duplicate_ids.join(', ')}") unless duplicate_ids.empty?
   fail_check("#{relative}: missing skip link") unless html.match?(%r{<a\s+class=["']skip-link["']\s+href=["']#top["']}i)
   fail_check("#{relative}: missing Open Graph title") unless html.match?(%r{<meta\s+property=["']og:title["']}i)
   fail_check("#{relative}: missing Open Graph description") unless html.match?(%r{<meta\s+property=["']og:description["']}i)
+  fail_check("#{relative}: missing Open Graph type") unless meta_content(html, "property", "og:type")
+
+  og_image = meta_content(html, "property", "og:image")
+  og_image_alt = meta_content(html, "property", "og:image:alt")
+  fail_check("#{relative}: missing Open Graph image") unless og_image
+  fail_check("#{relative}: missing Open Graph image alt text") unless og_image_alt
+  validate_generated_url(relative, "Open Graph image", og_image) if og_image
+
+  twitter_card = meta_content(html, "name", "twitter:card")
+  fail_check("#{relative}: twitter:card must be summary_large_image") unless twitter_card == "summary_large_image"
+  %w[twitter:title twitter:description twitter:image twitter:image:alt].each do |name|
+    fail_check("#{relative}: missing #{name}") unless meta_content(html, "name", name)
+  end
+  twitter_image = meta_content(html, "name", "twitter:image")
+  validate_generated_url(relative, "Twitter image", twitter_image) if twitter_image
 
   canonical_match = html.match(%r{<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']}i)
   if canonical_match
@@ -247,6 +295,8 @@ html_files.each do |file|
 
   html.scan(%r{<img\b[^>]*>}i).each do |image|
     fail_check("#{relative}: image missing alt attribute") unless image.match?(%r{\salt=["'][^"']*["']}i)
+    fail_check("#{relative}: image missing intrinsic width") unless image.match?(%r{\swidth=["']\d+["']}i)
+    fail_check("#{relative}: image missing intrinsic height") unless image.match?(%r{\sheight=["']\d+["']}i)
   end
 
   html.scan(%r{<script\s+type=["']application/ld\+json["']\s*>(.*?)</script>}im).each do |(json_ld)|
