@@ -2,7 +2,7 @@
 layout: article
 title: I built August because copy and paste was not collaboration
 date: "2026-07-21T10:00:00+02:00"
-last_modified_at: 2026-07-23
+last_modified_at: 2026-07-30
 published: true
 permalink: /thinking/i-built-august-because-copy-and-paste-was-not-collaboration/
 summary: AI could help with a document, but the work around each answer kept falling apart. I built August to keep the draft, its review state and my decisions in one place.
@@ -14,6 +14,7 @@ topics:
   - teams-and-collaboration
 series: building-my-ai-operating-system
 series_order: 2
+series_context: "August is the first narrow service after Jarvis, built around document review and human ownership."
 show_related_notes: false
 intro:
   - I needed a way to keep working on a document with AI without rebuilding the context in every conversation.
@@ -23,6 +24,8 @@ intro:
 After [I stopped trying to build Jarvis](/thinking/i-stopped-trying-to-build-jarvis/), I did not immediately need another platform. But I still wanted to build.
 
 I needed a way to keep working on a document with AI without rebuilding the context in every conversation.
+
+{% include series-context.html %}
 
 AI models were already useful. I could paste a draft into a conversation and ask for a different structure, a critical reading, a clearer paragraph, or questions I had not considered.
 

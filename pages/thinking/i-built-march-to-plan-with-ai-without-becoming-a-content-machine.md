@@ -2,7 +2,7 @@
 layout: article
 title: I built March to plan with AI without becoming a content machine
 date: "2026-07-21T11:00:00+02:00"
-last_modified_at: 2026-07-21
+last_modified_at: 2026-07-30
 published: true
 permalink: /thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/
 summary: I wanted a view of the publishing runway without turning empty space into pressure. March keeps the plan visible so AI can help question it while the editorial decisions remain mine.
@@ -14,6 +14,7 @@ topics:
   - product-decisions
 series: building-my-ai-operating-system
 series_order: 3
+series_context: "March takes on the next recurring job: making the publishing runway visible without turning the plan into a commitment."
 show_related_notes: false
 intro:
   - I wanted a clear view of the months ahead.
@@ -23,6 +24,8 @@ intro:
 [August](/thinking/i-built-august-because-copy-and-paste-was-not-collaboration/) gave me a better way to develop documents with AI.
 
 Then I had a different problem.
+
+{% include series-context.html %}
 
 I could see the state of one document, but not the shape of the work around it.
 
