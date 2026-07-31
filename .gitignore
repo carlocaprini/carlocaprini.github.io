@@ -3,6 +3,7 @@ _site
 .jekyll-metadata
 .jekyll-cache
 node_modules
+test-results
 Gemfile.lock
 .vscode
 _workspace

@@ -28,6 +28,11 @@ exclude:
   - Gemfile.lock
   - docker-compose.yml
   - node_modules
+  - package.json
+  - package-lock.json
+  - playwright.config.js
   - README.md
+  - test-results
+  - tests
   - _workspace
   - _site
