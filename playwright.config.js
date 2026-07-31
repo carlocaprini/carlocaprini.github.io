@@ -13,7 +13,7 @@ export default defineConfig({
   reporter: "line",
   outputDir: "test-results",
   webServer: {
-    command: `ruby -run -ehttpd _site -p ${serverPort}`,
+    command: `bundle exec ruby -run -ehttpd _site -p ${serverPort}`,
     url: baseURL,
     reuseExistingServer: !process.env.CI
   },
