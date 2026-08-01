@@ -4,6 +4,7 @@ layout: default
 ---
 {% comment %}Related reading: influences sharing topics, ranked by overlap count then editorial weight, max 2.{% endcomment %}
 {% assign related_reading = "" | split: "" %}
+{% unless page.series %}
 {% if page.topics and page.topics.size > 0 %}
 {% assign refs_by_title = site.influences | sort: "title" %}
 {% assign score_order = "10,9,8,7,6,5,4,3,2,1" | split: "," %}
@@ -49,6 +50,7 @@ layout: default
   {% endif %}
 {% endfor %}
 {% endif %}
+{% endunless %}
 
 {% comment %}Related notes: use an explicit editorial selection when provided; otherwise rank notes sharing the same topics.{% endcomment %}
 {% assign related = "" | split: "" %}
