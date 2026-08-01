@@ -7,8 +7,8 @@ published: true
 permalink: /thinking/i-built-august-because-copy-and-paste-was-not-collaboration/
 summary: AI could help with a document, but the work around each answer kept falling apart. I built August to keep the draft, its review state and my decisions in one place.
 meta_description: Why Carlo Caprini built August as a private, local review workspace for developing documents with AI while preserving continuity, authorship and human judgment.
-meta_image: /assets/og-thinking-v2.png
-meta_image_alt: Thinking by Carlo Caprini, notes on product decisions, AI, software systems and teams.
+meta_image: /assets/og-ai-operating-system-series-v1.png
+meta_image_alt: Building My Own AI Operating System by Carlo Caprini, illustrated as colorful connected services converging into one system.
 topics:
   - ai-and-automation
   - teams-and-collaboration
