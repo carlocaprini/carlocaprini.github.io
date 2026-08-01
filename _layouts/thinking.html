@@ -2,7 +2,7 @@
 layout: default
 # Layout for Thinking index. Expects: hero (label, title, paragraphs, actions), articles (title, url, summary)
 ---
-<div class="page">
+<div class="page thinking-page">
   <section class="hero hero--compact">
     <div class="container hero-grid hero-grid--single">
       <div>
@@ -46,6 +46,7 @@ layout: default
           {% for paragraph in page.ai_process.paragraphs %}
             <p>{{ paragraph }}</p>
           {% endfor %}
+          <a class="thinking-ai-process-skip" href="#all-notes">Browse all notes <span aria-hidden="true">↓</span></a>
         </div>
       </section>
       {% endif %}
