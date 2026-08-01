@@ -19,7 +19,7 @@ ai_process:
   title: How I work with AI.
   paragraphs:
     - I have never been short of ideas, opinions, or things I wanted to try. What I often lacked was the time to develop, test, and connect them.
-    - AI is changing that. I use it as a research, thinking, and building partner. Sometimes it helps me challenge an argument; sometimes it helps me turn an idea into something I can actually test, use and adopt in my routine. What appears here still and always reflects my experience, judgment, and final editorial decisions.
+    - AI is changing that. I use it as a research, thinking, and building partner. Sometimes it helps me challenge an argument; sometimes it helps me turn an idea into something I can actually test and make part of how I work. What appears here always reflects my experience, judgment, and final editorial decisions.
 start_here:
   title: Start here
   description: Three notes on product judgment, AI-enabled software work, and how teams interpret the same context.
