@@ -53,7 +53,7 @@ The reduction from 45 records to four signals proved that the adapters, links, a
   <a class="article-figure-link" href="/assets/friday-presence-mode-public-demo.png" aria-label="Open the Friday Presence Mode interface image at full size">
     <img src="/assets/friday-presence-mode-public-demo.png" alt="Friday Presence Mode showing one primary August decision, three peripheral signals, one hidden signal and an expanded explanation of the priority." width="1639" height="960" loading="lazy" decoding="async">
   </a>
-  <figcaption>Presence Mode keeps one decision central while secondary and hidden signals remain recoverable. Its reasoning can be opened without turning the dashboard back into an inbox. The interface is shown with fictional demonstration data.</figcaption>
+  <figcaption>Presence Mode keeps one decision central while secondary and hidden signals remain recoverable. Its reasoning can be opened without turning the dashboard back into an inbox. The interface is shown with fictional demonstration data. Snapshot from 1 August 2026.</figcaption>
 </figure>
 
 Friday shows no more than seven items on the Bridge. Seven is not a magic number. It simply makes it harder to fill the page with weaker signals.

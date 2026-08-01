@@ -95,7 +95,7 @@ This also exposed the maintenance cost I can already see. Independent services k
   <a class="article-figure-link" href="/assets/friday-source-ownership-public-demo.png" aria-label="Open the Friday authority and editorial reconciliation image at full size">
     <img src="/assets/friday-source-ownership-public-demo.png" alt="Friday authority interface showing an observe-only default, scoped capability policies and a reversible August-to-March editorial reconciliation." width="1639" height="960" loading="lazy" decoding="async">
   </a>
-  <figcaption>Friday makes authority explicit before showing a reversible reconciliation between services. The interface is shown with fictional demonstration data.</figcaption>
+  <figcaption>Friday makes authority explicit before showing a reversible reconciliation between services. The interface is shown with fictional demonstration data. Snapshot from 1 August 2026.</figcaption>
 </figure>
 
 ## Integration without erasure

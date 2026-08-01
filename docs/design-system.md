@@ -1,7 +1,7 @@
 # Site Design System
 
 Date: 2026-07-14
-Last updated: 2026-07-30
+Last updated: 2026-08-01
 Status: Reference for future site changes
 
 This document defines the visual language for the site. It is based on the current direction across Home, Thinking, Experience, Influences, the Knowledge Base and individual notes.
@@ -247,7 +247,8 @@ Do not reuse timeline styling for non-chronological content.
 - compact brand pill
 - nav links with underline on hover/active
 - order: Home, Thinking, Experience, Influences, Contact
-- preserve the full navigation on smaller screens by moving it to a clear second row rather than hiding destinations
+- switch to a compact, clearly labelled menu on smaller screens while preserving every top-level destination in the expanded panel
+- keep the mobile menu operable without JavaScript and close it after a destination is selected when JavaScript is available
 - use a visible keyboard focus state across navigation and other interactive controls
 
 Do not add more top-level links unless a new section becomes a major permanent destination. Contact can remain an anchor.
@@ -443,7 +444,7 @@ Avoid:
 
 - too many visual panels competing with the text
 
-The article sidebar order is: on-page navigation, Knowledge Base themes, related notes, related readings. At narrower widths the stack moves below the article instead of becoming a compressed side column.
+The article sidebar order is: on-page navigation, an optional series system map, Knowledge Base themes, related notes, related readings. The system map is reserved for a series whose recurring service names need context; it complements rather than replaces the series context box in the article body. Related notes and readings may be omitted when the series and in-text links already provide enough navigation. At narrower widths the stack moves below the article instead of becoming a compressed side column.
 
 ### Article Signature
 

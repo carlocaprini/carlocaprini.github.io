@@ -2,7 +2,7 @@
 layout: article
 title: Why I started building Friday
 date: "2026-07-22T09:00:00+02:00"
-last_modified_at: 2026-07-30
+last_modified_at: 2026-08-01
 published: true
 permalink: /thinking/why-i-started-building-friday/
 summary: Friday is my second attempt at the original Jarvis ambition. It began when August and March created a concrete coordination problem between them.
@@ -52,7 +52,7 @@ That was my trigger to start building Friday.
   <a class="article-figure-link" href="/assets/friday-morning-bridge-public-demo.png" aria-label="Open the Friday Morning Bridge interface image at full size">
     <img src="/assets/friday-morning-bridge-public-demo.png" alt="Friday dashboard combining fictional March, August, Home and GitHub signals into a Morning Bridge and priority queue." width="1639" height="960" loading="lazy" decoding="async">
   </a>
-  <figcaption>Friday brings signals from separate services into one attention queue. The interface is shown with fictional demonstration data.</figcaption>
+  <figcaption>Friday brings signals from separate services into one attention queue. The interface is shown with fictional demonstration data. Snapshot from 22 July 2026.</figcaption>
 </figure>
 
 ## The same ambition had a different starting point
