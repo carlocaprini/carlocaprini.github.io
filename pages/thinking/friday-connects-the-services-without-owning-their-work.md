@@ -6,8 +6,8 @@ last_modified_at: 2026-08-01
 permalink: /thinking/friday-connects-the-services-without-owning-their-work/
 summary: A coordinating layer can compare state, explain disagreement, and direct attention without becoming the source of truth for the services it connects.
 meta_description: How Carlo Caprini uses Friday to coordinate March and August while preserving source ownership, visible uncertainty, and independent operation.
-meta_image: /assets/og-thinking-v2.png
-meta_image_alt: Thinking by Carlo Caprini, notes on product decisions, AI, software systems and teams.
+meta_image: /assets/og-ai-operating-system-series-v1.png
+meta_image_alt: Building My Own AI Operating System by Carlo Caprini, illustrated as colorful connected services converging into one system.
 topics:
   - ai-and-automation
   - software-systems

@@ -6,8 +6,8 @@ last_modified_at: 2026-08-01
 permalink: /thinking/i-need-my-ai-dashboard-to-leave-things-out/
 summary: A useful AI dashboard should reduce the first pass over the work, not reproduce every open item. Its omissions, priorities, and explanations all need to remain inspectable.
 meta_description: Why Carlo Caprini wants Friday's AI dashboard to prioritize a small, explainable shortlist and leave the rest of the observed state out.
-meta_image: /assets/og-thinking-v2.png
-meta_image_alt: Thinking by Carlo Caprini, notes on product decisions, AI, software systems and teams.
+meta_image: /assets/og-ai-operating-system-series-v1.png
+meta_image_alt: Building My Own AI Operating System by Carlo Caprini, illustrated as colorful connected services converging into one system.
 topics:
   - ai-and-automation
   - software-systems
