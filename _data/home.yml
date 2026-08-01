@@ -38,7 +38,7 @@ selected_notes:
 featured_series:
   slug: building-my-ai-operating-system
   eyebrow: Featured series
-  description: Three notes on building August and March as bounded AI services, while keeping judgment and editorial control with the person doing the work.
+  description: A first-person series about moving from a failed general assistant to bounded services and a working orchestration layer, while keeping judgment and ownership explicit.
   action: Explore the series
 
 where_i_can_help:
@@ -62,7 +62,7 @@ explore:
   cards:
     - title: Thinking
       url: /thinking/
-      body: Short notes on trade-offs, AI, urgency, shared context and product work in software teams.
+      body: Notes on trade-offs, AI, urgency, shared context and product work in software teams.
     - title: Experience
       url: /experience/
       body: The roles and systems that shaped my work across engineering, product and platform strategy.
