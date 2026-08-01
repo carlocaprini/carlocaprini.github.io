@@ -520,6 +520,62 @@ main {
   height: 100%;
 }
 
+.thinking-ai-process {
+  display: grid;
+  grid-template-columns: minmax(13rem, 0.72fr) minmax(0, 1.28fr);
+  gap: 2.8rem;
+  align-items: start;
+  margin-bottom: 2.8rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.thinking-ai-process-heading {
+  position: relative;
+  padding-left: 1.15rem;
+}
+
+.thinking-ai-process-heading::before {
+  content: "";
+  position: absolute;
+  top: 0.15rem;
+  bottom: 0.1rem;
+  left: 0;
+  width: 2px;
+  border-radius: 999px;
+  background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-indigo));
+  box-shadow: 0 0 18px var(--accent-cyan-border);
+}
+
+.thinking-ai-process-title {
+  max-width: 14rem;
+  margin: 0.65rem 0 0;
+  color: var(--color-text);
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.thinking-ai-process-copy {
+  max-width: 39rem;
+}
+
+.thinking-ai-process-copy p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.thinking-ai-process-copy p + p {
+  margin-top: 1rem;
+}
+
+.thinking-ai-process-skip {
+  display: none;
+}
+
 .selected-notes-panel {
   position: relative;
   overflow: hidden;
@@ -3077,6 +3133,7 @@ main {
   .home-help-layout,
   .home-map-header,
   .home-featured-grid,
+  .thinking-ai-process,
   .thinking-entry-grid,
   .series-overview {
     grid-template-columns: minmax(0, 1fr);
@@ -3086,6 +3143,14 @@ main {
   .home-featured-grid,
   .series-overview {
     gap: 1.35rem;
+  }
+
+  .thinking-ai-process {
+    gap: 1.2rem;
+  }
+
+  .thinking-ai-process-title {
+    max-width: none;
   }
 
   .series-visuals-header {
@@ -3345,6 +3410,67 @@ main {
 
   .hero {
     margin-bottom: 2.6rem;
+  }
+
+  .thinking-page .hero {
+    margin-bottom: 2rem;
+  }
+
+  .thinking-page .hero-actions {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 1.1rem;
+  }
+
+  .thinking-page .hero-actions .button-primary,
+  .thinking-page .hero-actions .button-ghost {
+    width: auto;
+    min-height: 2.4rem;
+    padding: 0.48rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .thinking-ai-process {
+    gap: 0.85rem;
+    margin-bottom: 1.6rem;
+    padding: 1.35rem 0;
+  }
+
+  .thinking-ai-process-heading {
+    padding-left: 0.95rem;
+  }
+
+  .thinking-ai-process-copy p {
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  .thinking-ai-process-copy p + p {
+    margin-top: 0.8rem;
+  }
+
+  .thinking-ai-process-skip {
+    display: inline-flex;
+    min-height: 2.4rem;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    color: var(--accent-cyan);
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-cyan-border);
+  }
+
+  .thinking-entry-grid {
+    gap: 1rem;
+    margin-bottom: 2.1rem;
+  }
+
+  .thinking-page .thinking-start-here,
+  .thinking-page .thinking-series-preview {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
   }
 
   .hero-title {
