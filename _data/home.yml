@@ -26,10 +26,10 @@ hero:
 selected_notes:
   eyebrow: Start here
   title: Selected notes
-  description: A short route through trade-offs, urgency, AI, shared context and the way teams make decisions under pressure.
+  description: A short route through product judgment, AI in practice, and the way teams make sense of shared context.
   links:
-    - url: /thinking/product-decisions-are-mostly-trade-offs/
-    - url: /thinking/ai-accelerates-contribution-not-mastery/
+    - url: /thinking/waiting-as-product-decision/
+    - url: /thinking/designing-for-unattended-development/
     - url: /thinking/shared-context-is-not-shared-understanding/
   action:
     label: All notes

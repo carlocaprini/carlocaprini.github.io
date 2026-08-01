@@ -16,10 +16,10 @@ hero:
     - Each note stands on its own, but together they trace recurring questions about how teams choose, build and learn over time.
 start_here:
   title: Start here
-  description: Three notes that introduce the main threads of this section.
+  description: Three notes on product judgment, AI-enabled software work, and how teams interpret the same context.
   articles:
-    - url: /thinking/product-decisions-are-mostly-trade-offs/
-    - url: /thinking/ai-accelerates-contribution-not-mastery/
+    - url: /thinking/waiting-as-product-decision/
+    - url: /thinking/designing-for-unattended-development/
     - url: /thinking/shared-context-is-not-shared-understanding/
 featured_series:
   slug: building-my-ai-operating-system
