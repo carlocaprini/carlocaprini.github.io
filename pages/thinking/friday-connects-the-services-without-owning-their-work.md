@@ -13,6 +13,7 @@ topics:
   - software-systems
 series: building-my-ai-operating-system
 series_order: 5
+series_service: friday
 series_context: "Friday now has to coordinate live signals without becoming the owner of the documents, plans, or decisions behind them."
 show_related_notes: false
 intro:
@@ -89,6 +90,13 @@ From Friday alone, I could not tell whether the document still needed work or th
 That distinction determined the next step. The document did not need another editorial pass. The propagation between services needed attention. Friday had identified the condition, but it did not have enough current authority and evidence to repair it by inference.
 
 This also exposed the maintenance cost I can already see. Independent services keep their responsibilities clear, but their interfaces and state mappings have to remain compatible. A changed contract can leave one observation current and another stale. The coordination layer must preserve that uncertainty, explain where each fact came from, and stop short of turning a partial view into an automatic write.
+
+<figure class="article-figure">
+  <a class="article-figure-link" href="/assets/friday-source-ownership-public-demo.png" aria-label="Open the Friday authority and editorial reconciliation image at full size">
+    <img src="/assets/friday-source-ownership-public-demo.png" alt="Friday authority interface showing an observe-only default, scoped capability policies and a reversible August-to-March editorial reconciliation." width="1639" height="960" loading="lazy" decoding="async">
+  </a>
+  <figcaption>Friday makes authority explicit before showing a reversible reconciliation between services. The interface is shown with fictional demonstration data.</figcaption>
+</figure>
 
 ## Integration without erasure
 

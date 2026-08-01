@@ -197,6 +197,36 @@ layout: default
           <p class="article-page-nav-note">{{ page.title }}</p>
           <ul class="article-page-nav-list" id="article-page-nav-list"></ul>
         </aside>
+        {% if page.series %}
+          {% assign sidebar_series = site.data.series[page.series] %}
+          {% if sidebar_series and sidebar_series.services %}
+          <aside class="article-system-map" aria-label="Services in this series">
+            <h3 class="article-related-title">
+              {% if sidebar_series.url %}
+                <a href="{{ sidebar_series.url | relative_url }}">The system</a>
+              {% else %}
+                <span>The system</span>
+              {% endif %}
+            </h3>
+            <p class="article-system-map-note">A short map of the names used in this series.</p>
+            <dl class="article-system-map-list">
+              {% for service in sidebar_series.services %}
+              <div class="article-system-map-item{% if page.series_service == service.slug %} is-current{% endif %}">
+                <dt>
+                  {% if service.url %}
+                    <a href="{{ service.url | relative_url }}">{{ service.name }}</a>
+                  {% else %}
+                    <span>{{ service.name }}</span>
+                  {% endif %}
+                  {% if page.series_service == service.slug %}<span class="visually-hidden"> (current service)</span>{% endif %}
+                </dt>
+                <dd>{{ service.sidebar_description | default: service.description }}</dd>
+              </div>
+              {% endfor %}
+            </dl>
+          </aside>
+          {% endif %}
+        {% endif %}
         {% if page.topics and page.topics.size > 0 %}
         <aside class="article-topic-explore" aria-label="Explore themes in the knowledge base">
           <h3 class="article-related-title">Knowledge base</h3>

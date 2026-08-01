@@ -14,6 +14,7 @@ topics:
   - product-decisions
 series: building-my-ai-operating-system
 series_order: 3
+series_service: march
 series_context: "March takes on the next recurring job: making the publishing runway visible without turning the plan into a commitment."
 show_related_notes: false
 intro:

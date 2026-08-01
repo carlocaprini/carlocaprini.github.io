@@ -13,6 +13,7 @@ topics:
   - software-systems
 series: building-my-ai-operating-system
 series_order: 6
+series_service: friday
 series_context: "The Morning Bridge tests whether a shared attention layer can omit most of what it observes without becoming confidently quiet and blind."
 show_related_notes: false
 intro:
@@ -47,6 +48,13 @@ Two private services currently feed [Friday](/thinking/why-i-started-building-fr
 Friday's first live synchronization read 22 entities from March and 23 documents from August. The Morning Bridge showed four signals: two publishing-runway items and two documents with unresolved review work.
 
 The reduction from 45 records to four signals proved that the adapters, links, and initial suppression rules worked. It did not prove that the ranking was right, but it created a small enough surface for me to evaluate it.
+
+<figure class="article-figure">
+  <a class="article-figure-link" href="/assets/friday-presence-mode-public-demo.png" aria-label="Open the Friday Presence Mode interface image at full size">
+    <img src="/assets/friday-presence-mode-public-demo.png" alt="Friday Presence Mode showing one primary August decision, three peripheral signals, one hidden signal and an expanded explanation of the priority." width="1639" height="960" loading="lazy" decoding="async">
+  </a>
+  <figcaption>Presence Mode keeps one decision central while secondary and hidden signals remain recoverable. Its reasoning can be opened without turning the dashboard back into an inbox. The interface is shown with fictional demonstration data.</figcaption>
+</figure>
 
 Friday shows no more than seven items on the Bridge. Seven is not a magic number. It simply makes it harder to fill the page with weaker signals.
 

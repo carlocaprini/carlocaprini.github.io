@@ -14,6 +14,7 @@ topics:
   - software-systems
 series: building-my-ai-operating-system
 series_order: 1
+series_service: jarvis
 series_context: "The series starts with the failed general assistant and the reset around smaller services."
 show_related_notes: false
 intro:

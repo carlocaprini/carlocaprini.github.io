@@ -9,14 +9,78 @@ building-my-ai-operating-system:
     - August keeps documents, versions and review state together. March makes the publishing runway visible without turning it into a commitment. Friday now coordinates signals across them while each service remains responsible for its own work.
   services:
     - name: Jarvis
+      slug: jarvis
       concept: Failed attempt
+      url: /thinking/i-stopped-trying-to-build-jarvis/
+      sidebar_description: Failed general-assistant attempt without a recurring job.
       description: A general orchestration system that began with decisions and action items before it had a recurring job.
     - name: August
+      slug: august
       concept: Document continuity
+      url: /thinking/i-built-august-because-copy-and-paste-was-not-collaboration/
+      sidebar_description: Documents, versions and review state.
       description: A private, local review workspace for developing documents with AI while keeping versions, review state and unresolved questions visible.
     - name: March
+      slug: march
       concept: Editorial runway
+      url: /thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/
+      sidebar_description: Publishing runway, planned slots and intentional gaps.
       description: A view of what may be published, what is ready and where intentional gaps remain, without turning the plan into a promise.
     - name: Friday
+      slug: friday
       concept: Working orchestrator
+      url: /thinking/why-i-started-building-friday/
+      sidebar_description: Attention layer coordinating signals across services.
       description: The ongoing second attempt, built around noticing what may deserve attention across bounded services without replacing them.
+  visuals:
+    - episode: "02"
+      service: August
+      title: Document continuity
+      description: A draft, its current version and two review threads remain part of the same piece of work.
+      thumbnail: /assets/series-august-document-continuity.webp
+      thumbnail_width: 800
+      thumbnail_height: 469
+      full_image: /assets/august-document-continuity-public-demo.png
+      note_url: /thinking/i-built-august-because-copy-and-paste-was-not-collaboration/
+      alt: August document workspace showing a current version and two fictional review threads between Carlo and an AI reviewer.
+    - episode: "03"
+      service: March
+      title: The publishing runway
+      description: Planned, published and intentionally empty slots stay visible across the coverage horizon.
+      thumbnail: /assets/series-march-publishing-runway.webp
+      thumbnail_width: 800
+      thumbnail_height: 312
+      full_image: /assets/march-publishing-runway-july-2026.png
+      note_url: /thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/
+      alt: March coverage horizon showing published, planned and available publishing slots across five months.
+    - episode: "04"
+      service: Friday
+      title: The Morning Bridge
+      description: Signals from separate services meet in one attention queue.
+      thumbnail: /assets/series-friday-morning-bridge.webp
+      thumbnail_width: 1280
+      thumbnail_height: 750
+      full_image: /assets/friday-morning-bridge-public-demo.png
+      note_url: /thinking/why-i-started-building-friday/
+      alt: Friday Morning Bridge combining fictional March, August, Home and GitHub signals into one priority queue.
+      wide: true
+    - episode: "05"
+      service: Friday
+      title: Authority and reconciliation
+      description: Observe-only defaults and scoped writes make the ownership boundary visible.
+      thumbnail: /assets/series-friday-authority.webp
+      thumbnail_width: 800
+      thumbnail_height: 469
+      full_image: /assets/friday-source-ownership-public-demo.png
+      note_url: /thinking/friday-connects-the-services-without-owning-their-work/
+      alt: Friday authority interface showing scoped policies and a fictional reversible August-to-March reconciliation.
+    - episode: "06"
+      service: Friday
+      title: Presence Mode
+      description: One decision stays central while secondary and hidden signals remain recoverable.
+      thumbnail: /assets/series-friday-presence-mode.webp
+      thumbnail_width: 800
+      thumbnail_height: 469
+      full_image: /assets/friday-presence-mode-public-demo.png
+      note_url: /thinking/i-need-my-ai-dashboard-to-leave-things-out/
+      alt: Friday Presence Mode showing one fictional primary decision, peripheral signals and an expanded explanation.

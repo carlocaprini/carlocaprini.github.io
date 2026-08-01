@@ -14,6 +14,7 @@ topics:
   - teams-and-collaboration
 series: building-my-ai-operating-system
 series_order: 2
+series_service: august
 series_context: "August is the first narrow service after Jarvis, built around document review and human ownership."
 show_related_notes: false
 intro:

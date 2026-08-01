@@ -14,6 +14,7 @@ topics:
   - software-systems
 series: building-my-ai-operating-system
 series_order: 4
+series_service: friday
 series_context: "Friday returns to the original ambition from a different starting point: two bounded services already doing useful work."
 show_related_notes: false
 intro:
