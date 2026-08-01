@@ -7,13 +7,14 @@ published: true
 permalink: /thinking/why-i-started-building-friday/
 summary: Friday is my second attempt at the original Jarvis ambition. It began when August and March created a concrete coordination problem between them.
 meta_description: Why Carlo Caprini returned to Friday after August and March created a concrete job for orchestration across services.
-meta_image: /assets/og-thinking-v2.png
-meta_image_alt: Thinking by Carlo Caprini, notes on product decisions, AI, software systems and teams.
+meta_image: /assets/og-ai-operating-system-series-v1.png
+meta_image_alt: Building My Own AI Operating System by Carlo Caprini, illustrated as colorful connected services converging into one system.
 topics:
   - ai-and-automation
   - software-systems
 series: building-my-ai-operating-system
 series_order: 4
+series_service: friday
 series_context: "Friday returns to the original ambition from a different starting point: two bounded services already doing useful work."
 show_related_notes: false
 intro:
