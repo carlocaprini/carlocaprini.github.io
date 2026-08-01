@@ -36,6 +36,19 @@ layout: default
         {% assign featured_series = site.data.series[page.featured_series.slug] %}
         {% assign series_notes = site.pages | where: "series", page.featured_series.slug | sort: "series_order" %}
       {% endif %}
+      {% if page.ai_process %}
+      <section class="thinking-ai-process" aria-labelledby="thinking-ai-process-title">
+        <div class="thinking-ai-process-heading">
+          <div class="section-eyebrow">{{ page.ai_process.label }}</div>
+          <h2 class="thinking-ai-process-title" id="thinking-ai-process-title">{{ page.ai_process.title }}</h2>
+        </div>
+        <div class="thinking-ai-process-copy">
+          {% for paragraph in page.ai_process.paragraphs %}
+            <p>{{ paragraph }}</p>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
       <div class="thinking-entry-grid">
       {% if page.start_here and page.start_here.articles %}
       <div class="thinking-start-here selected-notes-panel selected-notes-panel--compact">
