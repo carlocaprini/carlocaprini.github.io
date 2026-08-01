@@ -24,6 +24,8 @@ When several systems contribute to the same work, putting them in one view solve
 
 The other half is deciding who owns each fact, which system is allowed to change it, and what should happen when the sources disagree.
 
+{% include series-context.html %}
+
 A convenient shared view can become dangerous. A status may be current in one source and stale in another. A coordinating layer may infer a conclusion that neither source actually owns. If it can also write, ambiguity can quietly turn into an unauthorized decision.
 
 Coordination therefore needs a narrow contract. The shared layer can compare state, explain disagreement, and propose where attention should go. The underlying facts remain with the systems that produced them, while uncertainty stays visible until something with the right authority resolves it.
@@ -31,8 +33,6 @@ Coordination therefore needs a narrow contract. The shared layer can compare sta
 This separation also leaves an escape route. If the coordinating layer disappears, the original work remains usable. If an integration fails, its last observation becomes suspect rather than becoming truth by default.
 
 The goal is coordination without creating a shadow system that every other tool must eventually obey.
-
-{% include series-context.html %}
 
 In this setup, [Friday](/thinking/why-i-started-building-friday/) currently observes two private services I use for editorial work: March holds my publishing plan, while August holds documents and their review state. Friday applies explicit rules to surface what may deserve my attention.
 
