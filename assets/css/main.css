@@ -3369,11 +3369,27 @@ main {
 
 @media (max-width: 640px) {
   .series-visuals-grid {
-    grid-template-columns: minmax(0, 1fr);
+    display: flex;
+    gap: 0.9rem;
+    margin-right: calc(-1 * var(--page-gutter));
+    margin-left: calc(-1 * var(--page-gutter));
+    padding-right: var(--page-gutter);
+    padding-left: var(--page-gutter);
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-padding-inline: var(--page-gutter);
+    scroll-snap-type: inline mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line) transparent;
+  }
+
+  .series-visual-card {
+    flex: 0 0 min(82vw, 21rem);
+    scroll-snap-align: start;
   }
 
   .series-visual-card--wide {
-    grid-column: 1;
+    grid-column: auto;
   }
 
   .series-visual-copy {
@@ -3506,6 +3522,10 @@ main {
   .series-page-episodes > li > a {
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 0.75rem;
+  }
+
+  .series-page-episodes > li:last-child {
+    border-bottom: 0;
   }
 
   .series-page-episode-number {
