@@ -2,6 +2,18 @@
 
 This repository contains the content and structure of my personal website.
 
+## Canonical editorial strategy
+
+The current editorial strategy and writing policy are maintained in August:
+
+- `Website Editorial System — Master`
+  `http://127.0.0.1:4173/v2#/documents/1736d577-9e45-42e9-b339-bbb000d38642`
+
+- `Writing and Selection Guidelines — Master`
+  `http://127.0.0.1:4173/v2#/documents/2ad983a5-8402-4134-bc5b-d3c8cc60ef42`
+
+This file remains the repository-level goal and operational reference. When strategy or editorial policy changes materially, update August first and keep this file aligned without creating a competing source of truth.
+
 The goal of this project is not to create a blog or publish content frequently.  
 It is to build a coherent and evolving representation of how I think about product work, engineering, working effectively in a team, and decision making.
 
