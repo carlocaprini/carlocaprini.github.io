@@ -7,13 +7,14 @@ published: true
 permalink: /thinking/i-stopped-trying-to-build-jarvis/
 summary: I started with a general AI assistant and no recurring job for it. The useful parts appeared only after I built smaller services around work I was already doing.
 meta_description: A first-person account of moving from a general Jarvis-like AI assistant to smaller services with explicit jobs, boundaries and human decisions.
-meta_image: /assets/og-thinking-v2.png
-meta_image_alt: Thinking by Carlo Caprini, notes on product decisions, AI, software systems and teams.
+meta_image: /assets/og-ai-operating-system-series-v1.png
+meta_image_alt: Building My Own AI Operating System by Carlo Caprini, illustrated as colorful connected services converging into one system.
 topics:
   - ai-and-automation
   - software-systems
 series: building-my-ai-operating-system
 series_order: 1
+series_service: jarvis
 series_context: "The series starts with the failed general assistant and the reset around smaller services."
 show_related_notes: false
 intro:

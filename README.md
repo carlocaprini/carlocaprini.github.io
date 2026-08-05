@@ -44,4 +44,4 @@ Set `last_modified_at` on a Thinking note only when its editorial content change
 
 The site was built with [Cursor](https://cursor.com) — vibe coding, as they say. I described what I wanted, iterated on structure and content, and let the AI handle most of the plumbing. Some of it also came from fragments of historical knowledge: Jekyll, Liquid, GitHub Pages, that kind of thing.
 
-All the content — the words, the experience, the thinking — is mine. The structure and styling were shaped together with the tool.
+The experience, positions and final editorial decisions are mine. I use AI as a research, thinking and building partner: it helps me challenge arguments, shape drafts and implement the site, but I remain responsible for everything that is published.

@@ -79,4 +79,35 @@ layout: default
       </ol>
     </div>
   </section>
+
+  {% if series_data.visuals and series_data.visuals.size > 0 %}
+  <section class="section series-visuals-section" aria-labelledby="series-visuals-title">
+    <div class="container">
+      <div class="series-visuals-header">
+        <div>
+          <div class="section-eyebrow">From the notes</div>
+          <h2 class="section-title" id="series-visuals-title">A few views of the system.</h2>
+        </div>
+        <p>Screenshots from August, March and Friday, collected as the interfaces changed across the series.</p>
+      </div>
+
+      <div class="series-visuals-grid">
+        {% for visual in series_data.visuals %}
+        <article class="series-visual-card series-visual-card--{{ visual.service | downcase }}{% if visual.wide %} series-visual-card--wide{% endif %}">
+          <a class="series-visual-image" href="{{ visual.full_image | relative_url }}" aria-label="Open {{ visual.title }} at full size">
+            <img src="{{ visual.thumbnail | relative_url }}" alt="{{ visual.alt }}" width="{{ visual.thumbnail_width }}" height="{{ visual.thumbnail_height }}" loading="lazy" decoding="async">
+          </a>
+          <div class="series-visual-copy">
+            <span>Episode {{ visual.episode }} · {{ visual.service }}</span>
+            <h3><a href="{{ visual.note_url | relative_url }}">{{ visual.title }}</a></h3>
+            <p>{{ visual.description }}</p>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+
+      <p class="series-visuals-note">Interface views use public or fictional demonstration data. No private document content is shown.</p>
+    </div>
+  </section>
+  {% endif %}
 </div>

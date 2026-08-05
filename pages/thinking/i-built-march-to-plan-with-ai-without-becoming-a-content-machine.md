@@ -7,13 +7,14 @@ published: true
 permalink: /thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/
 summary: I wanted a view of the publishing runway without turning empty space into pressure. March keeps the plan visible so AI can help question it while the editorial decisions remain mine.
 meta_description: Why Carlo Caprini built March to plan a publishing runway with AI while keeping gaps valid and editorial judgment human.
-meta_image: /assets/og-thinking-v2.png
-meta_image_alt: Thinking by Carlo Caprini, notes on product decisions, AI, software systems and teams.
+meta_image: /assets/og-ai-operating-system-series-v1.png
+meta_image_alt: Building My Own AI Operating System by Carlo Caprini, illustrated as colorful connected services converging into one system.
 topics:
   - ai-and-automation
   - product-decisions
 series: building-my-ai-operating-system
 series_order: 3
+series_service: march
 series_context: "March takes on the next recurring job: making the publishing runway visible without turning the plan into a commitment."
 show_related_notes: false
 intro:
