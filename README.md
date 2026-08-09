@@ -29,13 +29,23 @@ Thinking notes and Influences references use **only** these topic slugs (lowerca
 
 ### Behaviour (quick reference)
 
-- **Thinking → Thinking:** article layout picks up to two **related notes** by shared topics (overlap count, then date).
+- **Thinking → Thinking:** the note layout can pick up to two **related notes** by shared topics (overlap count, then date). Series notes can disable this when their reading path and in-text links already provide enough navigation.
 - **Thinking → references:** up to two **related readings** from `_influences`, ranked by shared-topic overlap first and `weight:` second. Each influence must define `external_url:` in front matter for the outbound link target.
 - **Influences → Thinking:** optional `related_note:` on each file in `_influences/` (note `permalink` / URL path, e.g. `/thinking/my-slug/`). If set and the page exists, the reference shows **Related note:** with a link; omit the field if there is no link.
 - **Notes and Influences → Questions:** membership comes only from `_data/questions.yml`. Notes show up to two relevant Questions in their sidebar; a selected Influence links back to the first Question that curates it.
 - **Explore:** `/explore/` provides three curated Question paths across Thinking, Experience and Influences, followed by the complete topic views. Topic labels link to a stable hash, such as `/explore/#ai-and-automation`.
 - **Questions:** `_data/questions.yml` is the canonical editorial map. It defines each public Question, its grouped notes, selected Influences, Experience link and next path. Question pages live at `/explore/question-slug/`.
 - **Legacy path:** `/knowledge/` is retained only as a compatibility redirect to `/explore/`; its query string and topic hash are preserved.
+
+The Home page introduces the site in this order: selected notes, curated Questions, collaboration, the featured series, Experience, collection entry points and Contact. Its reusable editorial content lives in `_data/home.yml`; the three destination cards use the `entry_points` key. Thinking uses `notes` as its complete canonical list and `start_here.notes` for the three editorial selections.
+
+### Responsive behaviour
+
+- Recent Thinking always contains the three newest notes.
+- Home entry-point cards become compact rows below desktop width; the hero summary becomes a shorter list on narrow phones.
+- Article “On this page” navigation is desktop-only. In series notes, the service map becomes a closed disclosure before the article text on smaller screens; the remaining contextual sidebar content follows the article.
+- Responsive changes should reuse existing cards, typography, spacing and accent tokens before introducing a new component variant.
+- Section boundaries use one divider at most. Do not place the bottom border of one full-width block directly beside the top border of the next.
 
 To surface a reference on a note page, reuse topics on both sides. To choose which note appears under a reference on `/influences/`, set `related_note:` manually. Order influences with `weight:` instead of `date:`. Higher weights appear first on `/influences/`, and break ties in related reading after topic overlap. Adding a new topic slug requires updating this list and every place that assumes the taxonomy. Questions are curated paths, not an automatic projection of topic tags.
 
