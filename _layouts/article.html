@@ -269,7 +269,7 @@ layout: default
           <ul class="article-related-list">
             {% for note in related %}
               <li>
-                <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.slug | escape }}" data-analytics-link-context="note_related_notes">{{ note.title }}</a>
+                <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.url | escape }}" data-analytics-link-context="note_related_notes">{{ note.title }}</a>
                 <span class="article-related-summary">{{ note.summary }}</span>
               </li>
             {% endfor %}

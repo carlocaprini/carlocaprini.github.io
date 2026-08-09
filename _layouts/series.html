@@ -58,7 +58,7 @@ layout: default
       <ol class="series-page-episodes">
         {% for note in series_notes %}
           <li>
-            <a href="{{ note.url | relative_url }}" data-analytics-event="series_episode_open" data-analytics-series-id="{{ page.series_slug | escape }}" data-analytics-episode-number="{{ note.series_order }}" data-analytics-note-id="{{ note.slug | escape }}" data-analytics-link-context="series_episode_list">
+            <a href="{{ note.url | relative_url }}" data-analytics-event="series_episode_open" data-analytics-series-id="{{ page.series_slug | escape }}" data-analytics-episode-number="{{ note.series_order }}" data-analytics-note-id="{{ note.url | escape }}" data-analytics-link-context="series_episode_list">
               <span class="series-page-episode-number">Episode {% if note.series_order < 10 %}0{% endif %}{{ note.series_order }}</span>
               <span class="series-page-episode-content">
                 <span class="series-page-episode-title">{{ note.title }}</span>

@@ -47,7 +47,7 @@ layout: default
                 <span class="pill">{{ tag }}</span>
               {% endfor %}
             </div>
-            <a class="experience-related-note" href="{{ item.related_note.url | relative_url }}" data-analytics-event="note_open"{% if related_note %} data-analytics-note-id="{{ related_note.slug | escape }}"{% endif %} data-analytics-link-context="experience_evidence">
+            <a class="experience-related-note" href="{{ item.related_note.url | relative_url }}" data-analytics-event="note_open"{% if related_note %} data-analytics-note-id="{{ related_note.url | escape }}"{% endif %} data-analytics-link-context="experience_evidence">
               <span>Related note</span>
               {{ item.related_note.title }}
             </a>
