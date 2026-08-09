@@ -97,6 +97,25 @@ test("Thinking separates guided, recent and complete discovery", async ({ page }
   await expect(page.locator(".thinking-recent-list > li")).toHaveCount(6);
 });
 
+test("Home follows the discovery-first content order", async ({ page }) => {
+  await page.goto("/");
+
+  const sectionIds = await page.locator(".home-page > section[id]").evaluateAll((sections) =>
+    sections.map((section) => section.id)
+  );
+  expect(sectionIds).toEqual([
+    "selected-notes",
+    "questions",
+    "where-i-can-help",
+    "featured-series",
+    "experience-behind-the-work",
+    "explore-thinking",
+    "contact"
+  ]);
+  await expect(page.getByRole("heading", { name: "Problems I can help work through." })).toBeVisible();
+  await expect(page.locator(".home-explore-grid").getByRole("link", { name: /Explore/ })).toHaveAttribute("href", "/explore/");
+});
+
 test("legacy Knowledge URL preserves query parameters and topic hashes", async ({ page }) => {
   await page.goto("/knowledge/?source=legacy#software-systems");
 

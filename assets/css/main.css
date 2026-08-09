@@ -621,24 +621,22 @@ main {
   max-width: 34rem;
 }
 
-.home-featured-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
-  gap: 1rem;
-  align-items: stretch;
-}
-
-.home-featured-grid > * {
-  min-width: 0;
-  height: 100%;
-}
-
 .home-start-here {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 1.35rem;
   margin: 0;
   padding: 2.2rem;
+}
+
+.home-start-section {
+  max-width: 960px;
+}
+
+.home-start-section .home-start-here {
+  grid-template-columns: minmax(15rem, 0.72fr) minmax(0, 1.28fr);
+  gap: 2.5rem;
+  align-items: start;
 }
 
 .home-start-here .section-header {
@@ -782,6 +780,25 @@ main {
   border-color: rgba(103, 232, 249, 0.54);
   color: #ffffff;
   background: rgba(8, 47, 73, 0.44);
+}
+
+.home-series-preview--wide {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) auto;
+  align-items: end;
+  min-height: 0;
+}
+
+.home-series-preview--wide .home-series-title {
+  max-width: 34rem;
+}
+
+.home-series-preview--wide .home-series-description {
+  max-width: 42rem;
+}
+
+.home-series-preview--wide .home-series-action {
+  align-items: flex-end;
 }
 
 @keyframes home-series-spectrum {
@@ -1463,6 +1480,35 @@ main {
   color: #9ca3af;
   font-size: 0.9rem;
   line-height: 1.7;
+}
+
+.home-help-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  margin-top: 1.3rem;
+}
+
+.home-experience-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 2.8rem;
+  align-items: start;
+}
+
+.home-experience-grid .section-title {
+  margin-top: 0.6rem;
+  max-width: 28rem;
+}
+
+.home-experience-grid .section-description {
+  max-width: 34rem;
+  margin: 0;
+}
+
+.home-experience-grid .section-link,
+.home-map-header .section-link {
+  margin-top: 1rem;
 }
 
 .home-map-section {
@@ -3352,7 +3398,9 @@ main {
   .home-explore-grid,
   .home-help-layout,
   .home-map-header,
-  .home-featured-grid,
+  .home-start-section .home-start-here,
+  .home-series-preview--wide,
+  .home-experience-grid,
   .thinking-ai-process,
   .thinking-entry-grid,
   .series-overview {
@@ -3381,7 +3429,6 @@ main {
   }
 
   .thinking-entry-grid,
-  .home-featured-grid,
   .series-overview {
     gap: 1.35rem;
   }
@@ -3772,11 +3819,15 @@ main {
     padding: 1.75rem;
   }
 
+  .home-series-preview--wide .home-series-action {
+    align-items: flex-start;
+  }
+
   .thinking-entry-grid .selected-notes-panel {
     width: 100%;
   }
 
-  .home-featured-grid .selected-notes-panel {
+  .home-start-section .selected-notes-panel {
     width: 100%;
   }
 

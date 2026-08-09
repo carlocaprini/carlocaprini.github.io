@@ -320,6 +320,33 @@ unless series_data.key?(home_featured_series)
   fail_check("_data/home.yml: featured_series must reference _data/series.yml")
 end
 
+home_question_slugs = Array(home_data.dig("questions", "items"))
+unless home_question_slugs == question_slugs
+  fail_check("_data/home.yml: questions.items must list every canonical question once and in canonical order")
+end
+
+expected_home_paths = {
+  "Thinking" => "/thinking/",
+  "Explore" => "/explore/",
+  "Influences" => "/influences/"
+}
+home_paths = Array(home_data.dig("explore_thinking", "cards")).to_h do |card|
+  [card["title"], card["url"]]
+end
+unless home_paths == expected_home_paths
+  fail_check("_data/home.yml: explore_thinking cards must match the canonical Thinking, Explore and Influences paths")
+end
+
+experience_path = File.join(SOURCE_DIR, "pages/experience.md")
+experience_ids = Array(page_records.fetch(experience_path).first.dig("evidence", "items")).map { |item| item["id"] }
+questions.each do |question|
+  experience_url = question.dig("experience", "url").to_s
+  fragment = experience_url.split("#", 2)[1]
+  unless experience_url.start_with?("/experience/#") && experience_ids.include?(fragment)
+    fail_check("_data/questions.yml: #{question['slug']} references unknown Experience anchor #{experience_url}")
+  end
+end
+
 influence_paths = Dir.glob(File.join(SOURCE_DIR, "_influences/*.md")).sort
 influence_slugs = influence_paths.map { |path| File.basename(path, ".md") }
 influence_paths.each do |path|
