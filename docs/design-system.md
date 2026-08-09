@@ -1,10 +1,10 @@
 # Site Design System
 
 Date: 2026-07-14
-Last updated: 2026-08-01
+Last updated: 2026-08-09
 Status: Reference for future site changes
 
-This document defines the visual language for the site. It is based on the current direction across Home, Thinking, Experience, Influences, the Knowledge Base and individual notes.
+This document defines the visual language for the site. It is based on the current direction across Home, Thinking, Explore, Experience, Influences and individual notes.
 
 ## Design Intent
 
@@ -198,6 +198,7 @@ This should remain the default. Wider layouts need a specific reason.
 - Page top padding: around `4.5rem`
 - Major section spacing: around `3rem-4rem`
 - Home sections may use subtle dividers between sections.
+- Use only one structural divider at a section boundary. Never stack a preceding bottom border and a following top border with no meaningful content or spacing between them.
 
 ### Two-Column Intro
 
@@ -210,11 +211,11 @@ Pattern:
 - desktop: `0.8fr / 1.2fr`
 - mobile: stack
 
-This pattern works well in Experience and should be reused for Home `Map` and future sections.
+This pattern works well in Experience and should be reused for Home entry points and future sections.
 
 ### Repeated Card Rows
 
-For three related entry points, use the `Map` pattern:
+For three related entry points, use the entry-card pattern:
 
 - three cards
 - small marker dot
@@ -246,7 +247,7 @@ Do not reuse timeline styling for non-chronological content.
 - sticky dark translucent header
 - compact brand pill
 - nav links with underline on hover/active
-- order: Home, Thinking, Experience, Influences, Contact
+- order: Home, Thinking, Explore, Experience, Influences, Contact
 - switch to a compact, clearly labelled menu on smaller screens while preserving every top-level destination in the expanded panel
 - keep the mobile menu operable without JavaScript and close it after a destination is selected when JavaScript is available
 - use a visible keyboard focus state across navigation and other interactive controls
@@ -284,7 +285,7 @@ Keep:
 
 Use similar treatment only for high-importance content.
 
-### Map Cards
+### Entry Cards
 
 Use for conceptual navigation and related entry points.
 
@@ -300,7 +301,7 @@ Rules:
 
 Use for `Where I can help` and future advisory/service descriptions.
 
-This pattern is intentionally different from `Map Cards`. It should feel more consultative and operational, while `Map Cards` should feel more navigational and conceptual.
+This pattern is intentionally different from `Entry Cards`. It should feel more consultative and operational, while `Entry Cards` should feel more navigational and conceptual.
 
 Structure:
 
@@ -314,7 +315,7 @@ Rules:
 - Use the canonical accent cycle for capability markers: cyan, indigo, emerald.
 - Keep capability surfaces lighter and more compact than full cards.
 - Keep CTA and boundary/advisory copy in the left column, not as a separate full-width footer panel.
-- Avoid making this section look like another three-card row; that creates visual duplication with `Map Cards`.
+- Avoid making this section look like another three-card row; that creates visual duplication with `Entry Cards`.
 - Avoid yellow unless there is a deliberate warm semantic reason.
 - Notes should be short and confident.
 
@@ -344,37 +345,41 @@ Thinking and Influences must use the same shared topic-filter component: identic
 
 ### Content Topic Links
 
-Content topic links connect an individual note or reading to its thematic view in the Knowledge Base. They are intentionally smaller than filter controls because they describe content rather than change the current view.
+Content topic links connect an individual note or reading to its thematic view in Explore. They are intentionally smaller than filter controls because they describe content rather than change the current view.
 
 Keep:
 
 - compact pill shape
 - small semantic color marker
 - canonical topic label and color
-- direct link to `/knowledge/#topic-slug`
+- direct link to `/explore/#topic-slug`
 - no count or active state
 
 Do not use the larger filter control inside cards, article metadata or sidebars.
 
-### Knowledge Base
+### Explore
 
-The Knowledge Base is a single, stable thematic layer connecting Thinking and Influences. It is intentionally absent from the global navigation to avoid duplicating those two destinations.
+Explore is the guided discovery layer connecting Thinking, Experience and Influences. It belongs in the global navigation because it provides a different job from the source collections: Questions offer curated editorial paths, while Topics remain the stable classification layer.
 
 Keep:
 
-- one generic hero that does not change with the selected topic
-- explicit Knowledge Base entry points from Thinking and Influences
-- shared topic navigation below the generic introduction
+- one generic Explore hero
+- explicit Explore entry points from Home, Thinking and Influences
+- three mature Questions presented as editorial paths, not dashboard tiles
+- one dedicated page per Question, with grouped notes, selected Influences, an Experience bridge and one continuation path
+- shared topic navigation below the curated Questions
 - a selected-topic explanation before its content
 - editorial note list before external readings
 - standard Influence cards for readings
+- one restrained contextual link from a curated Influence back to its relevant Question
 - canonical topic colors and labels
 - compact content-topic links that are visually distinct from the larger filter controls
 
 Avoid:
 
-- separate topic pages with topic-specific heroes
-- adding Knowledge Base to the global navigation
+- automatically generated Questions based only on shared tags
+- top-level Question links in the global navigation
+- mixed Knowledge and Explore terminology
 - dashboard metrics
 - graph-like decoration without navigational value
 - chronological emphasis
@@ -398,7 +403,7 @@ Keep:
 
 - vocabulary that introduces only services and concepts already covered by available episodes
 
-- every episode in the general Thinking list and Knowledge Base topics
+- every episode in the general Thinking list and Explore topics
 
 - series title and episode number in article heroes, linked back to the dedicated page
 
@@ -444,7 +449,9 @@ Avoid:
 
 - too many visual panels competing with the text
 
-The article sidebar order is: on-page navigation, an optional series system map, Knowledge Base themes, related notes, related readings. The system map is reserved for a series whose recurring service names need context; it complements rather than replaces the series context box in the article body. Related notes and readings may be omitted when the series and in-text links already provide enough navigation. At narrower widths the stack moves below the article instead of becoming a compressed side column.
+On desktop, the article sidebar order is: on-page navigation, an optional series system map, relevant Explore Questions, related notes, related readings. Compact topic links remain metadata near the article rather than becoming a competing navigation block. The system map is reserved for a series whose recurring service names need context; it complements rather than replaces the series context box in the article body. Related notes and readings may be omitted when the series and in-text links already provide enough navigation.
+
+At narrower widths, hide “On this page” instead of moving it below the note. In a series note, render the same system map as a closed disclosure before the article text, so the vocabulary is available before it is needed without occupying the opening viewport. Remaining contextual sidebar content follows the article. Reuse the same data and list partial for desktop and mobile variants.
 
 ### Article Signature
 

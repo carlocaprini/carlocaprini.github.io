@@ -1,0 +1,125 @@
+questions:
+  - slug: product-decisions
+    title: How do teams make better decisions?
+    short_title: Better product decisions
+    description: How information, trade-offs and timing shape product decisions when several directions look reasonable.
+    home_description: Better decisions rarely come from finding an option without costs. They come from making information, trade-offs and timing explicit.
+    sidebar_description: Notes on information, trade-offs and timing when several product directions look reasonable.
+    topics:
+      - product-decisions
+      - teams-and-collaboration
+    featured_notes:
+      - /thinking/waiting-as-product-decision/
+      - /thinking/product-decisions-are-mostly-trade-offs/
+    sections:
+      - title: Start with the information
+        description: Many apparent disagreements are really gaps in what people know, assume or value.
+        notes:
+          - /thinking/most-product-disagreements-come-from-missing-information/
+          - /thinking/managing-disagreements/
+      - title: Make the trade-off visible
+        description: A decision becomes clearer when the team can name what each option protects and what it gives up.
+        notes:
+          - /thinking/product-decisions-are-mostly-trade-offs/
+          - /thinking/temporary-solutions-become-permanent/
+      - title: Treat timing as part of the decision
+        description: Waiting can create information and options. Urgency can hide both.
+        notes:
+          - /thinking/waiting-as-product-decision/
+          - /thinking/the-urgency-of-customer-requests/
+    influences:
+      - slug: jeff-bezos-smart-decisions
+        context: A useful distinction between decisions that can be reversed and decisions that require more care.
+      - slug: the-product-minded-engineer
+        context: A practical view of product judgment as a shared capability rather than a role boundary.
+      - slug: boundaries-between-product-and-engineering
+        context: A closer look at how product and engineering responsibilities meet around decisions.
+    experience:
+      title: Product direction under startup constraints
+      url: /experience/#product-direction
+      description: How product direction, delivery constraints and long-term company consequences became part of the same decisions.
+    related_question: shared-understanding
+
+  - slug: shared-understanding
+    title: How do people build shared understanding?
+    short_title: Shared understanding
+    description: How teams interpret context, surface disagreement and work across product and engineering boundaries.
+    home_description: Access to the same information does not guarantee alignment. Teams still need to interpret context, surface disagreement and build a shared view of the work.
+    sidebar_description: Notes on context, disagreement and collaboration across product and engineering.
+    topics:
+      - teams-and-collaboration
+      - product-decisions
+    featured_notes:
+      - /thinking/shared-context-is-not-shared-understanding/
+      - /thinking/most-product-disagreements-come-from-missing-information/
+    sections:
+      - title: Context still needs interpretation
+        description: Shared documents and tools help, but understanding depends on what people notice and how they interpret it.
+        notes:
+          - /thinking/shared-context-is-not-shared-understanding/
+          - /thinking/most-product-disagreements-come-from-missing-information/
+      - title: Collaboration is more than a hand-off
+        description: Product and engineering work improves when differences are surfaced and responsibilities remain connected.
+        notes:
+          - /thinking/managing-disagreements/
+          - /thinking/the-transition-to-product-management-starts-before-the-title-changes/
+    influences:
+      - slug: common-software-project-conflicts
+        context: A practical catalogue of the conflicts that software teams repeatedly need to navigate.
+      - slug: blurring-boundaries-collective-empathic-understanding
+        context: Research on building a collective understanding of product requirements across roles.
+      - slug: boundaries-between-product-and-engineering
+        context: A useful challenge to treating product and engineering as isolated functions.
+      - slug: ai-tacit-knowledge-digital-twins
+        context: A reminder that retrieving shared information is not the same as understanding tacit work.
+    experience:
+      title: Working across product and engineering
+      url: /experience/#product-engineering
+      description: How a technical foundation shaped later work with engineering leadership on roadmaps, constraints and risk.
+    related_question: product-decisions
+
+  - slug: ai-and-work
+    title: What changes when AI becomes part of the work?
+    short_title: AI as part of the work
+    description: What AI changes about contribution, ownership and system design when it becomes part of everyday work.
+    home_description: AI can accelerate contribution and make new workflows possible. The harder questions are where judgment, ownership and system boundaries should remain.
+    sidebar_description: Notes on contribution, ownership and system boundaries when AI becomes part of everyday work.
+    topics:
+      - ai-and-automation
+      - software-systems
+    featured_notes:
+      - /thinking/ai-accelerates-contribution-not-mastery/
+      - /thinking/designing-for-unattended-development/
+      - /thinking/i-stopped-trying-to-build-jarvis/
+    sections:
+      - title: Contribution is not understanding
+        description: AI can help someone contribute sooner without giving them a deep model of the system or the work.
+        notes:
+          - /thinking/ai-accelerates-contribution-not-mastery/
+          - /thinking/shared-context-is-not-shared-understanding/
+      - title: Bound the work and keep ownership explicit
+        description: Useful AI systems need a clear job, visible state and boundaries around what they can decide.
+        notes:
+          - /thinking/i-stopped-trying-to-build-jarvis/
+          - /thinking/i-built-august-because-copy-and-paste-was-not-collaboration/
+          - /thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/
+          - /thinking/designing-for-unattended-development/
+      - title: Coordinate attention without taking control
+        description: Orchestration becomes useful when it helps a person see what needs attention while leaving authority with them.
+        notes:
+          - /thinking/friday-connects-the-services-without-owning-their-work/
+          - /thinking/i-need-my-ai-dashboard-to-leave-things-out/
+    influences:
+      - slug: how-i-escaped-ai-autopilot
+        context: A first-person account of the difference between using AI and surrendering the thinking to it.
+      - slug: coding-is-no-longer-the-constraint
+        context: A view of how developer experience changes when both people and agents contribute to software.
+      - slug: production-grade-ai-agents-data-and-api-quality
+        context: Evidence that reliable agents depend on the quality of the systems and interfaces around the model.
+      - slug: cpu-work-and-gpu-work
+        context: A useful language for separating repeatable execution from work that still needs human judgment.
+    experience:
+      title: Introducing AI into existing capabilities
+      url: /experience/#ai-capabilities
+      description: How AI features change product behaviour, workflows and operational expectations around an existing system.
+    related_question: shared-understanding

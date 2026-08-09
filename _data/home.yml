@@ -10,8 +10,8 @@ hero:
       label: Read selected notes
       url: /#selected-notes
     secondary:
-      label: Explore the site
-      url: /#explore
+      label: Explore the questions
+      url: /explore/
   snapshot:
     badge: Ideas on this site
     items:
@@ -21,7 +21,7 @@ hero:
         body: APIs, developer ecosystems and long-term evolution.
       - title: AI in practice
         body: Adoption, ownership and the gap between output and judgment.
-    note: These themes connect notes, professional experience and external readings into one evolving body of work.
+    note: These ideas connect notes, professional experience and external readings into one evolving body of work.
 
 selected_notes:
   eyebrow: Start here
@@ -39,42 +39,67 @@ featured_series:
   slug: building-my-ai-operating-system
   eyebrow: Featured series
   description: A first-person series about moving from a failed general assistant to bounded services and a working orchestration layer, while keeping judgment and ownership explicit.
-  action: Explore the series
+  action: Read the series
+
+questions:
+  eyebrow: Questions I’m exploring
+  title: Three recurring questions.
+  description: Follow a question across notes, experience and selected external readings.
+  items:
+    - product-decisions
+    - shared-understanding
+    - ai-and-work
+  action:
+    label: Explore all paths
+    url: /explore/
 
 where_i_can_help:
-  eyebrow: Recurring questions
-  title: The situations I keep coming back to.
+  eyebrow: Working together
+  title: Problems I can help work through.
   paragraphs:
-    - My notes often start where product direction, technical constraints and team dynamics meet.
-    - These are some of the questions that connect what I write with the work and systems I have experienced.
+    - The same product and engineering problems I write about often appear in real work.
+    - I am open to selected collaborations where an external product perspective can help clarify direction, expose trade-offs or connect product and technical decisions.
   cards:
-    - title: When several directions look reasonable
-      body: "How do teams decide what to build, what to postpone, and which trade-offs are worth accepting across customers, delivery and long-term system consequences?"
-    - title: When an API becomes a product surface
-      body: What changes when APIs, integrations and developer-facing capabilities start shaping the product experience for customers, partners, internal teams or AI agents?
-    - title: When AI moves faster than understanding
-      body: What still needs to be understood when prototypes, automation or agent workflows make something possible before reliability, ownership and product fit are clear?
+    - title: Product direction when several options look reasonable
+      body: Clarifying what each direction protects, what it gives up and which information is still missing.
+    - title: Platform and API product evolution
+      body: Connecting customer and developer experience with technical constraints, extensibility and long-term platform health.
+    - title: AI adoption in existing products and workflows
+      body: Moving from a promising capability to useful, dependable behaviour with explicit ownership and boundaries.
+  actions:
+    - label: See my experience
+      url: /experience/
+    - label: Start a conversation
+      url: /#contact
 
-explore:
-  eyebrow: Explore
-  title: Three ways into the site
-  description: Notes, experience and readings are different entry points into the same questions.
+experience:
+  eyebrow: Experience behind the ideas
+  title: Product judgment grounded in technical systems.
+  description: My perspective comes from moving between software engineering, product direction and developer-facing platforms, from a startup through global product organisations.
+  action:
+    label: See the experience
+    url: /experience/
+
+entry_points:
+  eyebrow: Across the site
+  title: Choose where to begin.
+  description: Read individual observations, follow a curated question or see the external ideas that shaped my thinking.
   cards:
     - title: Thinking
       url: /thinking/
-      body: Notes on trade-offs, AI, urgency, shared context and product work in software teams.
-    - title: Experience
-      url: /experience/
-      body: The roles and systems that shaped my work across engineering, product and platform strategy.
+      body: Individual notes on product decisions, AI-enabled work, software systems and collaboration.
+    - title: Explore
+      url: /explore/
+      body: Curated questions connecting notes, professional experience and selected readings.
     - title: Influences
       url: /influences/
-      body: External readings connected to the questions I keep coming back to.
+      body: External arguments and research that sharpen, support or challenge my thinking.
 
 contact:
   eyebrow: Contact
   title: Continue the conversation
   paragraphs:
-    - "If a note here connects with a product, platform or team question you are working through, I am always interested in comparing perspectives."
+    - "If a note here connects with a product, platform or team problem you are working through, I am always interested in comparing perspectives."
     - "I’m also open to selected collaborations where product direction, platform evolution and AI adoption intersect."
     - The easiest way to reach me is via LinkedIn.
     - Based in Italy, working with teams globally.

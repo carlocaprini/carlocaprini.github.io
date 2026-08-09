@@ -1,6 +1,6 @@
 ---
 layout: default
-# Layout for Thinking index. Expects: hero (label, title, paragraphs, actions), articles (title, url, summary)
+# Layout for Thinking index. Expects: hero, notes, Start Here, recent notes and an optional featured series.
 ---
 <div class="page thinking-page">
   <section class="hero hero--compact">
@@ -21,7 +21,7 @@ layout: default
           <p class="hero-subtitle hero-subtitle--wide">{{ p }}</p>
         {% endfor %}
         <div class="hero-actions hero-actions--compact">
-          <a href="{{ '/knowledge/' | relative_url }}" class="button-primary">Knowledge base</a>
+          <a href="{{ '/explore/' | relative_url }}" class="button-primary">Explore the questions</a>
           <a href="{{ '/influences/' | relative_url }}" class="button-ghost">Influences</a>
         </div>
       </div>
@@ -30,8 +30,8 @@ layout: default
 
   <section class="section">
     <div class="container thinking-list-wrap">
-      {% assign article_urls = page.articles | map: "url" %}
-      {% assign sorted_notes = site.pages | where_exp: "item", "article_urls contains item.url" | sort: "date" | reverse %}
+      {% assign note_urls = page.notes | map: "url" %}
+      {% assign sorted_notes = site.pages | where_exp: "item", "note_urls contains item.url" | sort: "date" | reverse %}
       {% if page.featured_series and page.featured_series.slug %}
         {% assign featured_series = site.data.series[page.featured_series.slug] %}
         {% assign series_notes = site.pages | where: "series", page.featured_series.slug | sort: "series_order" %}
@@ -51,7 +51,7 @@ layout: default
       </section>
       {% endif %}
       <div class="thinking-entry-grid">
-      {% if page.start_here and page.start_here.articles %}
+      {% if page.start_here and page.start_here.notes %}
       <div class="thinking-start-here selected-notes-panel selected-notes-panel--compact">
         <div class="section-header">
           <div>
@@ -60,7 +60,7 @@ layout: default
           <p class="section-description">{{ page.start_here.description }}</p>
         </div>
         <ul class="selected-notes-list">
-          {% for item in page.start_here.articles %}
+          {% for item in page.start_here.notes %}
             {% assign note = site.pages | where: "url", item.url | first %}
             {% if note %}
             <li>
@@ -84,16 +84,68 @@ layout: default
           </div>
           <div class="thinking-series-preview-action">
             <span class="thinking-series-count">{{ series_notes.size }} episodes</span>
-            <a class="section-link" href="{{ featured_series.url | relative_url }}">Explore the series <span aria-hidden="true">→</span></a>
+            <a class="section-link" href="{{ featured_series.url | relative_url }}">Read the series <span aria-hidden="true">→</span></a>
           </div>
         </section>
       {% endif %}
       </div>
+
+      <section class="thinking-discovery-section" aria-labelledby="thinking-questions-title">
+        <div class="explore-intro thinking-questions-intro">
+          <div>
+            <div class="section-eyebrow">Questions I’m exploring</div>
+            <h2 class="section-title" id="thinking-questions-title">Follow a question through the notes.</h2>
+          </div>
+          <p class="section-description">These are curated paths through related observations, experience and external ideas. They are a better place to begin when a topic label is too broad.</p>
+        </div>
+        <ol class="question-path-list question-path-list--compact">
+          {% for question in site.data.questions.questions %}
+            <li class="question-path-item question-path-item--{{ question.slug }}">
+              <a href="{{ '/explore/' | append: question.slug | append: '/' | relative_url }}">
+                <span class="question-path-index" aria-hidden="true">0{{ forloop.index }}</span>
+                <span class="question-path-content">
+                  <strong>{{ question.title }}</strong>
+                  <span>{{ question.description }}</span>
+                </span>
+                <span class="question-path-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          {% endfor %}
+        </ol>
+      </section>
+
+      {% if page.recent_notes %}
+        <section class="thinking-discovery-section" aria-labelledby="recent-thinking-title">
+          <div class="explore-intro thinking-recent-intro">
+            <div>
+              <div class="section-eyebrow">{{ page.recent_notes.eyebrow }}</div>
+              <h2 class="section-title" id="recent-thinking-title">{{ page.recent_notes.title }}</h2>
+            </div>
+            <p class="section-description">{{ page.recent_notes.description }}</p>
+          </div>
+          <ul class="article-list thinking-recent-list">
+            {% for note in sorted_notes limit: page.recent_notes.limit %}
+              <li>
+                <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+                <span class="article-list-summary">{{ note.summary }}</span>
+                <span class="content-topic-list" aria-label="Topics">
+                  {% for note_topic in note.topics %}
+                    {% assign topic_data = site.data.topics | where: "slug", note_topic | first %}
+                    <a class="content-topic-link content-topic-link--{{ note_topic }}" href="{{ '/explore/' | relative_url }}#{{ note_topic }}">{{ topic_data.label | default: note_topic }}</a>
+                  {% endfor %}
+                </span>
+              </li>
+            {% endfor %}
+          </ul>
+        </section>
+      {% endif %}
+
+      <section class="thinking-discovery-section thinking-all-section" aria-labelledby="all-notes">
       <nav class="thinking-topic-navigation" aria-labelledby="thinking-topic-title">
         <div class="thinking-topic-heading">
           <div>
-            <div class="section-eyebrow">Browse by theme</div>
-            <h2 class="thinking-topic-title" id="thinking-topic-title">Follow a recurring question.</h2>
+            <div class="section-eyebrow">Browse by topic</div>
+            <h2 class="thinking-topic-title" id="thinking-topic-title">Filter all notes.</h2>
           </div>
         </div>
         <div class="topic-filter-board">
@@ -127,10 +179,10 @@ layout: default
               <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
               <span class="article-list-summary">{{ note.summary }}</span>
               {% if note.topics and note.topics.size > 0 %}
-              <span class="content-topic-list" aria-label="Themes">
+              <span class="content-topic-list" aria-label="Topics">
                 {% for note_topic in note.topics %}
                   {% assign topic_data = site.data.topics | where: "slug", note_topic | first %}
-                  <a class="content-topic-link content-topic-link--{{ note_topic }}" href="{{ '/knowledge/' | relative_url }}#{{ note_topic }}">{{ topic_data.label | default: note_topic }}</a>
+                  <a class="content-topic-link content-topic-link--{{ note_topic }}" href="{{ '/explore/' | relative_url }}#{{ note_topic }}">{{ topic_data.label | default: note_topic }}</a>
                 {% endfor %}
               </span>
               {% endif %}
@@ -138,6 +190,7 @@ layout: default
           {% endfor %}
         </ul>
       </div>
+      </section>
     </div>
   </section>
 </div>

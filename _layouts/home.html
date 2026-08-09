@@ -29,7 +29,7 @@ layout: default
   <section id="selected-notes" class="section">
     {% assign home_series = site.data.series[h.featured_series.slug] %}
     {% assign home_series_notes = site.pages | where: "series", h.featured_series.slug | sort: "series_order" %}
-    <div class="container home-featured-grid">
+    <div class="container home-start-section">
       <div class="home-start-here selected-notes-panel">
         <div>
           <div class="section-header">
@@ -53,22 +53,38 @@ layout: default
           {% endfor %}
         </ul>
       </div>
-      {% if home_series and home_series_notes.size > 0 %}
-      <section class="home-series-preview" aria-labelledby="home-series-title">
+    </div>
+  </section>
+
+  <section id="questions" class="section home-questions-section">
+    <div class="container">
+      <div class="home-section-intro">
         <div>
-          <div class="home-series-heading-row">
-            <span class="home-series-signal" aria-hidden="true"></span>
-            <div class="section-eyebrow">{{ h.featured_series.eyebrow }}</div>
-          </div>
-          <h2 class="home-series-title" id="home-series-title">{{ home_series.title }}</h2>
-          <p class="home-series-description">{{ h.featured_series.description }}</p>
+          <div class="section-eyebrow">{{ h.questions.eyebrow }}</div>
+          <h2 class="section-title">{{ h.questions.title }}</h2>
         </div>
-        <div class="home-series-action">
-          <span class="home-series-count">{{ home_series_notes.size }} episodes</span>
-          <a class="section-link" href="{{ home_series.url | relative_url }}">{{ h.featured_series.action }} <span aria-hidden="true">→</span></a>
+        <div>
+          <p class="section-description">{{ h.questions.description }}</p>
+          <a class="section-link" href="{{ h.questions.action.url | relative_url }}">{{ h.questions.action.label }} <span aria-hidden="true">→</span></a>
         </div>
-      </section>
-      {% endif %}
+      </div>
+      <ol class="question-path-list question-path-list--home">
+        {% for question_slug in h.questions.items %}
+          {% assign question = site.data.questions.questions | where: "slug", question_slug | first %}
+          {% if question %}
+          <li class="question-path-item question-path-item--{{ question.slug }}">
+            <a href="{{ '/explore/' | append: question.slug | append: '/' | relative_url }}">
+              <span class="question-path-index" aria-hidden="true">0{{ forloop.index }}</span>
+              <span class="question-path-content">
+                <strong>{{ question.title }}</strong>
+                <span>{{ question.home_description }}</span>
+              </span>
+              <span class="question-path-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ol>
     </div>
   </section>
 
@@ -80,6 +96,11 @@ layout: default
         {% for p in h.where_i_can_help.paragraphs %}
           <p class="body-text">{{ p }}</p>
         {% endfor %}
+        <div class="home-help-actions">
+          {% for action in h.where_i_can_help.actions %}
+            <a class="section-link" href="{{ action.url | relative_url }}">{{ action.label }}{% if forloop.first %} <span aria-hidden="true">→</span>{% endif %}</a>
+          {% endfor %}
+        </div>
       </div>
       <div class="home-help-list">
         {% for c in h.where_i_can_help.cards %}
@@ -95,28 +116,60 @@ layout: default
     </div>
   </section>
 
-  <section id="explore" class="section home-map-section">
+  {% if home_series and home_series_notes.size > 0 %}
+  <section id="featured-series" class="section home-series-section">
     <div class="container">
-      <div class="home-map-header">
+      <div class="home-series-preview home-series-preview--wide" aria-labelledby="home-series-title">
         <div>
-          <div class="section-eyebrow">{{ h.explore.eyebrow }}</div>
-          <h2 class="section-title">{{ h.explore.title }}</h2>
+          <div class="home-series-heading-row">
+            <span class="home-series-signal" aria-hidden="true"></span>
+            <div class="section-eyebrow">{{ h.featured_series.eyebrow }}</div>
+          </div>
+          <h2 class="home-series-title" id="home-series-title">{{ home_series.title }}</h2>
+          <p class="home-series-description">{{ h.featured_series.description }}</p>
         </div>
-        <p class="section-description">{{ h.explore.description }}</p>
+        <div class="home-series-action">
+          <span class="home-series-count">{{ home_series_notes.size }} episodes</span>
+          <a class="section-link" href="{{ home_series.url | relative_url }}">{{ h.featured_series.action }} <span aria-hidden="true">→</span></a>
+        </div>
       </div>
-      <div class="home-explore-grid">
-        {% for c in h.explore.cards %}
-          <article class="card home-explore-card">
-            <a class="home-map-card-link" href="{{ c.url | relative_url }}">
-              <span class="home-map-marker" aria-hidden="true"></span>
-              <span class="home-map-index">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
-              <span class="home-map-title">{{ c.title }}</span>
-              <span class="home-map-body">{{ c.body }}</span>
+    </div>
+  </section>
+  {% endif %}
+
+  <section id="experience-behind-the-ideas" class="section home-experience-section">
+    <div class="container home-experience-grid">
+      <div>
+        <div class="section-eyebrow">{{ h.experience.eyebrow }}</div>
+        <h2 class="section-title">{{ h.experience.title }}</h2>
+      </div>
+      <div>
+        <p class="section-description">{{ h.experience.description }}</p>
+        <a class="section-link" href="{{ h.experience.action.url | relative_url }}">{{ h.experience.action.label }} <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="entry-points" class="section home-entry-section">
+    <div class="container">
+      <div class="home-section-intro">
+        <div>
+          <div class="section-eyebrow">{{ h.entry_points.eyebrow }}</div>
+          <h2 class="section-title">{{ h.entry_points.title }}</h2>
+        </div>
+        <p class="section-description">{{ h.entry_points.description }}</p>
+      </div>
+      <div class="home-entry-grid">
+        {% for c in h.entry_points.cards %}
+          <article class="card home-entry-card">
+            <a class="home-entry-card-link" href="{{ c.url | relative_url }}">
+              <span class="home-entry-marker" aria-hidden="true"></span>
+              <span class="home-entry-index">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+              <span class="home-entry-title">{{ c.title }}</span>
+              <span class="home-entry-body">{{ c.body }}</span>
             </a>
-            <div class="home-map-line" aria-hidden="true"></div>
-            <div class="home-map-arrow" aria-hidden="true">
-              <span></span>
-            </div>
+            <div class="home-entry-line" aria-hidden="true"></div>
+            <div class="home-entry-arrow" aria-hidden="true"><span></span></div>
           </article>
         {% endfor %}
       </div>

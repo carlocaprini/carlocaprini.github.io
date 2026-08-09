@@ -4,7 +4,8 @@
 {% assign canonical_site_url = site.production_url | default: site.url | replace: "http://", "https://" %}
 <link rel="alternate" type="application/rss+xml" title="{{ site.title }} — Thinking feed" href="{{ canonical_site_url }}{{ '/feed.xml' | relative_url }}" />
 {% assign site_name = site.data.person.name | default: site.title %}
-{% assign page_url = page.url | absolute_url | replace: site.url, canonical_site_url %}
+{% assign canonical_path = page.canonical_url | default: page.url %}
+{% assign page_url = canonical_path | absolute_url | replace: site.url, canonical_site_url %}
 {% assign default_description = site.description %}
 {% assign default_image_path = "/assets/og-site-v2.png" %}
 {% assign default_og_type = "website" %}
@@ -40,7 +41,7 @@
 <meta property="og:type" content="{{ og_type }}">
 <meta property="og:locale" content="en_US">
 <meta name="author" content="{{ site.data.person.name | default: site.title }}">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="{{ page.robots | default: 'index, follow' }}">
 <meta property="og:title" content="{{ page_title | escape }}">
 <meta property="og:description" content="{{ page_description | escape }}">
 <meta property="og:url" content="{{ page_url }}">

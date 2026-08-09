@@ -1,0 +1,15 @@
+<dl class="article-system-map-list">
+  {% for service in include.series.services %}
+  <div class="article-system-map-item{% if include.current_service == service.slug %} is-current{% endif %}">
+    <dt>
+      {% if service.url %}
+        <a href="{{ service.url | relative_url }}">{{ service.name }}</a>
+      {% else %}
+        <span>{{ service.name }}</span>
+      {% endif %}
+      {% if include.current_service == service.slug %}<span class="visually-hidden"> (current service)</span>{% endif %}
+    </dt>
+    <dd>{{ service.sidebar_description | default: service.description }}</dd>
+  </div>
+  {% endfor %}
+</dl>

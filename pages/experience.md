@@ -2,9 +2,9 @@
 layout: experience
 title: Experience
 permalink: /experience/
-meta_title: Product and Engineering Experience | Carlo Caprini
+meta_title: Product Leadership and Engineering Experience | Carlo Caprini
 meta_description: The experience behind Carlo Caprini's writing on product decisions, API platforms, AI adoption and engineering collaboration.
-last_modified_at: 2026-07-15
+last_modified_at: 2026-08-09
 hero:
   label: Experience
   title_prefix: "Experience behind "
@@ -17,9 +17,10 @@ hero:
 evidence:
   eyebrow: Experience as evidence
   title: Problems I have worked close to.
-  description: Selected areas where the themes on this site connect to responsibilities and systems I have experienced directly.
+  description: Selected areas where the ideas on this site connect to responsibilities and systems I have experienced directly.
   items:
-    - title: Developer-facing platforms as product surfaces
+    - id: platforms
+      title: Developer-facing platforms as product surfaces
       meta: PandaDoc and commercetools · 2022 – present
       body: I have worked on API platforms, extensibility, observability and developer tooling. The product question is rarely only how an interface works; it is how customers, partners and internal teams can build on it without weakening the platform over time.
       tags:
@@ -29,7 +30,8 @@ evidence:
       related_note:
         title: Temporary solutions become permanent
         url: /thinking/temporary-solutions-become-permanent/
-    - title: AI capabilities beyond the prototype
+    - id: ai-capabilities
+      title: AI capabilities beyond the prototype
       meta: PandaDoc · 2026 – present
       body: My current work explores how APIs can support AI and agent-driven use cases while preserving reliability, scalability and product coherence. The difficult part begins when a promising interaction has to become a capability others can depend on.
       tags:
@@ -39,7 +41,8 @@ evidence:
       related_note:
         title: AI accelerates contribution, not mastery
         url: /thinking/ai-accelerates-contribution-not-mastery/
-    - title: Working across product and engineering
+    - id: product-engineering
+      title: Working across product and engineering
       meta: Engineering and product roles · 2013 – present
       body: Building web applications and distributed systems gave me the technical foundation for later product work. Since then, much of my role has involved working with engineering leadership on roadmaps, constraints and the different risks each discipline sees.
       tags:
@@ -49,7 +52,8 @@ evidence:
       related_note:
         title: Shared context is not shared understanding
         url: /thinking/shared-context-is-not-shared-understanding/
-    - title: Product direction under startup constraints
+    - id: product-direction
+      title: Product direction under startup constraints
       meta: U-Hopper · 2013 – 2022
       body: I joined as an early engineer, moved into product management as the company grew, and later became a partner and shareholder. That path made product direction, delivery constraints and long-term company consequences part of the same set of decisions.
       tags:

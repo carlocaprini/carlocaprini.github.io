@@ -36,7 +36,7 @@ layout: default
 
       <div class="experience-evidence-grid">
         {% for item in page.evidence.items %}
-          <article class="experience-evidence-card">
+          <article class="experience-evidence-card"{% if item.id %} id="{{ item.id }}"{% endif %}>
             <div class="experience-evidence-marker" aria-hidden="true"></div>
             <div class="experience-card-kicker">{{ item.meta }}</div>
             <h3 class="experience-card-title">{{ item.title }}</h3>

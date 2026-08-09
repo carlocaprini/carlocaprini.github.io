@@ -64,7 +64,7 @@ layout: default
                 <span class="series-page-episode-title">{{ note.title }}</span>
                 <span class="series-page-episode-summary">{{ note.summary }}</span>
                 {% if note.topics and note.topics.size > 0 %}
-                  <span class="content-topic-list" aria-label="Themes">
+                  <span class="content-topic-list" aria-label="Topics">
                     {% for note_topic in note.topics %}
                       {% assign topic_data = site.data.topics | where: "slug", note_topic | first %}
                       <span class="content-topic-link content-topic-link--{{ note_topic }}">{{ topic_data.label | default: note_topic }}</span>
