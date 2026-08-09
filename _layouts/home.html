@@ -72,29 +72,6 @@ layout: default
     </div>
   </section>
 
-  <section id="where-i-can-help" class="section home-help-section">
-    <div class="container home-help-layout">
-      <div class="home-help-intro">
-        <div class="section-eyebrow">{{ h.where_i_can_help.eyebrow }}</div>
-        <h2 class="section-title">{{ h.where_i_can_help.title }}</h2>
-        {% for p in h.where_i_can_help.paragraphs %}
-          <p class="body-text">{{ p }}</p>
-        {% endfor %}
-      </div>
-      <div class="home-help-list">
-        {% for c in h.where_i_can_help.cards %}
-          <article class="home-help-item">
-            <div class="home-help-item-marker" aria-hidden="true"></div>
-            <div class="home-help-item-content">
-              <h3>{{ c.title }}</h3>
-              <p>{{ c.body }}</p>
-            </div>
-          </article>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
-
   <section id="explore" class="section home-map-section">
     <div class="container">
       <div class="home-map-header">
@@ -116,6 +93,29 @@ layout: default
             <div class="home-map-line" aria-hidden="true"></div>
             <div class="home-map-arrow" aria-hidden="true">
               <span></span>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section id="where-i-can-help" class="section home-help-section">
+    <div class="container home-help-layout">
+      <div class="home-help-intro">
+        <div class="section-eyebrow">{{ h.where_i_can_help.eyebrow }}</div>
+        <h2 class="section-title">{{ h.where_i_can_help.title }}</h2>
+        {% for p in h.where_i_can_help.paragraphs %}
+          <p class="body-text">{{ p }}</p>
+        {% endfor %}
+      </div>
+      <div class="home-help-list">
+        {% for c in h.where_i_can_help.cards %}
+          <article class="home-help-item">
+            <div class="home-help-item-marker" aria-hidden="true"></div>
+            <div class="home-help-item-content">
+              <h3>{{ c.title }}</h3>
+              <p>{{ c.body }}</p>
             </div>
           </article>
         {% endfor %}
