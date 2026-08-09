@@ -9,6 +9,7 @@
     {% assign is_home = false %}
     {% assign is_experience = false %}
     {% assign is_thinking = false %}
+    {% assign is_explore = false %}
     {% assign is_influences = false %}
     {% if current_url == "/" or current_url == "" %}
       {% assign is_home = true %}
@@ -18,6 +19,9 @@
     {% endif %}
     {% if current_url == "/thinking/" or page.layout == "article" or page.layout == "series" %}
       {% assign is_thinking = true %}
+    {% endif %}
+    {% if current_url == "/explore/" or page.layout == "question" %}
+      {% assign is_explore = true %}
     {% endif %}
     {% if current_url == "/influences/" %}
       {% assign is_influences = true %}
@@ -32,6 +36,7 @@
           <nav class="nav-right" aria-label="Primary navigation">
             <a href="{{ '/' | relative_url }}" {% if is_home %}class="is-active" aria-current="page"{% endif %}>Home</a>
             <a href="{{ '/thinking/' | relative_url }}" {% if is_thinking %}class="is-active" aria-current="page"{% endif %}>Thinking</a>
+            <a href="{{ '/explore/' | relative_url }}" {% if is_explore %}class="is-active" aria-current="page"{% endif %}>Explore</a>
             <a href="{{ '/experience/' | relative_url }}" {% if is_experience %}class="is-active" aria-current="page"{% endif %}>Experience</a>
             <a href="{{ '/influences/' | relative_url }}" {% if is_influences %}class="is-active" aria-current="page"{% endif %}>Influences</a>
             <a href="{{ '/' | relative_url }}#contact">Contact</a>
@@ -41,6 +46,7 @@
             <nav class="mobile-nav-panel" aria-label="Mobile navigation">
               <a href="{{ '/' | relative_url }}" {% if is_home %}class="is-active" aria-current="page"{% endif %}>Home</a>
               <a href="{{ '/thinking/' | relative_url }}" {% if is_thinking %}class="is-active" aria-current="page"{% endif %}>Thinking</a>
+              <a href="{{ '/explore/' | relative_url }}" {% if is_explore %}class="is-active" aria-current="page"{% endif %}>Explore</a>
               <a href="{{ '/experience/' | relative_url }}" {% if is_experience %}class="is-active" aria-current="page"{% endif %}>Experience</a>
               <a href="{{ '/influences/' | relative_url }}" {% if is_influences %}class="is-active" aria-current="page"{% endif %}>Influences</a>
               <a href="{{ '/' | relative_url }}#contact">Contact</a>

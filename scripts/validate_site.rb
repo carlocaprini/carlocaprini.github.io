@@ -250,11 +250,12 @@ html_files.each do |file|
   validate_generated_url(relative, "Twitter image", twitter_image) if twitter_image
 
   canonical_match = html.match(%r{<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']}i)
+  legacy_redirect = html.include?("data-legacy-redirect")
   if canonical_match
     canonical = canonical_match[1]
-    canonical_urls << canonical
+    canonical_urls << canonical unless legacy_redirect
     fail_check("#{relative}: non-canonical canonical URL #{canonical}") unless canonical.start_with?("#{SITE_URL}/")
-    unless sitemap_locs.empty? || sitemap_locs.include?(canonical) || defined?(development_sitemap) && development_sitemap
+    unless legacy_redirect || sitemap_locs.empty? || sitemap_locs.include?(canonical) || defined?(development_sitemap) && development_sitemap
       fail_check("#{relative}: canonical URL not listed in sitemap.xml: #{canonical}")
     end
   else

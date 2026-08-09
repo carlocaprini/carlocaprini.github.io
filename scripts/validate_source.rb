@@ -197,6 +197,24 @@ page_records.each do |path, (data, _)|
   end
 end
 
+questions.each do |question|
+  expected_permalink = "/explore/#{question['slug']}/"
+  page_path = permalink_records[expected_permalink]
+  if page_path.nil?
+    fail_check("_data/questions.yml: #{question['slug']} has no page at #{expected_permalink}")
+    next
+  end
+
+  page_data = page_records.fetch(page_path).first
+  fail_check("#{relative_path(page_path)}: layout must be question") unless page_data["layout"] == "question"
+  unless page_data["question_slug"] == question["slug"]
+    fail_check("#{relative_path(page_path)}: question_slug must match #{question['slug']}")
+  end
+  unless page_data["title"] == question["title"]
+    fail_check("#{relative_path(page_path)}: title must match the canonical question title")
+  end
+end
+
 note_paths = Dir.glob(File.join(SOURCE_DIR, "pages/thinking/*.md")).sort
 note_records = note_paths.to_h { |path| [path, page_records.fetch(path)] }
 note_by_permalink = {}

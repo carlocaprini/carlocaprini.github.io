@@ -1,0 +1,26 @@
+---
+layout: default
+---
+<div class="page legacy-redirect" data-legacy-redirect>
+  <section class="hero hero--compact">
+    <div class="container hero-grid hero-grid--single">
+      <div>
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          <span>Moved</span>
+        </div>
+        <h1 class="hero-title hero-title--compact">Knowledge is now Explore.</h1>
+        <p class="hero-subtitle hero-subtitle--wide">The thematic collection now includes curated questions alongside every note and reading.</p>
+        <div class="hero-actions hero-actions--compact">
+          <a href="{{ page.redirect_to | relative_url }}" class="button-primary">Continue to Explore</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+  (function () {
+    var destination = {{ page.redirect_to | jsonify }};
+    window.location.replace(destination + window.location.search + window.location.hash);
+  })();
+</script>

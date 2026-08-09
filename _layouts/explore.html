@@ -1,0 +1,179 @@
+---
+layout: default
+---
+<div class="page">
+  <section class="hero hero--compact">
+    <div class="container hero-grid hero-grid--single">
+      <div>
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          <span>{{ page.hero.label }}</span>
+        </div>
+        <h1 class="hero-title hero-title--compact">
+          {{ page.hero.title_prefix }}<span class="highlight">{{ page.hero.title_highlight }}</span>
+        </h1>
+        {% for paragraph in page.hero.paragraphs %}
+          <p class="hero-subtitle hero-subtitle--wide">{{ paragraph }}</p>
+        {% endfor %}
+        <div class="hero-actions hero-actions--compact">
+          <a href="{{ '/thinking/' | relative_url }}" class="button-ghost">Thinking</a>
+          <a href="{{ '/influences/' | relative_url }}" class="button-ghost">Influences</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section explore-questions-section">
+    <div class="container explore-wrap">
+      <div class="explore-intro">
+        <div>
+          <div class="section-eyebrow">Questions</div>
+          <h2 class="section-title">Three paths through the work.</h2>
+        </div>
+        <p class="section-description">Each path brings together what I have written, the experience behind it and external ideas that sharpen or challenge the question.</p>
+      </div>
+
+      <ol class="question-path-list">
+        {% for question in site.data.questions.questions %}
+          <li class="question-path-item question-path-item--{{ question.slug }}">
+            <a href="{{ '/explore/' | append: question.slug | append: '/' | relative_url }}">
+              <span class="question-path-index" aria-hidden="true">0{{ forloop.index }}</span>
+              <span class="question-path-content">
+                <strong>{{ question.title }}</strong>
+                <span>{{ question.description }}</span>
+              </span>
+              <span class="question-path-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        {% endfor %}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section explore-topics-section">
+    <div class="container explore-wrap">
+      <div class="explore-intro">
+        <div>
+          <div class="section-eyebrow">Browse by topic</div>
+          <h2 class="section-title">The complete collection.</h2>
+        </div>
+        <p class="section-description">Topics classify every note and reading. Use them when you want breadth rather than a guided path.</p>
+      </div>
+
+      <nav class="topic-filter-board explore-topic-navigation" aria-label="Explore topics">
+        {% for topic in site.data.topics %}
+          <button class="topic-filter topic-filter--{{ topic.slug }}{% if forloop.first %} is-active{% endif %}" id="explore-filter-{{ topic.slug }}" type="button" data-explore-topic="{{ topic.slug }}" aria-controls="explore-panel-{{ topic.slug }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">
+            <span class="topic-filter-marker" aria-hidden="true"></span>
+            <span>{{ topic.label }}</span>
+          </button>
+        {% endfor %}
+      </nav>
+
+      <div class="explore-topic-panels">
+        {% for topic in site.data.topics %}
+          {% assign all_notes = site.pages | where: "layout", "article" %}
+          {% assign topic_notes = all_notes | where_exp: "note", "note.topics contains topic.slug" | sort: "date" | reverse %}
+          {% assign topic_influences = site.influences | where_exp: "ref", "ref.topics contains topic.slug" %}
+          <section class="explore-topic-panel" id="explore-panel-{{ topic.slug }}" data-explore-topic-panel="{{ topic.slug }}" aria-labelledby="explore-filter-{{ topic.slug }}"{% unless forloop.first %} hidden{% endunless %}>
+            <header class="explore-topic-header">
+              <div class="explore-topic-heading">
+                <span class="explore-topic-marker explore-topic-marker--{{ topic.slug }}" aria-hidden="true"></span>
+                <div>
+                  <div class="section-eyebrow">Selected topic</div>
+                  <h2 class="explore-topic-title">{{ topic.label }}</h2>
+                </div>
+              </div>
+              <div>
+                <p class="explore-topic-description">{{ topic.description }}</p>
+                <p class="explore-topic-counts">{{ topic_notes.size }} {% if topic_notes.size == 1 %}note{% else %}notes{% endif %} <span aria-hidden="true">·</span> {{ topic_influences.size }} {% if topic_influences.size == 1 %}reading{% else %}readings{% endif %}</p>
+              </div>
+            </header>
+
+            <div class="explore-content-section">
+              <div class="explore-content-heading">
+                <div class="section-eyebrow">Thinking</div>
+                <h3 class="section-title">Notes in this topic</h3>
+              </div>
+              <div class="article-list-wrap explore-note-list-wrap">
+                <ul class="article-list explore-note-list">
+                  {% for note in topic_notes %}
+                    <li>
+                      <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+                      <span class="article-list-summary">{{ note.summary }}</span>
+                      <span class="content-topic-list" aria-label="Topics">
+                        {% for note_topic in note.topics %}
+                          {% assign note_topic_data = site.data.topics | where: "slug", note_topic | first %}
+                          <a class="content-topic-link content-topic-link--{{ note_topic }}" href="{{ '/explore/' | relative_url }}#{{ note_topic }}">{{ note_topic_data.label | default: note_topic }}</a>
+                        {% endfor %}
+                      </span>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+
+            <div class="explore-content-section explore-readings-section">
+              <div class="explore-content-heading">
+                <div class="section-eyebrow">Influences</div>
+                <h3 class="section-title">Reading around the topic</h3>
+              </div>
+              <ul class="influences-list explore-influences-list">
+                {% assign weight_order = "5,4,3,2,1,0" | split: "," %}
+                {% for weight_str in weight_order %}
+                  {% assign target_weight = weight_str | plus: 0 %}
+                  {% assign refs_by_title = topic_influences | sort: "title" %}
+                  {% for ref in refs_by_title %}
+                    {% assign ref_weight = ref.weight | default: 0 | plus: 0 %}
+                    {% if ref_weight == target_weight and ref.external_url %}
+                      {% include influence-card.html ref=ref %}
+                    {% endif %}
+                  {% endfor %}
+                {% endfor %}
+              </ul>
+            </div>
+          </section>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  (function () {
+    var controls = Array.prototype.slice.call(document.querySelectorAll("[data-explore-topic]"));
+    var panels = Array.prototype.slice.call(document.querySelectorAll("[data-explore-topic-panel]"));
+    if (!controls.length || !panels.length) return;
+
+    function selectTopic(topic, updateHash) {
+      var selected = controls.some(function (control) {
+        return control.dataset.exploreTopic === topic;
+      }) ? topic : controls[0].dataset.exploreTopic;
+
+      controls.forEach(function (control) {
+        var isActive = control.dataset.exploreTopic === selected;
+        control.classList.toggle("is-active", isActive);
+        control.setAttribute("aria-pressed", isActive ? "true" : "false");
+      });
+
+      panels.forEach(function (panel) {
+        panel.hidden = panel.dataset.exploreTopicPanel !== selected;
+      });
+
+      if (updateHash && window.history && window.history.replaceState) {
+        window.history.replaceState(null, "", "#" + selected);
+      }
+    }
+
+    controls.forEach(function (control) {
+      control.addEventListener("click", function () {
+        selectTopic(control.dataset.exploreTopic, true);
+      });
+    });
+
+    window.addEventListener("hashchange", function () {
+      selectTopic(window.location.hash.replace("#", ""), false);
+    });
+
+    selectTopic(window.location.hash.replace("#", ""), false);
+  })();
+</script>

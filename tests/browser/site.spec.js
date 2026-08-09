@@ -79,6 +79,33 @@ test("primary navigation exposes the current section", async ({ page }, testInfo
   await expect(page).toHaveURL(/\/experience\/$/);
 });
 
+test("Explore exposes curated questions and stable topic hashes", async ({ page }) => {
+  await page.goto("/explore/#ai-and-automation");
+
+  await expect(page.getByRole("heading", { name: "Three paths through the work." })).toBeVisible();
+  await expect(page.getByRole("link", { name: /How do teams make better decisions/ })).toBeVisible();
+  await expect(page.locator('[data-explore-topic="ai-and-automation"]')).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator('[data-explore-topic-panel="ai-and-automation"]')).toBeVisible();
+});
+
+test("legacy Knowledge URL preserves query parameters and topic hashes", async ({ page }) => {
+  await page.goto("/knowledge/?source=legacy#software-systems");
+
+  await expect(page).toHaveURL(/\/explore\/\?source=legacy#software-systems$/);
+  await expect(page.locator('[data-explore-topic="software-systems"]')).toHaveAttribute("aria-pressed", "true");
+});
+
+test("question pages connect Thinking, Influences and Experience", async ({ page }) => {
+  await page.goto("/explore/product-decisions/");
+
+  await expect(page.getByRole("heading", { name: "Notes that develop the question." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Ideas that sharpen the question." })).toBeVisible();
+  await expect(page.getByRole("link", { name: /See the experience behind this question/ })).toHaveAttribute(
+    "href",
+    "/experience/#product-direction"
+  );
+});
+
 test("skip link reaches the main content", async ({ page }) => {
   await page.goto("/");
   await page.keyboard.press("Tab");
