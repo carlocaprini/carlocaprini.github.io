@@ -2,9 +2,9 @@
 layout: experience
 title: Experience
 permalink: /experience/
-meta_title: Product and Engineering Experience | Carlo Caprini
+meta_title: Product Leadership and Engineering Experience | Carlo Caprini
 meta_description: The experience behind Carlo Caprini's writing on product decisions, API platforms, AI adoption and engineering collaboration.
-last_modified_at: 2026-07-15
+last_modified_at: 2026-08-09
 hero:
   label: Experience
   title_prefix: "Experience behind "
@@ -17,7 +17,7 @@ hero:
 evidence:
   eyebrow: Experience as evidence
   title: Problems I have worked close to.
-  description: Selected areas where the themes on this site connect to responsibilities and systems I have experienced directly.
+  description: Selected areas where the ideas on this site connect to responsibilities and systems I have experienced directly.
   items:
     - id: platforms
       title: Developer-facing platforms as product surfaces

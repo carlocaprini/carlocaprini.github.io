@@ -21,7 +21,7 @@ hero:
         body: APIs, developer ecosystems and long-term evolution.
       - title: AI in practice
         body: Adoption, ownership and the gap between output and judgment.
-    note: These themes connect notes, professional experience and external readings into one evolving body of work.
+    note: These ideas connect notes, professional experience and external readings into one evolving body of work.
 
 selected_notes:
   eyebrow: Start here
@@ -39,7 +39,7 @@ featured_series:
   slug: building-my-ai-operating-system
   eyebrow: Featured series
   description: A first-person series about moving from a failed general assistant to bounded services and a working orchestration layer, while keeping judgment and ownership explicit.
-  action: Explore the series
+  action: Read the series
 
 questions:
   eyebrow: Questions I’m exploring
@@ -57,7 +57,7 @@ where_i_can_help:
   eyebrow: Working together
   title: Problems I can help work through.
   paragraphs:
-    - The same questions I write about often appear in real product and engineering work.
+    - The same product and engineering problems I write about often appear in real work.
     - I am open to selected collaborations where an external product perspective can help clarify direction, expose trade-offs or connect product and technical decisions.
   cards:
     - title: Product direction when several options look reasonable
@@ -73,17 +73,17 @@ where_i_can_help:
       url: /#contact
 
 experience:
-  eyebrow: Experience behind the work
+  eyebrow: Experience behind the ideas
   title: Product judgment grounded in technical systems.
   description: My perspective comes from moving between software engineering, product direction and developer-facing platforms, from a startup through global product organisations.
   action:
     label: See the experience
     url: /experience/
 
-explore_thinking:
-  eyebrow: Explore the thinking
-  title: Choose the kind of context you need.
-  description: Read individual observations, follow a curated question or see the external ideas that shaped the work.
+entry_points:
+  eyebrow: Across the site
+  title: Choose where to begin.
+  description: Read individual observations, follow a curated question or see the external ideas that shaped my thinking.
   cards:
     - title: Thinking
       url: /thinking/
@@ -99,7 +99,7 @@ contact:
   eyebrow: Contact
   title: Continue the conversation
   paragraphs:
-    - "If a note here connects with a product, platform or team question you are working through, I am always interested in comparing perspectives."
+    - "If a note here connects with a product, platform or team problem you are working through, I am always interested in comparing perspectives."
     - "I’m also open to selected collaborations where product direction, platform evolution and AI adoption intersect."
     - The easiest way to reach me is via LinkedIn.
     - Based in Italy, working with teams globally.

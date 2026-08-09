@@ -246,17 +246,17 @@ end
 
 thinking_path = File.join(SOURCE_DIR, "pages/thinking.md")
 thinking_data = page_records.fetch(thinking_path).first
-listed_note_urls = Array(thinking_data["articles"]).map { |article| article["url"] }.compact
+listed_note_urls = Array(thinking_data["notes"]).map { |note| note["url"] }.compact
 duplicate_listed_urls = listed_note_urls.group_by(&:itself).select { |_, values| values.size > 1 }.keys
-fail_check("pages/thinking.md: duplicate article URLs: #{duplicate_listed_urls.join(', ')}") unless duplicate_listed_urls.empty?
+fail_check("pages/thinking.md: duplicate note URLs: #{duplicate_listed_urls.join(', ')}") unless duplicate_listed_urls.empty?
 
 unknown_listed_urls = listed_note_urls.reject { |url| note_by_permalink.key?(url) }
-fail_check("pages/thinking.md: unknown article URLs: #{unknown_listed_urls.join(', ')}") unless unknown_listed_urls.empty?
+fail_check("pages/thinking.md: unknown note URLs: #{unknown_listed_urls.join(', ')}") unless unknown_listed_urls.empty?
 
 missing_listed_urls = note_by_permalink.keys - listed_note_urls
-fail_check("pages/thinking.md: notes missing from articles: #{missing_listed_urls.join(', ')}") unless missing_listed_urls.empty?
+fail_check("pages/thinking.md: notes missing from notes list: #{missing_listed_urls.join(', ')}") unless missing_listed_urls.empty?
 
-start_here_urls = Array(thinking_data.dig("start_here", "articles")).map { |article| article["url"] }.compact
+start_here_urls = Array(thinking_data.dig("start_here", "notes")).map { |note| note["url"] }.compact
 unknown_start_urls = start_here_urls.reject { |url| note_by_permalink.key?(url) }
 fail_check("pages/thinking.md: unknown Start Here URLs: #{unknown_start_urls.join(', ')}") unless unknown_start_urls.empty?
 
@@ -330,11 +330,11 @@ expected_home_paths = {
   "Explore" => "/explore/",
   "Influences" => "/influences/"
 }
-home_paths = Array(home_data.dig("explore_thinking", "cards")).to_h do |card|
+home_paths = Array(home_data.dig("entry_points", "cards")).to_h do |card|
   [card["title"], card["url"]]
 end
 unless home_paths == expected_home_paths
-  fail_check("_data/home.yml: explore_thinking cards must match the canonical Thinking, Explore and Influences paths")
+  fail_check("_data/home.yml: entry_points cards must match the canonical Thinking, Explore and Influences paths")
 end
 
 experience_path = File.join(SOURCE_DIR, "pages/experience.md")

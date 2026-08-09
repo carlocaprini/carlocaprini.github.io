@@ -1,6 +1,6 @@
 ---
 layout: default
-# Layout for Thinking index. Expects: hero (label, title, paragraphs, actions), articles (title, url, summary)
+# Layout for Thinking index. Expects: hero, notes, Start Here, recent notes and an optional featured series.
 ---
 <div class="page thinking-page">
   <section class="hero hero--compact">
@@ -30,8 +30,8 @@ layout: default
 
   <section class="section">
     <div class="container thinking-list-wrap">
-      {% assign article_urls = page.articles | map: "url" %}
-      {% assign sorted_notes = site.pages | where_exp: "item", "article_urls contains item.url" | sort: "date" | reverse %}
+      {% assign note_urls = page.notes | map: "url" %}
+      {% assign sorted_notes = site.pages | where_exp: "item", "note_urls contains item.url" | sort: "date" | reverse %}
       {% if page.featured_series and page.featured_series.slug %}
         {% assign featured_series = site.data.series[page.featured_series.slug] %}
         {% assign series_notes = site.pages | where: "series", page.featured_series.slug | sort: "series_order" %}
@@ -51,7 +51,7 @@ layout: default
       </section>
       {% endif %}
       <div class="thinking-entry-grid">
-      {% if page.start_here and page.start_here.articles %}
+      {% if page.start_here and page.start_here.notes %}
       <div class="thinking-start-here selected-notes-panel selected-notes-panel--compact">
         <div class="section-header">
           <div>
@@ -60,7 +60,7 @@ layout: default
           <p class="section-description">{{ page.start_here.description }}</p>
         </div>
         <ul class="selected-notes-list">
-          {% for item in page.start_here.articles %}
+          {% for item in page.start_here.notes %}
             {% assign note = site.pages | where: "url", item.url | first %}
             {% if note %}
             <li>
@@ -84,7 +84,7 @@ layout: default
           </div>
           <div class="thinking-series-preview-action">
             <span class="thinking-series-count">{{ series_notes.size }} episodes</span>
-            <a class="section-link" href="{{ featured_series.url | relative_url }}">Explore the series <span aria-hidden="true">→</span></a>
+            <a class="section-link" href="{{ featured_series.url | relative_url }}">Read the series <span aria-hidden="true">→</span></a>
           </div>
         </section>
       {% endif %}
@@ -145,7 +145,7 @@ layout: default
         <div class="thinking-topic-heading">
           <div>
             <div class="section-eyebrow">Browse by topic</div>
-            <h2 class="thinking-topic-title" id="thinking-topic-title">Filter the complete collection.</h2>
+            <h2 class="thinking-topic-title" id="thinking-topic-title">Filter all notes.</h2>
           </div>
         </div>
         <div class="topic-filter-board">
@@ -170,7 +170,7 @@ layout: default
       </nav>
       <div class="article-list-wrap">
         <div class="thinking-list-heading">
-          <h2 class="article-list-title" id="all-notes">All thinking</h2>
+          <h2 class="article-list-title" id="all-notes">All notes</h2>
           <p class="thinking-filter-status" id="thinking-filter-status" aria-live="polite">Showing all {{ sorted_notes.size }} notes</p>
         </div>
         <ul class="article-list" id="thinking-note-list">
@@ -225,7 +225,7 @@ layout: default
         if (isVisible) visibleCount += 1;
       });
 
-      listTitle.textContent = topic === "all" ? "All thinking" : labelFor(topic);
+      listTitle.textContent = topic === "all" ? "All notes" : labelFor(topic);
       status.textContent = topic === "all"
         ? "Showing all " + visibleCount + " notes"
         : "Showing " + visibleCount + " notes";

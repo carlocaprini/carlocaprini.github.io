@@ -58,7 +58,7 @@ layout: default
 
   <section id="questions" class="section home-questions-section">
     <div class="container">
-      <div class="home-map-header">
+      <div class="home-section-intro">
         <div>
           <div class="section-eyebrow">{{ h.questions.eyebrow }}</div>
           <h2 class="section-title">{{ h.questions.title }}</h2>
@@ -137,7 +137,7 @@ layout: default
   </section>
   {% endif %}
 
-  <section id="experience-behind-the-work" class="section home-experience-section">
+  <section id="experience-behind-the-ideas" class="section home-experience-section">
     <div class="container home-experience-grid">
       <div>
         <div class="section-eyebrow">{{ h.experience.eyebrow }}</div>
@@ -150,26 +150,26 @@ layout: default
     </div>
   </section>
 
-  <section id="explore-thinking" class="section home-map-section">
+  <section id="entry-points" class="section home-entry-section">
     <div class="container">
-      <div class="home-map-header">
+      <div class="home-section-intro">
         <div>
-          <div class="section-eyebrow">{{ h.explore_thinking.eyebrow }}</div>
-          <h2 class="section-title">{{ h.explore_thinking.title }}</h2>
+          <div class="section-eyebrow">{{ h.entry_points.eyebrow }}</div>
+          <h2 class="section-title">{{ h.entry_points.title }}</h2>
         </div>
-        <p class="section-description">{{ h.explore_thinking.description }}</p>
+        <p class="section-description">{{ h.entry_points.description }}</p>
       </div>
-      <div class="home-explore-grid">
-        {% for c in h.explore_thinking.cards %}
-          <article class="card home-explore-card">
-            <a class="home-map-card-link" href="{{ c.url | relative_url }}">
-              <span class="home-map-marker" aria-hidden="true"></span>
-              <span class="home-map-index">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
-              <span class="home-map-title">{{ c.title }}</span>
-              <span class="home-map-body">{{ c.body }}</span>
+      <div class="home-entry-grid">
+        {% for c in h.entry_points.cards %}
+          <article class="card home-entry-card">
+            <a class="home-entry-card-link" href="{{ c.url | relative_url }}">
+              <span class="home-entry-marker" aria-hidden="true"></span>
+              <span class="home-entry-index">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+              <span class="home-entry-title">{{ c.title }}</span>
+              <span class="home-entry-body">{{ c.body }}</span>
             </a>
-            <div class="home-map-line" aria-hidden="true"></div>
-            <div class="home-map-arrow" aria-hidden="true"><span></span></div>
+            <div class="home-entry-line" aria-hidden="true"></div>
+            <div class="home-entry-arrow" aria-hidden="true"><span></span></div>
           </article>
         {% endfor %}
       </div>

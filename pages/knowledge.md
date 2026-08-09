@@ -3,7 +3,7 @@ layout: legacy-redirect
 title: Knowledge is now Explore
 permalink: /knowledge/
 meta_title: Explore Product, AI and Software Ideas | Carlo Caprini
-meta_description: Knowledge has moved to Explore, with curated questions connecting notes, professional experience, and external readings.
+meta_description: Explore connects curated questions with notes, professional experience and selected external readings.
 canonical_url: /explore/
 robots: noindex, follow
 sitemap: false
