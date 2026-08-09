@@ -2359,6 +2359,51 @@ main {
   margin: 0;
 }
 
+.thinking-discovery-section {
+  margin-top: 3.2rem;
+  padding-top: 3.2rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.thinking-questions-intro,
+.thinking-recent-intro {
+  margin-bottom: 1rem;
+}
+
+.question-path-list--compact .question-path-item a {
+  padding-top: 1.3rem;
+  padding-bottom: 1.3rem;
+}
+
+.thinking-recent-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--color-line);
+}
+
+.thinking-recent-list li {
+  min-width: 0;
+  padding: 1.35rem 1.2rem 1.35rem 0;
+}
+
+.thinking-recent-list li:nth-child(odd) {
+  border-right: 1px solid var(--color-line);
+}
+
+.thinking-recent-list li:nth-child(even) {
+  padding-right: 0;
+  padding-left: 1.2rem;
+}
+
+.thinking-recent-list li:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+
+.thinking-all-section .thinking-topic-navigation {
+  padding-top: 0;
+  border-top: 0;
+}
+
 .thinking-topic-navigation {
   max-width: 720px;
   margin: 0 auto 2.8rem;
@@ -3317,6 +3362,22 @@ main {
   .question-note-group,
   .question-bridge-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .thinking-recent-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .thinking-recent-list li,
+  .thinking-recent-list li:nth-child(even) {
+    padding-right: 0;
+    padding-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .thinking-recent-list li:last-child {
+    border-bottom: 0;
   }
 
   .thinking-entry-grid,

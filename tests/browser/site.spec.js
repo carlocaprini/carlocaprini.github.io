@@ -88,6 +88,15 @@ test("Explore exposes curated questions and stable topic hashes", async ({ page 
   await expect(page.locator('[data-explore-topic-panel="ai-and-automation"]')).toBeVisible();
 });
 
+test("Thinking separates guided, recent and complete discovery", async ({ page }) => {
+  await page.goto("/thinking/");
+
+  await expect(page.getByRole("heading", { name: "Follow a question through the notes." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "The latest notes." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "All thinking" })).toBeVisible();
+  await expect(page.locator(".thinking-recent-list > li")).toHaveCount(6);
+});
+
 test("legacy Knowledge URL preserves query parameters and topic hashes", async ({ page }) => {
   await page.goto("/knowledge/?source=legacy#software-systems");
 

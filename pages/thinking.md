@@ -6,7 +6,7 @@ meta_title: Product Decisions, AI and Software Systems | Carlo Caprini
 meta_description: Connected notes by Carlo Caprini on product decisions, AI and automation, software systems, teams, and collaboration.
 meta_image: /assets/og-thinking-v2.png
 meta_image_alt: Thinking by Carlo Caprini, notes on product decisions, AI, software systems and teams.
-last_modified_at: 2026-08-01
+last_modified_at: 2026-08-09
 hero:
   label: Thinking
   title_prefix: "Notes on "
@@ -29,6 +29,11 @@ start_here:
     - url: /thinking/shared-context-is-not-shared-understanding/
 featured_series:
   slug: building-my-ai-operating-system
+recent_notes:
+  eyebrow: Recent thinking
+  title: The latest notes.
+  description: The newest additions across product decisions, AI-enabled work, software systems and collaboration.
+  limit: 6
 # Order of notes on the list. Title and summary come from each article's front matter.
 articles:
   - url: /thinking/i-need-my-ai-dashboard-to-leave-things-out/
