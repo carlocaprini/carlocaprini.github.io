@@ -103,6 +103,65 @@ topics.each_with_index do |topic, index|
   end
 end
 
+questions_path = File.join(SOURCE_DIR, "_data/questions.yml")
+questions = Array((read_yaml(questions_path) || {})["questions"])
+question_slugs = questions.map { |question| question["slug"] }.compact
+fail_check("_data/questions.yml: must define at least one question") if question_slugs.empty?
+
+duplicate_questions = question_slugs.group_by(&:itself).select { |_, values| values.size > 1 }.keys
+unless duplicate_questions.empty?
+  fail_check("_data/questions.yml: duplicate question slugs: #{duplicate_questions.join(', ')}")
+end
+
+questions.each_with_index do |question, index|
+  label = "_data/questions.yml: question #{index + 1}"
+  %w[slug title short_title description home_description sidebar_description related_question].each do |field|
+    fail_check("#{label} is missing #{field}") unless present?(question[field])
+  end
+
+  unless question["slug"].to_s.match?(/\A[a-z0-9]+(?:-[a-z0-9]+)*\z/)
+    fail_check("#{label} has an invalid slug")
+  end
+
+  unknown_topics = Array(question["topics"]) - topic_slugs
+  fail_check("#{label} has unknown topics: #{unknown_topics.join(', ')}") unless unknown_topics.empty?
+
+  sections = Array(question["sections"])
+  fail_check("#{label} must define at least one section") if sections.empty?
+  sections.each_with_index do |section, section_index|
+    section_label = "#{label}, section #{section_index + 1}"
+    %w[title description].each do |field|
+      fail_check("#{section_label} is missing #{field}") unless present?(section[field])
+    end
+    fail_check("#{section_label} must include at least one note") if Array(section["notes"]).empty?
+  end
+
+  section_note_urls = sections.flat_map { |section| Array(section["notes"]) }
+  unknown_featured_notes = Array(question["featured_notes"]) - section_note_urls
+  unless unknown_featured_notes.empty?
+    fail_check("#{label} has featured notes outside its sections: #{unknown_featured_notes.join(', ')}")
+  end
+
+  Array(question["influences"]).each_with_index do |influence, influence_index|
+    %w[slug context].each do |field|
+      unless present?(influence[field])
+        fail_check("#{label}, influence #{influence_index + 1} is missing #{field}")
+      end
+    end
+  end
+
+  %w[title url description].each do |field|
+    fail_check("#{label} experience is missing #{field}") unless present?(question.dig("experience", field))
+  end
+end
+
+questions.each do |question|
+  related_question = question["related_question"]
+  next if question_slugs.include?(related_question)
+
+  fail_check("_data/questions.yml: #{question['slug']} references unknown question #{related_question}")
+end
+
 page_paths = [File.join(SOURCE_DIR, "index.md")] + Dir.glob(File.join(SOURCE_DIR, "pages/**/*.md")).sort
 page_records = page_paths.to_h { |path| [path, read_markdown(path)] }
 permalink_records = {}
@@ -156,6 +215,15 @@ note_records.each do |path, (data, body)|
   fail_check("#{relative_path(path)}: unknown topics: #{unknown_topics.join(', ')}") unless unknown_topics.empty?
 
   validate_markdown_list_spacing(path, body)
+end
+
+questions.each do |question|
+  question_note_urls = Array(question["featured_notes"]) +
+    Array(question["sections"]).flat_map { |section| Array(section["notes"]) }
+  unknown_note_urls = question_note_urls.uniq.reject { |url| note_by_permalink.key?(url) }
+  unless unknown_note_urls.empty?
+    fail_check("_data/questions.yml: #{question['slug']} references unknown notes: #{unknown_note_urls.join(', ')}")
+  end
 end
 
 thinking_path = File.join(SOURCE_DIR, "pages/thinking.md")
@@ -235,6 +303,7 @@ unless series_data.key?(home_featured_series)
 end
 
 influence_paths = Dir.glob(File.join(SOURCE_DIR, "_influences/*.md")).sort
+influence_slugs = influence_paths.map { |path| File.basename(path, ".md") }
 influence_paths.each do |path|
   data, body = read_markdown(path)
   %w[title summary external_url].each do |field|
@@ -253,6 +322,14 @@ influence_paths.each do |path|
   end
 
   validate_markdown_list_spacing(path, body)
+end
+
+questions.each do |question|
+  referenced_influences = Array(question["influences"]).map { |influence| influence["slug"] }
+  unknown_influences = referenced_influences.reject { |slug| influence_slugs.include?(slug) }
+  unless unknown_influences.empty?
+    fail_check("_data/questions.yml: #{question['slug']} references unknown influences: #{unknown_influences.join(', ')}")
+  end
 end
 
 def validate_related_note_references(value, path, note_urls)
