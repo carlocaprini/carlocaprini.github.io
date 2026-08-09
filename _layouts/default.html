@@ -30,6 +30,7 @@
     {% if current_url == "/explore/" %}{% assign analytics_page_type = "explore" %}{% endif %}
     {% if current_url == "/experience/" %}{% assign analytics_page_type = "experience" %}{% endif %}
     {% if current_url == "/influences/" %}{% assign analytics_page_type = "influences" %}{% endif %}
+    {% if page.layout == "article" %}{% assign analytics_page_type = "note" %}{% endif %}
     {% assign analytics_page_id = page.slug | default: page.question_slug | default: page.series_slug | default: current_url %}
     {% assign analytics_page_topic = page.topics | first %}
   <body

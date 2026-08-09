@@ -53,6 +53,26 @@ To surface a reference on a note page, reuse topics on both sides. To choose whi
 
 Set `last_modified_at` on a Thinking note only when its editorial content changes. Do not update it for topic mapping, layout, styling, related-content logic or other presentation-only work. Index pages can update `last_modified_at` when their public structure or copy changes.
 
+## Analytics events
+
+GA4 receives a small semantic event set for editorial journeys and meaningful actions. Automatic `page_view` collection remains enabled; `content_view` adds the site’s own content context for Notes, Questions and Series.
+
+| Event | Meaning |
+| --- | --- |
+| `content_view` | A Note, Question or Series page was viewed. |
+| `note_open` | A Note was opened from a curated or contextual link. |
+| `question_open` | A Question path was opened or continued. |
+| `series_open` | A Series page was opened from Home, Thinking or a Note. |
+| `series_episode_open` | A Series episode was opened from the Series page, an image or adjacent-episode navigation. |
+| `topic_select` | A Topic was selected as a filter or navigation path. |
+| `reading_open` | A selected external reading was opened. |
+| `experience_open` | Experience was opened from an editorial or collaboration context. |
+| `contact_open` | A Contact route or channel was selected. |
+| `series_visual_open` | A full-size Series image was opened. |
+| `rss_open` | The RSS feed was opened from the footer. |
+
+Every event includes the source `page_type` and `page_id`. Where relevant, events also include identifiers for the Note, Question, Topic, Series, episode, reading or contact method, plus a stable `link_context`. Event names and parameters use the current Thinking, Explore, Question, Topic, Note, Series, Experience and Influences terminology.
+
 ## How this was built
 
 The site was built with [Cursor](https://cursor.com) — vibe coding, as they say. I described what I wanted, iterated on structure and content, and let the AI handle most of the plumbing. Some of it also came from fragments of historical knowledge: Jekyll, Liquid, GitHub Pages, that kind of thing.
