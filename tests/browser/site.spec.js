@@ -271,7 +271,7 @@ test("Note views expose the editorial analytics context", async ({ page }) => {
   expect(contentView).toMatchObject({
     name: "content_view",
     parameters: {
-      page_type: "article",
+      page_type: "note",
       page_topic: "ai-and-automation",
       page_series: "building-my-ai-operating-system",
       page_episode: "1"
