@@ -16,11 +16,11 @@
     {% endif %}
     {% for topic in ref.topics %}
       {% assign topic_data = site.data.topics | where: "slug", topic | first %}
-      <a class="content-topic-link content-topic-link--{{ topic }}" href="{{ '/explore/' | relative_url }}#{{ topic }}">{{ topic_data.label | default: topic }}</a>
+      <a class="content-topic-link content-topic-link--{{ topic }}" href="{{ '/explore/' | relative_url }}#{{ topic }}" data-analytics-event="topic_select" data-analytics-topic="{{ topic | escape }}" data-analytics-interaction="navigation" data-analytics-link-context="influence_card">{{ topic_data.label | default: topic }}</a>
     {% endfor %}
   </div>
   <h3 class="influence-card-title">
-    <a class="influence-title influence-title--external" href="{{ external_url }}" target="_blank" rel="noopener noreferrer" title="Opens in a new tab">
+    <a class="influence-title influence-title--external" href="{{ external_url }}" target="_blank" rel="noopener noreferrer" title="Opens in a new tab" data-analytics-event="reading_open" data-analytics-reading-id="{{ ref.slug | escape }}" data-analytics-link-context="influence_card">
       <span class="influence-title-text">{{ ref.title | escape }}</span>
       <span class="influence-external-icon" aria-hidden="true">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
@@ -38,7 +38,7 @@
     {% if influence_question %}
       <p class="influence-question-link">
         <span>Explore question:</span>
-        <a href="{{ '/explore/' | append: influence_question.slug | append: '/' | relative_url }}">{{ influence_question.short_title }}</a>
+        <a href="{{ '/explore/' | append: influence_question.slug | append: '/' | relative_url }}" data-analytics-event="question_open" data-analytics-question-id="{{ influence_question.slug | escape }}" data-analytics-link-context="influence_card">{{ influence_question.short_title }}</a>
       </p>
     {% endif %}
   </div>

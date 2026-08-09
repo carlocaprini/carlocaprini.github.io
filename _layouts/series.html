@@ -58,7 +58,7 @@ layout: default
       <ol class="series-page-episodes">
         {% for note in series_notes %}
           <li>
-            <a href="{{ note.url | relative_url }}">
+            <a href="{{ note.url | relative_url }}" data-analytics-event="series_episode_open" data-analytics-series-id="{{ page.series_slug | escape }}" data-analytics-episode-number="{{ note.series_order }}" data-analytics-note-id="{{ note.slug | escape }}" data-analytics-link-context="series_episode_list">
               <span class="series-page-episode-number">Episode {% if note.series_order < 10 %}0{% endif %}{{ note.series_order }}</span>
               <span class="series-page-episode-content">
                 <span class="series-page-episode-title">{{ note.title }}</span>
@@ -94,12 +94,12 @@ layout: default
       <div class="series-visuals-grid">
         {% for visual in series_data.visuals %}
         <article class="series-visual-card series-visual-card--{{ visual.service | downcase }}{% if visual.wide %} series-visual-card--wide{% endif %}">
-          <a class="series-visual-image" href="{{ visual.full_image | relative_url }}" aria-label="Open {{ visual.title }} at full size">
+          <a class="series-visual-image" href="{{ visual.full_image | relative_url }}" aria-label="Open {{ visual.title }} at full size" data-analytics-event="series_visual_open" data-analytics-series-id="{{ page.series_slug | escape }}" data-analytics-service="{{ visual.service | downcase | escape }}" data-analytics-episode-number="{{ visual.episode }}" data-analytics-link-context="series_visuals">
             <img src="{{ visual.thumbnail | relative_url }}" alt="{{ visual.alt }}" width="{{ visual.thumbnail_width }}" height="{{ visual.thumbnail_height }}" loading="lazy" decoding="async">
           </a>
           <div class="series-visual-copy">
             <span>Episode {{ visual.episode }} · {{ visual.service }}</span>
-            <h3><a href="{{ visual.note_url | relative_url }}">{{ visual.title }}</a></h3>
+            <h3><a href="{{ visual.note_url | relative_url }}" data-analytics-event="series_episode_open" data-analytics-series-id="{{ page.series_slug | escape }}" data-analytics-episode-number="{{ visual.episode }}" data-analytics-link-context="series_visuals">{{ visual.title }}</a></h3>
             <p>{{ visual.description }}</p>
           </div>
         </article>

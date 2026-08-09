@@ -36,7 +36,7 @@ layout: default
       <ol class="question-path-list">
         {% for question in site.data.questions.questions %}
           <li class="question-path-item question-path-item--{{ question.slug }}">
-            <a href="{{ '/explore/' | append: question.slug | append: '/' | relative_url }}">
+            <a href="{{ '/explore/' | append: question.slug | append: '/' | relative_url }}" data-analytics-event="question_open" data-analytics-question-id="{{ question.slug | escape }}" data-analytics-link-context="explore_questions">
               <span class="question-path-index" aria-hidden="true">0{{ forloop.index }}</span>
               <span class="question-path-content">
                 <strong>{{ question.title }}</strong>
@@ -62,7 +62,7 @@ layout: default
 
       <nav class="topic-filter-board explore-topic-navigation" aria-label="Explore topics">
         {% for topic in site.data.topics %}
-          <button class="topic-filter topic-filter--{{ topic.slug }}{% if forloop.first %} is-active{% endif %}" id="explore-filter-{{ topic.slug }}" type="button" data-explore-topic="{{ topic.slug }}" aria-controls="explore-panel-{{ topic.slug }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">
+          <button class="topic-filter topic-filter--{{ topic.slug }}{% if forloop.first %} is-active{% endif %}" id="explore-filter-{{ topic.slug }}" type="button" data-explore-topic="{{ topic.slug }}" data-analytics-event="topic_select" data-analytics-topic="{{ topic.slug | escape }}" data-analytics-interaction="filter" data-analytics-link-context="explore_topics" aria-controls="explore-panel-{{ topic.slug }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">
             <span class="topic-filter-marker" aria-hidden="true"></span>
             <span>{{ topic.label }}</span>
           </button>
@@ -98,12 +98,12 @@ layout: default
                 <ul class="article-list explore-note-list">
                   {% for note in topic_notes %}
                     <li>
-                      <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+                      <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.slug | escape }}" data-analytics-topic="{{ topic.slug | escape }}" data-analytics-link-context="explore_topic_notes">{{ note.title }}</a>
                       <span class="article-list-summary">{{ note.summary }}</span>
                       <span class="content-topic-list" aria-label="Topics">
                         {% for note_topic in note.topics %}
                           {% assign note_topic_data = site.data.topics | where: "slug", note_topic | first %}
-                          <a class="content-topic-link content-topic-link--{{ note_topic }}" href="{{ '/explore/' | relative_url }}#{{ note_topic }}">{{ note_topic_data.label | default: note_topic }}</a>
+                          <a class="content-topic-link content-topic-link--{{ note_topic }}" href="{{ '/explore/' | relative_url }}#{{ note_topic }}" data-analytics-event="topic_select" data-analytics-topic="{{ note_topic | escape }}" data-analytics-interaction="navigation" data-analytics-link-context="explore_topic_notes">{{ note_topic_data.label | default: note_topic }}</a>
                         {% endfor %}
                       </span>
                     </li>

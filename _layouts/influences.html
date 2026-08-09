@@ -34,7 +34,7 @@ layout: default
       </div>
 
       <div class="topic-filter-board influences-topic-board" aria-label="Influence topics">
-        <button class="topic-filter is-active" type="button" data-topic-filter="all" aria-pressed="true">
+        <button class="topic-filter is-active" type="button" data-topic-filter="all" data-analytics-event="topic_select" data-analytics-topic="all" data-analytics-interaction="filter" data-analytics-link-context="influences" aria-pressed="true">
           <span>All readings</span>
           <span class="topic-filter-count">{{ site.influences.size }}</span>
         </button>
@@ -45,7 +45,7 @@ layout: default
               {% assign topic_count = topic_count | plus: 1 %}
             {% endif %}
           {% endfor %}
-          <button class="topic-filter topic-filter--{{ topic.slug }}" type="button" data-topic-filter="{{ topic.slug }}" aria-pressed="false">
+          <button class="topic-filter topic-filter--{{ topic.slug }}" type="button" data-topic-filter="{{ topic.slug }}" data-analytics-event="topic_select" data-analytics-topic="{{ topic.slug | escape }}" data-analytics-interaction="filter" data-analytics-link-context="influences" aria-pressed="false">
             <span class="topic-filter-marker" aria-hidden="true"></span>
             <span>{{ topic.label }}</span>
             <span class="topic-filter-count">{{ topic_count }}</span>
