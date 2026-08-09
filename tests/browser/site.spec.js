@@ -16,6 +16,15 @@ const seriesRoutes = [
 
 const runtimeErrors = new WeakMap();
 
+async function captureAnalytics(page) {
+  await page.addInitScript(() => {
+    window.__analyticsEvents = [];
+    window.addEventListener("site:analytics", (event) => {
+      window.__analyticsEvents.push(event.detail);
+    });
+  });
+}
+
 test.beforeEach(async ({ page }) => {
   const errors = [];
   runtimeErrors.set(page, errors);
@@ -248,4 +257,60 @@ test("featured series motion stops when reduced motion is requested", async ({ p
     before: "none",
     after: "none"
   });
+});
+
+test("Note views expose the editorial analytics context", async ({ page }) => {
+  await captureAnalytics(page);
+  await page.goto("/thinking/i-stopped-trying-to-build-jarvis/");
+
+  await expect.poll(async () => page.evaluate(() => window.__analyticsEvents.length)).toBeGreaterThan(0);
+  const contentView = await page.evaluate(() =>
+    window.__analyticsEvents.find((event) => event.name === "content_view")
+  );
+
+  expect(contentView).toMatchObject({
+    name: "content_view",
+    parameters: {
+      page_type: "article",
+      page_topic: "ai-and-automation",
+      page_series: "building-my-ai-operating-system",
+      page_episode: "1"
+    }
+  });
+});
+
+test("Topic filters emit one semantic selection event", async ({ page }) => {
+  await captureAnalytics(page);
+  await page.goto("/explore/");
+  await page.locator('[data-explore-topic="software-systems"]').click();
+
+  const event = await page.evaluate(() => window.__analyticsEvents.at(-1));
+  expect(event).toMatchObject({
+    name: "topic_select",
+    parameters: {
+      topic: "software-systems",
+      interaction: "filter",
+      link_context: "explore_topics",
+      page_type: "explore"
+    }
+  });
+});
+
+test("Curated Note links emit their discovery context", async ({ page }) => {
+  await captureAnalytics(page);
+  await page.goto("/");
+
+  const link = page.locator('[data-analytics-event="note_open"]').first();
+  await link.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+  await link.click();
+
+  const event = await page.evaluate(() => window.__analyticsEvents.at(-1));
+  expect(event).toMatchObject({
+    name: "note_open",
+    parameters: {
+      link_context: "home_start_here",
+      page_type: "home"
+    }
+  });
+  expect(event.parameters.note_id).toBeTruthy();
 });
