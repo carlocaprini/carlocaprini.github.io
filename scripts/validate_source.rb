@@ -422,6 +422,49 @@ unless unexpected_ecosystems.empty?
   fail_check(".github/dependabot.yml: undocumented ecosystems: #{unexpected_ecosystems.join(', ')}")
 end
 
+analytics_events = %w[
+  content_view
+  note_open
+  question_open
+  series_open
+  series_episode_open
+  topic_select
+  reading_open
+  experience_open
+  contact_open
+  series_visual_open
+  rss_open
+]
+analytics_sources = Dir.glob(File.join(SOURCE_DIR, "{_includes,_layouts}/**/*.html")).sort
+declared_analytics_events = analytics_sources.flat_map do |path|
+  File.read(path).scan(/data-analytics-event=["']([^"']+)["']/).flatten
+end.uniq
+analytics_script = File.read(File.join(SOURCE_DIR, "assets/js/analytics.js"))
+runtime_event_block = analytics_script[/var eventNames = new Set\(\[(.*?)\]\);/m, 1].to_s
+runtime_analytics_events = runtime_event_block.scan(/["']([^"']+)["']/).flatten
+
+unknown_analytics_events = declared_analytics_events - analytics_events
+unless unknown_analytics_events.empty?
+  fail_check("analytics: unknown events: #{unknown_analytics_events.join(', ')}")
+end
+
+unused_analytics_events = analytics_events - declared_analytics_events - ["content_view"]
+unless unused_analytics_events.empty?
+  fail_check("analytics: events are not attached to a source interaction: #{unused_analytics_events.join(', ')}")
+end
+
+unless runtime_analytics_events.sort == analytics_events.sort
+  fail_check("assets/js/analytics.js: runtime event allowlist must match the validated analytics contract")
+end
+
+analytics_sources.each do |path|
+  File.read(path).scan(/data-analytics-[^=\s]+=["']([^"']*)["']/).flatten.each do |value|
+    if value.match?(/knowledge/i)
+      fail_check("#{relative_path(path)}: analytics attributes must use the current Explore terminology")
+    end
+  end
+end
+
 if @errors.any?
   warn "\nSource validation failed:"
   @errors.each { |error| warn "- #{error}" }
