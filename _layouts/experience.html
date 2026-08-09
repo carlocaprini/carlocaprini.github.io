@@ -36,6 +36,7 @@ layout: default
 
       <div class="experience-evidence-grid">
         {% for item in page.evidence.items %}
+          {% assign related_note = site.pages | where: "url", item.related_note.url | first %}
           <article class="experience-evidence-card"{% if item.id %} id="{{ item.id }}"{% endif %}>
             <div class="experience-evidence-marker" aria-hidden="true"></div>
             <div class="experience-card-kicker">{{ item.meta }}</div>
@@ -46,7 +47,7 @@ layout: default
                 <span class="pill">{{ tag }}</span>
               {% endfor %}
             </div>
-            <a class="experience-related-note" href="{{ item.related_note.url | relative_url }}">
+            <a class="experience-related-note" href="{{ item.related_note.url | relative_url }}" data-analytics-event="note_open"{% if related_note %} data-analytics-note-id="{{ related_note.slug | escape }}"{% endif %} data-analytics-link-context="experience_evidence">
               <span>Related note</span>
               {{ item.related_note.title }}
             </a>
