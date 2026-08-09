@@ -98,7 +98,7 @@ layout: default
                 <ul class="article-list explore-note-list">
                   {% for note in topic_notes %}
                     <li>
-                      <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.slug | escape }}" data-analytics-topic="{{ topic.slug | escape }}" data-analytics-link-context="explore_topic_notes">{{ note.title }}</a>
+                      <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.url | escape }}" data-analytics-topic="{{ topic.slug | escape }}" data-analytics-link-context="explore_topic_notes">{{ note.title }}</a>
                       <span class="article-list-summary">{{ note.summary }}</span>
                       <span class="content-topic-list" aria-label="Topics">
                         {% for note_topic in note.topics %}
