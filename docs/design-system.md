@@ -370,6 +370,7 @@ Keep:
 - a selected-topic explanation before its content
 - editorial note list before external readings
 - standard Influence cards for readings
+- one restrained contextual link from a curated Influence back to its relevant Question
 - canonical topic colors and labels
 - compact content-topic links that are visually distinct from the larger filter controls
 

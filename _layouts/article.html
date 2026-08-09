@@ -52,6 +52,20 @@ layout: default
 {% endif %}
 {% endunless %}
 
+{% comment %}Curated Questions containing this note. Questions are editorial paths, not inferred from topic overlap.{% endcomment %}
+{% assign article_questions = "" | split: "" %}
+{% for question in site.data.questions.questions %}
+  {% assign question_contains_page = false %}
+  {% for question_group in question.sections %}
+    {% if question_group.notes contains page.url %}
+      {% assign question_contains_page = true %}
+    {% endif %}
+  {% endfor %}
+  {% if question_contains_page %}
+    {% assign article_questions = article_questions | push: question %}
+  {% endif %}
+{% endfor %}
+
 {% comment %}Related notes: use an explicit editorial selection when provided; otherwise rank notes sharing the same topics.{% endcomment %}
 {% assign related = "" | split: "" %}
 {% if page.related_notes and page.related_notes.size > 0 %}
@@ -129,6 +143,14 @@ layout: default
         <h1 class="hero-title hero-title--compact">{{ page.title }}</h1>
         {% if page.date %}
         <p class="hero-subtitle hero-date">{{ page.date | date: "%B %Y" }}</p>
+        {% endif %}
+        {% if page.topics and page.topics.size > 0 %}
+          <div class="article-hero-topics content-topic-list" aria-label="Topics">
+            {% for article_topic in page.topics %}
+              {% assign topic_data = site.data.topics | where: "slug", article_topic | first %}
+              <a class="content-topic-link content-topic-link--{{ article_topic }}" href="{{ '/explore/' | relative_url }}#{{ article_topic }}">{{ topic_data.label | default: article_topic }}</a>
+            {% endfor %}
+          </div>
         {% endif %}
         {% if page.series %}
           {% assign article_series = site.data.series[page.series] %}
@@ -227,16 +249,17 @@ layout: default
           </aside>
           {% endif %}
         {% endif %}
-        {% if page.topics and page.topics.size > 0 %}
-        <aside class="article-topic-explore" aria-label="Explore topics">
-          <h3 class="article-related-title">Explore by topic</h3>
-          <p class="article-topic-explore-note">Explore the themes connected to this note.</p>
-          <div class="article-topic-list" aria-label="Themes">
-            {% for article_topic in page.topics %}
-              {% assign topic_data = site.data.topics | where: "slug", article_topic | first %}
-              <a class="content-topic-link content-topic-link--{{ article_topic }}" href="{{ '/explore/' | relative_url }}#{{ article_topic }}">{{ topic_data.label | default: article_topic }}</a>
+        {% if article_questions.size > 0 %}
+        <aside class="article-question-explore" aria-label="Part of a bigger question">
+          <h3 class="article-related-title">Part of a bigger question</h3>
+          <ul class="article-question-list">
+            {% for question in article_questions limit: 2 %}
+              <li>
+                <a href="{{ '/explore/' | append: question.slug | append: '/' | relative_url }}">{{ question.title }}</a>
+                <span>{{ question.sidebar_description }}</span>
+              </li>
             {% endfor %}
-          </div>
+          </ul>
         </aside>
         {% endif %}
         {% if related.size > 0 or related_reading.size > 0 %}

@@ -134,6 +134,28 @@ test("question pages connect Thinking, Influences and Experience", async ({ page
   );
 });
 
+test("notes expose curated Questions without promoting topics to sidebar navigation", async ({ page }) => {
+  await page.goto("/thinking/waiting-as-product-decision/");
+
+  const questionContext = page.getByRole("complementary", { name: "Part of a bigger question" });
+  await expect(questionContext.getByRole("link", { name: "How do teams make better decisions?" })).toHaveAttribute(
+    "href",
+    "/explore/product-decisions/"
+  );
+  await expect(page.locator(".article-hero-topics")).toBeVisible();
+  await expect(page.getByRole("complementary", { name: "Explore topics" })).toHaveCount(0);
+});
+
+test("curated Influences return to a relevant Question", async ({ page }) => {
+  await page.goto("/influences/");
+
+  await expect(page.locator(".influence-question-link").first()).toBeVisible();
+  await expect(page.locator(".influence-question-link").first().getByRole("link")).toHaveAttribute(
+    "href",
+    /\/explore\/(product-decisions|shared-understanding|ai-and-work)\/$/
+  );
+});
+
 test("skip link reaches the main content", async ({ page }) => {
   await page.goto("/");
   await page.keyboard.press("Tab");

@@ -179,7 +179,7 @@ layout: default
               <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
               <span class="article-list-summary">{{ note.summary }}</span>
               {% if note.topics and note.topics.size > 0 %}
-              <span class="content-topic-list" aria-label="Themes">
+              <span class="content-topic-list" aria-label="Topics">
                 {% for note_topic in note.topics %}
                   {% assign topic_data = site.data.topics | where: "slug", note_topic | first %}
                   <a class="content-topic-link content-topic-link--{{ note_topic }}" href="{{ '/explore/' | relative_url }}#{{ note_topic }}">{{ topic_data.label | default: note_topic }}</a>

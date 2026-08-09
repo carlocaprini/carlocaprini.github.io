@@ -32,6 +32,7 @@ Thinking notes and Influences references use **only** these topic slugs (lowerca
 - **Thinking → Thinking:** article layout picks up to two **related notes** by shared topics (overlap count, then date).
 - **Thinking → references:** up to two **related readings** from `_influences`, ranked by shared-topic overlap first and `weight:` second. Each influence must define `external_url:` in front matter for the outbound link target.
 - **Influences → Thinking:** optional `related_note:` on each file in `_influences/` (note `permalink` / URL path, e.g. `/thinking/my-slug/`). If set and the page exists, the reference shows **Related note:** with a link; omit the field if there is no link.
+- **Notes and Influences → Questions:** membership comes only from `_data/questions.yml`. Notes show up to two relevant Questions in their sidebar; a selected Influence links back to the first Question that curates it.
 - **Explore:** `/explore/` provides three curated Question paths across Thinking, Experience and Influences, followed by the complete topic views. Topic labels link to a stable hash, such as `/explore/#ai-and-automation`.
 - **Questions:** `_data/questions.yml` is the canonical editorial map. It defines each public Question, its grouped notes, selected Influences, Experience link and next path. Question pages live at `/explore/question-slug/`.
 - **Legacy path:** `/knowledge/` is retained only as a compatibility redirect to `/explore/`; its query string and topic hash are preserved.

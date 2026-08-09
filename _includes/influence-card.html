@@ -1,6 +1,14 @@
 {% assign ref = include.ref %}
 {% assign primary_topic = ref.topics | first | default: "general" %}
 {% assign external_url = ref.external_url %}
+{% assign influence_question = nil %}
+{% for question in site.data.questions.questions %}
+  {% for question_influence in question.influences %}
+    {% if influence_question == nil and question_influence.slug == ref.slug %}
+      {% assign influence_question = question %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
 <li class="influence-item influence-item--{{ primary_topic }}" data-topics="{{ ref.topics | join: ' ' }}">
   <div class="influence-card-meta">
     {% if ref.author %}
@@ -27,5 +35,11 @@
   <p class="influence-summary">{{ ref.summary }}</p>
   <div class="influence-card-footer">
     {% include influence-related-notes.html influence=ref %}
+    {% if influence_question %}
+      <p class="influence-question-link">
+        <span>Explore question:</span>
+        <a href="{{ '/explore/' | append: influence_question.slug | append: '/' | relative_url }}">{{ influence_question.short_title }}</a>
+      </p>
+    {% endif %}
   </div>
 </li>
