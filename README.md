@@ -68,7 +68,8 @@ GA4 receives a small semantic event set for editorial journeys and meaningful ac
 | `topic_select` | A Topic was selected as a filter or navigation path. |
 | `reading_open` | A selected external reading was opened. |
 | `experience_open` | Experience was opened from an editorial or collaboration context. |
-| `contact_open` | A Contact route or channel was selected. |
+| `contact_section_open` | A navigation link or CTA opened the Contact section. |
+| `contact_open` | An actual Contact channel was opened. |
 | `series_visual_open` | A full-size Series image was opened. |
 | `rss_open` | The RSS feed was opened from the footer. |
 
