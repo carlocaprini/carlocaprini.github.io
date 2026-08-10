@@ -314,3 +314,22 @@ test("Curated Note links emit their discovery context", async ({ page }) => {
   });
   expect(event.parameters.note_id).toBeTruthy();
 });
+
+test("Editorial collection links retain their entry point", async ({ page }) => {
+  await captureAnalytics(page);
+  await page.goto("/");
+
+  const link = page.locator('[data-analytics-event="collection_open"][data-analytics-collection="explore"]').first();
+  await link.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+  await link.click();
+
+  const event = await page.evaluate(() => window.__analyticsEvents.at(-1));
+  expect(event).toMatchObject({
+    name: "collection_open",
+    parameters: {
+      collection: "explore",
+      link_context: "home_hero",
+      page_type: "home"
+    }
+  });
+});
