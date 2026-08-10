@@ -432,6 +432,7 @@ analytics_events = %w[
   topic_select
   reading_open
   experience_open
+  contact_section_open
   contact_open
   series_visual_open
   rss_open

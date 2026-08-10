@@ -333,3 +333,32 @@ test("Editorial collection links retain their entry point", async ({ page }) => 
     }
   });
 });
+
+test("Contact section intent is distinct from opening a channel", async ({ page }) => {
+  await captureAnalytics(page);
+  await page.goto("/");
+
+  const sectionLink = page.locator('[data-analytics-event="contact_section_open"]:visible').first();
+  await sectionLink.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+  await sectionLink.click();
+
+  const sectionEvent = await page.evaluate(() => window.__analyticsEvents.at(-1));
+  expect(sectionEvent).toMatchObject({
+    name: "contact_section_open",
+    parameters: { page_type: "home" }
+  });
+
+  const channelLink = page.locator('[data-analytics-event="contact_open"]').first();
+  await channelLink.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+  await channelLink.click();
+
+  const channelEvent = await page.evaluate(() => window.__analyticsEvents.at(-1));
+  expect(channelEvent).toMatchObject({
+    name: "contact_open",
+    parameters: {
+      contact_method: "linkedin",
+      link_context: "home_contact",
+      page_type: "home"
+    }
+  });
+});

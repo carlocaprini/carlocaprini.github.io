@@ -101,7 +101,7 @@ layout: default
             {% if action.url == "/experience/" %}
             <a class="section-link" href="{{ action.url | relative_url }}" data-analytics-event="experience_open" data-analytics-link-context="home_working_together">{{ action.label }}{% if forloop.first %} <span aria-hidden="true">→</span>{% endif %}</a>
             {% else %}
-            <a class="section-link" href="{{ action.url | relative_url }}" data-analytics-event="contact_open" data-analytics-link-context="home_working_together">{{ action.label }}{% if forloop.first %} <span aria-hidden="true">→</span>{% endif %}</a>
+            <a class="section-link" href="{{ action.url | relative_url }}" data-analytics-event="contact_section_open" data-analytics-link-context="home_working_together">{{ action.label }}{% if forloop.first %} <span aria-hidden="true">→</span>{% endif %}</a>
             {% endif %}
           {% endfor %}
         </div>
