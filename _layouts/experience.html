@@ -17,7 +17,7 @@ layout: default
           <div class="hero-subtitle hero-subtitle--wide">{{ p | markdownify }}</div>
         {% endfor %}
         <div class="hero-actions hero-actions--compact">
-          <a href="{{ '/thinking/' | relative_url }}" class="button-primary">Read the notes</a>
+          <a href="{{ '/thinking/' | relative_url }}" class="button-primary" data-analytics-event="collection_open" data-analytics-collection="thinking" data-analytics-link-context="experience_hero">Read the notes</a>
           <a href="{{ '/' | relative_url }}" class="button-ghost">{{ page.hero.actions.secondary }}</a>
         </div>
       </div>

@@ -3,7 +3,7 @@
   <div class="article-system-map-item{% if include.current_service == service.slug %} is-current{% endif %}">
     <dt>
       {% if service.url %}
-        <a href="{{ service.url | relative_url }}">{{ service.name }}</a>
+        <a href="{{ service.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ service.url | escape }}" data-analytics-service="{{ service.slug | escape }}" data-analytics-link-context="note_system_map">{{ service.name }}</a>
       {% else %}
         <span>{{ service.name }}</span>
       {% endif %}

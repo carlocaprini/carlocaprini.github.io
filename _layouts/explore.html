@@ -16,8 +16,8 @@ layout: default
           <p class="hero-subtitle hero-subtitle--wide">{{ paragraph }}</p>
         {% endfor %}
         <div class="hero-actions hero-actions--compact">
-          <a href="{{ '/thinking/' | relative_url }}" class="button-ghost">Thinking</a>
-          <a href="{{ '/influences/' | relative_url }}" class="button-ghost">Influences</a>
+          <a href="{{ '/thinking/' | relative_url }}" class="button-ghost" data-analytics-event="collection_open" data-analytics-collection="thinking" data-analytics-link-context="explore_hero">Thinking</a>
+          <a href="{{ '/influences/' | relative_url }}" class="button-ghost" data-analytics-event="collection_open" data-analytics-collection="influences" data-analytics-link-context="explore_hero">Influences</a>
         </div>
       </div>
     </div>

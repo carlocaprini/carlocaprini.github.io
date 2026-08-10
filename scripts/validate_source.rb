@@ -424,6 +424,7 @@ end
 
 analytics_events = %w[
   content_view
+  collection_open
   note_open
   question_open
   series_open

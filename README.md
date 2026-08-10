@@ -60,6 +60,7 @@ GA4 receives a small semantic event set for editorial journeys and meaningful ac
 | Event | Meaning |
 | --- | --- |
 | `content_view` | A Note, Question or Series page was viewed. |
+| `collection_open` | Thinking, Explore or Influences was opened from a prominent editorial entry point. |
 | `note_open` | A Note was opened from a curated or contextual link. |
 | `question_open` | A Question path was opened or continued. |
 | `series_open` | A Series page was opened from Home, Thinking or a Note. |

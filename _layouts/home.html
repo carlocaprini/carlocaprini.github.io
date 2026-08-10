@@ -19,7 +19,7 @@ layout: default
         {% endfor %}
         <div class="hero-actions">
           <a href="{{ h.hero.actions.primary.url | relative_url }}" class="button-primary">{{ h.hero.actions.primary.label }}</a>
-          <a href="{{ h.hero.actions.secondary.url | relative_url }}" class="button-ghost">{{ h.hero.actions.secondary.label }}</a>
+          <a href="{{ h.hero.actions.secondary.url | relative_url }}" class="button-ghost" data-analytics-event="collection_open" data-analytics-collection="explore" data-analytics-link-context="home_hero">{{ h.hero.actions.secondary.label }}</a>
         </div>
       </div>
       {% include hero-card.html %}
@@ -39,7 +39,7 @@ layout: default
             </div>
             <p class="section-description">{{ h.selected_notes.description }}</p>
           </div>
-          <a class="section-link" href="{{ h.selected_notes.action.url | relative_url }}">{{ h.selected_notes.action.label }}</a>
+          <a class="section-link" href="{{ h.selected_notes.action.url | relative_url }}" data-analytics-event="collection_open" data-analytics-collection="thinking" data-analytics-link-context="home_start_here">{{ h.selected_notes.action.label }}</a>
         </div>
         <ul class="selected-notes-list">
           {% for item in h.selected_notes.links %}
@@ -65,7 +65,7 @@ layout: default
         </div>
         <div>
           <p class="section-description">{{ h.questions.description }}</p>
-          <a class="section-link" href="{{ h.questions.action.url | relative_url }}">{{ h.questions.action.label }} <span aria-hidden="true">→</span></a>
+          <a class="section-link" href="{{ h.questions.action.url | relative_url }}" data-analytics-event="collection_open" data-analytics-collection="explore" data-analytics-link-context="home_questions">{{ h.questions.action.label }} <span aria-hidden="true">→</span></a>
         </div>
       </div>
       <ol class="question-path-list question-path-list--home">
@@ -166,7 +166,7 @@ layout: default
       <div class="home-entry-grid">
         {% for c in h.entry_points.cards %}
           <article class="card home-entry-card">
-            <a class="home-entry-card-link" href="{{ c.url | relative_url }}">
+            <a class="home-entry-card-link" href="{{ c.url | relative_url }}" data-analytics-event="collection_open" data-analytics-collection="{{ c.title | downcase | escape }}" data-analytics-link-context="home_entry_points">
               <span class="home-entry-marker" aria-hidden="true"></span>
               <span class="home-entry-index">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
               <span class="home-entry-title">{{ c.title }}</span>

@@ -16,8 +16,8 @@ layout: default
           <p class="hero-subtitle hero-subtitle--wide">{{ p }}</p>
         {% endfor %}
         <div class="hero-actions hero-actions--compact">
-          <a href="{{ '/explore/' | relative_url }}" class="button-primary">Explore the ideas</a>
-          <a href="{{ '/thinking/' | relative_url }}" class="button-ghost">Thinking</a>
+          <a href="{{ '/explore/' | relative_url }}" class="button-primary" data-analytics-event="collection_open" data-analytics-collection="explore" data-analytics-link-context="influences_hero">Explore the ideas</a>
+          <a href="{{ '/thinking/' | relative_url }}" class="button-ghost" data-analytics-event="collection_open" data-analytics-collection="thinking" data-analytics-link-context="influences_hero">Thinking</a>
         </div>
       </div>
     </div>
@@ -29,7 +29,7 @@ layout: default
         <div>
           <div class="section-eyebrow">Reading</div>
           <h2 class="section-title">Readings connected to my Thinking</h2>
-          <p class="section-description">External articles that made me think and helped clarify, challenge or extend my <a href="{{ '/thinking/' | relative_url }}">notes</a>.</p>
+          <p class="section-description">External articles that made me think and helped clarify, challenge or extend my <a href="{{ '/thinking/' | relative_url }}" data-analytics-event="collection_open" data-analytics-collection="thinking" data-analytics-link-context="influences_intro">notes</a>.</p>
         </div>
       </div>
 
