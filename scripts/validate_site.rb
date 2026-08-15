@@ -112,6 +112,7 @@ required_files = %w[
   index.html
   robots.txt
   sitemap.xml
+  sitemap-static.xml
   sitemap.txt
   feed.xml
   assets/css/main.css
@@ -172,6 +173,28 @@ if sitemap_xml
   end
 end
 
+static_sitemap_urls = [
+  "#{SITE_URL}/",
+  "#{SITE_URL}/explore/",
+  "#{SITE_URL}/thinking/"
+]
+static_sitemap_xml = read_file(site_path("sitemap-static.xml"))
+if static_sitemap_xml
+  begin
+    document = REXML::Document.new(static_sitemap_xml)
+    static_sitemap_locs = []
+    REXML::XPath.each(document, "//*[local-name()='loc']") do |loc|
+      static_sitemap_locs << loc.text.to_s.strip
+    end
+
+    unless static_sitemap_locs == static_sitemap_urls
+      fail_check("sitemap-static.xml must contain only the canonical diagnostic URLs")
+    end
+  rescue REXML::ParseException => e
+    fail_check("Invalid sitemap-static.xml: #{e.message.lines.first&.strip}")
+  end
+end
+
 sitemap_txt = read_file(site_path("sitemap.txt"))
 if sitemap_txt
   text_urls = sitemap_txt.lines.map(&:strip).reject(&:empty?)
@@ -198,6 +221,7 @@ robots = read_file(site_path("robots.txt"))
 if robots
   fail_check("robots.txt does not reference sitemap.xml") unless robots.include?("#{SITE_URL}/sitemap.xml")
   fail_check("robots.txt does not reference sitemap.txt") unless robots.include?("#{SITE_URL}/sitemap.txt")
+  fail_check("robots.txt does not reference sitemap-static.xml") unless robots.include?("#{SITE_URL}/sitemap-static.xml")
 end
 
 feed = read_file(site_path("feed.xml"))
