@@ -218,7 +218,7 @@ test("skip link reaches the main content", async ({ page }) => {
 test("Optional analytics stays unloaded until consent is granted", async ({ page }) => {
   await page.goto("/");
 
-  const consent = page.getByRole("complementary", { name: "Help me understand how the site is used?" });
+  const consent = page.getByRole("complementary", { name: "Help me understand how the site is used" });
   await expect(consent).toBeVisible();
   await expect(page.locator('script[src*="googletagmanager.com/gtag/js"]')).toHaveCount(0);
   expect(await page.evaluate(() => typeof window.gtag)).toBe("undefined");

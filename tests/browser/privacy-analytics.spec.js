@@ -31,7 +31,7 @@ test("consent choices do not gate or duplicate aggregate measurement", async ({ 
   await expect.poll(() => requests.filter((event) => event.event_name === "page_view").length).toBe(1);
   await expect.poll(() => requests.filter((event) => event.event_name === "content_view").length).toBe(1);
 
-  const consent = page.getByRole("complementary", { name: "Help me understand how the site is used?" });
+  const consent = page.getByRole("complementary", { name: "Help me understand how the site is used" });
   await consent.getByRole("button", { name: "No thanks" }).click();
 
   await expect.poll(() => requests.filter(
@@ -63,7 +63,7 @@ test("revoking consent removes accessible GA cookies while aggregate measurement
     { name: "_ga_TEST", value: "session", url: "http://127.0.0.1:4000/" }
   ]);
 
-  const consent = page.getByRole("complementary", { name: "Help me understand how the site is used?" });
+  const consent = page.getByRole("complementary", { name: "Help me understand how the site is used" });
   await consent.getByRole("button", { name: "Accept analytics" }).click();
   await page.getByRole("button", { name: "Cookie settings" }).click();
   await consent.getByRole("button", { name: "No thanks" }).click();
