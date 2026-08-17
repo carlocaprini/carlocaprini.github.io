@@ -52,6 +52,13 @@
     }
   }
 
+  function productionPage() {
+    var analyticsHostname = body.getAttribute("data-analytics-hostname");
+    return window.location.protocol === "https:" &&
+      analyticsHostname &&
+      window.location.hostname === analyticsHostname;
+  }
+
   function cleanIdentifier(value, maximum) {
     if (value === undefined || value === null) return "";
     var result = String(value).trim();
@@ -222,7 +229,7 @@
   var localEnabled = body.getAttribute("data-aggregate-analytics-local") === "true";
   var endpointAllowed = local
     ? localEnabled && localCollector(endpoint)
-    : /^https:\/\//.test(endpoint);
+    : productionPage() && /^https:\/\//.test(endpoint);
   var enabled = body.getAttribute("data-aggregate-analytics-enabled") === "true" && endpointAllowed;
 
   function send(payload) {
