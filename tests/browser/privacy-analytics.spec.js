@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 const endpoint = "http://127.0.0.1:8787/v1/measure";
+const productionEndpoint = "https://collector.example.test/v1/measure";
 
 async function enableLocalAggregateMeasurement(page, requests) {
   await page.route(endpoint, async (route) => {
@@ -51,6 +52,32 @@ test("consent choices do not gate or duplicate aggregate measurement", async ({ 
 
   // Production-only GA must still stay fail-closed on the local test host.
   await expect(page.locator('script[src*="googletagmanager.com/gtag/js"]')).toHaveCount(0);
+});
+
+test("aggregate measurement stays disabled when a production endpoint is rendered on a non-production host", async ({ page }) => {
+  const requests = [];
+  await page.route(productionEndpoint, async (route) => {
+    requests.push(route.request().url());
+    await route.fulfill({ status: 204 });
+  });
+
+  await page.goto("/");
+  await page.evaluate(async (collectorEndpoint) => {
+    document.body.dataset.aggregateAnalyticsEnabled = "true";
+    document.body.dataset.aggregateAnalyticsEndpoint = collectorEndpoint;
+    document.body.dataset.analyticsHostname = "carlocaprini.github.io";
+
+    await new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = "/assets/js/aggregate-analytics.js?production-host-test=1";
+      script.onload = resolve;
+      script.onerror = reject;
+      document.body.appendChild(script);
+    });
+  }, productionEndpoint);
+
+  expect(await page.evaluate(() => window.siteAggregateAnalytics.enabled)).toBe(false);
+  expect(requests).toHaveLength(0);
 });
 
 test("revoking consent removes accessible GA cookies while aggregate measurement remains active", async ({ page, context }) => {
