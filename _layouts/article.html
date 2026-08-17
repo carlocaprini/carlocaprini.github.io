@@ -152,7 +152,7 @@ layout: default
           <div class="article-hero-topics content-topic-list" aria-label="Topics">
             {% for article_topic in page.topics %}
               {% assign topic_data = site.data.topics | where: "slug", article_topic | first %}
-              <a class="content-topic-link content-topic-link--{{ article_topic }}" href="{{ '/explore/' | relative_url }}#{{ article_topic }}">{{ topic_data.label | default: article_topic }}</a>
+              <a class="content-topic-link content-topic-link--{{ article_topic }}" href="{{ '/explore/' | relative_url }}#{{ article_topic }}" data-analytics-event="topic_select" data-analytics-topic="{{ article_topic | escape }}" data-analytics-interaction="navigation" data-analytics-link-context="note_hero">{{ topic_data.label | default: article_topic }}</a>
             {% endfor %}
           </div>
         {% endif %}
@@ -161,7 +161,7 @@ layout: default
           {% if article_series %}
           <div class="article-series-context" aria-label="Series information">
             {% if article_series.url %}
-              <a href="{{ article_series.url | relative_url }}">{{ article_series.title }}</a>
+              <a href="{{ article_series.url | relative_url }}" data-analytics-event="series_open" data-analytics-series-id="{{ page.series | escape }}" data-analytics-link-context="note_hero">{{ article_series.title }}</a>
             {% else %}
               <a href="{{ '/thinking/' | append: '#' | append: page.series | relative_url }}">{{ article_series.title }}</a>
             {% endif %}
@@ -201,13 +201,13 @@ layout: default
         {% if series_previous or series_next %}
         <nav class="article-series-navigation" aria-label="Series navigation">
           {% if series_previous %}
-          <a class="article-series-navigation-link article-series-navigation-link--previous" href="{{ series_previous.url | relative_url }}">
+          <a class="article-series-navigation-link article-series-navigation-link--previous" href="{{ series_previous.url | relative_url }}" data-analytics-event="series_episode_open" data-analytics-series-id="{{ page.series | escape }}" data-analytics-episode-number="{{ series_previous.series_order }}" data-analytics-direction="previous" data-analytics-link-context="note_series_navigation">
             <span class="article-series-navigation-label">Previous episode</span>
             <span>{{ series_previous.title }}</span>
           </a>
           {% endif %}
           {% if series_next %}
-          <a class="article-series-navigation-link article-series-navigation-link--next" href="{{ series_next.url | relative_url }}">
+          <a class="article-series-navigation-link article-series-navigation-link--next" href="{{ series_next.url | relative_url }}" data-analytics-event="series_episode_open" data-analytics-series-id="{{ page.series | escape }}" data-analytics-episode-number="{{ series_next.series_order }}" data-analytics-direction="next" data-analytics-link-context="note_series_navigation">
             <span class="article-series-navigation-label">Next episode</span>
             <span>{{ series_next.title }}</span>
           </a>
@@ -223,8 +223,8 @@ layout: default
             </div>
           </div>
           <div class="article-signature-actions">
-            <a class="section-link article-signature-link" href="{{ '/experience/' | relative_url }}">Experience <span aria-hidden="true">→</span></a>
-            <a class="section-link article-signature-link" href="{{ '/#contact' | relative_url }}">Contact <span aria-hidden="true">→</span></a>
+            <a class="section-link article-signature-link" href="{{ '/experience/' | relative_url }}" data-analytics-event="experience_open" data-analytics-link-context="note_signature">Experience <span aria-hidden="true">→</span></a>
+            <a class="section-link article-signature-link" href="{{ '/#contact' | relative_url }}" data-analytics-event="contact_section_open" data-analytics-link-context="note_signature">Contact <span aria-hidden="true">→</span></a>
           </div>
         </div>
       </div>
@@ -239,7 +239,7 @@ layout: default
           <aside class="article-system-map" aria-label="Services in this series">
             <h3 class="article-related-title">
               {% if sidebar_series.url %}
-                <a href="{{ sidebar_series.url | relative_url }}">The system</a>
+                <a href="{{ sidebar_series.url | relative_url }}" data-analytics-event="series_open" data-analytics-series-id="{{ page.series | escape }}" data-analytics-link-context="note_system_map">The system</a>
               {% else %}
                 <span>The system</span>
               {% endif %}
@@ -255,7 +255,7 @@ layout: default
           <ul class="article-question-list">
             {% for question in article_questions limit: 2 %}
               <li>
-                <a href="{{ '/explore/' | append: question.slug | append: '/' | relative_url }}">{{ question.title }}</a>
+                <a href="{{ '/explore/' | append: question.slug | append: '/' | relative_url }}" data-analytics-event="question_open" data-analytics-question-id="{{ question.slug | escape }}" data-analytics-link-context="note_questions">{{ question.title }}</a>
                 <span>{{ question.sidebar_description }}</span>
               </li>
             {% endfor %}
@@ -269,7 +269,7 @@ layout: default
           <ul class="article-related-list">
             {% for note in related %}
               <li>
-                <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+                <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.url | escape }}" data-analytics-link-context="note_related_notes">{{ note.title }}</a>
                 <span class="article-related-summary">{{ note.summary }}</span>
               </li>
             {% endfor %}
@@ -283,7 +283,7 @@ layout: default
             {% for ref in related_reading %}
               {% assign external_url = ref.external_url %}
               <li>
-                <a class="article-related-link article-related-link--external" href="{{ external_url }}" target="_blank" rel="noopener noreferrer" title="Opens in a new tab">
+                <a class="article-related-link article-related-link--external" href="{{ external_url }}" target="_blank" rel="noopener noreferrer" title="Opens in a new tab" data-analytics-event="reading_open" data-analytics-reading-id="{{ ref.slug | escape }}" data-analytics-link-context="note_related_reading">
                   <span class="article-related-link-text">{{ ref.title | escape }}</span>
                   <span class="influence-external-icon" aria-hidden="true">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">

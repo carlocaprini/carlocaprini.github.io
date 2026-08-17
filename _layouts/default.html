@@ -3,8 +3,6 @@
   <head>
     {% include head.html %}
   </head>
-  <body>
-    <a class="skip-link" href="#top">Skip to main content</a>
     {% assign current_url = page.url | default: "" %}
     {% assign is_home = false %}
     {% assign is_experience = false %}
@@ -26,6 +24,29 @@
     {% if current_url == "/influences/" %}
       {% assign is_influences = true %}
     {% endif %}
+    {% assign analytics_page_type = page.layout | default: "page" %}
+    {% if is_home or page.layout == "home" %}{% assign analytics_page_type = "home" %}{% endif %}
+    {% if current_url == "/thinking/" %}{% assign analytics_page_type = "thinking" %}{% endif %}
+    {% if current_url == "/explore/" %}{% assign analytics_page_type = "explore" %}{% endif %}
+    {% if current_url == "/experience/" %}{% assign analytics_page_type = "experience" %}{% endif %}
+    {% if current_url == "/influences/" %}{% assign analytics_page_type = "influences" %}{% endif %}
+    {% if page.layout == "article" %}{% assign analytics_page_type = "note" %}{% endif %}
+    {% assign analytics_page_id = page.slug | default: page.question_slug | default: page.series_slug | default: current_url %}
+    {% assign analytics_page_topic = page.topics | first %}
+  <body
+    data-analytics-page-type="{{ analytics_page_type | escape }}"
+    data-analytics-page-id="{{ analytics_page_id | escape }}"
+    {% if analytics_page_topic %}data-analytics-page-topic="{{ analytics_page_topic | escape }}"{% endif %}
+    {% if page.series %}data-analytics-page-series="{{ page.series | escape }}"{% elsif page.series_slug %}data-analytics-page-series="{{ page.series_slug | escape }}"{% endif %}
+    {% if page.series_order %}data-analytics-page-episode="{{ page.series_order }}"{% endif %}
+    {% if page.layout == "article" or page.layout == "question" or page.layout == "series" %}data-analytics-content="true"{% endif %}
+    {% if jekyll.environment == "production" and site.google_analytics %}data-analytics-enabled="true" data-analytics-id="{{ site.google_analytics | escape }}" data-analytics-hostname="{{ site.google_analytics_hostname | escape }}"{% endif %}
+    {% if site.aggregate_analytics_endpoint != "" %}
+      {% if site.aggregate_analytics_local == true %}data-aggregate-analytics-enabled="true" data-aggregate-analytics-local="true" data-aggregate-analytics-endpoint="{{ site.aggregate_analytics_endpoint | escape }}"
+      {% elsif jekyll.environment == "production" %}data-aggregate-analytics-enabled="true" data-aggregate-analytics-endpoint="{{ site.aggregate_analytics_endpoint | escape }}"{% endif %}
+    {% endif %}
+  >
+    <a class="skip-link" href="#top">Skip to main content</a>
     <div class="site">
       <header class="site-header">
         <div class="container nav">
@@ -39,7 +60,7 @@
             <a href="{{ '/explore/' | relative_url }}" {% if is_explore %}class="is-active" aria-current="page"{% endif %}>Explore</a>
             <a href="{{ '/experience/' | relative_url }}" {% if is_experience %}class="is-active" aria-current="page"{% endif %}>Experience</a>
             <a href="{{ '/influences/' | relative_url }}" {% if is_influences %}class="is-active" aria-current="page"{% endif %}>Influences</a>
-            <a href="{{ '/' | relative_url }}#contact">Contact</a>
+            <a href="{{ '/' | relative_url }}#contact" data-analytics-event="contact_section_open" data-analytics-link-context="primary_navigation">Contact</a>
           </nav>
           <details class="mobile-nav">
             <summary>Menu</summary>
@@ -49,7 +70,7 @@
               <a href="{{ '/explore/' | relative_url }}" {% if is_explore %}class="is-active" aria-current="page"{% endif %}>Explore</a>
               <a href="{{ '/experience/' | relative_url }}" {% if is_experience %}class="is-active" aria-current="page"{% endif %}>Experience</a>
               <a href="{{ '/influences/' | relative_url }}" {% if is_influences %}class="is-active" aria-current="page"{% endif %}>Influences</a>
-              <a href="{{ '/' | relative_url }}#contact">Contact</a>
+              <a href="{{ '/' | relative_url }}#contact" data-analytics-event="contact_section_open" data-analytics-link-context="mobile_navigation">Contact</a>
             </nav>
           </details>
         </div>
@@ -63,11 +84,16 @@
         <div class="container footer-inner">
           <span>&copy; {{ site.time | date: "%Y" }} {{ site.data.person.name | default: site.title }}</span>
           <span class="footer-meta">
-            <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+            <a href="{{ '/privacy/' | relative_url }}">Privacy</a>
+            <span aria-hidden="true">·</span>
+            <button type="button" data-consent-settings>Cookie settings</button>
+            <span aria-hidden="true">·</span>
+            <a href="{{ '/feed.xml' | relative_url }}" data-analytics-event="rss_open" data-analytics-link-context="footer">RSS</a>
           </span>
         </div>
       </footer>
     </div>
+    {% include analytics-consent.html %}
     <script>
       document.querySelectorAll(".mobile-nav-panel a").forEach(function (link) {
         link.addEventListener("click", function () {
@@ -76,5 +102,8 @@
         });
       });
     </script>
+    <script src="{{ '/assets/js/consent.js' | relative_url }}" defer></script>
+    <script src="{{ '/assets/js/aggregate-analytics.js' | relative_url }}" defer></script>
+    <script src="{{ '/assets/js/analytics.js' | relative_url }}" defer></script>
   </body>
 </html>

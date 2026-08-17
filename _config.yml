@@ -9,6 +9,9 @@ baseurl: ""
 timezone: Europe/Rome
 
 google_analytics: G-F6G0HN1JDJ
+google_analytics_hostname: carlocaprini.github.io
+# Set only after the Worker and D1 database have been deployed and verified.
+aggregate_analytics_endpoint: "https://carlo-site-aggregate-analytics.carlo-site-aggregate-analytics.workers.dev/v1/measure"
 
 markdown: kramdown
 
@@ -34,5 +37,6 @@ exclude:
   - README.md
   - test-results
   - tests
+  - _analytics
   - _workspace
   - _site

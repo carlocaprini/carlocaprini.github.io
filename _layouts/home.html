@@ -19,7 +19,7 @@ layout: default
         {% endfor %}
         <div class="hero-actions">
           <a href="{{ h.hero.actions.primary.url | relative_url }}" class="button-primary">{{ h.hero.actions.primary.label }}</a>
-          <a href="{{ h.hero.actions.secondary.url | relative_url }}" class="button-ghost">{{ h.hero.actions.secondary.label }}</a>
+          <a href="{{ h.hero.actions.secondary.url | relative_url }}" class="button-ghost" data-analytics-event="collection_open" data-analytics-collection="explore" data-analytics-link-context="home_hero">{{ h.hero.actions.secondary.label }}</a>
         </div>
       </div>
       {% include hero-card.html %}
@@ -39,14 +39,14 @@ layout: default
             </div>
             <p class="section-description">{{ h.selected_notes.description }}</p>
           </div>
-          <a class="section-link" href="{{ h.selected_notes.action.url | relative_url }}">{{ h.selected_notes.action.label }}</a>
+          <a class="section-link" href="{{ h.selected_notes.action.url | relative_url }}" data-analytics-event="collection_open" data-analytics-collection="thinking" data-analytics-link-context="home_start_here">{{ h.selected_notes.action.label }}</a>
         </div>
         <ul class="selected-notes-list">
           {% for item in h.selected_notes.links %}
             {% assign note = site.pages | where: "url", item.url | first %}
             {% if note %}
             <li>
-              <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+              <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.url | escape }}" data-analytics-link-context="home_start_here">{{ note.title }}</a>
               <span>{{ note.summary }}</span>
             </li>
             {% endif %}
@@ -65,7 +65,7 @@ layout: default
         </div>
         <div>
           <p class="section-description">{{ h.questions.description }}</p>
-          <a class="section-link" href="{{ h.questions.action.url | relative_url }}">{{ h.questions.action.label }} <span aria-hidden="true">→</span></a>
+          <a class="section-link" href="{{ h.questions.action.url | relative_url }}" data-analytics-event="collection_open" data-analytics-collection="explore" data-analytics-link-context="home_questions">{{ h.questions.action.label }} <span aria-hidden="true">→</span></a>
         </div>
       </div>
       <ol class="question-path-list question-path-list--home">
@@ -73,7 +73,7 @@ layout: default
           {% assign question = site.data.questions.questions | where: "slug", question_slug | first %}
           {% if question %}
           <li class="question-path-item question-path-item--{{ question.slug }}">
-            <a href="{{ '/explore/' | append: question.slug | append: '/' | relative_url }}">
+            <a href="{{ '/explore/' | append: question.slug | append: '/' | relative_url }}" data-analytics-event="question_open" data-analytics-question-id="{{ question.slug | escape }}" data-analytics-link-context="home_questions">
               <span class="question-path-index" aria-hidden="true">0{{ forloop.index }}</span>
               <span class="question-path-content">
                 <strong>{{ question.title }}</strong>
@@ -98,7 +98,11 @@ layout: default
         {% endfor %}
         <div class="home-help-actions">
           {% for action in h.where_i_can_help.actions %}
-            <a class="section-link" href="{{ action.url | relative_url }}">{{ action.label }}{% if forloop.first %} <span aria-hidden="true">→</span>{% endif %}</a>
+            {% if action.url == "/experience/" %}
+            <a class="section-link" href="{{ action.url | relative_url }}" data-analytics-event="experience_open" data-analytics-link-context="home_working_together">{{ action.label }}{% if forloop.first %} <span aria-hidden="true">→</span>{% endif %}</a>
+            {% else %}
+            <a class="section-link" href="{{ action.url | relative_url }}" data-analytics-event="contact_section_open" data-analytics-link-context="home_working_together">{{ action.label }}{% if forloop.first %} <span aria-hidden="true">→</span>{% endif %}</a>
+            {% endif %}
           {% endfor %}
         </div>
       </div>
@@ -130,7 +134,7 @@ layout: default
         </div>
         <div class="home-series-action">
           <span class="home-series-count">{{ home_series_notes.size }} episodes</span>
-          <a class="section-link" href="{{ home_series.url | relative_url }}">{{ h.featured_series.action }} <span aria-hidden="true">→</span></a>
+          <a class="section-link" href="{{ home_series.url | relative_url }}" data-analytics-event="series_open" data-analytics-series-id="{{ h.featured_series.slug | escape }}" data-analytics-link-context="home_featured_series">{{ h.featured_series.action }} <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
@@ -145,7 +149,7 @@ layout: default
       </div>
       <div>
         <p class="section-description">{{ h.experience.description }}</p>
-        <a class="section-link" href="{{ h.experience.action.url | relative_url }}">{{ h.experience.action.label }} <span aria-hidden="true">→</span></a>
+        <a class="section-link" href="{{ h.experience.action.url | relative_url }}" data-analytics-event="experience_open" data-analytics-link-context="home_experience">{{ h.experience.action.label }} <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
@@ -162,7 +166,7 @@ layout: default
       <div class="home-entry-grid">
         {% for c in h.entry_points.cards %}
           <article class="card home-entry-card">
-            <a class="home-entry-card-link" href="{{ c.url | relative_url }}">
+            <a class="home-entry-card-link" href="{{ c.url | relative_url }}" data-analytics-event="collection_open" data-analytics-collection="{{ c.title | downcase | escape }}" data-analytics-link-context="home_entry_points">
               <span class="home-entry-marker" aria-hidden="true"></span>
               <span class="home-entry-index">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
               <span class="home-entry-title">{{ c.title }}</span>
@@ -194,9 +198,9 @@ layout: default
           <div>
             <div class="contact-label">{{ ch.label }}</div>
             {% if ch.person_field == "linkedin" %}
-            <a class="contact-link" href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer">{{ ch.text }}<span class="visually-hidden"> (opens in new tab)</span></a>
+            <a class="contact-link" href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_open" data-analytics-contact-method="linkedin" data-analytics-link-context="home_contact">{{ ch.text }}<span class="visually-hidden"> (opens in new tab)</span></a>
             {% else %}
-            <a class="contact-link" href="{{ ch.url }}" target="_blank" rel="noopener noreferrer">{{ ch.text }}<span class="visually-hidden"> (opens in new tab)</span></a>
+            <a class="contact-link" href="{{ ch.url }}" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_open" data-analytics-contact-method="{{ ch.label | downcase | escape }}" data-analytics-link-context="home_contact">{{ ch.text }}<span class="visually-hidden"> (opens in new tab)</span></a>
             {% endif %}
           </div>
         {% endfor %}

@@ -116,6 +116,9 @@ required_files = %w[
   sitemap.txt
   feed.xml
   assets/css/main.css
+  assets/js/analytics.js
+  assets/js/aggregate-analytics.js
+  assets/js/consent.js
 ]
 
 required_files.each do |file|
@@ -132,6 +135,7 @@ forbidden_files.each do |file|
   fail_check("Development file leaked into generated site: #{file}") if File.exist?(site_path(file))
 end
 fail_check("Browser tests leaked into generated site") if File.exist?(site_path("tests"))
+fail_check("Aggregate service leaked into generated site") if File.exist?(site_path("_analytics"))
 
 sitemap_locs = []
 sitemap_xml = read_file(site_path("sitemap.xml"))

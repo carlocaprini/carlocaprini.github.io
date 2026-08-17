@@ -7,3 +7,6 @@ test-results
 Gemfile.lock
 .vscode
 _workspace
+_analytics/collector/.dev.vars
+_analytics/collector/.wrangler
+_analytics/reports/output
