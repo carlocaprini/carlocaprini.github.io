@@ -68,8 +68,14 @@ jobs:
       - name: Install browser-test dependencies
         run: npm ci
 
+      - name: Test aggregate measurement collector
+        run: npm run test:analytics
+
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
+
+      - name: Test local aggregate measurement integration
+        run: npm run test:analytics:integration
 
       - name: Run critical browser checks
         run: npm run test:browser

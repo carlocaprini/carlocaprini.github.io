@@ -1,0 +1,27 @@
+{
+  "$schema": "https://developers.cloudflare.com/workers/wrangler/config-schema.json",
+  "name": "carlo-site-aggregate-analytics",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-10",
+  "workers_dev": true,
+  "observability": {
+    "enabled": false
+  },
+  "vars": {
+    "ALLOWED_ORIGIN": "https://carlocaprini.github.io",
+    "RETENTION_MONTHS": "14"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "carlo-site-aggregate-analytics",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "triggers": {
+    "crons": [
+      "17 3 * * *"
+    ]
+  }
+}

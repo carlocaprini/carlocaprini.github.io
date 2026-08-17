@@ -1,0 +1,2 @@
+aggregate_analytics_endpoint: "http://127.0.0.1:8787/v1/measure"
+aggregate_analytics_local: true

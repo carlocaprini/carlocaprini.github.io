@@ -81,5 +81,11 @@
     track("content_view", analyticsParameters(body));
   }
 
+  window.addEventListener("site:analytics-ready", function () {
+    if (body.getAttribute("data-analytics-content") === "true" && typeof window.gtag === "function") {
+      window.gtag("event", "content_view", analyticsParameters(body));
+    }
+  });
+
   window.siteAnalytics = Object.freeze({ track: track });
 })();

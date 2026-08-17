@@ -40,6 +40,11 @@
     {% if page.series %}data-analytics-page-series="{{ page.series | escape }}"{% elsif page.series_slug %}data-analytics-page-series="{{ page.series_slug | escape }}"{% endif %}
     {% if page.series_order %}data-analytics-page-episode="{{ page.series_order }}"{% endif %}
     {% if page.layout == "article" or page.layout == "question" or page.layout == "series" %}data-analytics-content="true"{% endif %}
+    {% if jekyll.environment == "production" and site.google_analytics %}data-analytics-enabled="true" data-analytics-id="{{ site.google_analytics | escape }}" data-analytics-hostname="{{ site.google_analytics_hostname | escape }}"{% endif %}
+    {% if site.aggregate_analytics_endpoint != "" %}
+      {% if site.aggregate_analytics_local == true %}data-aggregate-analytics-enabled="true" data-aggregate-analytics-local="true" data-aggregate-analytics-endpoint="{{ site.aggregate_analytics_endpoint | escape }}"
+      {% elsif jekyll.environment == "production" %}data-aggregate-analytics-enabled="true" data-aggregate-analytics-endpoint="{{ site.aggregate_analytics_endpoint | escape }}"{% endif %}
+    {% endif %}
   >
     <a class="skip-link" href="#top">Skip to main content</a>
     <div class="site">
@@ -79,11 +84,16 @@
         <div class="container footer-inner">
           <span>&copy; {{ site.time | date: "%Y" }} {{ site.data.person.name | default: site.title }}</span>
           <span class="footer-meta">
+            <a href="{{ '/privacy/' | relative_url }}">Privacy</a>
+            <span aria-hidden="true">·</span>
+            <button type="button" data-consent-settings>Cookie settings</button>
+            <span aria-hidden="true">·</span>
             <a href="{{ '/feed.xml' | relative_url }}" data-analytics-event="rss_open" data-analytics-link-context="footer">RSS</a>
           </span>
         </div>
       </footer>
     </div>
+    {% include analytics-consent.html %}
     <script>
       document.querySelectorAll(".mobile-nav-panel a").forEach(function (link) {
         link.addEventListener("click", function () {
@@ -92,6 +102,8 @@
         });
       });
     </script>
+    <script src="{{ '/assets/js/consent.js' | relative_url }}" defer></script>
+    <script src="{{ '/assets/js/aggregate-analytics.js' | relative_url }}" defer></script>
     <script src="{{ '/assets/js/analytics.js' | relative_url }}" defer></script>
   </body>
 </html>

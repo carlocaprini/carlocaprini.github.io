@@ -3,7 +3,7 @@ services:
     # Docker Hub doesn't publish a `jekyll/jekyll:4.3` tag; 4.2.2 exists and works well for local dev.
     image: jekyll/jekyll:4.2.2
     working_dir: /srv/jekyll
-    command: sh -lc "bundle install && bundle exec jekyll serve --host 0.0.0.0 --port 4000 --watch --force_polling --livereload"
+    command: sh -lc 'bundle install && bundle exec jekyll serve --host 0.0.0.0 --port 4000 --watch --force_polling --livereload --config "$$JEKYLL_CONFIG"'
     ports:
       - "4000:4000"
       - "35729:35729"
@@ -14,8 +14,25 @@ services:
       JEKYLL_ENV: development
       TZ: Europe/Rome
       BUNDLE_PATH: /usr/local/bundle
+      JEKYLL_CONFIG: "${JEKYLL_CONFIG:-_config.yml}"
       JEKYLL_UID: "${UID:-1000}"
       JEKYLL_GID: "${GID:-1000}"
 
+  analytics:
+    image: node:24-bookworm-slim
+    working_dir: /workspace
+    command: sh -lc "npm ci && npm run analytics:local:migrate && npm run analytics:local:dev"
+    ports:
+      - "8787:8787"
+    volumes:
+      - .:/workspace
+      - analytics_node_modules:/workspace/node_modules
+    environment:
+      CI: "true"
+      NO_D1_WARNING: "true"
+      TZ: Europe/Rome
+      WRANGLER_SEND_METRICS: "false"
+
 volumes:
   bundle_cache:
+  analytics_node_modules:

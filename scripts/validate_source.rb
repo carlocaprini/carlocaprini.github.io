@@ -88,6 +88,7 @@ end
 
 data_files = Dir.glob(File.join(SOURCE_DIR, "_data/*.yml")).sort
 data_files.each { |path| read_yaml(path) }
+site_config = read_yaml(File.join(SOURCE_DIR, "_config.yml")) || {}
 
 topics_path = File.join(SOURCE_DIR, "_data/topics.yml")
 topics = Array(read_yaml(topics_path))
@@ -442,8 +443,41 @@ declared_analytics_events = analytics_sources.flat_map do |path|
   File.read(path).scan(/data-analytics-event=["']([^"']+)["']/).flatten
 end.uniq
 analytics_script = File.read(File.join(SOURCE_DIR, "assets/js/analytics.js"))
+consent_script = File.read(File.join(SOURCE_DIR, "assets/js/consent.js"))
+aggregate_script = File.read(File.join(SOURCE_DIR, "assets/js/aggregate-analytics.js"))
+collector_script = File.read(File.join(SOURCE_DIR, "_analytics/collector/src/index.js"))
+collector_migration = File.read(File.join(SOURCE_DIR, "_analytics/collector/migrations/0001_daily_counts.sql"))
+campaign_migration = File.read(File.join(SOURCE_DIR, "_analytics/collector/migrations/0002_daily_campaign_counts.sql"))
+head_include = File.read(File.join(SOURCE_DIR, "_includes/head.html"))
 runtime_event_block = analytics_script[/var eventNames = new Set\(\[(.*?)\]\);/m, 1].to_s
 runtime_analytics_events = runtime_event_block.scan(/["']([^"']+)["']/).flatten
+aggregate_event_block = aggregate_script[/var semanticEvents = new Set\(\[(.*?)\]\);/m, 1].to_s
+aggregate_runtime_events = aggregate_event_block.scan(/["']([^"']+)["']/).flatten
+collector_event_block = collector_script[/const EVENT_NAMES = new Set\(\[(.*?)\]\);/m, 1].to_s
+collector_events = collector_event_block.scan(/["']([^"']+)["']/).flatten
+
+if head_include.include?("googletagmanager.com")
+  fail_check("_includes/head.html: Google Analytics must not load before consent")
+end
+
+unless consent_script.include?('data-analytics-enabled') && consent_script.include?("googletagmanager.com/gtag/js")
+  fail_check("assets/js/consent.js: Analytics must load through the consent gate")
+end
+
+production_host = URI.parse(site_config["production_url"].to_s).host
+unless present?(site_config["google_analytics_hostname"]) && site_config["google_analytics_hostname"] == production_host
+  fail_check("_config.yml: google_analytics_hostname must match the production_url hostname")
+end
+
+unless consent_script.include?('data-analytics-hostname') &&
+    consent_script.include?('window.location.protocol === "https:"') &&
+    consent_script.include?("window.location.hostname === analyticsHostname")
+  fail_check("assets/js/consent.js: Analytics must remain fail-closed outside the exact HTTPS production hostname")
+end
+
+unless consent_script.match?(/allow_google_signals:\s*false/) && consent_script.match?(/allow_ad_personalization_signals:\s*false/)
+  fail_check("assets/js/consent.js: advertising and Google Signals must remain disabled")
+end
 
 unknown_analytics_events = declared_analytics_events - analytics_events
 unless unknown_analytics_events.empty?
@@ -457,6 +491,55 @@ end
 
 unless runtime_analytics_events.sort == analytics_events.sort
   fail_check("assets/js/analytics.js: runtime event allowlist must match the validated analytics contract")
+end
+
+expected_aggregate_events = analytics_events - ["content_view"]
+unless aggregate_runtime_events.sort == expected_aggregate_events.sort
+  fail_check("assets/js/aggregate-analytics.js: aggregate event allowlist must match the semantic event contract")
+end
+
+expected_collector_events = (analytics_events + %w[page_view consent_choice campaign_landing]).sort
+unless collector_events.sort == expected_collector_events
+  fail_check("_analytics collector: event allowlist must match semantic events plus aggregate-only events")
+end
+
+unless %w[localhost 127.0.0.1 0.0.0.0 ::1].all? { |hostname| aggregate_script.include?(hostname) }
+  fail_check("assets/js/aggregate-analytics.js: local preview detection is incomplete")
+end
+
+unless aggregate_script.include?('data-aggregate-analytics-local') && aggregate_script.include?('url.pathname === "/v1/measure"')
+  fail_check("assets/js/aggregate-analytics.js: local aggregate measurement must require an explicit loopback collector")
+end
+
+unless aggregate_script.include?('credentials: "omit"') && aggregate_script.include?('referrerPolicy: "no-referrer"')
+  fail_check("assets/js/aggregate-analytics.js: aggregate requests must omit credentials and referrers")
+end
+
+unless collector_migration.scan(/CREATE TABLE/i).size == 1 && collector_migration.include?("daily_counts")
+  fail_check("_analytics collector: D1 migration must create only the aggregate daily_counts table")
+end
+
+unless campaign_migration.scan(/CREATE TABLE/i).size == 1 && campaign_migration.include?("daily_campaign_counts")
+  fail_check("_analytics collector: campaign migration must create only the aggregate daily_campaign_counts table")
+end
+
+if [collector_migration, campaign_migration].any? { |migration| migration.match?(/raw[_ ]events?/i) }
+  fail_check("_analytics collector: raw-event storage is forbidden")
+end
+
+
+collector_inserts = collector_script.scan(/INSERT INTO\s+([a-z_]+)/i).flatten.uniq
+unless (collector_inserts - %w[daily_counts daily_campaign_counts]).empty?
+  fail_check("_analytics collector: only aggregate counter tables may receive inserts")
+end
+
+excluded_paths = Array(site_config["exclude"])
+fail_check("_config.yml: _analytics must be excluded from the generated site") unless excluded_paths.include?("_analytics")
+
+local_analytics_config = read_yaml(File.join(SOURCE_DIR, "_config.analytics-local.yml")) || {}
+unless local_analytics_config["aggregate_analytics_local"] == true &&
+    local_analytics_config["aggregate_analytics_endpoint"] == "http://127.0.0.1:8787/v1/measure"
+  fail_check("_config.analytics-local.yml: local measurement must require the canonical loopback collector")
 end
 
 analytics_sources.each do |path|

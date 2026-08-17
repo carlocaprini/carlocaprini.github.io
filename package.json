@@ -3,7 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "workspaces": [
+    "_analytics/collector"
+  ],
   "scripts": {
+    "analytics:local:dev": "npm --workspace carlo-site-aggregate-analytics run local:dev",
+    "analytics:local:migrate": "npm --workspace carlo-site-aggregate-analytics run local:migrate",
+    "analytics:local:report": "npm --workspace carlo-site-aggregate-analytics run local:report",
+    "analytics:local:reset": "npm --workspace carlo-site-aggregate-analytics run local:reset",
+    "test:analytics": "node --test _analytics/collector/tests/*.test.js",
+    "test:analytics:integration": "npm --workspace carlo-site-aggregate-analytics run test:integration",
     "test:browser": "playwright test"
   },
   "engines": {
