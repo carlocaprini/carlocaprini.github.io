@@ -42,6 +42,8 @@ npx playwright test --project=visual-chromium --update-snapshots
 
 CI keeps one isolated retry, emits an HTML report and uploads traces, failure screenshots and visual diffs only when a browser category fails. The `Site checks` workflow builds and validates the site once, then shares that exact generated `_site` artifact with independent Chromium, WebKit and visual-regression jobs. Analytics and infrastructure checks also run independently; deployment waits for every blocking category to pass.
 
+The versioned [Visual Reference](visual-reference/README.md) is separate documentation: its curated full-page screenshots show what representative site surfaces currently look like. Visual-regression fixtures detect unexpected changes; update the Visual Reference deliberately in the same pull request as a material rendered change.
+
 ## Topics (Thinking notes & Influences)
 
 Notes and external references are tagged with a `topics` array in front matter, using **only** the four canonical slugs below. **Shared topics** drive automatic **related readings** on note pages (and related notes between notes). The **Influences** index does **not** infer a note from topics: each reference may set an optional `related_note:` to one internal URL. Use lowercase, hyphenated topic labels consistently.
