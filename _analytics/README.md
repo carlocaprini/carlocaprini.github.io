@@ -8,7 +8,9 @@ When a landing URL contains the complete canonical UTM tuple, the browser also s
 
 ## Canonical UTM contract
 
-The collector implements the site distribution convention rather than accepting arbitrary campaign values.
+[`contracts/analytics.json`](../contracts/analytics.json) is the machine-readable source of truth for event names, source/target types and the site distribution convention. `npm run analytics:contract:generate` deterministically produces the browser and Worker representations; do not edit the generated files. `npm run analytics:contract:check` fails when either representation is stale.
+
+The table below explains the canonical combinations for humans. Runtime acceptance is derived from the contract rather than maintained independently in this document, the browser adapter or the Worker.
 
 | Scenario | `utm_source` | `utm_medium` | `utm_campaign` | `utm_content` |
 | --- | --- | --- | --- | --- |

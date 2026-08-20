@@ -91,7 +91,7 @@ After deployment, submit `sitemap-static.xml` in the exact URL-prefix property `
 
 ## Analytics events
 
-The site uses one semantic event contract with two destinations. A proprietary aggregate adapter records daily counters without cookies, users, sessions or raw events. GA4 receives the richer event stream only after consent. Both adapters are disabled locally. GA4 is fail-closed and can initialize only on `https://carlocaprini.github.io`, never on localhost, private-network addresses or preview hosts.
+The site uses one semantic event contract with two destinations. [`contracts/analytics.json`](contracts/analytics.json) is the machine-readable source of truth; generated browser and Worker representations are checked for drift in `npm run test:analytics`. A proprietary aggregate adapter records daily counters without cookies, users, sessions or raw events. GA4 receives the richer event stream only after consent. Both adapters are disabled locally. GA4 is fail-closed and can initialize only on `https://carlocaprini.github.io`, never on localhost, private-network addresses or preview hosts.
 
 The aggregate collector lives in `_analytics/`, uses a Cloudflare Worker and D1, and stores only daily counter rows. Normal site activity is stored in `daily_counts`; complete, canonical UTM landing tuples are stored separately in `daily_campaign_counts`. It remains inactive until the deployed Worker URL is set as `aggregate_analytics_endpoint` in `_config.yml`. See `_analytics/README.md` for setup, the canonical UTM contract and private reporting.
 
