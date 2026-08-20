@@ -22,6 +22,8 @@ Do not edit `_site/`. Do not edit either `analytics-contract.generated.js`; rege
 - Visual Reference: build first, run `npm run visual-reference:generate`, inspect every changed image, then `bin/check visual-reference`.
 - CI/scripts: run the affected `bin/check` command and `bin/check all` before completion when local prerequisites are available.
 
+Browser contracts are organized by behavior under `tests/browser/`: `routes`, `navigation`, `editorial-journeys`, `responsive`, `accessibility`, `analytics`/`privacy-analytics`, and `series`. WebKit smoke and visual regression remain deliberately isolated. Put a new assertion with the behavior it protects; do not recreate a catch-all spec.
+
 Never bypass source/generated validation, analytics privacy boundaries, semantic event allowlists, responsive checks or deliberate editorial ordering to make a test pass.
 
 ## Read deeper

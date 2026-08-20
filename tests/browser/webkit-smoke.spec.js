@@ -1,23 +1,4 @@
-import { expect, test } from "@playwright/test";
-
-const runtimeErrors = new WeakMap();
-
-test.beforeEach(async ({ page }) => {
-  const errors = [];
-  runtimeErrors.set(page, errors);
-  page.on("pageerror", (error) => errors.push(`pageerror: ${error.message}`));
-  page.on("console", (message) => {
-    if (message.type() === "error") errors.push(`console: ${message.text()}`);
-  });
-
-  await page.route("https://fonts.googleapis.com/**", (route) =>
-    route.fulfill({ status: 200, contentType: "text/css", body: "" })
-  );
-});
-
-test.afterEach(async ({ page }) => {
-  expect(runtimeErrors.get(page)).toEqual([]);
-});
+import { expect, test } from "./support/site-test.js";
 
 test("Home and primary navigation render", async ({ page }, testInfo) => {
   await page.goto("/");
