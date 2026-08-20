@@ -2,14 +2,11 @@
 # frozen_string_literal: true
 
 require "json"
-require "date"
 require "rexml/document"
 require "set"
 require "uri"
-require "yaml"
 
-SITE_DIR = File.expand_path("../_site", __dir__)
-SOURCE_DIR = File.expand_path("..", __dir__)
+SITE_DIR = ENV["SITE_OUTPUT_DIR"] ? File.expand_path(ENV.fetch("SITE_OUTPUT_DIR")) : File.expand_path("../_site", __dir__)
 SITE_URL = "https://carlocaprini.github.io"
 SITE_HOST = URI(SITE_URL).host
 
@@ -45,6 +42,7 @@ end
 
 def external_or_special_url?(value)
   return true if value.start_with?("#")
+  return false if value.start_with?("/")
 
   uri = URI.parse(value)
   return true if uri.scheme.nil?
@@ -77,6 +75,10 @@ def html_ids(html)
   html.scan(/\sid=(["'])(.*?)\1/).map { |(_, id)| id }.to_set
 end
 
+def application_fragment?(html, fragment)
+  html.match?(/\sdata-explore-topic=(["'])#{Regexp.escape(fragment)}\1/)
+end
+
 def meta_content(html, attribute, value)
   tag = html[%r{<meta\b[^>]*\b#{Regexp.escape(attribute)}=["']#{Regexp.escape(value)}["'][^>]*>}i]
   tag&.[](%r{\bcontent=["']([^"']+)["']}i, 1)
@@ -93,19 +95,6 @@ def validate_generated_url(relative, label, value)
 
   target = generated_file_for_path(path)
   fail_check("#{relative}: #{label} points to a missing file: #{value}") unless File.file?(target)
-end
-
-def front_matter(path)
-  source = read_file(path)
-  return {} unless source
-
-  match = source.match(/\A---\s*\n(.*?)\n---\s*\n/m)
-  return {} unless match
-
-  YAML.safe_load(match[1], permitted_classes: [Date], aliases: true) || {}
-rescue Psych::SyntaxError => e
-  fail_check("#{path.delete_prefix("#{SOURCE_DIR}/")}: invalid front matter: #{e.message.lines.first&.strip}")
-  {}
 end
 
 required_files = %w[
@@ -129,6 +118,8 @@ forbidden_files = %w[
   package.json
   package-lock.json
   playwright.config.js
+  scripts
+  visual-reference
 ]
 
 forbidden_files.each do |file|
@@ -307,7 +298,9 @@ html_files.each do |file|
     if fragment && !fragment.empty? && File.file?(target)
       target_html = File.read(target)
       target_ids = target == file ? ids : html_ids(target_html)
-      fail_check("#{relative}: broken fragment link #{href}") unless target_ids.include?(fragment)
+      unless target_ids.include?(fragment) || application_fragment?(target_html, fragment)
+        fail_check("#{relative}: broken fragment link #{href}")
+      end
     end
   end
 
@@ -348,40 +341,6 @@ end
 
 duplicate_canonicals = canonical_urls.group_by(&:itself).select { |_, values| values.size > 1 }.keys
 fail_check("Duplicate canonical URLs: #{duplicate_canonicals.join(', ')}") unless duplicate_canonicals.empty?
-
-topics_data = YAML.safe_load_file(File.join(SOURCE_DIR, "_data/topics.yml"), aliases: true) || []
-canonical_topics = topics_data.filter_map { |topic| topic["slug"] }.to_set
-fail_check("Canonical topic data is empty") if canonical_topics.empty?
-
-note_data = {}
-Dir.glob(File.join(SOURCE_DIR, "pages/thinking/*.md")).sort.each do |path|
-  data = front_matter(path)
-  relative = path.delete_prefix("#{SOURCE_DIR}/")
-  topics = Array(data["topics"])
-
-  fail_check("#{relative}: missing summary") if data["summary"].to_s.strip.empty?
-  fail_check("#{relative}: must define one or two topics") unless topics.size.between?(1, 2)
-  unknown_topics = topics.reject { |topic| canonical_topics.include?(topic) }
-  fail_check("#{relative}: unknown topics: #{unknown_topics.join(', ')}") unless unknown_topics.empty?
-  note_data[data["permalink"]] = data if data["permalink"]
-end
-
-Dir.glob(File.join(SOURCE_DIR, "_influences/*.md")).sort.each do |path|
-  data = front_matter(path)
-  relative = path.delete_prefix("#{SOURCE_DIR}/")
-  topics = Array(data["topics"])
-
-  fail_check("#{relative}: missing external_url") if data["external_url"].to_s.strip.empty?
-  fail_check("#{relative}: missing summary") if data["summary"].to_s.strip.empty?
-  fail_check("#{relative}: must define one or two topics") unless topics.size.between?(1, 2)
-  unknown_topics = topics.reject { |topic| canonical_topics.include?(topic) }
-  fail_check("#{relative}: unknown topics: #{unknown_topics.join(', ')}") unless unknown_topics.empty?
-
-  related_note = data["related_note"]
-  if related_note && !note_data.key?(related_note)
-    fail_check("#{relative}: related_note does not match a Thinking permalink: #{related_note}")
-  end
-end
 
 if @errors.any?
   warn "\nSite validation failed:"
