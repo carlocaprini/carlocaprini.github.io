@@ -14,6 +14,7 @@ const databaseName = "carlo-site-aggregate-analytics-local";
 const workerOrigin = "http://127.0.0.1:8791";
 const siteOrigin = "http://127.0.0.1:4199";
 const persistenceDirectory = await mkdtemp(join(tmpdir(), "carlo-site-analytics-"));
+const contractAdapter = await readFile(resolve(repositoryDirectory, "assets/js/analytics-contract.generated.js"), "utf8");
 const adapter = await readFile(resolve(repositoryDirectory, "assets/js/aggregate-analytics.js"), "utf8");
 
 function runWrangler(argumentsList) {
@@ -83,6 +84,7 @@ const html = `<!doctype html>
     data-aggregate-analytics-local="true"
     data-aggregate-analytics-endpoint="${workerOrigin}/v1/measure"
   >
+    <script src="/analytics-contract.generated.js" defer></script>
     <script src="/aggregate-analytics.js" defer></script>
   </body>
 </html>`;
@@ -124,6 +126,11 @@ try {
   await waitForWorker(worker, workerOutput);
 
   server = createServer((request, response) => {
+    if (request.url?.startsWith("/analytics-contract.generated.js")) {
+      response.writeHead(200, { "Content-Type": "text/javascript; charset=utf-8" });
+      response.end(contractAdapter);
+      return;
+    }
     if (request.url?.startsWith("/aggregate-analytics.js")) {
       response.writeHead(200, { "Content-Type": "text/javascript; charset=utf-8" });
       response.end(adapter);
