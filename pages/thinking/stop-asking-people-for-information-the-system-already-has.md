@@ -27,8 +27,8 @@ I found that I needed one more category because systems now produce their own re
 The due date may be a recorded fact. So calling the item urgent is something the system concluded.
 
 <figure class="article-figure">
-  <a class="article-figure-link" href="/assets/facts-are-not-interpretations.png" aria-label="Open the facts, system interpretations and human judgment diagram at full size">
-    <img src="/assets/facts-are-not-interpretations.png" alt="Diagram showing a recorded fact leading to a system interpretation and then human judgment, with the message that facts are not interpretations." width="1536" height="1024" loading="lazy" decoding="async">
+  <a class="article-figure-link" href="/assets/facts-are-not-interpretations.jpg" aria-label="Open the facts, system interpretations and human judgment diagram at full size">
+    <img src="/assets/facts-are-not-interpretations.jpg" alt="Diagram showing a recorded fact leading to a system interpretation and then human judgment, with the message that facts are not interpretations." width="1280" height="853" loading="lazy" decoding="async">
   </a>
   <figcaption>Recorded facts, system interpretations and human judgment are different layers. Correcting one should not silently rewrite another.</figcaption>
 </figure>
