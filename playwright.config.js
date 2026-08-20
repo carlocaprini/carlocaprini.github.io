@@ -24,7 +24,7 @@ export default defineConfig({
     : "line",
   outputDir: "test-results",
   webServer: {
-    command: `bundle exec ruby -run -ehttpd _site -p ${serverPort}`,
+    command: `node scripts/serve_site.mjs ${serverPort}`,
     url: baseURL,
     reuseExistingServer: !process.env.CI
   },
