@@ -105,6 +105,7 @@ required_files = %w[
   sitemap.txt
   feed.xml
   assets/css/main.css
+  assets/js/analytics-contract.generated.js
   assets/js/analytics.js
   assets/js/aggregate-analytics.js
   assets/js/consent.js

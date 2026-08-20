@@ -20,6 +20,7 @@ class ValidatorTest < Minitest::Test
     _influences
     _layouts
     assets
+    contracts
     index.md
     pages
   ].freeze
@@ -69,7 +70,7 @@ class ValidatorTest < Minitest::Test
     FileUtils.mkdir_p(File.join(directory, "assets"))
     File.write(File.join(directory, "assets/test.webp"), "fixture")
     File.write(File.join(directory, "assets/css/main.css"), "body { color: white; }\n")
-    %w[analytics.js aggregate-analytics.js consent.js].each do |name|
+    %w[analytics-contract.generated.js analytics.js aggregate-analytics.js consent.js].each do |name|
       File.write(File.join(directory, "assets/js", name), "// fixture\n")
     end
 
