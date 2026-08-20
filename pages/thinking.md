@@ -6,7 +6,7 @@ meta_title: Product Decisions, AI and Software Systems | Carlo Caprini
 meta_description: Notes on product decisions, AI, software systems and collaboration, with guided paths through recurring questions.
 meta_image: /assets/og-thinking-v2.png
 meta_image_alt: Thinking by Carlo Caprini, notes on product decisions, AI, software systems and teams.
-last_modified_at: 2026-08-09
+last_modified_at: 2026-08-20
 hero:
   label: Thinking
   title_prefix: "Notes on "
@@ -36,6 +36,7 @@ recent_notes:
   limit: 3
 # Order of notes on the list. Title and summary come from each note's front matter.
 notes:
+  - url: /thinking/stop-asking-people-for-information-the-system-already-has/
   - url: /thinking/i-need-my-ai-dashboard-to-leave-things-out/
   - url: /thinking/friday-connects-the-services-without-owning-their-work/
   - url: /thinking/designing-for-unattended-development/

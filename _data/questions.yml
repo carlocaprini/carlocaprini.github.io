@@ -108,6 +108,7 @@ questions:
         description: Orchestration becomes useful when it helps a person see what needs attention while leaving authority with them.
         notes:
           - /thinking/friday-connects-the-services-without-owning-their-work/
+          - /thinking/stop-asking-people-for-information-the-system-already-has/
           - /thinking/i-need-my-ai-dashboard-to-leave-things-out/
     influences:
       - slug: how-i-escaped-ai-autopilot
