@@ -1,0 +1,16 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "{{ website_id }}",
+  "url": "{{ site_url }}/",
+  "name": {{ site.title | jsonify }},
+  "description": {{ site.description | jsonify }},
+  "inLanguage": "en",
+  "publisher": {
+    "@type": "Person",
+    "@id": "{{ person_id }}",
+    "name": {{ person_name | jsonify }}
+  }
+}
+</script>

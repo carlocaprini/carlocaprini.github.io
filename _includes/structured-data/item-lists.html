@@ -1,0 +1,46 @@
+{% if page.url == "/thinking/" and page.notes %}
+{% assign note_urls = page.notes | map: "url" %}
+{% assign sorted_notes = site.pages | where_exp: "item", "note_urls contains item.url" | sort: "date" | reverse %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": "{{ page_url }}#itemlist",
+  "name": "Thinking",
+  "url": "{{ page_url }}",
+  "itemListElement": [
+    {% for note in sorted_notes %}
+    {
+      "@type": "ListItem",
+      "position": {{ forloop.index }},
+      "url": "{{ site_url }}{{ note.url }}",
+      "name": {{ note.title | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}
+
+{% if page.url == "/influences/" %}
+{% assign influence_refs = site.influences | where_exp: "item", "item.external_url" | sort: "title" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": "{{ page_url }}#itemlist",
+  "name": "Influences",
+  "url": "{{ page_url }}",
+  "itemListElement": [
+    {% for ref in influence_refs %}
+    {
+      "@type": "ListItem",
+      "position": {{ forloop.index }},
+      "url": {{ ref.external_url | jsonify }},
+      "name": {{ ref.title | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}
