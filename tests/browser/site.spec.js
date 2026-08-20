@@ -106,6 +106,52 @@ test("Thinking separates guided, recent and complete discovery", async ({ page }
   await expect(page.locator(".thinking-recent-list > li")).toHaveCount(3);
 });
 
+test("ruled collections stop before the next section divider", async ({ page }) => {
+  for (const route of ["/", "/thinking/", "/explore/"]) {
+    await page.goto(route);
+    const finalQuestionBorder = await page.locator(".question-path-item").last().evaluate(
+      (element) => getComputedStyle(element).borderBottomWidth
+    );
+    expect(finalQuestionBorder).toBe("0px");
+  }
+
+  await page.goto("/series/building-my-ai-operating-system/");
+  const finalEpisodeBorder = await page.locator(".series-page-episodes > li").last().evaluate(
+    (element) => getComputedStyle(element).borderBottomWidth
+  );
+  expect(finalEpisodeBorder).toBe("0px");
+});
+
+test("Recent Thinking uses internal separators and padded content", async ({ page }, testInfo) => {
+  await page.goto("/thinking/");
+
+  const listBorder = await page.locator(".thinking-recent-list").evaluate(
+    (element) => getComputedStyle(element).borderTopWidth
+  );
+  const itemStyles = await page.locator(".thinking-recent-list > li").evaluateAll((items) =>
+    items.map((element) => {
+      const style = getComputedStyle(element);
+      return {
+        borderBottom: style.borderBottomWidth,
+        borderRight: style.borderRightWidth,
+        paddingLeft: Number.parseFloat(style.paddingLeft)
+      };
+    })
+  );
+
+  expect(listBorder).toBe("0px");
+  expect(itemStyles.every((item) => item.paddingLeft > 0)).toBe(true);
+
+  if (testInfo.project.name === "desktop-chromium") {
+    expect(itemStyles.map((item) => item.borderRight)).toEqual(["1px", "1px", "0px"]);
+    expect(itemStyles.every((item) => item.borderBottom === "0px")).toBe(true);
+    return;
+  }
+
+  expect(itemStyles.every((item) => item.borderRight === "0px")).toBe(true);
+  expect(itemStyles.map((item) => item.borderBottom)).toEqual(["1px", "1px", "0px"]);
+});
+
 test("Home follows the discovery-first content order", async ({ page }) => {
   await page.goto("/");
 
