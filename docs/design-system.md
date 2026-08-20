@@ -199,6 +199,7 @@ This should remain the default. Wider layouts need a specific reason.
 - Major section spacing: around `3rem-4rem`
 - Home sections may use subtle dividers between sections.
 - Use only one structural divider at a section boundary. Never stack a preceding bottom border and a following top border with no meaningful content or spacing between them.
+- Ruled lists use dividers between items, not after the final item. When the following section already provides its own boundary, the collection must not add a second closing line.
 
 ### Two-Column Intro
 
