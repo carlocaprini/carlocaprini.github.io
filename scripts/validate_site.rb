@@ -255,6 +255,13 @@ html_files.each do |file|
   fail_check("#{relative}: missing Open Graph description") unless html.match?(%r{<meta\s+property=["']og:description["']}i)
   fail_check("#{relative}: missing Open Graph type") unless meta_content(html, "property", "og:type")
 
+  local_stylesheets = html.scan(%r{<link\b[^>]*\brel=["']stylesheet["'][^>]*>}i).map do |tag|
+    tag[%r{\bhref=["']([^"']+)["']}i, 1]
+  end.compact.select { |href| href.start_with?("/assets/css/") }.map { |href| href.sub(/\?.*\z/, "") }
+  unless local_stylesheets == ["/assets/css/main.css"]
+    fail_check("#{relative}: must load exactly one canonical site stylesheet")
+  end
+
   og_image = meta_content(html, "property", "og:image")
   og_image_alt = meta_content(html, "property", "og:image:alt")
   fail_check("#{relative}: missing Open Graph image") unless og_image
