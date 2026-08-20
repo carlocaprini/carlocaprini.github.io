@@ -32,7 +32,7 @@ npm run test:browser:webkit
 npm run test:browser:visual
 ```
 
-`test:browser` is the broad sitemap-driven Chromium suite across desktop, mobile and portrait tablet. `test:browser:webkit` is a deliberately small desktop/mobile Safari-like smoke suite. `test:browser:visual` compares a curated set of design-system surfaces with lossless WebP baselines stored beside the visual spec. Run `npm run test:browser:all` to execute all three categories.
+`test:browser` is the broad sitemap-driven Chromium suite across desktop, mobile and portrait tablet. `test:browser:webkit` is a deliberately small desktop/mobile Safari-like smoke suite. `test:browser:visual` compares a curated set of design-system surfaces with lossless, platform-specific WebP baselines stored beside the visual spec. Run `npm run test:browser:all` to execute all three categories.
 
 Update visual baselines only after reviewing the rendered change:
 

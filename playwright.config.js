@@ -15,7 +15,7 @@ export default defineConfig({
     toHaveScreenshot: {
       animations: "disabled",
       caret: "hide",
-      pathTemplate: "{testDir}/{testFilePath}-snapshots/{arg}{ext}",
+      pathTemplate: "{testDir}/{testFilePath}-snapshots/{arg}-{platform}{ext}",
       scale: "css"
     }
   },
