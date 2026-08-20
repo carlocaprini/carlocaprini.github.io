@@ -42,8 +42,12 @@ jobs:
 
       - name: Check Ruby syntax
         run: |
+          ruby -c scripts/lib/validation.rb
           ruby -c scripts/validate_source.rb
           ruby -c scripts/validate_site.rb
+
+      - name: Test validators
+        run: ruby tests/validators/validator_test.rb
 
       - name: Validate source contracts
         run: ruby scripts/validate_source.rb
