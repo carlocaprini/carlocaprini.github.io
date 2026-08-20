@@ -1,12 +1,11 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require "date"
 require "set"
 require "uri"
-require "yaml"
+require_relative "lib/validation"
 
-SOURCE_DIR = File.expand_path("..", __dir__)
+SOURCE_DIR = ENV["SITE_SOURCE_DIR"] ? File.expand_path(ENV.fetch("SITE_SOURCE_DIR")) : File.expand_path("..", __dir__)
 
 @errors = []
 
@@ -15,33 +14,19 @@ def fail_check(message)
 end
 
 def relative_path(path)
-  path.delete_prefix("#{SOURCE_DIR}/")
+  SiteValidation.relative_path(path, SOURCE_DIR)
 end
 
 def read_yaml(path)
-  YAML.safe_load(File.read(path), permitted_classes: [Date, Time], aliases: true)
-rescue Psych::SyntaxError => e
-  fail_check("#{relative_path(path)}: invalid YAML: #{e.message.lines.first&.strip}")
-  nil
+  SiteValidation.read_yaml(path, errors: @errors, root: SOURCE_DIR)
 end
 
 def read_markdown(path)
-  source = File.read(path)
-  match = source.match(/\A---\s*\n(.*?)\n---\s*\n/m)
-  unless match
-    fail_check("#{relative_path(path)}: missing front matter")
-    return [{}, source]
-  end
-
-  data = YAML.safe_load(match[1], permitted_classes: [Date, Time], aliases: true) || {}
-  [data, source[match.end(0)..]]
-rescue Psych::SyntaxError => e
-  fail_check("#{relative_path(path)}: invalid front matter: #{e.message.lines.first&.strip}")
-  [{}, ""]
+  SiteValidation.read_front_matter(path, errors: @errors, root: SOURCE_DIR)
 end
 
 def present?(value)
-  !value.to_s.strip.empty?
+  SiteValidation.present?(value)
 end
 
 def parse_date(value, path, field)
