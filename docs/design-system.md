@@ -1,8 +1,14 @@
 # Site Design System
 
 Date: 2026-07-14
-Last updated: 2026-08-09
+Last updated: 2026-08-21
 Status: Reference for future site changes
+
+## Implementation ownership
+
+The visual rules below are implemented in `_includes/styles/`, grouped by stable UI domain. `assets/css/main.css` only composes those files into the one production stylesheet; do not add independent rules to the entry point or edit generated `_site/assets/css/main.css`.
+
+Shared tokens, navigation, hero and section primitives belong in `foundations.css`. Reuse them before adding a domain variant. Page-specific rules belong with Home, Article, Thinking/Explore, Influences/Topics, Series/featured content, or Experience/Contact/Privacy. Breakpoint overrides remain centralized in `responsive.css` so responsive precedence stays inspectable.
 
 This document defines the visual language for the site. It is based on the current direction across Home, Thinking, Explore, Experience, Influences and individual notes.
 

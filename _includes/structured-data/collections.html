@@ -1,0 +1,92 @@
+{% if page.layout == "explore" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "{{ page_url }}#collection",
+  "url": "{{ page_url }}",
+  "name": {{ page.title | jsonify }},
+  "description": {{ page.meta_description | jsonify }},
+  "inLanguage": "en",
+  "about": [
+    {% for question in site.data.questions.questions %}
+    {
+      "@type": "Thing",
+      "name": {{ question.title | jsonify }},
+      "description": {{ question.description | jsonify }},
+      "url": "{{ site_url }}/explore/{{ question.slug }}/"
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "{{ website_id }}"
+  }
+}
+</script>
+{% endif %}
+
+{% if page.layout == "question" and page.question_slug %}
+{% assign structured_question = site.data.questions.questions | where: "slug", page.question_slug | first %}
+{% if structured_question %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "{{ page_url }}#collection",
+  "url": "{{ page_url }}",
+  "name": {{ structured_question.title | jsonify }},
+  "description": {{ structured_question.description | jsonify }},
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "{{ website_id }}"
+  },
+  "hasPart": [
+    {% assign structured_note_urls = structured_question.sections | map: "notes" %}
+    {% assign item_position = 0 %}
+    {% for group in structured_question.sections %}
+      {% for note_url in group.notes %}
+        {% assign structured_note = site.pages | where: "url", note_url | first %}
+        {% if structured_note %}
+          {% assign item_position = item_position | plus: 1 %}
+          {% if item_position > 1 %},{% endif %}{
+            "@type": "BlogPosting",
+            "position": {{ item_position }},
+            "name": {{ structured_note.title | jsonify }},
+            "url": "{{ structured_note.url | absolute_url | replace: site.url, canonical_site_url }}"
+          }
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ site_url }}/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Explore",
+      "item": "{{ site_url }}/explore/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ structured_question.title | jsonify }},
+      "item": "{{ page_url }}"
+    }
+  ]
+}
+</script>
+{% endif %}
+{% endif %}

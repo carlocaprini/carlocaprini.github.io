@@ -1,0 +1,296 @@
+.section-grid-balanced {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.8rem;
+}
+
+.home-help-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 3rem;
+  align-items: start;
+}
+
+.home-help-intro {
+  max-width: 31rem;
+}
+
+.home-help-intro .section-title {
+  margin-bottom: 1.55rem;
+}
+
+.home-help-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+.home-help-item {
+  --home-help-accent: var(--accent-cyan);
+  --home-help-accent-soft: var(--accent-cyan-soft);
+  --home-help-accent-border: var(--accent-cyan-border);
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  gap: 0.95rem;
+  padding: 1rem 0 1.05rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.13);
+}
+
+.home-help-item:first-child {
+  padding-top: 0;
+}
+
+.home-help-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.home-help-item:nth-child(2) {
+  --home-help-accent: var(--accent-indigo);
+  --home-help-accent-soft: var(--accent-indigo-soft);
+  --home-help-accent-border: var(--accent-indigo-border);
+}
+
+.home-help-item:nth-child(3) {
+  --home-help-accent: var(--accent-emerald);
+  --home-help-accent-soft: var(--accent-emerald-soft);
+  --home-help-accent-border: var(--accent-emerald-border);
+}
+
+.home-help-item-marker {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.2rem;
+  border-radius: 999px;
+  background: var(--home-help-accent);
+  box-shadow:
+    0 0 0 6px var(--home-help-accent-soft),
+    0 0 24px var(--home-help-accent-border);
+}
+
+.home-help-item-content {
+  padding: 1rem 1.05rem;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 1rem;
+  background:
+    radial-gradient(circle at top right, var(--home-help-accent-soft), transparent 36%),
+    rgba(15, 23, 42, 0.54);
+  transition: border-color 0.18s ease, transform 0.18s ease;
+}
+
+.home-help-item:hover .home-help-item-content {
+  border-color: var(--home-help-accent-border);
+  transform: translateY(-1px);
+}
+
+.home-help-item h3 {
+  margin: 0 0 0.45rem;
+  color: #f9fafb;
+  font-size: 0.98rem;
+  font-weight: 560;
+}
+
+.home-help-item p {
+  margin: 0;
+  color: #9ca3af;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.home-help-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  margin-top: 1.3rem;
+}
+
+.home-experience-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 2.8rem;
+  align-items: start;
+}
+
+.home-experience-grid .section-title {
+  margin-top: 0.6rem;
+  max-width: 28rem;
+}
+
+.home-experience-grid .section-description {
+  max-width: 34rem;
+  margin: 0;
+}
+
+.home-experience-grid .section-link,
+.home-section-intro .section-link {
+  margin-top: 1rem;
+}
+
+.home-entry-section {
+  padding-bottom: 0.8rem;
+}
+
+.home-section-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 2.8rem;
+  align-items: start;
+  margin-bottom: 2.5rem;
+}
+
+.home-section-intro .section-description {
+  max-width: 34rem;
+}
+
+.home-entry-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.home-entry-card {
+  position: relative;
+  min-height: 13.4rem;
+  overflow: hidden;
+  padding: 0;
+  border-color: rgba(45, 212, 191, 0.24);
+  background:
+    linear-gradient(145deg, rgba(20, 184, 166, 0.1), transparent 54%),
+    rgba(15, 23, 42, 0.76);
+}
+
+.home-entry-card:nth-child(2) {
+  border-color: rgba(129, 140, 248, 0.26);
+  background:
+    linear-gradient(145deg, rgba(129, 140, 248, 0.12), transparent 56%),
+    rgba(15, 23, 42, 0.78);
+}
+
+.home-entry-card:nth-child(3) {
+  border-color: rgba(52, 211, 153, 0.24);
+  background:
+    linear-gradient(145deg, rgba(52, 211, 153, 0.1), transparent 56%),
+    rgba(15, 23, 42, 0.76);
+}
+
+.home-entry-card-link {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 13.4rem;
+  flex-direction: column;
+  padding: 1.15rem 1.2rem 1.35rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-entry-marker {
+  display: inline-flex;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-bottom: 0.85rem;
+  border-radius: 999px;
+  background: #22d3ee;
+  box-shadow: 0 0 0 7px rgba(34, 211, 238, 0.1);
+}
+
+.home-entry-card:nth-child(2) .home-entry-marker {
+  background: #818cf8;
+  box-shadow: 0 0 0 7px rgba(129, 140, 248, 0.11);
+}
+
+.home-entry-card:nth-child(3) .home-entry-marker {
+  background: #34d399;
+  box-shadow: 0 0 0 7px rgba(52, 211, 153, 0.1);
+}
+
+.home-entry-index {
+  color: #67e8f9;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.9rem;
+}
+
+.home-entry-card:nth-child(2) .home-entry-index {
+  color: #a5b4fc;
+}
+
+.home-entry-card:nth-child(3) .home-entry-index {
+  color: #6ee7b7;
+}
+
+.home-entry-title {
+  color: #f9fafb;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.home-entry-body {
+  color: #9ca3af;
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.home-entry-line {
+  position: absolute;
+  top: 2.1rem;
+  left: 4.3rem;
+  right: 2rem;
+  height: 1px;
+  background: linear-gradient(to right, rgba(148, 163, 184, 0.18), transparent);
+}
+
+.home-entry-arrow {
+  position: absolute;
+  right: 1.1rem;
+  bottom: 1.1rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.home-entry-arrow span {
+  position: absolute;
+  inset: 0;
+}
+
+.home-entry-arrow span::before,
+.home-entry-arrow span::after {
+  content: "";
+  position: absolute;
+  background: #cbd5e1;
+}
+
+.home-entry-arrow span::before {
+  width: 9px;
+  height: 1px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.home-entry-arrow span::after {
+  width: 6px;
+  height: 6px;
+  border-top: 1px solid #cbd5e1;
+  border-right: 1px solid #cbd5e1;
+  background: transparent;
+  top: 50%;
+  left: 50%;
+  transform: translate(-20%, -50%) rotate(45deg);
+}
+
+.home-entry-card:hover {
+  border-color: rgba(226, 232, 240, 0.34);
+}
+
+.home-entry-card:hover .home-entry-arrow {
+  opacity: 1;
+  transform: translateY(0);
+}

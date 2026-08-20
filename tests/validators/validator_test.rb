@@ -95,6 +95,7 @@ class ValidatorTest < Minitest::Test
           <meta name="twitter:image" content="https://carlocaprini.github.io/assets/test.webp">
           <meta name="twitter:image:alt" content="Fixture image">
           <link rel="canonical" href="#{canonical}">
+          <link rel="stylesheet" href="/assets/css/main.css">
           <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage"}</script>
         </head>
         <body>
@@ -263,6 +264,13 @@ class ValidatorTest < Minitest::Test
     assert_invalid_output(/invalid JSON-LD/) do |directory|
       path = File.join(directory, "index.html")
       replace!(path, "{\"@context\":\"https://schema.org\",\"@type\":\"WebPage\"}", "{not-json}")
+    end
+  end
+
+  def test_generated_output_rejects_noncanonical_stylesheet_delivery
+    assert_invalid_output(/must load exactly one canonical site stylesheet/) do |directory|
+      path = File.join(directory, "index.html")
+      replace!(path, "</head>", "<link rel=\"stylesheet\" href=\"/assets/css/extra.css\">\n</head>")
     end
   end
 end

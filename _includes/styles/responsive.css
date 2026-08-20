@@ -1,0 +1,641 @@
+@media (max-width: 640px) {
+  .consent-panel {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.9rem;
+    padding: 1rem;
+  }
+
+  .consent-panel-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .consent-choice {
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .article-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .article-sidebar-stack {
+    position: static;
+    order: 2;
+  }
+
+  .article-page-nav,
+  .article-sidebar-stack .article-system-map {
+    display: none !important;
+  }
+
+  .article-system-map-mobile {
+    display: block;
+    margin-bottom: 1.35rem;
+    border: 1px solid var(--accent-indigo-border);
+    border-radius: var(--radius-card);
+    background:
+      radial-gradient(circle at top left, var(--accent-indigo-soft), transparent 66%),
+      var(--color-surface-soft);
+  }
+
+  .hero-grid,
+  .section-grid,
+  .section-grid-balanced,
+  .experience-section-header,
+  .series-visuals-header,
+  .explore-intro,
+  .explore-topic-header,
+  .question-section-header,
+  .contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-entry-grid,
+  .home-help-layout,
+  .home-section-intro,
+  .home-start-section .home-start-here,
+  .home-series-preview--wide,
+  .home-experience-grid,
+  .thinking-ai-process,
+  .thinking-entry-grid,
+  .series-overview {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .question-note-group,
+  .question-bridge-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .thinking-recent-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .article-list.thinking-recent-list > li,
+  .article-list.thinking-recent-list > li:nth-child(even) {
+    padding-right: 0.85rem;
+    padding-left: 0.85rem;
+    border-right: 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .article-list.thinking-recent-list > li:last-child {
+    border-bottom: 0;
+  }
+
+  .thinking-entry-grid,
+  .series-overview {
+    gap: 1.35rem;
+  }
+
+  .thinking-ai-process {
+    gap: 1.2rem;
+  }
+
+  .thinking-ai-process-title {
+    max-width: none;
+  }
+
+  .series-visuals-header {
+    gap: 0.85rem;
+  }
+
+  .home-section-intro {
+    gap: 1rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .hero-grid {
+    gap: 2.2rem;
+  }
+
+  .experience-section-header {
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+
+  .experience-evidence-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .experience-timeline::before {
+    top: 1.55rem;
+    bottom: 1.55rem;
+    left: 1.55rem;
+  }
+
+  .experience-timeline-item {
+    grid-template-columns: 3.1rem minmax(0, 1fr);
+    align-items: start;
+    margin-bottom: 1.15rem;
+  }
+
+  .experience-timeline-marker {
+    grid-column: 1;
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .experience-card,
+  .experience-timeline-item:nth-child(even) .experience-card {
+    grid-column: 2;
+  }
+
+  .experience-card::after,
+  .experience-timeline-item:nth-child(even) .experience-card::after {
+    top: 1.9rem;
+    right: auto;
+    left: -1.05rem;
+    width: 1.05rem;
+    background: linear-gradient(to left, rgba(148, 163, 184, 0.34), transparent);
+  }
+
+  .influences-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .influence-item:nth-child(even) {
+    margin-top: 0;
+  }
+
+  .selected-notes-panel {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .selected-notes-panel.container {
+    width: calc(100% - (2 * var(--page-gutter)));
+  }
+
+  .selected-notes-panel--compact {
+    padding-right: 1.75rem;
+    padding-left: 1.75rem;
+  }
+
+}
+
+@media (max-width: 900px) {
+  .home-entry-grid {
+    gap: 0.8rem;
+  }
+
+  .home-entry-card,
+  .home-entry-card-link {
+    min-height: 0;
+  }
+
+  .home-entry-card-link {
+    display: grid;
+    grid-template-columns: 1.5rem minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    column-gap: 1rem;
+    padding: 1rem 4.25rem 1.05rem 1.15rem;
+  }
+
+  .home-entry-marker {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    align-self: center;
+    margin: 0;
+  }
+
+  .home-entry-index,
+  .home-entry-title,
+  .home-entry-body {
+    grid-column: 2;
+  }
+
+  .home-entry-index {
+    grid-row: 1;
+    margin-bottom: 0.35rem;
+  }
+
+  .home-entry-title {
+    grid-row: 2;
+    margin-bottom: 0.35rem;
+  }
+
+  .home-entry-body {
+    grid-row: 3;
+    max-width: 38rem;
+    line-height: 1.55;
+  }
+
+  .home-entry-line {
+    display: none;
+  }
+
+  .home-entry-arrow {
+    top: 50%;
+    right: 1.15rem;
+    bottom: auto;
+    opacity: 0.72;
+    transform: translateY(-50%);
+  }
+
+  .home-entry-card:hover .home-entry-arrow {
+    transform: translateY(-50%);
+  }
+}
+
+@media (max-width: 900px) {
+  .nav {
+    gap: 1rem;
+  }
+
+  .nav-right {
+    display: none;
+  }
+
+  .mobile-nav {
+    position: relative;
+    display: block;
+    margin-left: auto;
+  }
+
+  .mobile-nav summary {
+    display: inline-flex;
+    min-width: 4.25rem;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--color-line-strong);
+    border-radius: 999px;
+    color: var(--color-text-secondary);
+    background: rgba(15, 23, 42, 0.9);
+    font-size: 0.82rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .mobile-nav summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-nav summary::after {
+    content: "";
+    width: 0.42rem;
+    height: 0.42rem;
+    margin-top: -0.2rem;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 0.16s ease;
+  }
+
+  .mobile-nav[open] summary {
+    color: var(--color-text);
+    border-color: var(--accent-cyan-border);
+  }
+
+  .mobile-nav[open] summary::after {
+    margin-top: 0.2rem;
+    transform: rotate(225deg);
+  }
+
+  .mobile-nav-panel {
+    position: absolute;
+    top: calc(100% + 0.65rem);
+    right: 0;
+    display: grid;
+    width: min(15rem, calc(100vw - (2 * var(--page-gutter))));
+    padding: 0.45rem;
+    border: 1px solid var(--color-line-strong);
+    border-radius: 1rem;
+    background: rgba(5, 7, 17, 0.98);
+    box-shadow: 0 24px 70px rgba(2, 6, 23, 0.62);
+  }
+
+  .mobile-nav-panel a {
+    display: flex;
+    min-height: 2.75rem;
+    align-items: center;
+    padding: 0.65rem 0.8rem;
+    border-radius: 0.7rem;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+
+  .mobile-nav-panel a:hover,
+  .mobile-nav-panel a.is-active {
+    color: var(--color-text);
+    background: rgba(30, 41, 59, 0.72);
+  }
+
+  .mobile-nav-panel a.is-active {
+    box-shadow: inset 2px 0 0 var(--accent-cyan);
+  }
+}
+
+@media (max-width: 640px) {
+  .series-visuals-grid {
+    display: flex;
+    gap: 0.9rem;
+    margin-right: calc(-1 * var(--page-gutter));
+    margin-left: calc(-1 * var(--page-gutter));
+    padding-right: var(--page-gutter);
+    padding-left: var(--page-gutter);
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-padding-inline: var(--page-gutter);
+    scroll-snap-type: inline mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line) transparent;
+  }
+
+  .series-visual-card {
+    flex: 0 0 min(82vw, 21rem);
+    scroll-snap-align: start;
+  }
+
+  .series-visual-card--wide {
+    grid-column: auto;
+  }
+
+  .series-visual-copy {
+    padding: 1rem;
+  }
+
+  :root {
+    --page-gutter: 1.125rem;
+  }
+
+  .page {
+    padding-top: 3.3rem;
+  }
+
+  .hero {
+    margin-bottom: 2.6rem;
+  }
+
+  .thinking-page .hero {
+    margin-bottom: 2rem;
+  }
+
+  .thinking-page .hero-actions {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 1.1rem;
+  }
+
+  .thinking-page .hero-actions .button-primary,
+  .thinking-page .hero-actions .button-ghost {
+    width: auto;
+    min-height: 2.4rem;
+    padding: 0.48rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .thinking-ai-process {
+    gap: 0.85rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .thinking-ai-process-copy p {
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  .thinking-ai-process-copy p + p {
+    margin-top: 0.8rem;
+  }
+
+  .thinking-ai-process-skip {
+    display: inline-flex;
+    min-height: 2.4rem;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    color: var(--accent-cyan);
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-cyan-border);
+  }
+
+  .thinking-entry-grid {
+    gap: 1rem;
+    margin-bottom: 2.1rem;
+  }
+
+  .thinking-page .thinking-start-here,
+  .thinking-page .thinking-series-preview {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 10vw, 2.25rem);
+    line-height: 1.12;
+    overflow-wrap: anywhere;
+  }
+
+  .hero-card {
+    padding: 1rem;
+    margin-right: 0;
+  }
+
+  .hero-metrics {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.45rem;
+    margin: 0.8rem 0 0;
+  }
+
+  .hero-metrics .metric,
+  .hero-metrics .metric:last-child:nth-child(odd) {
+    display: grid;
+    grid-column: auto;
+    grid-template-columns: minmax(5.5rem, 0.7fr) minmax(0, 1.3fr);
+    gap: 0.65rem;
+    align-items: center;
+    min-height: 0;
+    padding: 0.62rem 0.7rem;
+  }
+
+  .hero-metrics .metric-label {
+    margin-top: 0;
+  }
+
+  .hero-card-note {
+    display: none;
+  }
+
+  .experience-evidence-card {
+    padding: 1.25rem 1.15rem 1.2rem;
+  }
+
+  .experience-card {
+    padding: 1.15rem 1.05rem 1.1rem;
+  }
+
+  .selected-notes-panel {
+    width: calc(100% - (2 * var(--page-gutter)));
+    border-radius: 22px;
+    padding-right: 1.1rem;
+    padding-left: 1.1rem;
+  }
+
+  .selected-notes-panel--compact {
+    padding-right: 1.1rem;
+    padding-left: 1.1rem;
+  }
+
+  .selected-notes-panel::before,
+  .selected-notes-panel::after {
+    opacity: 0.38;
+  }
+
+  .thinking-series-preview {
+    padding: 1.75rem;
+  }
+
+  .home-series-preview {
+    padding: 1.75rem;
+  }
+
+  .home-series-preview--wide .home-series-action {
+    align-items: flex-start;
+  }
+
+  .thinking-entry-grid .selected-notes-panel {
+    width: 100%;
+  }
+
+  .home-start-section .selected-notes-panel {
+    width: 100%;
+  }
+
+  .series-page-episodes > li > a {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.75rem;
+  }
+
+  .series-page-episode-number {
+    grid-column: 1 / -1;
+    padding-top: 0;
+  }
+
+  .series-page-episode-content {
+    grid-column: 1;
+  }
+
+  .series-page-episode-action {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .series-service-item {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.55rem;
+  }
+
+  .article-series-navigation {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .article-series-navigation-link--next {
+    grid-column: 1;
+    text-align: left;
+  }
+
+  .article-series-entry {
+    margin: 1.5rem 0 1.75rem;
+    padding: 1rem;
+  }
+
+  .home-help-item {
+    grid-template-columns: 1.65rem minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+
+  .home-help-item-content {
+    padding: 0.95rem;
+  }
+
+  .topic-filter {
+    min-height: 2.75rem;
+  }
+
+  .content-topic-link {
+    min-height: 2rem;
+    padding: 0.28rem 0.55rem;
+  }
+
+  .article-list .content-topic-link {
+    padding: 0.28rem 0.55rem;
+  }
+
+  .article-body p,
+  .body-text,
+  .contact-cta {
+    font-size: 1rem;
+  }
+
+  .article-body ul,
+  .article-body ol {
+    padding-left: 1.25rem;
+  }
+
+  .experience-timeline::before {
+    top: 1.15rem;
+    bottom: 1.15rem;
+    left: 0.55rem;
+  }
+
+  .experience-timeline-item {
+    grid-template-columns: 1.1rem minmax(0, 1fr);
+    gap: 0.8rem;
+  }
+
+  .experience-timeline-marker {
+    grid-column: 1;
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-top: 1.35rem;
+    border: 0;
+    box-shadow: 0 0 0 5px rgba(15, 23, 42, 0.88);
+  }
+
+  .experience-timeline-dot {
+    width: 0.48rem;
+    height: 0.48rem;
+    box-shadow: 0 0 0 4px var(--experience-accent-soft);
+  }
+
+  .experience-card,
+  .experience-timeline-item:nth-child(even) .experience-card {
+    grid-column: 2;
+  }
+
+  .experience-card::after,
+  .experience-timeline-item:nth-child(even) .experience-card::after {
+    top: 1.9rem;
+    left: -0.8rem;
+    width: 0.8rem;
+  }
+}
+
+@media (max-width: 360px) {
+  :root {
+    --page-gutter: 1rem;
+  }
+
+  .tagline {
+    display: none;
+  }
+
+  .hero-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .button-primary,
+  .button-ghost {
+    width: 100%;
+  }
+}

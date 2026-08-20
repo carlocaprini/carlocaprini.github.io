@@ -69,3 +69,5 @@ Visual-regression fixtures detect unexpected pixels. Visual Reference is navigab
 5. run `bin/check visual`.
 
 Do not update screenshots merely to silence a failure.
+
+Generated-site validation also enforces one canonical local stylesheet link per page. This protects the build-time CSS composition from accidentally becoming multiple runtime requests or omitting `main.css`; visual checks protect rule order and rendered equivalence.
