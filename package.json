@@ -16,7 +16,9 @@
     "test:browser": "playwright test --project=desktop-chromium --project=mobile-chromium --project=ipad-portrait-chromium",
     "test:browser:webkit": "playwright test --project=webkit-desktop --project=webkit-mobile",
     "test:browser:visual": "playwright test --project=visual-chromium",
-    "test:browser:all": "playwright test"
+    "test:browser:all": "playwright test",
+    "visual-reference:generate": "node scripts/generate_visual_reference.mjs",
+    "visual-reference:check": "node scripts/generate_visual_reference.mjs --check"
   },
   "engines": {
     "node": ">=24"
