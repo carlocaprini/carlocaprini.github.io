@@ -95,6 +95,9 @@ jobs:
       - name: Test aggregate measurement collector
         run: npm run test:analytics
 
+      - name: Install Chromium for integration checks
+        run: npx playwright install --with-deps chromium
+
       - name: Test local aggregate measurement integration
         run: npm run test:analytics:integration
 
