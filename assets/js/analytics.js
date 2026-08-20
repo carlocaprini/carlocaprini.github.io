@@ -4,21 +4,9 @@
   var body = document.body;
   if (!body) return;
 
-  var eventNames = new Set([
-    "content_view",
-    "collection_open",
-    "note_open",
-    "question_open",
-    "series_open",
-    "series_episode_open",
-    "topic_select",
-    "reading_open",
-    "experience_open",
-    "contact_section_open",
-    "contact_open",
-    "series_visual_open",
-    "rss_open"
-  ]);
+  var contract = window.siteAnalyticsContract;
+  if (!contract) return;
+  var eventNames = new Set(contract.semanticEvents);
 
   function analyticsParameters(element) {
     var parameters = {};

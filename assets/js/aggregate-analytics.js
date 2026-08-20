@@ -4,32 +4,11 @@
   var body = document.body;
   if (!body) return;
 
-  var semanticEvents = new Set([
-    "collection_open",
-    "note_open",
-    "question_open",
-    "series_open",
-    "series_episode_open",
-    "topic_select",
-    "reading_open",
-    "experience_open",
-    "contact_section_open",
-    "contact_open",
-    "series_visual_open",
-    "rss_open"
-  ]);
-
-  var campaignSources = new Set(["linkedin", "medium", "newsletter", "manual", "qr"]);
-  var campaignMediums = new Set(["social", "comment", "profile", "referral", "email", "direct", "offline"]);
-  var editorialCampaigns = new Set([
-    "thinking",
-    "building_my_ai_operating_system",
-    "experience",
-    "explore"
-  ]);
-  var campaignNames = new Set(Array.from(editorialCampaigns).concat(["profile", "monthly_updates"]));
-  var fixedCampaignContent = new Set(["comment", "featured", "about", "article", "shared_link", "qr"]);
-  var publicationContentPattern = /^[a-z0-9]+(?:_[a-z0-9]+)*_(?:text_post|single_image|carousel)$/;
+  var contract = window.siteAnalyticsContract;
+  if (!contract) return;
+  var semanticEvents = new Set(contract.aggregateForwardedEvents);
+  var fixedCampaignContent = new Set(contract.campaign.fixedContent);
+  var publicationContentPattern = contract.publicationContentPattern;
 
   function localPreview() {
     var hostname = window.location.hostname;
@@ -132,7 +111,7 @@
     if (!target || !target.type || !target.id) return null;
 
     return {
-      version: 1,
+      version: contract.version,
       event_name: name,
       source_type: eventSource.type,
       source_id: eventSource.id,
@@ -145,7 +124,7 @@
   function buildPageView() {
     var eventSource = source({});
     return {
-      version: 1,
+      version: contract.version,
       event_name: "page_view",
       source_type: eventSource.type,
       source_id: eventSource.id,
@@ -158,7 +137,7 @@
   function buildConsentChoice(value) {
     if (value !== "granted" && value !== "denied") return null;
     return {
-      version: 1,
+      version: contract.version,
       event_name: "consent_choice",
       source_type: "site",
       source_id: "/",
@@ -166,35 +145,6 @@
       target_id: value,
       link_context: "consent_panel"
     };
-  }
-
-  function validCampaignCombination(source, medium, campaign, content) {
-    if (!campaignSources.has(source) || !campaignMediums.has(medium) || !campaignNames.has(campaign)) {
-      return false;
-    }
-
-    if (source === "linkedin" && medium === "social") {
-      return editorialCampaigns.has(campaign) && publicationContentPattern.test(content);
-    }
-    if (source === "linkedin" && medium === "comment") {
-      return editorialCampaigns.has(campaign) && content === "comment";
-    }
-    if (source === "linkedin" && medium === "profile") {
-      return campaign === "profile" && (content === "featured" || content === "about");
-    }
-    if (source === "medium" && medium === "referral") {
-      return editorialCampaigns.has(campaign) && content === "article";
-    }
-    if (source === "newsletter" && medium === "email") {
-      return campaign === "monthly_updates" && content === "article";
-    }
-    if (source === "manual" && medium === "direct") {
-      return editorialCampaigns.has(campaign) && content === "shared_link";
-    }
-    if (source === "qr" && medium === "offline") {
-      return editorialCampaigns.has(campaign) && content === "qr";
-    }
-    return false;
   }
 
   function buildCampaignLanding(search) {
@@ -209,11 +159,11 @@
     var contentValue = parameters.get("utm_content") || "";
 
     if (!fixedCampaignContent.has(contentValue) && !publicationContentPattern.test(contentValue)) return null;
-    if (!validCampaignCombination(sourceValue, mediumValue, campaignValue, contentValue)) return null;
+    if (!contract.validCampaignCombination(sourceValue, mediumValue, campaignValue, contentValue)) return null;
 
     var eventSource = source({});
     return {
-      version: 1,
+      version: contract.version,
       event_name: "campaign_landing",
       landing_type: eventSource.type,
       landing_id: eventSource.id,
