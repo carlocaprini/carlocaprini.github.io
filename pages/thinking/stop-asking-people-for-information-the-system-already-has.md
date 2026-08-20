@@ -16,15 +16,15 @@ intro:
 
 A ticket says one thing while the real status lives in another tool. Someone asks an engineer for a delivery date because the dashboard is stale. A decision has already been recorded, but people downstream still need a message before they can act on it.
 
-We tend to describe these situations as missing information. Often the information is there. It is simply not where the process expects to find it.
+We tend to describe these situations as missing information but often the information is there. It is simply not where the process expects to find it.
 
-Once people stop trusting the official view, a private checklist usually appears somewhere. Someone keeps a parallel document up to date. Meetings fill the remaining gaps. The shared process becomes a little less reliable each time.
+Once people stop trusting the official view, a private checklist usually appears somewhere: someone keeps a parallel document up to date or meetings are required to fill the remaining gaps. And the shared process becomes a little less reliable each time.
 
 A [newsletter by Luca Rossi](https://refactoring.fm/p/good-relationships-automation-and), drawing on a conversation with Antonia Scheidel, separates information that already exists somewhere from information that still lives only in people's heads. Rossi's practical advice was to connect what is already recorded and ask people only for what is still in their heads.
 
-I found that I needed one more category. Systems now produce their own reading of the information they collect.
+I found that I needed one more category because systems now produce their own reading of the information they collect.
 
-The due date may be a recorded fact. Calling the item urgent is something the system concluded.
+The due date may be a recorded fact. So calling the item urgent is something the system concluded.
 
 ## When the alert is wrong but the data is right
 
@@ -40,7 +40,7 @@ I considered adding a rule for rejected documents. It would have removed the ale
 
 Instead, I added a general dismiss action for anything Friday surfaces.
 
-Dismissing an alert does not touch the document or its review history in August. It records only that I no longer find Friday's interpretation useful.
+Dismissing an alert does not touch the document or its review history in August: it simply records that I no longer find Friday's interpretation useful.
 
 I wanted Friday to remember the dismissal without gaining permission to rewrite the service it had read from. Otherwise I would either lose the review history or find myself filtering the same noise again tomorrow.
 
@@ -48,8 +48,9 @@ The architectural pattern [Revert to Source](https://martinfowler.com/articles/p
 
 Connecting existing facts can remove a lot of copying. Judgment is still needed when a system ranks work or raises an alert.
 
-When Friday makes a suggestion, I want to see enough of its reasoning to challenge it. If the suggestion is wrong, I need to correct the suggestion or the rule that produced it. The source should change only when the source itself is wrong.
+When Friday makes a suggestion I want to see enough of its reasoning to challenge it. And if the suggestion is wrong I need to correct the suggestion or the rule that produced it. The source should change only when the source itself is wrong.
 
-Moving facts between tools is work I want to remove. Letting Friday's interpretation quietly become another fact would create a different problem.
+Moving facts between tools is work I want to remove. 
+Letting Friday's interpretation quietly become another fact would create a different problem.
 
 I now look at where each correction lands. Dismissing an item should make Friday quieter and leave August untouched. If the document changes too, Friday has crossed a boundary it was never meant to own.
