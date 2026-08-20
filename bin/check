@@ -33,7 +33,11 @@ check_source() {
 }
 
 check_generated() {
-  JEKYLL_ENV=production bundle exec jekyll build --strict_front_matter
+  if bundle exec jekyll --version >/dev/null 2>&1; then
+    JEKYLL_ENV=production bundle exec jekyll build --strict_front_matter
+  else
+    docker compose run --rm -e JEKYLL_ENV=production site bundle exec jekyll build --strict_front_matter
+  fi
   ruby scripts/validate_site.rb
 }
 

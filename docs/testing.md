@@ -7,7 +7,7 @@
 | Command | Purpose | Main prerequisites |
 | --- | --- | --- |
 | `bin/check source` | Ruby syntax, validator mutation fixtures and source contracts | Ruby |
-| `bin/check generated` | Production Jekyll build plus generated-site validation | Ruby, Bundler |
+| `bin/check generated` | Production Jekyll build plus generated-site validation | Ruby; local Bundler/Jekyll or Docker |
 | `bin/check analytics` | Generated contract freshness, browser/Worker contract and unit tests | Node dependencies |
 | `bin/check analytics-integration` | Browser → Worker → disposable D1 path | Node dependencies, Chromium |
 | `bin/check infrastructure` | Docker Compose configuration | Docker |
@@ -18,7 +18,7 @@
 | `bin/check visual` | Visual regression plus Visual Reference freshness | built `_site`, Chromium |
 | `bin/check all` | Closest practical local equivalent of the merge gate | all of the above |
 
-Run `npm ci` before Node/browser checks and install browsers with `npx playwright install chromium webkit`. Browser commands reuse an existing compatible server or start the repository static server for `_site`.
+`generated` uses the local Bundler/Jekyll environment when available and otherwise falls back to the project’s `site` container. Run `npm ci` before Node/browser checks and install browsers with `npx playwright install chromium webkit`. Browser commands reuse an existing compatible server or start the repository static server for `_site`.
 
 `bin/check all` cannot reproduce GitHub Pages permissions, deployment credentials or Actions artifact transfer. It does run the same repository-owned test commands as the focused CI jobs against one local build.
 
