@@ -35,8 +35,10 @@ exclude:
   - package-lock.json
   - playwright.config.js
   - README.md
+  - scripts
   - test-results
   - tests
+  - visual-reference
   - _analytics
   - _workspace
   - _site

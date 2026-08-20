@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "capture": {
+    "fullPage": true,
+    "format": "webp",
+    "animations": "disabled"
+  },
+  "viewports": {
+    "desktop": {
+      "width": 1440,
+      "height": 900
+    },
+    "tablet": {
+      "width": 834,
+      "height": 1112
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844
+    }
+  },
+  "surfaces": [
+    {
+      "id": "home",
+      "path": "/",
+      "description": "Main discovery-oriented landing page",
+      "viewports": ["desktop", "tablet", "mobile"]
+    },
+    {
+      "id": "thinking",
+      "path": "/thinking/",
+      "description": "Thinking discovery and note index",
+      "viewports": ["desktop", "mobile"]
+    },
+    {
+      "id": "explore",
+      "path": "/explore/",
+      "description": "Curated Questions and topic entry points",
+      "viewports": ["desktop", "mobile"]
+    },
+    {
+      "id": "experience",
+      "path": "/experience/",
+      "description": "Experience evidence and career context",
+      "viewports": ["desktop", "mobile"]
+    },
+    {
+      "id": "standard-article",
+      "path": "/thinking/waiting-as-product-decision/",
+      "description": "Representative standalone Thinking article",
+      "viewports": ["desktop", "tablet", "mobile"]
+    },
+    {
+      "id": "ai-series-article",
+      "path": "/thinking/friday-connects-the-services-without-owning-their-work/",
+      "description": "Representative AI-series article with contextual navigation",
+      "viewports": ["desktop", "tablet", "mobile"]
+    },
+    {
+      "id": "ai-series",
+      "path": "/series/building-my-ai-operating-system/",
+      "description": "Building My Own AI Operating System series landing",
+      "viewports": ["desktop", "mobile"]
+    }
+  ]
+}
