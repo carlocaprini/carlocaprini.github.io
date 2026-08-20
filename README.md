@@ -22,6 +22,26 @@ JEKYLL_CONFIG=_config.yml,_config.analytics-local.yml docker compose up site ana
 
 Then open `http://127.0.0.1:4000`. This explicit configuration sends only to the loopback Worker on port `8787` and stores counters in the local D1 simulation. Ordinary `docker compose up site` continues to disable all measurement. Reset the local counters with `docker compose run --rm analytics npm run analytics:local:reset`.
 
+## Browser and visual checks
+
+Build `_site` before running browser checks, then use the focused commands below. The Playwright server reuses an existing local server when one is available.
+
+```bash
+npm run test:browser
+npm run test:browser:webkit
+npm run test:browser:visual
+```
+
+`test:browser` is the broad sitemap-driven Chromium suite across desktop, mobile and portrait tablet. `test:browser:webkit` is a deliberately small desktop/mobile Safari-like smoke suite. `test:browser:visual` compares a curated set of design-system surfaces with lossless WebP baselines stored beside the visual spec. Run `npm run test:browser:all` to execute all three categories.
+
+Update visual baselines only after reviewing the rendered change:
+
+```bash
+npx playwright test --project=visual-chromium --update-snapshots
+```
+
+CI keeps one isolated retry, emits an HTML report and uploads traces, failure screenshots and visual diffs only when a browser category fails.
+
 ## Topics (Thinking notes & Influences)
 
 Notes and external references are tagged with a `topics` array in front matter, using **only** the four canonical slugs below. **Shared topics** drive automatic **related readings** on note pages (and related notes between notes). The **Influences** index does **not** infer a note from topics: each reference may set an optional `related_note:` to one internal URL. Use lowercase, hyphenated topic labels consistently.
