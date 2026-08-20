@@ -40,7 +40,7 @@ Update visual baselines only after reviewing the rendered change:
 npx playwright test --project=visual-chromium --update-snapshots
 ```
 
-CI keeps one isolated retry, emits an HTML report and uploads traces, failure screenshots and visual diffs only when a browser category fails.
+CI keeps one isolated retry, emits an HTML report and uploads traces, failure screenshots and visual diffs only when a browser category fails. The `Site checks` workflow builds and validates the site once, then shares that exact generated `_site` artifact with independent Chromium, WebKit and visual-regression jobs. Analytics and infrastructure checks also run independently; deployment waits for every blocking category to pass.
 
 ## Topics (Thinking notes & Influences)
 
