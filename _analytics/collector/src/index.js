@@ -1,70 +1,22 @@
-const CONTRACT_VERSION = 1;
+import {
+  CONTRACT_VERSION,
+  EVENT_NAMES,
+  PUBLICATION_CONTENT_PATTERN,
+  SOURCE_TYPES,
+  TARGET_TYPES,
+  validCampaignCombination
+} from "./analytics-contract.generated.js";
+
 const MAX_BODY_BYTES = 2048;
 const MEASURE_PATH = "/v1/measure";
 const DEFAULT_ORIGIN = "https://carlocaprini.github.io";
 const DEFAULT_RETENTION_MONTHS = 14;
-
-const EVENT_NAMES = new Set([
-  "page_view",
-  "content_view",
-  "collection_open",
-  "note_open",
-  "question_open",
-  "series_open",
-  "series_episode_open",
-  "topic_select",
-  "reading_open",
-  "experience_open",
-  "contact_section_open",
-  "contact_open",
-  "series_visual_open",
-  "rss_open",
-  "consent_choice",
-  "campaign_landing"
-]);
-
-const SOURCE_TYPES = new Set([
-  "home",
-  "thinking",
-  "explore",
-  "experience",
-  "influences",
-  "note",
-  "question",
-  "series",
-  "page",
-  "site"
-]);
-
-const TARGET_TYPES = new Set([
-  ...SOURCE_TYPES,
-  "collection",
-  "series_episode",
-  "topic",
-  "reading",
-  "contact",
-  "visual",
-  "rss",
-  "consent"
-]);
 
 const BOT_PATTERN = /(?:bot|crawler|spider|slurp|headlesschrome|lighthouse|pagespeed|facebookexternalhit|linkedinbot)/i;
 const IDENTIFIER_PATTERN = /^[a-zA-Z0-9_./:#-]+$/;
 const TYPE_PATTERN = /^[a-z][a-z0-9_]{0,31}$/;
 const CONTEXT_PATTERN = /^[a-z][a-z0-9_/-]{0,63}$/;
 const UTM_VALUE_PATTERN = /^[a-z0-9]+(?:_[a-z0-9]+)*$/;
-const PUBLICATION_CONTENT_PATTERN = /^[a-z0-9]+(?:_[a-z0-9]+)*_(?:text_post|single_image|carousel)$/;
-
-const CAMPAIGN_SOURCES = new Set(["linkedin", "medium", "newsletter", "manual", "qr"]);
-const CAMPAIGN_MEDIUMS = new Set(["social", "comment", "profile", "referral", "email", "direct", "offline"]);
-const EDITORIAL_CAMPAIGNS = new Set([
-  "thinking",
-  "building_my_ai_operating_system",
-  "experience",
-  "explore"
-]);
-const CAMPAIGN_NAMES = new Set([...EDITORIAL_CAMPAIGNS, "profile", "monthly_updates"]);
-const FIXED_CAMPAIGN_CONTENT = new Set(["comment", "featured", "about", "article", "shared_link", "qr"]);
 
 const UPSERT_SQL = `
   INSERT INTO daily_counts (
@@ -158,35 +110,6 @@ export function validatePayload(input) {
     target_id: input.target_id,
     link_context: input.link_context
   };
-}
-
-function validCampaignCombination(source, medium, campaign, content) {
-  if (!CAMPAIGN_SOURCES.has(source) || !CAMPAIGN_MEDIUMS.has(medium) || !CAMPAIGN_NAMES.has(campaign)) {
-    return false;
-  }
-
-  if (source === "linkedin" && medium === "social") {
-    return EDITORIAL_CAMPAIGNS.has(campaign) && PUBLICATION_CONTENT_PATTERN.test(content);
-  }
-  if (source === "linkedin" && medium === "comment") {
-    return EDITORIAL_CAMPAIGNS.has(campaign) && content === "comment";
-  }
-  if (source === "linkedin" && medium === "profile") {
-    return campaign === "profile" && (content === "featured" || content === "about");
-  }
-  if (source === "medium" && medium === "referral") {
-    return EDITORIAL_CAMPAIGNS.has(campaign) && content === "article";
-  }
-  if (source === "newsletter" && medium === "email") {
-    return campaign === "monthly_updates" && content === "article";
-  }
-  if (source === "manual" && medium === "direct") {
-    return EDITORIAL_CAMPAIGNS.has(campaign) && content === "shared_link";
-  }
-  if (source === "qr" && medium === "offline") {
-    return EDITORIAL_CAMPAIGNS.has(campaign) && content === "qr";
-  }
-  return false;
 }
 
 export function validateCampaignPayload(input) {

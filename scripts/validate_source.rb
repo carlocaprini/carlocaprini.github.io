@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require "date"
 require "set"
 require "uri"
-require "yaml"
+require "json"
+require_relative "lib/validation"
 
-SOURCE_DIR = File.expand_path("..", __dir__)
+SOURCE_DIR = ENV["SITE_SOURCE_DIR"] ? File.expand_path(ENV.fetch("SITE_SOURCE_DIR")) : File.expand_path("..", __dir__)
 
 @errors = []
 
@@ -15,33 +15,19 @@ def fail_check(message)
 end
 
 def relative_path(path)
-  path.delete_prefix("#{SOURCE_DIR}/")
+  SiteValidation.relative_path(path, SOURCE_DIR)
 end
 
 def read_yaml(path)
-  YAML.safe_load(File.read(path), permitted_classes: [Date, Time], aliases: true)
-rescue Psych::SyntaxError => e
-  fail_check("#{relative_path(path)}: invalid YAML: #{e.message.lines.first&.strip}")
-  nil
+  SiteValidation.read_yaml(path, errors: @errors, root: SOURCE_DIR)
 end
 
 def read_markdown(path)
-  source = File.read(path)
-  match = source.match(/\A---\s*\n(.*?)\n---\s*\n/m)
-  unless match
-    fail_check("#{relative_path(path)}: missing front matter")
-    return [{}, source]
-  end
-
-  data = YAML.safe_load(match[1], permitted_classes: [Date, Time], aliases: true) || {}
-  [data, source[match.end(0)..]]
-rescue Psych::SyntaxError => e
-  fail_check("#{relative_path(path)}: invalid front matter: #{e.message.lines.first&.strip}")
-  [{}, ""]
+  SiteValidation.read_front_matter(path, errors: @errors, root: SOURCE_DIR)
 end
 
 def present?(value)
-  !value.to_s.strip.empty?
+  SiteValidation.present?(value)
 end
 
 def parse_date(value, path, field)
@@ -423,38 +409,20 @@ unless unexpected_ecosystems.empty?
   fail_check(".github/dependabot.yml: undocumented ecosystems: #{unexpected_ecosystems.join(', ')}")
 end
 
-analytics_events = %w[
-  content_view
-  collection_open
-  note_open
-  question_open
-  series_open
-  series_episode_open
-  topic_select
-  reading_open
-  experience_open
-  contact_section_open
-  contact_open
-  series_visual_open
-  rss_open
-]
+analytics_contract_path = File.join(SOURCE_DIR, "contracts/analytics.json")
+analytics_contract = JSON.parse(File.read(analytics_contract_path))
+analytics_events = Array(analytics_contract.dig("events", "semantic"))
 analytics_sources = Dir.glob(File.join(SOURCE_DIR, "{_includes,_layouts}/**/*.html")).sort
 declared_analytics_events = analytics_sources.flat_map do |path|
   File.read(path).scan(/data-analytics-event=["']([^"']+)["']/).flatten
 end.uniq
-analytics_script = File.read(File.join(SOURCE_DIR, "assets/js/analytics.js"))
 consent_script = File.read(File.join(SOURCE_DIR, "assets/js/consent.js"))
 aggregate_script = File.read(File.join(SOURCE_DIR, "assets/js/aggregate-analytics.js"))
 collector_script = File.read(File.join(SOURCE_DIR, "_analytics/collector/src/index.js"))
 collector_migration = File.read(File.join(SOURCE_DIR, "_analytics/collector/migrations/0001_daily_counts.sql"))
 campaign_migration = File.read(File.join(SOURCE_DIR, "_analytics/collector/migrations/0002_daily_campaign_counts.sql"))
 head_include = File.read(File.join(SOURCE_DIR, "_includes/head.html"))
-runtime_event_block = analytics_script[/var eventNames = new Set\(\[(.*?)\]\);/m, 1].to_s
-runtime_analytics_events = runtime_event_block.scan(/["']([^"']+)["']/).flatten
-aggregate_event_block = aggregate_script[/var semanticEvents = new Set\(\[(.*?)\]\);/m, 1].to_s
-aggregate_runtime_events = aggregate_event_block.scan(/["']([^"']+)["']/).flatten
-collector_event_block = collector_script[/const EVENT_NAMES = new Set\(\[(.*?)\]\);/m, 1].to_s
-collector_events = collector_event_block.scan(/["']([^"']+)["']/).flatten
+default_layout = File.read(File.join(SOURCE_DIR, "_layouts/default.html"))
 
 if head_include.include?("googletagmanager.com")
   fail_check("_includes/head.html: Google Analytics must not load before consent")
@@ -489,18 +457,10 @@ unless unused_analytics_events.empty?
   fail_check("analytics: events are not attached to a source interaction: #{unused_analytics_events.join(', ')}")
 end
 
-unless runtime_analytics_events.sort == analytics_events.sort
-  fail_check("assets/js/analytics.js: runtime event allowlist must match the validated analytics contract")
-end
-
-expected_aggregate_events = analytics_events - ["content_view"]
-unless aggregate_runtime_events.sort == expected_aggregate_events.sort
-  fail_check("assets/js/aggregate-analytics.js: aggregate event allowlist must match the semantic event contract")
-end
-
-expected_collector_events = (analytics_events + %w[page_view consent_choice campaign_landing]).sort
-unless collector_events.sort == expected_collector_events
-  fail_check("_analytics collector: event allowlist must match semantic events plus aggregate-only events")
+contract_position = default_layout.index("analytics-contract.generated.js")
+runtime_positions = [default_layout.index("aggregate-analytics.js"), default_layout.index("analytics.js")]
+unless contract_position && runtime_positions.all? { |position| position && contract_position < position }
+  fail_check("_layouts/default.html: generated analytics contract must load before analytics runtimes")
 end
 
 unless %w[localhost 127.0.0.1 0.0.0.0 ::1].all? { |hostname| aggregate_script.include?(hostname) }

@@ -1,0 +1,74 @@
+{% comment %}
+Article context rail. Expects explicit Series, Question and related-content inputs from the article layout.
+{% endcomment %}
+<div class="article-sidebar-stack">
+  <aside class="article-page-nav" aria-label="On this page" id="article-page-nav" hidden>
+    <h3 class="article-related-title">On this page</h3>
+    <p class="article-page-nav-note">{{ include.page_title }}</p>
+    <ul class="article-page-nav-list" id="article-page-nav-list"></ul>
+  </aside>
+  {% if include.series and include.series.services %}
+  <aside class="article-system-map" aria-label="Services in this series">
+    <h3 class="article-related-title">
+      {% if include.series.url %}
+        <a href="{{ include.series.url | relative_url }}" data-analytics-event="series_open" data-analytics-series-id="{{ include.series_slug | escape }}" data-analytics-link-context="note_system_map">The system</a>
+      {% else %}
+        <span>The system</span>
+      {% endif %}
+    </h3>
+    <p class="article-system-map-note">A short map of the names used in this series.</p>
+    {% include article-system-map-list.html series=include.series current_service=include.current_service %}
+  </aside>
+  {% endif %}
+  {% if include.questions.size > 0 %}
+  <aside class="article-question-explore" aria-label="Part of a bigger question">
+    <h3 class="article-related-title">Part of a bigger question</h3>
+    <ul class="article-question-list">
+      {% for question in include.questions limit: 2 %}
+        <li>
+          <a href="{{ '/explore/' | append: question.slug | append: '/' | relative_url }}" data-analytics-event="question_open" data-analytics-question-id="{{ question.slug | escape }}" data-analytics-link-context="note_questions">{{ question.title }}</a>
+          <span>{{ question.sidebar_description }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </aside>
+  {% endif %}
+  {% if include.related_notes.size > 0 and include.show_related_notes != false %}
+  <aside class="article-related" aria-label="Related notes">
+    <h3 class="article-related-title">Related notes</h3>
+    <ul class="article-related-list">
+      {% for note in include.related_notes %}
+        <li>
+          <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.url | escape }}" data-analytics-link-context="note_related_notes">{{ note.title }}</a>
+          <span class="article-related-summary">{{ note.summary }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </aside>
+  {% endif %}
+  {% if include.related_reading.size > 0 %}
+  <aside class="article-related article-related--readings" aria-label="Related reading">
+    <h3 class="article-related-title">Related reading</h3>
+    <ul class="article-related-list">
+      {% for ref in include.related_reading %}
+        <li>
+          <a class="article-related-link article-related-link--external" href="{{ ref.external_url }}" target="_blank" rel="noopener noreferrer" title="Opens in a new tab" data-analytics-event="reading_open" data-analytics-reading-id="{{ ref.slug | escape }}" data-analytics-link-context="note_related_reading">
+            <span class="article-related-link-text">{{ ref.title | escape }}</span>
+            <span class="influence-external-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </span>
+            <span class="visually-hidden">(opens in new tab)</span>
+          </a>
+          {% if ref.author %}
+          <span class="article-related-author">{{ ref.author }}</span>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </aside>
+  {% endif %}
+</div>

@@ -11,14 +11,21 @@
     "analytics:local:migrate": "npm --workspace carlo-site-aggregate-analytics run local:migrate",
     "analytics:local:report": "npm --workspace carlo-site-aggregate-analytics run local:report",
     "analytics:local:reset": "npm --workspace carlo-site-aggregate-analytics run local:reset",
-    "test:analytics": "node --test _analytics/collector/tests/*.test.js",
+    "analytics:contract:generate": "node scripts/generate_analytics_contract.mjs",
+    "analytics:contract:check": "node scripts/generate_analytics_contract.mjs --check",
+    "test:analytics": "npm run analytics:contract:check && node --test tests/analytics-contract/*.test.js _analytics/collector/tests/*.test.js",
     "test:analytics:integration": "npm --workspace carlo-site-aggregate-analytics run test:integration",
-    "test:browser": "playwright test"
+    "test:browser": "playwright test --project=desktop-chromium --project=mobile-chromium --project=ipad-portrait-chromium",
+    "test:browser:webkit": "playwright test --project=webkit-desktop --project=webkit-mobile",
+    "test:browser:visual": "playwright test --project=visual-chromium",
+    "test:browser:all": "playwright test",
+    "visual-reference:generate": "node scripts/generate_visual_reference.mjs",
+    "visual-reference:check": "node scripts/generate_visual_reference.mjs --check"
   },
   "engines": {
     "node": ">=24"
   },
   "devDependencies": {
-    "@playwright/test": "1.61.1"
+    "@playwright/test": "1.62.1"
   }
 }
