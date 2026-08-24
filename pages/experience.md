@@ -3,8 +3,8 @@ layout: experience
 title: Experience
 permalink: /experience/
 meta_title: Product Leadership and Engineering Experience | Carlo Caprini
-meta_description: The experience behind Carlo Caprini's writing on product decisions, API platforms, AI adoption and engineering collaboration.
-last_modified_at: 2026-08-09
+meta_description: The product and engineering experience behind Carlo Caprini's work on product decisions, API platforms, AI adoption and software systems.
+last_modified_at: 2026-08-24
 hero:
   label: Experience
   title_prefix: "Experience behind "
@@ -63,6 +63,13 @@ evidence:
       related_note:
         title: The transition to Product Management starts before the title changes
         url: /thinking/the-transition-to-product-management-starts-before-the-title-changes/
+independent_work:
+  eyebrow: Independent work
+  title: A selected part of my professional practice.
+  body: Alongside my product roles, I occasionally work independently with software teams on focused Product–Engineering reviews and advisory engagements.
+  action:
+    label: See how I work
+    url: /work/
 career_context:
   eyebrow: Career context
   title: A path across engineering and product.

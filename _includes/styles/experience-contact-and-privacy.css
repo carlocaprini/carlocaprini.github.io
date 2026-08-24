@@ -172,6 +172,33 @@
   margin-bottom: 4.2rem;
 }
 
+.experience-independent-section {
+  margin-bottom: 4.2rem;
+}
+
+.experience-independent-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 2rem;
+  align-items: start;
+  padding: 1.4rem;
+  border: 1px solid var(--accent-indigo-border);
+  border-radius: 1.1rem;
+  background: radial-gradient(circle at top right, var(--accent-indigo-soft), transparent 48%), rgba(15, 23, 42, 0.68);
+}
+
+.experience-independent-panel .section-title {
+  margin-top: 0.55rem;
+}
+
+.experience-independent-panel .section-description {
+  margin: 0;
+}
+
+.experience-independent-panel .section-link {
+  margin-top: 0.9rem;
+}
+
 .experience-timeline {
   --timeline-line: rgba(148, 163, 184, 0.24);
   --timeline-glow: rgba(34, 211, 238, 0.24);

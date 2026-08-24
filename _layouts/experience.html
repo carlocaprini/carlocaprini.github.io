@@ -57,6 +57,19 @@ layout: default
     </div>
   </section>
 
+  <section class="section experience-independent-section">
+    <div class="container experience-independent-panel">
+      <div>
+        <div class="section-eyebrow">{{ page.independent_work.eyebrow }}</div>
+        <h2 class="section-title">{{ page.independent_work.title }}</h2>
+      </div>
+      <div>
+        <p class="section-description">{{ page.independent_work.body }}</p>
+        <a class="section-link" href="{{ page.independent_work.action.url | relative_url }}" data-analytics-event="collection_open" data-analytics-collection="work" data-analytics-link-context="experience_independent_work">{{ page.independent_work.action.label }} <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
   <section class="section experience-career-section">
     <div class="container">
       <div class="experience-section-header">

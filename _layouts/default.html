@@ -6,6 +6,7 @@
     {% assign current_url = page.url | default: "" %}
     {% assign is_home = false %}
     {% assign is_experience = false %}
+    {% assign is_work = false %}
     {% assign is_thinking = false %}
     {% assign is_explore = false %}
     {% assign is_influences = false %}
@@ -14,6 +15,9 @@
     {% endif %}
     {% if current_url == "/experience/" %}
       {% assign is_experience = true %}
+    {% endif %}
+    {% if current_url == "/work/" %}
+      {% assign is_work = true %}
     {% endif %}
     {% if current_url == "/thinking/" or page.layout == "article" or page.layout == "series" %}
       {% assign is_thinking = true %}
@@ -29,6 +33,7 @@
     {% if current_url == "/thinking/" %}{% assign analytics_page_type = "thinking" %}{% endif %}
     {% if current_url == "/explore/" %}{% assign analytics_page_type = "explore" %}{% endif %}
     {% if current_url == "/experience/" %}{% assign analytics_page_type = "experience" %}{% endif %}
+    {% if current_url == "/work/" %}{% assign analytics_page_type = "work" %}{% endif %}
     {% if current_url == "/influences/" %}{% assign analytics_page_type = "influences" %}{% endif %}
     {% if page.layout == "article" %}{% assign analytics_page_type = "note" %}{% endif %}
     {% assign analytics_page_id = page.slug | default: page.question_slug | default: page.series_slug | default: current_url %}
@@ -58,6 +63,7 @@
             <a href="{{ '/' | relative_url }}" {% if is_home %}class="is-active" aria-current="page"{% endif %}>Home</a>
             <a href="{{ '/thinking/' | relative_url }}" {% if is_thinking %}class="is-active" aria-current="page"{% endif %}>Thinking</a>
             <a href="{{ '/explore/' | relative_url }}" {% if is_explore %}class="is-active" aria-current="page"{% endif %}>Explore</a>
+            <a href="{{ '/work/' | relative_url }}" {% if is_work %}class="is-active" aria-current="page"{% endif %} data-analytics-event="collection_open" data-analytics-collection="work" data-analytics-link-context="primary_navigation">Work</a>
             <a href="{{ '/experience/' | relative_url }}" {% if is_experience %}class="is-active" aria-current="page"{% endif %}>Experience</a>
             <a href="{{ '/influences/' | relative_url }}" {% if is_influences %}class="is-active" aria-current="page"{% endif %}>Influences</a>
             <a href="{{ '/' | relative_url }}#contact" data-analytics-event="contact_section_open" data-analytics-link-context="primary_navigation">Contact</a>
@@ -68,6 +74,7 @@
               <a href="{{ '/' | relative_url }}" {% if is_home %}class="is-active" aria-current="page"{% endif %}>Home</a>
               <a href="{{ '/thinking/' | relative_url }}" {% if is_thinking %}class="is-active" aria-current="page"{% endif %}>Thinking</a>
               <a href="{{ '/explore/' | relative_url }}" {% if is_explore %}class="is-active" aria-current="page"{% endif %}>Explore</a>
+              <a href="{{ '/work/' | relative_url }}" {% if is_work %}class="is-active" aria-current="page"{% endif %} data-analytics-event="collection_open" data-analytics-collection="work" data-analytics-link-context="mobile_navigation">Work</a>
               <a href="{{ '/experience/' | relative_url }}" {% if is_experience %}class="is-active" aria-current="page"{% endif %}>Experience</a>
               <a href="{{ '/influences/' | relative_url }}" {% if is_influences %}class="is-active" aria-current="page"{% endif %}>Influences</a>
               <a href="{{ '/' | relative_url }}#contact" data-analytics-event="contact_section_open" data-analytics-link-context="mobile_navigation">Contact</a>
