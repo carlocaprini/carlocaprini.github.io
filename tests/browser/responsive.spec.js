@@ -39,3 +39,15 @@ test("Home uses compact discovery cards below desktop width", async ({ page }, t
     await expect(page.locator(".hero-card-note")).toBeHidden();
   }
 });
+
+test("Work keeps its recognition and evidence layers readable across breakpoints", async ({ page }, testInfo) => {
+  await page.goto("/work/");
+
+  const columns = await page.locator(".work-situation-list").evaluate(
+    (element) => getComputedStyle(element).gridTemplateColumns.split(" ").length
+  );
+
+  expect(columns).toBe(testInfo.project.name === "desktop-chromium" ? 2 : 1);
+  await expect(page.locator(".work-finding")).toBeVisible();
+  await expect(page.locator(".work-contact-panel .button-primary")).toBeVisible();
+});
