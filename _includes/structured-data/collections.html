@@ -26,6 +26,28 @@
 </script>
 {% endif %}
 
+{% if page.layout == "work" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "{{ page_url }}#work",
+  "url": "{{ page_url }}",
+  "name": {{ page.meta_title | default: page.title | jsonify }},
+  "description": {{ page.meta_description | jsonify }},
+  "inLanguage": "en",
+  "author": {
+    "@type": "Person",
+    "@id": "{{ person_id }}"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "{{ website_id }}"
+  }
+}
+</script>
+{% endif %}
+
 {% if page.layout == "question" and page.question_slug %}
 {% assign structured_question = site.data.questions.questions | where: "slug", page.question_slug | first %}
 {% if structured_question %}

@@ -236,6 +236,9 @@ test("Contact section intent is distinct from opening a channel", async ({ page 
   await captureAnalytics(page);
   await page.goto("/");
 
+  const mobileMenu = page.locator("details.mobile-nav");
+  if (await mobileMenu.isVisible()) await mobileMenu.locator("summary").click();
+
   const sectionLink = page.locator('[data-analytics-event="contact_section_open"]:visible').first();
   await sectionLink.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
   await sectionLink.click();

@@ -176,7 +176,7 @@ layout: default
         });
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.35 });
+    }, { threshold: 0.1 });
 
     sections.forEach(function (section) { observer.observe(section); });
   });
