@@ -1,16 +1,16 @@
 # Site Design System
 
 Date: 2026-07-14
-Last updated: 2026-08-21
+Last updated: 2026-08-24
 Status: Reference for future site changes
 
 ## Implementation ownership
 
 The visual rules below are implemented in `_includes/styles/`, grouped by stable UI domain. `assets/css/main.css` only composes those files into the one production stylesheet; do not add independent rules to the entry point or edit generated `_site/assets/css/main.css`.
 
-Shared tokens, navigation, hero and section primitives belong in `foundations.css`. Reuse them before adding a domain variant. Page-specific rules belong with Home, Article, Thinking/Explore, Influences/Topics, Series/featured content, or Experience/Contact/Privacy. Breakpoint overrides remain centralized in `responsive.css` so responsive precedence stays inspectable.
+Shared tokens, navigation, hero and section primitives belong in `foundations.css`. Reuse them before adding a domain variant. Page-specific rules belong with Home, Work, Article, Thinking/Explore, Influences/Topics, Series/featured content, or Experience/Contact/Privacy. Breakpoint overrides remain centralized in `responsive.css` so responsive precedence stays inspectable.
 
-This document defines the visual language for the site. It is based on the current direction across Home, Thinking, Explore, Experience, Influences and individual notes.
+This document defines the visual language for the site. It is based on the current direction across Home, Thinking, Explore, Work, Experience, Influences and individual notes.
 
 ## Design Intent
 
@@ -254,7 +254,7 @@ Do not reuse timeline styling for non-chronological content.
 - sticky dark translucent header
 - compact brand pill
 - nav links with underline on hover/active
-- order: Home, Thinking, Explore, Experience, Influences, Contact
+- order: Home, Thinking, Explore, Work, Experience, Influences, Contact
 - switch to a compact, clearly labelled menu on smaller screens while preserving every top-level destination in the expanded panel
 - keep the mobile menu operable without JavaScript and close it after a destination is selected when JavaScript is available
 - use a visible keyboard focus state across navigation and other interactive controls
@@ -304,9 +304,9 @@ Rules:
 - Entire card should be clickable.
 - Hover can reveal an arrow, but the card should work without relying on hover.
 
-### Support Split
+### Selected Work Split
 
-Use for `Where I can help` and future advisory/service descriptions.
+Use on Home to make a small number of recognizable external-work problems legible without turning the section into a service catalogue.
 
 This pattern is intentionally different from `Entry Cards`. It should feel more consultative and operational, while `Entry Cards` should feel more navigational and conceptual.
 
@@ -364,9 +364,34 @@ Keep:
 
 Do not use the larger filter control inside cards, article metadata or sidebars.
 
+### Work
+
+Work is a first-class professional destination, but it must feel like another dimension of the same body of work rather than a separate consultancy site.
+
+Keep:
+
+- the standard hero, section rhythm, typography and cool accent system
+- recognizable problem situations before methodology
+- exactly two public engagement models: Review and Advisory
+- calm grouped surfaces for the engagement models, with outcomes more prominent than activity lists
+- one clearly labelled illustrative finding that cannot be mistaken for client evidence
+- explicit technical evidence balanced with product and organisational context
+- a low-pressure contact panel using the standard primary button
+- ruled lists with internal dividers only and no duplicate closing boundary
+
+Avoid:
+
+- warm featured-series styling, conversion banners or oversized CTAs
+- logos, testimonials, metrics, pricing and generic consultancy claims
+- scorecards, maturity ratings or visual language that grades a team
+- separate cards for every possible capability
+- turning Work into a new brand or making it visually louder than Thinking
+
+On smaller screens, collapse two-column recognition, evidence and finding structures to one column. Preserve the reading order: relevance, Review, example, Advisory, principles, next step and contact.
+
 ### Explore
 
-Explore is the guided discovery layer connecting Thinking, Experience and Influences. It belongs in the global navigation because it provides a different job from the source collections: Questions offer curated editorial paths, while Topics remain the stable classification layer.
+Explore is the guided discovery layer connecting Thinking, Experience, selected work where concrete evidence exists, and Influences. It belongs in the global navigation because it provides a different job from the source collections: Questions offer curated editorial paths, while Topics remain the stable classification layer.
 
 Keep:
 

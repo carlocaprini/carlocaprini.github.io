@@ -8,7 +8,7 @@ GitHub Actions builds the production site once. Source and generated validators 
 
 The production page loads a single site stylesheet and small unbundled browser scripts. Canonical CSS rules live in the stable domain files under `_includes/styles/`; `assets/css/main.css` is a small Jekyll composition entry point. `_includes` prevents source modules from leaking as separately served assets. There is no client application framework, CSS runtime import or new asset bundler.
 
-Large Liquid responsibilities are extracted only when they form a stable semantic unit. The Article context rail has an explicit include interface. Structured data keeps one entry point from the document head and delegates to schema-oriented partials under `_includes/structured-data/`. Home, Thinking and Explore remain readable layouts because their single-use sections are already locally grouped; splitting every section would add indirection without independent ownership.
+Large Liquid responsibilities are extracted only when they form a stable semantic unit. The Article context rail has an explicit include interface. Structured data keeps one entry point from the document head and delegates to schema-oriented partials under `_includes/structured-data/`. Home, Thinking, Explore and Work remain readable layouts because their single-use sections are already locally grouped; splitting every section would add indirection without independent ownership.
 
 ## Analytics boundary
 
