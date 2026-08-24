@@ -7,7 +7,8 @@ const surfaces = [
   { name: "explore", route: "/explore/", viewport: { width: 1440, height: 900 } },
   { name: "thinking-article", route: "/thinking/waiting-as-product-decision/", viewport: { width: 1440, height: 900 } },
   { name: "series-article", route: "/thinking/friday-connects-the-services-without-owning-their-work/", viewport: { width: 1440, height: 900 } },
-  { name: "experience", route: "/experience/", viewport: { width: 1440, height: 900 } }
+  { name: "experience", route: "/experience/", viewport: { width: 1440, height: 900 } },
+  { name: "work", route: "/work/", viewport: { width: 1440, height: 900 } }
 ];
 
 test.beforeEach(async ({ page }) => {

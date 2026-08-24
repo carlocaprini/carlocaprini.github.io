@@ -45,6 +45,12 @@
       "viewports": ["desktop", "mobile"]
     },
     {
+      "id": "work",
+      "path": "/work/",
+      "description": "Selected Product and Engineering work proposition",
+      "viewports": ["desktop", "tablet", "mobile"]
+    },
+    {
       "id": "standard-article",
       "path": "/thinking/waiting-as-product-decision/",
       "description": "Representative standalone Thinking article",

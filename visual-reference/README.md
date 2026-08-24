@@ -40,6 +40,12 @@ Routes, descriptions and viewport membership live only in [`manifest.json`](mani
 - [Desktop](experience/desktop.webp)
 - [Mobile](experience/mobile.webp)
 
+### Work — Product and Engineering proposition
+
+- [Desktop](work/desktop.webp)
+- [Portrait tablet](work/tablet.webp)
+- [Mobile](work/mobile.webp)
+
 ### Standard article — representative standalone Thinking note
 
 - [Desktop](standard-article/desktop.webp)
