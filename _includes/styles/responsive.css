@@ -72,8 +72,7 @@
   }
 
   .work-situation-list,
-  .work-principle-list,
-  .work-finding dl {
+  .work-principle-list {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -98,11 +97,11 @@
   .work-principle-list > li:nth-child(even) {
     padding: 1.2rem 0;
     border-right: 0;
+    border-bottom: 1px solid var(--color-line);
   }
 
-  .work-finding dl > div,
-  .work-finding dl > div:nth-child(even) {
-    padding: 1rem 0;
+  .work-principle-list > li:last-child {
+    border-bottom: 0;
   }
 
   .work-contact-panel .button-primary {
@@ -378,6 +377,52 @@
 }
 
 @media (max-width: 640px) {
+  .work-section-intro {
+    gap: 1rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .work-credibility,
+  .work-boundary-note {
+    padding: 0.95rem 1rem;
+  }
+
+  .work-situation-list > li,
+  .work-situation-list > li:nth-child(odd),
+  .work-situation-list > li:nth-child(even) {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: 0.7rem;
+  }
+
+  .work-engagement {
+    padding: 1.25rem 1.1rem;
+  }
+
+  .work-engagement-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .work-engagement-details {
+    gap: 1.35rem;
+    margin-top: 1.5rem;
+    padding-top: 1.35rem;
+  }
+
+  .work-outcome {
+    padding: 1rem;
+  }
+
+  .work-contact-panel {
+    gap: 1.25rem;
+    padding: 1.25rem 1.1rem;
+  }
+
+  .work-contact-panel .button-primary {
+    width: 100%;
+    justify-content: center;
+    white-space: normal;
+  }
+
   .series-visuals-grid {
     display: flex;
     gap: 0.9rem;

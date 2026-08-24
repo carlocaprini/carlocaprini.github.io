@@ -48,6 +48,20 @@ test("Work keeps its recognition and evidence layers readable across breakpoints
   );
 
   expect(columns).toBe(testInfo.project.name === "desktop-chromium" ? 2 : 1);
-  await expect(page.locator(".work-finding")).toBeVisible();
+  await expect(page.locator(".work-outcome")).toBeVisible();
   await expect(page.locator(".work-contact-panel .button-primary")).toBeVisible();
+
+  if (testInfo.project.name !== "desktop-chromium") {
+    const viewportWidth = page.viewportSize().width;
+    const surfaces = page.locator(".work-engagement, .work-boundary-note, .work-contact-panel");
+    const boxes = await surfaces.evaluateAll((elements) => elements.map((element) => {
+      const box = element.getBoundingClientRect();
+      return { left: box.left, right: box.right };
+    }));
+
+    for (const box of boxes) {
+      expect(box.left).toBeGreaterThanOrEqual(16);
+      expect(box.right).toBeLessThanOrEqual(viewportWidth - 16);
+    }
+  }
 });
