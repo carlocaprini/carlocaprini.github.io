@@ -86,7 +86,18 @@ test("Aggregate measurement maps semantic events without personal fields", async
     pageView: window.siteAggregateAnalytics.buildPageView(),
     campaign: window.siteAggregateAnalytics.buildCampaignLanding(),
     missingCampaign: window.siteAggregateAnalytics.buildCampaignLanding("?utm_source=linkedin&utm_medium=social"),
-    invalidCampaign: window.siteAggregateAnalytics.buildCampaignLanding("?utm_source=linkedin&utm_medium=organic_social&utm_campaign=building_my_ai_operating_system&utm_content=episode_05_single_image")
+    invalidCampaign: window.siteAggregateAnalytics.buildCampaignLanding("?utm_source=linkedin&utm_medium=organic_social&utm_campaign=building_my_ai_operating_system&utm_content=episode_05_single_image"),
+    work: window.siteAggregateAnalytics.buildEvent("work_open", {
+      page_type: "home",
+      page_id: "/",
+      link_context: "home_selected_work"
+    }),
+    workSection: window.siteAggregateAnalytics.buildEvent("work_section_view", {
+      page_type: "work",
+      page_id: "/work/",
+      work_section: "review",
+      link_context: "work_page"
+    })
   }));
 
   expect(mapped.note).toEqual({
@@ -126,6 +137,24 @@ test("Aggregate measurement maps semantic events without personal fields", async
   });
   expect(mapped.missingCampaign).toBeNull();
   expect(mapped.invalidCampaign).toBeNull();
+  expect(mapped.work).toEqual({
+    version: 1,
+    event_name: "work_open",
+    source_type: "home",
+    source_id: "/",
+    target_type: "work",
+    target_id: "work",
+    link_context: "home_selected_work"
+  });
+  expect(mapped.workSection).toEqual({
+    version: 1,
+    event_name: "work_section_view",
+    source_type: "work",
+    source_id: "/work/",
+    target_type: "work_section",
+    target_id: "review",
+    link_context: "work_page"
+  });
 });
 
 test("Note views expose the editorial analytics context", async ({ page }) => {
@@ -230,4 +259,29 @@ test("Contact section intent is distinct from opening a channel", async ({ page 
       page_type: "home"
     }
   });
+});
+
+test("Work discovery and meaningful section views expose their context", async ({ page }) => {
+  await captureAnalytics(page);
+  await page.goto("/");
+
+  const workLink = page.locator('[data-analytics-event="work_open"][data-analytics-link-context="home_selected_work"]');
+  await workLink.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+  await workLink.click();
+
+  expect(await page.evaluate(() => window.__analyticsEvents.at(-1))).toMatchObject({
+    name: "work_open",
+    parameters: {
+      link_context: "home_selected_work",
+      page_type: "home"
+    }
+  });
+
+  await page.goto("/work/");
+  await page.locator('[data-work-section="review"]').scrollIntoViewIfNeeded();
+  await expect.poll(async () => page.evaluate(() =>
+    window.__analyticsEvents.some((event) =>
+      event.name === "work_section_view" && event.parameters.work_section === "review"
+    )
+  )).toBe(true);
 });
