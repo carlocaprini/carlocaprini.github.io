@@ -373,8 +373,7 @@ Keep:
 - the standard hero, section rhythm, typography and cool accent system
 - recognizable problem situations before methodology
 - exactly two public engagement models: Review and Advisory
-- calm grouped surfaces for the engagement models, with outcomes more prominent than activity lists
-- one clearly labelled illustrative finding that cannot be mistaken for client evidence
+- calm grouped surfaces for the engagement models, with the Review output more prominent than activity lists
 - explicit technical evidence balanced with product and organisational context
 - a low-pressure contact panel using the standard primary button
 - ruled lists with internal dividers only and no duplicate closing boundary
@@ -387,7 +386,7 @@ Avoid:
 - separate cards for every possible capability
 - turning Work into a new brand or making it visually louder than Thinking
 
-On smaller screens, collapse two-column recognition, evidence and finding structures to one column. Preserve the reading order: relevance, Review, example, Advisory, principles, next step and contact.
+On smaller screens, collapse two-column recognition and evidence structures to one column. Reduce panel padding without removing the standard page gutter, and preserve the reading order: relevance, Review, Advisory, principles, next step and contact.
 
 ### Explore
 

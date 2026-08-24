@@ -69,18 +69,6 @@ layout: default
             </ul>
           </section>
         </div>
-        <section class="work-finding" aria-labelledby="work-finding-title">
-          <div class="section-eyebrow">{{ page.review.example.label }}</div>
-          <h3 id="work-finding-title">{{ page.review.example.title }}</h3>
-          <dl>
-            {% for part in page.review.example.parts %}
-              <div>
-                <dt>{{ part.label }}</dt>
-                <dd>{{ part.body }}</dd>
-              </div>
-            {% endfor %}
-          </dl>
-        </section>
       </article>
     </div>
   </section>
@@ -106,10 +94,6 @@ layout: default
               {% for item in page.advisory.situations %}<li>{{ item }}</li>{% endfor %}
             </ul>
           </section>
-        </div>
-        <div class="work-advisory-outcome">
-          <div class="section-eyebrow">{{ page.advisory.outcome_title }}</div>
-          <p>{{ page.advisory.outcome }}</p>
         </div>
       </article>
     </div>
@@ -149,15 +133,17 @@ layout: default
   </section>
 
   <section class="section work-contact-section">
-    <div class="container work-contact-panel">
-      <div>
-        <div class="section-eyebrow">{{ page.contact.eyebrow }}</div>
-        <h2 class="section-title">{{ page.contact.title }}</h2>
-        <p class="work-contact-intro">{{ page.contact.intro }}</p>
-        <p>{{ page.contact.body }}</p>
-        <p class="work-contact-location">{{ page.contact.location }}</p>
+    <div class="container">
+      <div class="work-contact-panel">
+        <div>
+          <div class="section-eyebrow">{{ page.contact.eyebrow }}</div>
+          <h2 class="section-title">{{ page.contact.title }}</h2>
+          <p class="work-contact-intro">{{ page.contact.intro }}</p>
+          <p>{{ page.contact.body }}</p>
+          <p class="work-contact-location">{{ page.contact.location }}</p>
+        </div>
+        <a class="button-primary" href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_open" data-analytics-contact-method="linkedin" data-analytics-link-context="work_contact">{{ page.contact.action }} <span aria-hidden="true">→</span><span class="visually-hidden"> (opens in new tab)</span></a>
       </div>
-      <a class="button-primary" href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_open" data-analytics-contact-method="linkedin" data-analytics-link-context="work_contact">{{ page.contact.action }} <span aria-hidden="true">→</span><span class="visually-hidden"> (opens in new tab)</span></a>
     </div>
   </section>
 </div>

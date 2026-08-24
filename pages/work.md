@@ -44,7 +44,7 @@ review:
     - Testing and quality practices
     - CI/CD and release practices
     - Development workflows
-    - Product–Engineering interfaces
+    - Product and Engineering interfaces
     - Platform and API evolution
     - AI-assisted development where relevant
   evidence: Depending on the problem, I may work directly from repositories, tests, CI/CD configuration, technical documentation and architecture decisions rather than relying only on interviews or presentations.
@@ -58,18 +58,6 @@ review:
     - Risks and opportunities
     - Recommended actions
     - Final walkthrough
-  example:
-    label: Illustrative example
-    title: Release confidence is weaker than the CI status suggests
-    parts:
-      - label: Observation
-        body: Pull requests are required to pass CI before merge, but the pipeline mainly verifies build correctness. Critical user flows have little automated regression coverage, so a green pipeline provides less confidence than the team assumes.
-      - label: Why it matters
-        body: Small changes can still create customer-facing regressions even when every required check passes. The process therefore communicates more safety than it actually provides.
-      - label: What I would address first
-        body: Add targeted automated coverage around the highest-risk user flows and make the distinction between build correctness and release confidence explicit.
-      - label: What I would not do
-        body: Introduce a repository-wide coverage target or attempt to expand the entire test suite at once.
 advisory:
   eyebrow: Product & Engineering Advisory
   title: Work through the changes together.
@@ -79,7 +67,7 @@ advisory:
     - Product and technical direction
     - Platform and API evolution
     - Software delivery and engineering practices
-    - Product–Engineering collaboration
+    - Product and Engineering collaboration
     - AI adoption and AI-assisted development
     - Follow-through on findings from a Review
   situations_title: This can mean
@@ -89,8 +77,6 @@ advisory:
     - Helping prioritize Review findings into incremental changes
     - Revisiting a release or testing strategy before investing in a broad rewrite
     - Evaluating whether an AI-assisted workflow should be automated, constrained or left alone
-  outcome_title: Outcome
-  outcome: Independent judgment available while decisions are being made, rather than only before or after them.
 principles:
   eyebrow: How I work
   title: Evidence, context and selective change.
@@ -110,7 +96,7 @@ next_steps:
   paragraphs:
     - Send me a short description of what is getting difficult.
     - If I think I can help, we start with a short conversation to understand the context and decide whether a focused Review or Advisory engagement makes sense.
-    - If a Review is useful, we agree on the question to answer and the minimum context needed — for example repositories, documentation and conversations with the people closest to the system.
+    - If a Review is useful, we agree on the question to answer and the minimum context needed, such as repositories, documentation and conversations with the people closest to the system.
     - If I am not the right person, I will tell you.
 contact:
   eyebrow: Start a conversation

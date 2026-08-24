@@ -91,7 +91,8 @@ test("Work explains recognizable problems and exactly two engagement models", as
   await expect(page.locator(".work-engagement")).toHaveCount(2);
   await expect(page.getByRole("heading", { name: "Understand before changing." })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Work through the changes together." })).toBeVisible();
-  await expect(page.getByText("Illustrative example", { exact: true })).toBeVisible();
+  await expect(page.getByText("Illustrative example", { exact: true })).toHaveCount(0);
+  await expect(page.locator(".work-engagement--advisory").getByText("Outcome", { exact: true })).toHaveCount(0);
   await expect(page.getByRole("link", { name: /Start a conversation/ })).toHaveAttribute("href", /^https:\/\//);
 });
 
