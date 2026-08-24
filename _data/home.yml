@@ -1,17 +1,17 @@
 hero:
   label: Product · Software · AI · Organisations
-  title_prefix: "Notes on "
-  title_highlight: "product decisions in complex software systems"
+  title_prefix: ""
+  title_highlight: "Product decisions in complex software systems"
   subtitle_paragraphs:
-    - "I write practical notes about the moments where product and engineering work become difficult: unclear priorities, technical trade-offs, platform evolution, AI adoption and teams interpreting the same context in different ways."
-    - "The site connects those ideas with the experience behind them and selected readings that have shaped how I think."
+    - "I work across product, software and AI, especially where product decisions meet technical constraints, platform evolution and the way teams actually build."
+    - "This site brings together the ideas I develop, the experience behind them and the problems I occasionally help other software teams work through."
   actions:
     primary:
-      label: Read selected notes
-      url: /#selected-notes
-    secondary:
-      label: Explore the questions
+      label: Explore the thinking
       url: /explore/
+    secondary:
+      label: See how I work
+      url: /work/
   snapshot:
     badge: Ideas on this site
     items:
@@ -54,23 +54,21 @@ questions:
     url: /explore/
 
 where_i_can_help:
-  eyebrow: Working together
-  title: Problems I can help work through.
+  eyebrow: Selected work
+  title: Problems I occasionally help teams work through.
   paragraphs:
-    - The same product and engineering problems I write about often appear in real work.
-    - I am open to selected collaborations where an external product perspective can help clarify direction, expose trade-offs or connect product and technical decisions.
+    - Alongside my product work, I occasionally collaborate with software companies when an independent product and technical perspective can help clarify a difficult problem.
+    - "I focus on specific problems with a clear scope: something concrete to understand, evaluate or improve."
   cards:
-    - title: Product direction when several options look reasonable
-      body: Clarifying what each direction protects, what it gives up and which information is still missing.
-    - title: Platform and API product evolution
-      body: Connecting customer and developer experience with technical constraints, extensibility and long-term platform health.
-    - title: AI adoption in existing products and workflows
-      body: Moving from a promising capability to useful, dependable behaviour with explicit ownership and boundaries.
+    - title: Product and technical direction
+      body: When several directions look reasonable and the difficult part is understanding the trade-offs, constraints and consequences behind each one.
+    - title: Software delivery and engineering systems
+      body: When architecture, testing, release practices or development workflows are making software harder to change safely and predictably.
+    - title: AI adoption and AI-assisted development
+      body: When a team is trying to move from experimenting with AI to using it reliably in products or development workflows.
   actions:
-    - label: See my experience
-      url: /experience/
-    - label: Start a conversation
-      url: /#contact
+    - label: See how I work
+      url: /work/
 
 experience:
   eyebrow: Experience behind the ideas

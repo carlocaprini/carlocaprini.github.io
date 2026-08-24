@@ -1,7 +1,7 @@
 ---
 layout: home
 title: Product Leadership
-meta_title: Carlo Caprini | Product Judgment in Complex Software Systems
-meta_description: Notes and curated paths by Carlo Caprini on product decisions, software platforms, APIs, AI adoption and engineering collaboration.
-last_modified_at: 2026-08-09
+meta_title: Carlo Caprini | Product Judgment & Software Systems
+meta_description: Product judgment, software systems, APIs, AI-assisted work and Product–Engineering collaboration by Carlo Caprini.
+last_modified_at: 2026-08-24
 ---
