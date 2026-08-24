@@ -1,0 +1,163 @@
+---
+layout: default
+---
+<div class="page work-page">
+  <section class="hero hero--compact work-hero">
+    <div class="container hero-grid hero-grid--single">
+      <div>
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          <span>{{ page.hero.label }}</span>
+        </div>
+        <h1 class="hero-title hero-title--compact">{{ page.hero.title }}</h1>
+        {% for paragraph in page.hero.paragraphs %}
+          <p class="hero-subtitle hero-subtitle--wide">{{ paragraph }}</p>
+        {% endfor %}
+        <p class="work-credibility">{{ page.hero.credibility }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section work-situations-section">
+    <div class="container">
+      <div class="work-section-intro">
+        <div>
+          <div class="section-eyebrow">{{ page.useful_when.eyebrow }}</div>
+          <h2 class="section-title">{{ page.useful_when.title }}</h2>
+        </div>
+        <p class="section-description">{{ page.useful_when.intro }}</p>
+      </div>
+      <ol class="work-situation-list">
+        {% for item in page.useful_when.items %}
+          <li>
+            <span class="work-item-index" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+            <div>
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.body }}</p>
+            </div>
+          </li>
+        {% endfor %}
+      </ol>
+      <p class="work-boundary-note">{{ page.useful_when.boundary }}</p>
+    </div>
+  </section>
+
+  <section id="review" class="section work-engagement-section" data-work-section="review">
+    <div class="container">
+      <article class="work-engagement work-engagement--review">
+        <header class="work-engagement-header">
+          <div class="section-eyebrow">{{ page.review.eyebrow }}</div>
+          <h2>{{ page.review.title }}</h2>
+          <p>{{ page.review.description }}</p>
+          <p class="work-engagement-principle">{{ page.review.principle }}</p>
+        </header>
+        <div class="work-engagement-details">
+          <section>
+            <h3>{{ page.review.scope_title }}</h3>
+            <p>{{ page.review.scope_intro }}</p>
+            <ul class="work-compact-list">
+              {% for item in page.review.scope %}<li>{{ item }}</li>{% endfor %}
+            </ul>
+            <p>{{ page.review.evidence }}</p>
+          </section>
+          <section class="work-outcome">
+            <div class="section-eyebrow">{{ page.review.outcome_title }}</div>
+            <p class="work-outcome-lead">{{ page.review.outcome }}</p>
+            <p>{{ page.review.outcome_note }}</p>
+            <ul class="work-output-list">
+              {% for item in page.review.possible_outputs %}<li>{{ item }}</li>{% endfor %}
+            </ul>
+          </section>
+        </div>
+        <section class="work-finding" aria-labelledby="work-finding-title">
+          <div class="section-eyebrow">{{ page.review.example.label }}</div>
+          <h3 id="work-finding-title">{{ page.review.example.title }}</h3>
+          <dl>
+            {% for part in page.review.example.parts %}
+              <div>
+                <dt>{{ part.label }}</dt>
+                <dd>{{ part.body }}</dd>
+              </div>
+            {% endfor %}
+          </dl>
+        </section>
+      </article>
+    </div>
+  </section>
+
+  <section id="advisory" class="section work-engagement-section" data-work-section="advisory">
+    <div class="container">
+      <article class="work-engagement work-engagement--advisory">
+        <header class="work-engagement-header">
+          <div class="section-eyebrow">{{ page.advisory.eyebrow }}</div>
+          <h2>{{ page.advisory.title }}</h2>
+          <p>{{ page.advisory.description }}</p>
+        </header>
+        <div class="work-engagement-details">
+          <section>
+            <h3>{{ page.advisory.areas_title }}</h3>
+            <ul class="work-compact-list">
+              {% for item in page.advisory.areas %}<li>{{ item }}</li>{% endfor %}
+            </ul>
+          </section>
+          <section>
+            <h3>{{ page.advisory.situations_title }}</h3>
+            <ul class="work-compact-list">
+              {% for item in page.advisory.situations %}<li>{{ item }}</li>{% endfor %}
+            </ul>
+          </section>
+        </div>
+        <div class="work-advisory-outcome">
+          <div class="section-eyebrow">{{ page.advisory.outcome_title }}</div>
+          <p>{{ page.advisory.outcome }}</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section work-principles-section">
+    <div class="container">
+      <div class="work-section-intro">
+        <div>
+          <div class="section-eyebrow">{{ page.principles.eyebrow }}</div>
+          <h2 class="section-title">{{ page.principles.title }}</h2>
+        </div>
+        <p class="section-description">{{ page.principles.intro }}</p>
+      </div>
+      <ol class="work-principle-list">
+        {% for item in page.principles.items %}
+          <li>
+            <span class="work-item-index" aria-hidden="true">0{{ forloop.index }}</span>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.body }}</p>
+          </li>
+        {% endfor %}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section work-next-section">
+    <div class="container work-section-intro">
+      <div>
+        <div class="section-eyebrow">{{ page.next_steps.eyebrow }}</div>
+        <h2 class="section-title">{{ page.next_steps.title }}</h2>
+      </div>
+      <div class="work-next-copy">
+        {% for paragraph in page.next_steps.paragraphs %}<p>{{ paragraph }}</p>{% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section work-contact-section">
+    <div class="container work-contact-panel">
+      <div>
+        <div class="section-eyebrow">{{ page.contact.eyebrow }}</div>
+        <h2 class="section-title">{{ page.contact.title }}</h2>
+        <p class="work-contact-intro">{{ page.contact.intro }}</p>
+        <p>{{ page.contact.body }}</p>
+        <p class="work-contact-location">{{ page.contact.location }}</p>
+      </div>
+      <a class="button-primary" href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_open" data-analytics-contact-method="linkedin" data-analytics-link-context="work_contact">{{ page.contact.action }} <span aria-hidden="true">→</span><span class="visually-hidden"> (opens in new tab)</span></a>
+    </div>
+  </section>
+</div>

@@ -64,6 +64,50 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .work-section-intro,
+  .work-engagement-details,
+  .work-contact-panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .work-situation-list,
+  .work-principle-list,
+  .work-finding dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .work-situation-list > li,
+  .work-situation-list > li:nth-child(odd),
+  .work-situation-list > li:nth-child(even) {
+    padding: 1.15rem 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .work-situation-list > li:nth-last-child(2) {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .work-situation-list > li:last-child {
+    border-bottom: 0;
+  }
+
+  .work-principle-list > li,
+  .work-principle-list > li:nth-child(odd),
+  .work-principle-list > li:nth-child(even) {
+    padding: 1.2rem 0;
+    border-right: 0;
+  }
+
+  .work-finding dl > div,
+  .work-finding dl > div:nth-child(even) {
+    padding: 1rem 0;
+  }
+
+  .work-contact-panel .button-primary {
+    justify-self: start;
+  }
+
   .question-note-group,
   .question-bridge-grid {
     grid-template-columns: minmax(0, 1fr);
