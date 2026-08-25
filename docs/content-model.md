@@ -8,7 +8,8 @@
 - Questions live in `_data/questions.yml`. They are curated reading paths across Notes, Influences and Experience, not projections of topic tags.
 - Series metadata lives in `_data/series.yml`; episode identity remains on the relevant Notes.
 - Home editorial modules live in `_data/home.yml`.
-- The Phase 1 Work proposition lives in `pages/work.md`. It owns the recognizable situations, Review, Advisory, working principles and contact path; client proof must not be inferred or generated from it.
+- The Work proposition lives in `pages/work.md`. It owns the recognizable situations, Review, Advisory, working principles and contact path; client proof must not be inferred or generated from it.
+- Home’s `Where I can help` module lives in `_data/home.yml`. It is a selective preview of the problem spaces described by Work, not a second service catalogue or a source of independent engagement definitions.
 
 ## Relationships
 
@@ -16,7 +17,7 @@ Shared topics can rank related Notes and Influences. An Influence may select one
 
 Explore exposes curated Questions first and complete Topic views second. Stable Topic URLs use hashes on `/explore/`. `/knowledge/` remains only as a compatibility redirect.
 
-Work is a first-class professional destination, but it does not redefine Thinking. Phase 1 may describe selected independent work and link to `/work/`; it must not fabricate engagement connections inside Questions or turn Notes into commercial entry points.
+Work is a first-class professional destination, but it does not redefine Thinking. Home may preview selected problem spaces and link to `/work/`; its terminology, boundaries and outcome language must remain consistent with the canonical proposition. Work must not fabricate engagement connections inside Questions or turn Notes into commercial entry points.
 
 ## Intentional editorial ordering
 

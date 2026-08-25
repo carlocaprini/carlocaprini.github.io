@@ -47,7 +47,7 @@
     {
       "id": "work",
       "path": "/work/",
-      "description": "Selected Product and Engineering work proposition",
+      "description": "Product & Engineering work proposition",
       "viewports": ["desktop", "tablet", "mobile"]
     },
     {

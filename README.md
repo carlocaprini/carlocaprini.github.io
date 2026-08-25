@@ -1,6 +1,6 @@
 # carlocaprini.github.io
 
-Carlo Caprini’s professional body of work: product judgment, experience, selected independent work and connected editorial thinking, built with Jekyll and deployed through GitHub Pages.
+Carlo Caprini’s professional body of work: product judgment, experience, occasional independent Product & Engineering work and connected editorial thinking, built with Jekyll and deployed through GitHub Pages.
 
 ## Run locally
 

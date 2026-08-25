@@ -334,9 +334,9 @@ Rules:
 - Entire card should be clickable.
 - Hover can reveal an arrow, but the card should work without relying on hover.
 
-### Selected Work Split
+### Where I Can Help Split
 
-Use on Home to make a small number of recognizable external-work problems legible without turning the section into a service catalogue.
+Use on Home to make a small number of recognizable independent-work problems legible without turning the section into a service catalogue.
 
 This pattern is intentionally different from `Entry Cards`. It should feel more consultative and operational, while `Entry Cards` should feel more navigational and conceptual.
 
