@@ -38,12 +38,14 @@ layout: default
       {% endif %}
       {% if page.ai_process %}
       <section class="thinking-ai-process" aria-labelledby="thinking-ai-process-title">
-        <div class="thinking-ai-process-heading">
+        <div class="thinking-ai-process-heading thinking-ai-process-part">
           <div class="section-eyebrow">{{ page.ai_process.label }}</div>
           <h2 class="thinking-ai-process-title" id="thinking-ai-process-title">{{ page.ai_process.title }}</h2>
+          {% assign opening_paragraph = page.ai_process.paragraphs | first %}
+          <p>{{ opening_paragraph }}</p>
         </div>
-        <div class="thinking-ai-process-copy">
-          {% for paragraph in page.ai_process.paragraphs %}
+        <div class="thinking-ai-process-copy thinking-ai-process-part">
+          {% for paragraph in page.ai_process.paragraphs offset: 1 %}
             <p>{{ paragraph }}</p>
           {% endfor %}
           <a class="thinking-ai-process-skip" href="#all-notes">Browse all notes <span aria-hidden="true">↓</span></a>

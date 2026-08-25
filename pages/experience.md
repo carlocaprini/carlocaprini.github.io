@@ -73,7 +73,7 @@ independent_work:
 career_context:
   eyebrow: Career context
   title: A path across engineering and product.
-  description: The chronology matters because each role changed the perspective I brought to the next one. It is supporting context rather than the main story.
+  description: Each role changed and influenced the perspective I brought to the next one. It is supporting context rather than a simple chronological story.
   items:
     - period: 2026 – present
       company: PandaDoc

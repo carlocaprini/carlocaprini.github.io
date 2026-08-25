@@ -172,6 +172,56 @@
   margin-bottom: 4.2rem;
 }
 
+.experience-career-intro {
+  max-width: 50rem;
+  margin-bottom: 3rem;
+}
+
+.experience-career-thesis {
+  position: relative;
+  overflow: hidden;
+  margin-top: 0.6rem;
+  padding: 1.35rem 2rem 1.8rem 3rem;
+  isolation: isolate;
+}
+
+.experience-career-thesis .section-title {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: var(--color-text);
+}
+
+.experience-career-thesis p {
+  position: relative;
+  z-index: 1;
+  margin: 0.8rem 0 0;
+  color: var(--color-text-secondary);
+  font-size: clamp(1.18rem, 2vw, 1.45rem);
+  font-weight: 540;
+  line-height: 1.55;
+}
+
+.experience-career-thesis-graphic {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: -7rem;
+  width: 29rem;
+  max-width: none;
+  opacity: 0.24;
+  transform: translateY(-50%);
+}
+
+.experience-career-thesis-graphic path {
+  stroke-width: 2;
+}
+
+.experience-career-thesis-path-muted {
+  opacity: 0.45;
+  stroke-width: 1 !important;
+}
+
 .experience-independent-section {
   margin-bottom: 4.2rem;
 }

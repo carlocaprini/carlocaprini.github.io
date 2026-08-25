@@ -562,15 +562,17 @@
 .question-bridge-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 3rem;
 }
 
 .question-bridge-grid > div,
 .question-continue {
-  padding: 1.5rem;
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-card-lg);
-  background: var(--color-surface-soft);
+  min-width: 0;
+}
+
+.question-continue {
+  padding-left: 3rem;
+  border-left: 1px solid var(--accent-indigo-border);
 }
 
 .question-bridge-grid .section-title,

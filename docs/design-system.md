@@ -1,7 +1,7 @@
 # Site Design System
 
 Date: 2026-07-14
-Last updated: 2026-08-24
+Last updated: 2026-08-25
 Status: Reference for future site changes
 
 ## Implementation ownership
@@ -220,6 +220,36 @@ Pattern:
 
 This pattern works well in Experience and should be reused for Home entry points and future sections.
 
+### Editorial Split
+
+Use when two parts belong to the same argument but need a clear hierarchy, such as scope and outcome, premise and judgment, or evidence and continuation.
+
+- desktop: two columns separated by one light vertical rule
+
+- mobile: stack in reading order and turn the separator into one horizontal rule
+
+- keep both parts on the same page surface; do not introduce a second background, full border or radius
+
+- the second part may use an eyebrow and a slightly stronger opening sentence
+
+- prefer this pattern to a card nested inside another card when the second part is not an independent destination
+
+### Editorial Thesis
+
+Use for one important sentence that should interrupt a text-heavy page without becoming another card.
+
+- keep the thesis on the page surface, with more typographic scale and whitespace than normal body copy
+
+- one restrained abstract graphic may sit behind or beside the text when it represents a real relationship such as convergence, sequence or branching
+
+- the graphic must remain decorative to assistive technology and the sentence must stay understandable without it
+
+- use no more than one thesis of this visual weight on a page
+
+- crop the composition deliberately on smaller screens without allowing horizontal overflow
+
+Do not reuse the same abstract symbol across unrelated ideas. The visual should express the structure of the specific argument rather than act as a generic ornament.
+
 ### Repeated Card Rows
 
 For three related entry points, use the entry-card pattern:
@@ -374,6 +404,7 @@ Keep:
 - recognizable problem situations before methodology
 - exactly two public engagement models: Review and Advisory
 - calm grouped surfaces for the engagement models, with the Review output more prominent than activity lists
+- present Review scope and outcome as an editorial split rather than nested cards
 - explicit technical evidence balanced with product and organisational context
 - a low-pressure contact panel using the standard primary button
 - ruled lists with internal dividers only and no duplicate closing boundary
@@ -517,6 +548,7 @@ Motion should be subtle and structural.
 Approved motion:
 
 - reveal on scroll for timeline and influence cards
+- one-time reveal of complete structural units such as a section introduction, ruled list, thesis or engagement model
 - hover lift of `-2px`
 - soft border/glow change
 - optional arrow reveal on interactive cards
@@ -528,6 +560,8 @@ Approved motion:
 Rules:
 
 - Always support `prefers-reduced-motion`.
+
+- Structural reveals should normally use opacity with only `8-14px` of movement over roughly `300-450ms`. Apply them to complete units, not every paragraph or label.
 
 - Keep ambient loops slow: roughly `12-16s` for gradient movement, `7-10s` for a drifting glow and at least `3s` for a pulse.
 

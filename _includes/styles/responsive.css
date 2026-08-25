@@ -120,6 +120,13 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .question-continue {
+    padding-top: 1.5rem;
+    padding-left: 0;
+    border-top: 1px solid var(--color-line);
+    border-left: 0;
+  }
+
   .thinking-recent-list {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -147,6 +154,24 @@
 
   .thinking-ai-process-title {
     max-width: none;
+  }
+
+  .thinking-ai-process-copy {
+    padding-top: 1.2rem;
+    padding-left: 0;
+    border-top: 1px solid var(--accent-cyan-border);
+    border-left: 0;
+  }
+
+  .experience-career-thesis {
+    margin-top: 0;
+    padding-right: 1rem;
+    padding-left: 1.5rem;
+  }
+
+  .experience-career-thesis-graphic {
+    left: -9rem;
+    opacity: 0.3;
   }
 
   .series-visuals-header {
