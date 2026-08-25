@@ -136,7 +136,15 @@ export CLOUDFLARE_API_TOKEN=...
 node _analytics/reports/generate-report.mjs --days=30 --csv-dir=/tmp/site-analytics
 ```
 
-The command prints Markdown and optionally writes CSV files, including a separate campaign-landings export when UTM-attributed visits exist. Generated reports stay outside this public repository.
+The Markdown distinguishes the requested window from the dates that actually contain aggregate data, then shows a daily trend for page views, content views and interactions. Interactions exclude `page_view`, `content_view` and `consent_choice`, consistently with path and target reporting. Only days with recorded activity are listed; missing calendar days are not presented as zero-traffic days.
+
+Use the complete retained measurement history instead of a rolling window with:
+
+```bash
+node _analytics/reports/generate-report.mjs --since-start
+```
+
+`--since-start` and `--days=N` are mutually exclusive; the default remains `--days=30`. CSV output includes `daily-trend.csv` alongside the existing exports, including the separate campaign-landings file when UTM-attributed visits exist. Generated reports stay outside this public repository.
 
 ## Retention
 
