@@ -32,3 +32,19 @@ test("legacy Knowledge URL preserves query parameters and topic hashes", async (
   await expect(page).toHaveURL(/\/explore\/\?source=legacy#software-systems$/);
   await expect(page.locator('[data-explore-topic="software-systems"]')).toHaveAttribute("aria-pressed", "true");
 });
+
+test("Work is a first-class destination with a current-page state", async ({ page }, testInfo) => {
+  await page.goto("/work/");
+
+  if (testInfo.project.name === "desktop-chromium") {
+    await expect(page.getByRole("navigation", { name: "Primary navigation" })
+      .getByRole("link", { name: "Work" }))
+      .toHaveAttribute("aria-current", "page");
+    return;
+  }
+
+  await page.locator("details.mobile-nav summary").click();
+  await expect(page.getByRole("navigation", { name: "Mobile navigation" })
+    .getByRole("link", { name: "Work" }))
+    .toHaveAttribute("aria-current", "page");
+});

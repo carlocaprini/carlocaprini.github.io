@@ -4,6 +4,8 @@ This directory contains the privacy-preserving measurement service for the publi
 
 The browser sends a fixed semantic payload to a Cloudflare Worker. The Worker validates it and increments one daily D1 counter. It does not store raw events, IP addresses, user agents, referrers, cookies, users, sessions or precise timestamps.
 
+Work uses the same semantic contract as the rest of the site. `work_open` records which site context led to `/work/`; `work_section_view` records a first meaningful view of Review or Advisory; `contact_open` with `work_contact` identifies the outbound conversation path. These remain coarse allowlisted transitions and never include problem descriptions or other visitor prose.
+
 When a landing URL contains the complete canonical UTM tuple, the browser also sends one aggregate `campaign_landing` event. Missing, partial, duplicated or unknown UTM values are ignored and do not affect the normal page and interaction counters. Campaign attribution is limited to the landing page and is never persisted across navigation.
 
 ## Canonical UTM contract

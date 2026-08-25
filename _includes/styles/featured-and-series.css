@@ -19,14 +19,14 @@
 
 .thinking-ai-process {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 3rem;
   align-items: start;
   margin-bottom: 2.8rem;
 }
 
 .thinking-ai-process-title {
-  max-width: 14rem;
+  max-width: 18rem;
   margin: 0.65rem 0 0;
   color: var(--color-text);
   font-size: 1.1rem;
@@ -36,13 +36,21 @@
 
 .thinking-ai-process-copy {
   max-width: 39rem;
+  padding-left: 2rem;
+  border-left: 1px solid var(--accent-cyan-border);
 }
 
-.thinking-ai-process-copy p {
+.thinking-ai-process-part p {
   margin: 0;
   color: var(--color-text-secondary);
   font-size: 0.95rem;
   line-height: 1.8;
+}
+
+.thinking-ai-process-heading p {
+  max-width: 24rem;
+  margin-top: 1rem;
+  color: var(--color-text-muted);
 }
 
 .thinking-ai-process-copy p + p {
@@ -778,6 +786,24 @@
   transform: translateY(-2px);
 }
 
+.series-visuals-grid.is-observed .series-visual-card {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 380ms ease-out,
+    transform 380ms ease-out,
+    border-color 180ms ease;
+}
+
+.series-visuals-grid.is-observed .series-visual-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.series-visuals-grid.is-observed .series-visual-card.is-visible:hover {
+  transform: translateY(-2px);
+}
+
 .series-visual-card--august {
   --series-visual-accent: var(--accent-indigo);
   --series-visual-accent-soft: var(--accent-indigo-soft);
@@ -836,6 +862,16 @@
 .series-visual-copy h3 a {
   color: var(--color-text);
   text-decoration: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .series-visuals-grid.is-observed .series-visual-card,
+  .series-visuals-grid.is-observed .series-visual-card.is-visible,
+  .series-visuals-grid.is-observed .series-visual-card.is-visible:hover {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 .series-visual-copy h3 a:hover {

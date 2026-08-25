@@ -414,7 +414,9 @@ analytics_contract = JSON.parse(File.read(analytics_contract_path))
 analytics_events = Array(analytics_contract.dig("events", "semantic"))
 analytics_sources = Dir.glob(File.join(SOURCE_DIR, "{_includes,_layouts}/**/*.html")).sort
 declared_analytics_events = analytics_sources.flat_map do |path|
-  File.read(path).scan(/data-analytics-event=["']([^"']+)["']/).flatten
+  source = File.read(path)
+  source.scan(/data-analytics-event=["']([^"']+)["']/).flatten +
+    source.scan(/siteAnalytics\.track\(\s*["']([^"']+)["']/).flatten
 end.uniq
 consent_script = File.read(File.join(SOURCE_DIR, "assets/js/consent.js"))
 aggregate_script = File.read(File.join(SOURCE_DIR, "assets/js/aggregate-analytics.js"))

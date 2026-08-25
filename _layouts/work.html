@@ -1,0 +1,211 @@
+---
+layout: default
+---
+<div class="page work-page">
+  <section class="hero hero--compact work-hero">
+    <div class="container hero-grid hero-grid--single">
+      <div>
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          <span>{{ page.hero.label }}</span>
+        </div>
+        <h1 class="hero-title hero-title--compact">{{ page.hero.title }}</h1>
+        {% for paragraph in page.hero.paragraphs %}
+          <p class="hero-subtitle hero-subtitle--wide">{{ paragraph }}</p>
+        {% endfor %}
+        <p class="work-credibility">{{ page.hero.credibility }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section work-situations-section">
+    <div class="container">
+      <div class="work-section-intro work-reveal" data-work-reveal>
+        <div>
+          <div class="section-eyebrow">{{ page.useful_when.eyebrow }}</div>
+          <h2 class="section-title">{{ page.useful_when.title }}</h2>
+        </div>
+        <p class="section-description">{{ page.useful_when.intro }}</p>
+      </div>
+      <ol class="work-situation-list work-reveal" data-work-reveal>
+        {% for item in page.useful_when.items %}
+          <li>
+            <span class="work-item-index" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+            <div>
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.body }}</p>
+            </div>
+          </li>
+        {% endfor %}
+      </ol>
+      <p class="work-boundary-note work-reveal" data-work-reveal>
+        <svg class="work-boundary-graphic" viewBox="0 0 320 190" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="work-boundary-gradient" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#818cf8" />
+              <stop offset="1" stop-color="#22d3ee" />
+            </linearGradient>
+          </defs>
+          <g fill="none" stroke="url(#work-boundary-gradient)" stroke-linecap="round" stroke-width="2">
+            <path class="work-boundary-path" pathLength="1" d="M 8 95 H 108" />
+            <path class="work-boundary-path work-boundary-path--one" pathLength="1" d="M 108 95 C 158 95 158 26 226 26 H 312" />
+            <path class="work-boundary-path work-boundary-path--two" pathLength="1" d="M 108 95 H 312" />
+            <path class="work-boundary-path work-boundary-path--three" pathLength="1" d="M 108 95 C 158 95 158 164 226 164 H 312" />
+          </g>
+          <g class="work-boundary-nodes" fill="#22d3ee">
+            <circle class="work-boundary-node-main" cx="108" cy="95" r="5" />
+            <circle cx="312" cy="26" r="3" />
+            <circle cx="312" cy="95" r="3" />
+            <circle cx="312" cy="164" r="3" />
+          </g>
+        </svg>
+        <span class="work-boundary-copy">{{ page.useful_when.boundary }}</span>
+      </p>
+    </div>
+  </section>
+
+  <section id="review" class="section work-engagement-section" data-work-section="review">
+    <div class="container">
+      <article class="work-engagement work-engagement--review work-reveal" data-work-reveal>
+        <header class="work-engagement-header">
+          <div class="section-eyebrow">{{ page.review.eyebrow }}</div>
+          <h2>{{ page.review.title }}</h2>
+          <p>{{ page.review.description }}</p>
+          <p class="work-engagement-principle">{{ page.review.principle }}</p>
+        </header>
+        <div class="work-engagement-details">
+          <section>
+            <h3>{{ page.review.scope_title }}</h3>
+            <p>{{ page.review.scope_intro }}</p>
+            <ul class="work-compact-list">
+              {% for item in page.review.scope %}<li>{{ item }}</li>{% endfor %}
+            </ul>
+            <p>{{ page.review.evidence }}</p>
+          </section>
+          <section class="work-outcome">
+            <div class="section-eyebrow">{{ page.review.outcome_title }}</div>
+            <p class="work-outcome-lead">{{ page.review.outcome }}</p>
+            <p>{{ page.review.outcome_note }}</p>
+            <ul class="work-output-list">
+              {% for item in page.review.possible_outputs %}<li>{{ item }}</li>{% endfor %}
+            </ul>
+          </section>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="advisory" class="section work-engagement-section" data-work-section="advisory">
+    <div class="container">
+      <article class="work-engagement work-engagement--advisory work-reveal" data-work-reveal>
+        <header class="work-engagement-header">
+          <div class="section-eyebrow">{{ page.advisory.eyebrow }}</div>
+          <h2>{{ page.advisory.title }}</h2>
+          <p>{{ page.advisory.description }}</p>
+        </header>
+        <div class="work-engagement-details">
+          <section>
+            <h3>{{ page.advisory.areas_title }}</h3>
+            <ul class="work-compact-list">
+              {% for item in page.advisory.areas %}<li>{{ item }}</li>{% endfor %}
+            </ul>
+          </section>
+          <section>
+            <h3>{{ page.advisory.situations_title }}</h3>
+            <ul class="work-compact-list">
+              {% for item in page.advisory.situations %}<li>{{ item }}</li>{% endfor %}
+            </ul>
+          </section>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section work-principles-section">
+    <div class="container">
+      <div class="work-section-intro work-reveal" data-work-reveal>
+        <div>
+          <div class="section-eyebrow">{{ page.principles.eyebrow }}</div>
+          <h2 class="section-title">{{ page.principles.title }}</h2>
+        </div>
+        <p class="section-description">{{ page.principles.intro }}</p>
+      </div>
+      <ol class="work-principle-list work-reveal" data-work-reveal>
+        {% for item in page.principles.items %}
+          <li>
+            <span class="work-item-index" aria-hidden="true">0{{ forloop.index }}</span>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.body }}</p>
+          </li>
+        {% endfor %}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section work-next-section">
+    <div class="container work-section-intro work-reveal" data-work-reveal>
+      <div>
+        <div class="section-eyebrow">{{ page.next_steps.eyebrow }}</div>
+        <h2 class="section-title">{{ page.next_steps.title }}</h2>
+      </div>
+      <div class="work-next-copy">
+        {% for paragraph in page.next_steps.paragraphs %}<p>{{ paragraph }}</p>{% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section work-contact-section">
+    <div class="container">
+      <div class="work-contact-panel work-reveal" data-work-reveal>
+        <div>
+          <div class="section-eyebrow">{{ page.contact.eyebrow }}</div>
+          <h2 class="section-title">{{ page.contact.title }}</h2>
+          <p class="work-contact-intro">{{ page.contact.intro }}</p>
+          <p>{{ page.contact.body }}</p>
+          <p class="work-contact-location">{{ page.contact.location }}</p>
+        </div>
+        <a class="button-primary" href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_open" data-analytics-contact-method="linkedin" data-analytics-link-context="work_contact">{{ page.contact.action }} <span aria-hidden="true">→</span><span class="visually-hidden"> (opens in new tab)</span></a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  window.addEventListener("DOMContentLoaded", function () {
+    var page = document.querySelector(".work-page");
+    var revealTargets = document.querySelectorAll("[data-work-reveal]");
+
+    if (page && revealTargets.length && "IntersectionObserver" in window) {
+      page.classList.add("work-page--motion-observed");
+
+      var revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        });
+      }, {
+        rootMargin: "0px 0px -6% 0px",
+        threshold: 0.08
+      });
+
+      revealTargets.forEach(function (target) { revealObserver.observe(target); });
+    }
+
+    var sections = document.querySelectorAll("[data-work-section]");
+    if (!sections.length || !("IntersectionObserver" in window) || !window.siteAnalytics) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        window.siteAnalytics.track("work_section_view", {
+          work_section: entry.target.getAttribute("data-work-section"),
+          link_context: "work_page"
+        });
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+
+    sections.forEach(function (section) { observer.observe(section); });
+  });
+</script>

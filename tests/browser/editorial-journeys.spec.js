@@ -79,8 +79,21 @@ test("Home follows the discovery-first content order", async ({ page }) => {
     "entry-points",
     "contact"
   ]);
-  await expect(page.getByRole("heading", { name: "Problems I can help work through." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Problems I occasionally help teams work through." })).toBeVisible();
   await expect(page.locator(".home-entry-grid").getByRole("link", { name: /Explore/ })).toHaveAttribute("href", "/explore/");
+});
+
+test("Work explains recognizable problems and exactly two engagement models", async ({ page }) => {
+  await page.goto("/work/");
+
+  await expect(page.getByRole("heading", { name: "When the problem crosses boundaries." })).toBeVisible();
+  await expect(page.locator(".work-situation-list > li")).toHaveCount(6);
+  await expect(page.locator(".work-engagement")).toHaveCount(2);
+  await expect(page.getByRole("heading", { name: "Understand before changing." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Work through the changes together." })).toBeVisible();
+  await expect(page.getByText("Illustrative example", { exact: true })).toHaveCount(0);
+  await expect(page.locator(".work-engagement--advisory").getByText("Outcome", { exact: true })).toHaveCount(0);
+  await expect(page.getByRole("link", { name: /Start a conversation/ })).toHaveAttribute("href", /^https:\/\//);
 });
 
 test("question pages connect Thinking, Influences and Experience", async ({ page }) => {

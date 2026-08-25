@@ -15,7 +15,7 @@ test("Home and primary navigation render", async ({ page }, testInfo) => {
 });
 
 test("representative pages avoid horizontal overflow", async ({ page }) => {
-  for (const route of ["/", "/explore/", "/thinking/waiting-as-product-decision/", "/series/building-my-ai-operating-system/"]) {
+  for (const route of ["/", "/explore/", "/work/", "/thinking/waiting-as-product-decision/", "/series/building-my-ai-operating-system/"]) {
     await page.goto(route);
     const dimensions = await page.evaluate(() => ({
       documentWidth: document.documentElement.scrollWidth,

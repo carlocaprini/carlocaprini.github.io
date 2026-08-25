@@ -88,6 +88,10 @@
         return { type: "reading", id: cleanIdentifier(parameters.reading_id || parameters.destination, 160) };
       case "experience_open":
         return { type: "experience", id: "experience" };
+      case "work_open":
+        return { type: "work", id: "work" };
+      case "work_section_view":
+        return { type: "work_section", id: cleanIdentifier(parameters.work_section, 160) };
       case "contact_section_open":
         return { type: "contact", id: "section" };
       case "contact_open":

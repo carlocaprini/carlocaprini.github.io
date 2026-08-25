@@ -8,4 +8,5 @@
 {% include styles/influences-and-topics.css %}
 {% include styles/thinking-and-explore.css %}
 {% include styles/experience-contact-and-privacy.css %}
+{% include styles/work.css %}
 {% include styles/responsive.css %}

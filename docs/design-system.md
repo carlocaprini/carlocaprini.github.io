@@ -1,16 +1,16 @@
 # Site Design System
 
 Date: 2026-07-14
-Last updated: 2026-08-21
+Last updated: 2026-08-25
 Status: Reference for future site changes
 
 ## Implementation ownership
 
 The visual rules below are implemented in `_includes/styles/`, grouped by stable UI domain. `assets/css/main.css` only composes those files into the one production stylesheet; do not add independent rules to the entry point or edit generated `_site/assets/css/main.css`.
 
-Shared tokens, navigation, hero and section primitives belong in `foundations.css`. Reuse them before adding a domain variant. Page-specific rules belong with Home, Article, Thinking/Explore, Influences/Topics, Series/featured content, or Experience/Contact/Privacy. Breakpoint overrides remain centralized in `responsive.css` so responsive precedence stays inspectable.
+Shared tokens, navigation, hero and section primitives belong in `foundations.css`. Reuse them before adding a domain variant. Page-specific rules belong with Home, Work, Article, Thinking/Explore, Influences/Topics, Series/featured content, or Experience/Contact/Privacy. Breakpoint overrides remain centralized in `responsive.css` so responsive precedence stays inspectable.
 
-This document defines the visual language for the site. It is based on the current direction across Home, Thinking, Explore, Experience, Influences and individual notes.
+This document defines the visual language for the site. It is based on the current direction across Home, Thinking, Explore, Work, Experience, Influences and individual notes.
 
 ## Design Intent
 
@@ -220,6 +220,36 @@ Pattern:
 
 This pattern works well in Experience and should be reused for Home entry points and future sections.
 
+### Editorial Split
+
+Use when two parts belong to the same argument but need a clear hierarchy, such as scope and outcome, premise and judgment, or evidence and continuation.
+
+- desktop: two columns separated by one light vertical rule
+
+- mobile: stack in reading order and turn the separator into one horizontal rule
+
+- keep both parts on the same page surface; do not introduce a second background, full border or radius
+
+- the second part may use an eyebrow and a slightly stronger opening sentence
+
+- prefer this pattern to a card nested inside another card when the second part is not an independent destination
+
+### Editorial Thesis
+
+Use for one important sentence that should interrupt a text-heavy page without becoming another card.
+
+- keep the thesis on the page surface, with more typographic scale and whitespace than normal body copy
+
+- one restrained abstract graphic may sit behind or beside the text when it represents a real relationship such as convergence, sequence or branching
+
+- the graphic must remain decorative to assistive technology and the sentence must stay understandable without it
+
+- use no more than one thesis of this visual weight on a page
+
+- crop the composition deliberately on smaller screens without allowing horizontal overflow
+
+Do not reuse the same abstract symbol across unrelated ideas. The visual should express the structure of the specific argument rather than act as a generic ornament.
+
 ### Repeated Card Rows
 
 For three related entry points, use the entry-card pattern:
@@ -254,7 +284,7 @@ Do not reuse timeline styling for non-chronological content.
 - sticky dark translucent header
 - compact brand pill
 - nav links with underline on hover/active
-- order: Home, Thinking, Explore, Experience, Influences, Contact
+- order: Home, Thinking, Explore, Work, Experience, Influences, Contact
 - switch to a compact, clearly labelled menu on smaller screens while preserving every top-level destination in the expanded panel
 - keep the mobile menu operable without JavaScript and close it after a destination is selected when JavaScript is available
 - use a visible keyboard focus state across navigation and other interactive controls
@@ -304,9 +334,9 @@ Rules:
 - Entire card should be clickable.
 - Hover can reveal an arrow, but the card should work without relying on hover.
 
-### Support Split
+### Where I Can Help Split
 
-Use for `Where I can help` and future advisory/service descriptions.
+Use on Home to make a small number of recognizable independent-work problems legible without turning the section into a service catalogue.
 
 This pattern is intentionally different from `Entry Cards`. It should feel more consultative and operational, while `Entry Cards` should feel more navigational and conceptual.
 
@@ -364,9 +394,34 @@ Keep:
 
 Do not use the larger filter control inside cards, article metadata or sidebars.
 
+### Work
+
+Work is a first-class professional destination, but it must feel like another dimension of the same body of work rather than a separate consultancy site.
+
+Keep:
+
+- the standard hero, section rhythm, typography and cool accent system
+- recognizable problem situations before methodology
+- exactly two public engagement models: Review and Advisory
+- calm grouped surfaces for the engagement models, with the Review output more prominent than activity lists
+- present Review scope and outcome as an editorial split rather than nested cards
+- explicit technical evidence balanced with product and organisational context
+- a low-pressure contact panel using the standard primary button
+- ruled lists with internal dividers only and no duplicate closing boundary
+
+Avoid:
+
+- warm featured-series styling, conversion banners or oversized CTAs
+- logos, testimonials, metrics, pricing and generic consultancy claims
+- scorecards, maturity ratings or visual language that grades a team
+- separate cards for every possible capability
+- turning Work into a new brand or making it visually louder than Thinking
+
+On smaller screens, collapse two-column recognition and evidence structures to one column. Reduce panel padding without removing the standard page gutter, and preserve the reading order: relevance, Review, Advisory, principles, next step and contact.
+
 ### Explore
 
-Explore is the guided discovery layer connecting Thinking, Experience and Influences. It belongs in the global navigation because it provides a different job from the source collections: Questions offer curated editorial paths, while Topics remain the stable classification layer.
+Explore is the guided discovery layer connecting Thinking, Experience, selected work where concrete evidence exists, and Influences. It belongs in the global navigation because it provides a different job from the source collections: Questions offer curated editorial paths, while Topics remain the stable classification layer.
 
 Keep:
 
@@ -493,6 +548,7 @@ Motion should be subtle and structural.
 Approved motion:
 
 - reveal on scroll for timeline and influence cards
+- one-time reveal of complete structural units such as a section introduction, ruled list, thesis or engagement model
 - hover lift of `-2px`
 - soft border/glow change
 - optional arrow reveal on interactive cards
@@ -504,6 +560,8 @@ Approved motion:
 Rules:
 
 - Always support `prefers-reduced-motion`.
+
+- Structural reveals should normally use opacity with only `8-14px` of movement over roughly `300-450ms`. Apply them to complete units, not every paragraph or label.
 
 - Keep ambient loops slow: roughly `12-16s` for gradient movement, `7-10s` for a drifting glow and at least `3s` for a pulse.
 
@@ -532,6 +590,8 @@ Preferred wording:
 - operating flows
 - product/platform systems
 - teams evolve over time
+
+Use `Product & Engineering` as the canonical label for the professional domain, engagement models, section titles, taxonomy descriptions and positioning metadata. In ordinary editorial prose, retain lower-case “product and engineering” when the words function grammatically rather than as the name of the domain.
 
 Use carefully:
 
