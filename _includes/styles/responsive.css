@@ -71,6 +71,13 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .work-outcome {
+    padding-top: 1.5rem;
+    padding-left: 0;
+    border-top: 1px solid var(--color-line);
+    border-left: 0;
+  }
+
   .work-situation-list,
   .work-principle-list {
     grid-template-columns: minmax(0, 1fr);
@@ -387,6 +394,60 @@
     padding: 0.95rem 1rem;
   }
 
+  .work-boundary-note {
+    margin-top: 2.2rem;
+    padding: 1.9rem 0 1.8rem 1.25rem;
+  }
+
+  .work-boundary-graphic {
+    left: -7rem;
+    width: 25rem;
+    opacity: 0.38;
+  }
+
+  .work-boundary-copy {
+    font-size: 1.2rem;
+    line-height: 1.48;
+  }
+
+  .work-page--motion-observed .work-reveal {
+    transform: translateY(14px);
+    transition-duration: 400ms;
+  }
+
+  .work-page--motion-observed .work-reveal.is-visible {
+    transform: translateY(0);
+  }
+
+  .work-page--motion-observed .work-engagement {
+    transition-duration: 480ms, 480ms, 800ms, 800ms;
+  }
+
+  .work-page--motion-observed .work-situation-list > li,
+  .work-page--motion-observed .work-principle-list > li {
+    position: relative;
+    border-bottom-color: transparent;
+  }
+
+  .work-page--motion-observed .work-situation-list > li:not(:last-child)::after,
+  .work-page--motion-observed .work-principle-list > li:not(:last-child)::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background: var(--color-line);
+    content: "";
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 460ms ease-out 100ms;
+  }
+
+  .work-page--motion-observed .work-situation-list.is-visible > li:not(:last-child)::after,
+  .work-page--motion-observed .work-principle-list.is-visible > li:not(:last-child)::after {
+    transform: scaleX(1);
+  }
+
   .work-situation-list > li,
   .work-situation-list > li:nth-child(odd),
   .work-situation-list > li:nth-child(even) {
@@ -409,7 +470,7 @@
   }
 
   .work-outcome {
-    padding: 1rem;
+    padding: 1.35rem 0 0;
   }
 
   .work-contact-panel {
@@ -727,5 +788,17 @@
   .button-primary,
   .button-ghost {
     width: 100%;
+  }
+}
+
+@media (max-width: 640px) and (prefers-reduced-motion: reduce) {
+  .work-page--motion-observed .work-reveal,
+  .work-page--motion-observed .work-reveal.is-visible,
+  .work-page--motion-observed .work-situation-list > li:not(:last-child)::after,
+  .work-page--motion-observed .work-principle-list > li:not(:last-child)::after,
+  .work-page--motion-observed .work-situation-list.is-visible > li:not(:last-child)::after,
+  .work-page--motion-observed .work-principle-list.is-visible > li:not(:last-child)::after {
+    transform: none;
+    transition: none;
   }
 }

@@ -20,14 +20,14 @@ layout: default
 
   <section class="section work-situations-section">
     <div class="container">
-      <div class="work-section-intro">
+      <div class="work-section-intro work-reveal" data-work-reveal>
         <div>
           <div class="section-eyebrow">{{ page.useful_when.eyebrow }}</div>
           <h2 class="section-title">{{ page.useful_when.title }}</h2>
         </div>
         <p class="section-description">{{ page.useful_when.intro }}</p>
       </div>
-      <ol class="work-situation-list">
+      <ol class="work-situation-list work-reveal" data-work-reveal>
         {% for item in page.useful_when.items %}
           <li>
             <span class="work-item-index" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
@@ -38,13 +38,35 @@ layout: default
           </li>
         {% endfor %}
       </ol>
-      <p class="work-boundary-note">{{ page.useful_when.boundary }}</p>
+      <p class="work-boundary-note work-reveal" data-work-reveal>
+        <svg class="work-boundary-graphic" viewBox="0 0 320 190" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="work-boundary-gradient" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#818cf8" />
+              <stop offset="1" stop-color="#22d3ee" />
+            </linearGradient>
+          </defs>
+          <g fill="none" stroke="url(#work-boundary-gradient)" stroke-linecap="round" stroke-width="2">
+            <path class="work-boundary-path" pathLength="1" d="M 8 95 H 108" />
+            <path class="work-boundary-path work-boundary-path--one" pathLength="1" d="M 108 95 C 158 95 158 26 226 26 H 312" />
+            <path class="work-boundary-path work-boundary-path--two" pathLength="1" d="M 108 95 H 312" />
+            <path class="work-boundary-path work-boundary-path--three" pathLength="1" d="M 108 95 C 158 95 158 164 226 164 H 312" />
+          </g>
+          <g class="work-boundary-nodes" fill="#22d3ee">
+            <circle class="work-boundary-node-main" cx="108" cy="95" r="5" />
+            <circle cx="312" cy="26" r="3" />
+            <circle cx="312" cy="95" r="3" />
+            <circle cx="312" cy="164" r="3" />
+          </g>
+        </svg>
+        <span class="work-boundary-copy">{{ page.useful_when.boundary }}</span>
+      </p>
     </div>
   </section>
 
   <section id="review" class="section work-engagement-section" data-work-section="review">
     <div class="container">
-      <article class="work-engagement work-engagement--review">
+      <article class="work-engagement work-engagement--review work-reveal" data-work-reveal>
         <header class="work-engagement-header">
           <div class="section-eyebrow">{{ page.review.eyebrow }}</div>
           <h2>{{ page.review.title }}</h2>
@@ -75,7 +97,7 @@ layout: default
 
   <section id="advisory" class="section work-engagement-section" data-work-section="advisory">
     <div class="container">
-      <article class="work-engagement work-engagement--advisory">
+      <article class="work-engagement work-engagement--advisory work-reveal" data-work-reveal>
         <header class="work-engagement-header">
           <div class="section-eyebrow">{{ page.advisory.eyebrow }}</div>
           <h2>{{ page.advisory.title }}</h2>
@@ -101,14 +123,14 @@ layout: default
 
   <section class="section work-principles-section">
     <div class="container">
-      <div class="work-section-intro">
+      <div class="work-section-intro work-reveal" data-work-reveal>
         <div>
           <div class="section-eyebrow">{{ page.principles.eyebrow }}</div>
           <h2 class="section-title">{{ page.principles.title }}</h2>
         </div>
         <p class="section-description">{{ page.principles.intro }}</p>
       </div>
-      <ol class="work-principle-list">
+      <ol class="work-principle-list work-reveal" data-work-reveal>
         {% for item in page.principles.items %}
           <li>
             <span class="work-item-index" aria-hidden="true">0{{ forloop.index }}</span>
@@ -121,7 +143,7 @@ layout: default
   </section>
 
   <section class="section work-next-section">
-    <div class="container work-section-intro">
+    <div class="container work-section-intro work-reveal" data-work-reveal>
       <div>
         <div class="section-eyebrow">{{ page.next_steps.eyebrow }}</div>
         <h2 class="section-title">{{ page.next_steps.title }}</h2>
@@ -134,7 +156,7 @@ layout: default
 
   <section class="section work-contact-section">
     <div class="container">
-      <div class="work-contact-panel">
+      <div class="work-contact-panel work-reveal" data-work-reveal>
         <div>
           <div class="section-eyebrow">{{ page.contact.eyebrow }}</div>
           <h2 class="section-title">{{ page.contact.title }}</h2>
@@ -150,6 +172,26 @@ layout: default
 
 <script>
   window.addEventListener("DOMContentLoaded", function () {
+    var page = document.querySelector(".work-page");
+    var revealTargets = document.querySelectorAll("[data-work-reveal]");
+
+    if (page && revealTargets.length && "IntersectionObserver" in window) {
+      page.classList.add("work-page--motion-observed");
+
+      var revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        });
+      }, {
+        rootMargin: "0px 0px -6% 0px",
+        threshold: 0.08
+      });
+
+      revealTargets.forEach(function (target) { revealObserver.observe(target); });
+    }
+
     var sections = document.querySelectorAll("[data-work-section]");
     if (!sections.length || !("IntersectionObserver" in window) || !window.siteAnalytics) return;
 
