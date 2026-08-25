@@ -3,11 +3,11 @@ layout: work
 title: Work
 permalink: /work/
 meta_title: Product & Engineering Work | Carlo Caprini
-meta_description: Independent Product and Engineering reviews and advisory work for software teams facing difficult product, technical, delivery or AI decisions.
-last_modified_at: 2026-08-24
+meta_description: Independent Product & Engineering reviews and advisory work for software teams facing difficult product, technical, delivery or AI decisions.
+last_modified_at: 2026-08-25
 hero:
   label: Work
-  title: Working through difficult Product × Engineering problems.
+  title: Working through difficult Product & Engineering problems.
   paragraphs:
     - I spend most of my time building and evolving software products from inside product organisations.
     - I also occasionally work with software teams that need an independent perspective on a product, technical or organisational problem.
@@ -16,7 +16,7 @@ hero:
 useful_when:
   eyebrow: Where this tends to be useful
   title: When the problem crosses boundaries.
-  intro: This kind of work tends to be most useful for software companies with an existing product and engineering team, especially when a problem has become difficult to reason about from inside the system.
+  intro: This kind of work tends to be most useful for software companies with an existing Product & Engineering team, especially when a problem has become difficult to reason about from inside the system.
   items:
     - title: Releases keep getting harder
       body: Small changes increasingly require coordination, manual checks or risky deployments, and the team is losing confidence in what a “safe release” actually means.
@@ -39,12 +39,12 @@ review:
   scope_title: What I may look at
   scope_intro: "Depending on the problem:"
   scope:
-    - Product and technical context
+    - Product & Engineering context
     - Architecture and codebase structure
     - Testing and quality practices
     - CI/CD and release practices
     - Development workflows
-    - Product and Engineering interfaces
+    - Product & Engineering interfaces
     - Platform and API evolution
     - AI-assisted development where relevant
   evidence: Depending on the problem, I may work directly from repositories, tests, CI/CD configuration, technical documentation and architecture decisions rather than relying only on interviews or presentations.
@@ -64,16 +64,16 @@ advisory:
   description: Focused ongoing support when the problem cannot be usefully reduced to a single review.
   areas_title: Typical areas
   areas:
-    - Product and technical direction
+    - Product & Engineering direction
     - Platform and API evolution
     - Software delivery and engineering practices
-    - Product and Engineering collaboration
+    - Product & Engineering collaboration
     - AI adoption and AI-assisted development
     - Follow-through on findings from a Review
   situations_title: This can mean
   situations:
     - Reviewing a proposed architectural change before implementation
-    - Working through competing Product and Engineering options with the team
+    - Working through competing Product & Engineering options with the team
     - Helping prioritize Review findings into incremental changes
     - Revisiting a release or testing strategy before investing in a broad rewrite
     - Evaluating whether an AI-assisted workflow should be automated, constrained or left alone

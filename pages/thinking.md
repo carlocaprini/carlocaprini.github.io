@@ -12,7 +12,7 @@ hero:
   title_prefix: "Notes on "
   title_highlight: "product decisions, AI, software systems and teams"
   paragraphs:
-    - Notes from product and engineering work in complex software systems.
+    - Notes from Product & Engineering work in complex software systems.
     - Each note stands on its own, but together they trace recurring questions about how teams choose, build and learn over time.
 ai_process:
   label: Editorial process

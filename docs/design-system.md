@@ -591,6 +591,8 @@ Preferred wording:
 - product/platform systems
 - teams evolve over time
 
+Use `Product & Engineering` as the canonical label for the professional domain, engagement models, section titles, taxonomy descriptions and positioning metadata. In ordinary editorial prose, retain lower-case “product and engineering” when the words function grammatically rather than as the name of the domain.
+
 Use carefully:
 
 - challenge

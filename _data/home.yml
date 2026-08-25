@@ -54,14 +54,14 @@ questions:
     url: /explore/
 
 where_i_can_help:
-  eyebrow: Selected work
+  eyebrow: Where I can help
   title: Problems I occasionally help teams work through.
   paragraphs:
-    - Alongside my product work, I occasionally collaborate with software companies when an independent product and technical perspective can help clarify a difficult problem.
-    - "I focus on specific problems with a clear scope: something concrete to understand, evaluate or improve."
+    - Alongside my product work, I occasionally collaborate with software companies when an independent Product & Engineering perspective can help clarify a difficult problem.
+    - I focus on specific problems with a clear scope, using product context and technical evidence to clarify what matters, what should change, what can wait and what is already working well enough to preserve.
   cards:
-    - title: Product and technical direction
-      body: When several directions look reasonable and the difficult part is understanding the trade-offs, constraints and consequences behind each one.
+    - title: Product & Engineering direction
+      body: When a product, platform or API can evolve in several reasonable directions and the difficult part is understanding the trade-offs, technical constraints, compatibility and consequences.
     - title: Software delivery and engineering systems
       body: When architecture, testing, release practices or development workflows are making software harder to change safely and predictably.
     - title: AI adoption and AI-assisted development
