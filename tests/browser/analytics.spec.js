@@ -369,7 +369,7 @@ test("Article signature actions expose distinct professional intent", async ({ p
       parameters: { platform: "linkedin", link_context: "article_signature" }
     },
     {
-      link: signature.getByRole("link", { name: /See how I work/ }),
+      link: signature.getByRole("link", { name: /How I can help/ }),
       event: "work_open",
       parameters: { link_context: "article_signature" }
     },
