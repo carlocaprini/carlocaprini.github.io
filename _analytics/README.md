@@ -146,6 +146,20 @@ node _analytics/reports/generate-report.mjs --since-start
 
 `--since-start` and `--days=N` are mutually exclusive; the default remains `--days=30`. CSV output includes `daily-trend.csv` alongside the existing exports, including the separate campaign-landings file when UTM-attributed visits exist. Generated reports stay outside this public repository.
 
+Official monthly reports must use an exact immutable calendar period. The month shortcut resolves month boundaries, including leap years:
+
+```bash
+node _analytics/reports/generate-report.mjs --month=2026-08 --csv-dir=/tmp/site-analytics/2026-08
+```
+
+Use an inclusive custom range when a calendar month is not the intended period:
+
+```bash
+node _analytics/reports/generate-report.mjs --from=2026-08-01 --to=2026-08-31 --csv-dir=/tmp/site-analytics/2026-08
+```
+
+`--month` and `--from`/`--to` cannot be combined with `--days` or `--since-start`. Markdown and every CSV export are generated from the same date filter. Rolling windows remain available only for informal investigation.
+
 ## Retention
 
 The scheduled Worker task deletes normal and campaign daily rows older than 14 calendar months. If longer history is needed later, add an explicitly reviewed monthly-rollup migration before changing retention.

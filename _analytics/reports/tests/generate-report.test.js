@@ -4,9 +4,13 @@ import test from "node:test";
 import {
   buildCsvExports,
   buildDailyTrend,
+  dateFilterFor,
   formatCsv,
   measurementRange,
   parseOptions,
+  periodForMonth,
+  periodForRange,
+  requestedPeriodFor,
   renderMarkdown
 } from "../generate-report.mjs";
 
@@ -136,6 +140,7 @@ test("since-start is explicit and cannot be combined with days", () => {
     local: true,
     sinceStart: true,
     days: 30,
+    exactPeriod: null,
     csvDirectory: null
   });
   assert.throws(
@@ -143,4 +148,51 @@ test("since-start is explicit and cannot be combined with days", () => {
     /Use either --since-start or --days=N/
   );
   assert.equal(parseOptions([]).days, 30);
+});
+
+test("month periods cover the complete calendar month including leap years", () => {
+  assert.deepEqual(periodForMonth("2026-08"), {
+    from: "2026-08-01",
+    to: "2026-08-31"
+  });
+  assert.deepEqual(periodForMonth("2024-02"), {
+    from: "2024-02-01",
+    to: "2024-02-29"
+  });
+  assert.deepEqual(periodForMonth("2026-02"), {
+    from: "2026-02-01",
+    to: "2026-02-28"
+  });
+});
+
+test("explicit date ranges are inclusive and reject invalid order or dates", () => {
+  assert.deepEqual(periodForRange("2026-08-01", "2026-08-31"), {
+    from: "2026-08-01",
+    to: "2026-08-31"
+  });
+  assert.throws(() => periodForRange("2026-08-31", "2026-08-01"), /must not be after/);
+  assert.throws(() => periodForRange("2026-02-29", "2026-03-01"), /Invalid --from date/);
+  assert.throws(() => periodForMonth("2026-13"), /Invalid --month value/);
+});
+
+test("exact-period options are complete and mutually exclusive", () => {
+  const month = parseOptions(["--local", "--month=2026-08", "--csv-dir=tmp/export"]);
+  assert.deepEqual(month.exactPeriod, { from: "2026-08-01", to: "2026-08-31" });
+  assert.equal(dateFilterFor(month), "day >= '2026-08-01' AND day <= '2026-08-31'");
+  assert.equal(requestedPeriodFor(month), "2026-08-01 → 2026-08-31 (inclusive)");
+
+  assert.throws(() => parseOptions(["--from=2026-08-01"]), /Use --from=.*and --to=/);
+  assert.throws(() => parseOptions(["--to=2026-08-31"]), /Use --from=.*and --to=/);
+  assert.throws(
+    () => parseOptions(["--month=2026-08", "--days=30"]),
+    /Exact periods .* cannot be combined/
+  );
+  assert.throws(
+    () => parseOptions(["--month=2026-08", "--since-start"]),
+    /Exact periods .* cannot be combined/
+  );
+  assert.throws(
+    () => parseOptions(["--month=2026-08", "--from=2026-08-01", "--to=2026-08-31"]),
+    /Use either --month=.*or --from\/--to/
+  );
 });
