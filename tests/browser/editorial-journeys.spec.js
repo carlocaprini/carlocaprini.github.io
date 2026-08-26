@@ -119,6 +119,26 @@ test("notes expose curated Questions without promoting topics to sidebar navigat
   await expect(page.getByRole("complementary", { name: "Explore topics" })).toHaveCount(0);
 });
 
+test("notes end with a consistent author signature and professional paths", async ({ page }) => {
+  await page.goto("/thinking/waiting-as-product-decision/");
+
+  const signature = page.locator(".article-signature");
+  await expect(signature.getByText("Carlo Caprini", { exact: true })).toBeVisible();
+  await expect(signature.getByText("Product Leadership & Strategy", { exact: true })).toBeVisible();
+  await expect(signature.locator(".article-signature-portrait")).toHaveAttribute(
+    "src",
+    "/assets/carlo-caprini-profile.png"
+  );
+  await expect(signature.locator(".article-signature-portrait")).toHaveAttribute("alt", "");
+  await expect(signature.getByRole("link", { name: /Follow on LinkedIn/ })).toHaveAttribute(
+    "href",
+    "https://www.linkedin.com/in/carlocaprini/"
+  );
+  await expect(signature.getByRole("link", { name: /See how I work/ })).toHaveAttribute("href", "/work/");
+  await expect(signature.getByRole("link", { name: /Contact/ })).toHaveAttribute("href", "/#contact");
+  await expect(signature.getByRole("link", { name: /Experience/ })).toHaveCount(0);
+});
+
 test("curated Influences return to a relevant Question", async ({ page }) => {
   await page.goto("/influences/");
 

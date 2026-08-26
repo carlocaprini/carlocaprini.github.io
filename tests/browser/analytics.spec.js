@@ -341,3 +341,39 @@ test("Work discovery and meaningful section views expose their context", async (
     )
   )).toBe(true);
 });
+
+test("Article signature actions expose distinct professional intent", async ({ page }) => {
+  await captureAnalytics(page);
+  await page.goto("/thinking/waiting-as-product-decision/");
+
+  const signature = page.locator(".article-signature");
+  const actions = [
+    {
+      link: signature.getByRole("link", { name: /Follow on LinkedIn/ }),
+      event: "contact_open",
+      parameters: { contact_method: "linkedin", link_context: "article_signature" }
+    },
+    {
+      link: signature.getByRole("link", { name: /See how I work/ }),
+      event: "work_open",
+      parameters: { link_context: "article_signature" }
+    },
+    {
+      link: signature.getByRole("link", { name: /Contact/ }),
+      event: "contact_section_open",
+      parameters: { link_context: "article_signature" }
+    }
+  ];
+
+  for (const action of actions) {
+    await action.link.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+    await action.link.click();
+    expect(await page.evaluate(() => window.__analyticsEvents.at(-1))).toMatchObject({
+      name: action.event,
+      parameters: {
+        ...action.parameters,
+        page_type: "note"
+      }
+    });
+  }
+});

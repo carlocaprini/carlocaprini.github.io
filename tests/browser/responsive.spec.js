@@ -65,3 +65,38 @@ test("Work keeps its recognition and evidence layers readable across breakpoints
     }
   }
 });
+
+test("article signature preserves identity and actions across breakpoints", async ({ page }, testInfo) => {
+  await page.goto("/thinking/waiting-as-product-decision/");
+
+  const signature = page.locator(".article-signature");
+  const description = signature.locator(".article-signature-description");
+  const followNote = signature.locator(".article-signature-follow > p");
+
+  await expect(signature).toBeVisible();
+  await expect(signature.locator(".article-signature-portrait")).toBeVisible();
+  await expect(signature.getByRole("link", { name: /Follow on LinkedIn/ })).toBeVisible();
+  await expect(signature.getByRole("link", { name: /See how I work/ })).toBeVisible();
+  await expect(signature.getByRole("link", { name: /Contact/ })).toBeVisible();
+
+  if (testInfo.project.name === "mobile-chromium") {
+    await expect(description).toBeHidden();
+    await expect(followNote).toBeHidden();
+  } else {
+    await expect(description).toBeVisible();
+    await expect(followNote).toBeVisible();
+  }
+
+  const bounds = await signature.evaluate((element) => {
+    const box = element.getBoundingClientRect();
+    return {
+      left: box.left,
+      right: box.right,
+      viewportWidth: document.documentElement.clientWidth,
+      scrollWidth: document.documentElement.scrollWidth
+    };
+  });
+  expect(bounds.left).toBeGreaterThanOrEqual(16);
+  expect(bounds.right).toBeLessThanOrEqual(bounds.viewportWidth - 16);
+  expect(bounds.scrollWidth).toBe(bounds.viewportWidth);
+});
