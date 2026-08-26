@@ -105,4 +105,3 @@ contact:
     # URL comes from _data/person.yml (person_field → layout resolves site.data.person.*).
     - label: LinkedIn
       person_field: linkedin
-      text: carlocaprini

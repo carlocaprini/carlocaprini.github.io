@@ -191,15 +191,21 @@ layout: default
       </div>
       <div class="contact-channels">
         {% for ch in h.contact.channels %}
-          <div>
+          <div class="contact-channel">
             <div class="contact-label">{{ ch.label }}</div>
             {% if ch.person_field == "linkedin" %}
-            <a class="contact-link" href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_open" data-analytics-contact-method="linkedin" data-analytics-link-context="home_contact">{{ ch.text }}<span class="visually-hidden"> (opens in new tab)</span></a>
+            <a class="linkedin-profile-link contact-linkedin" href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_open" data-analytics-contact-method="linkedin" data-analytics-link-context="home_contact">
+              {% include linkedin-profile-link-content.html label=site.data.person.linkedin_handle %}
+            </a>
             {% else %}
             <a class="contact-link" href="{{ ch.url }}" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_open" data-analytics-contact-method="{{ ch.label | downcase | escape }}" data-analytics-link-context="home_contact">{{ ch.text }}<span class="visually-hidden"> (opens in new tab)</span></a>
             {% endif %}
           </div>
         {% endfor %}
+        <div class="contact-identity">
+          <img class="profile-portrait contact-portrait" src="{{ site.data.person.article_signature_portrait | relative_url }}" alt="" width="384" height="384" loading="lazy" decoding="async">
+          <p>{{ site.data.person.contact_identity_tagline }}</p>
+        </div>
       </div>
     </div>
   </section>
