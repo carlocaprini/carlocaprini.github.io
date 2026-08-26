@@ -15,23 +15,85 @@ export function parseOptions(args) {
   const local = args.includes("--local");
   const sinceStart = args.includes("--since-start");
   const daysArgument = args.find((value) => value.startsWith("--days="));
+  const monthArgument = args.find((value) => value.startsWith("--month="));
+  const fromArgument = args.find((value) => value.startsWith("--from="));
+  const toArgument = args.find((value) => value.startsWith("--to="));
   const csvArgument = args.find((value) => value.startsWith("--csv-dir="));
 
+  const exactArguments = [monthArgument, fromArgument, toArgument].filter(Boolean);
+  if ((sinceStart || daysArgument) && exactArguments.length > 0) {
+    throw new Error("Exact periods (--month or --from/--to) cannot be combined with --days or --since-start.");
+  }
   if (sinceStart && daysArgument) {
     throw new Error("Use either --since-start or --days=N, not both.");
+  }
+  if (monthArgument && (fromArgument || toArgument)) {
+    throw new Error("Use either --month=YYYY-MM or --from/--to, not both.");
+  }
+  if ((fromArgument && !toArgument) || (!fromArgument && toArgument)) {
+    throw new Error("Use --from=YYYY-MM-DD and --to=YYYY-MM-DD together.");
   }
 
   const requestedDays = Number.parseInt(daysArgument?.split("=")[1] || String(DEFAULT_DAYS), 10);
   const days = Number.isInteger(requestedDays)
     ? Math.min(Math.max(requestedDays, 1), MAX_DAYS)
     : DEFAULT_DAYS;
+  const exactPeriod = monthArgument
+    ? periodForMonth(monthArgument.split("=")[1])
+    : fromArgument
+      ? periodForRange(fromArgument.split("=")[1], toArgument.split("=")[1])
+      : null;
 
   return {
     local,
     sinceStart,
     days,
+    exactPeriod,
     csvDirectory: csvArgument ? resolve(csvArgument.split("=")[1]) : null
   };
+}
+
+function validIsoDate(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value || "")) return false;
+  const [year, month, day] = value.split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  return date.getUTCFullYear() === year &&
+    date.getUTCMonth() === month - 1 &&
+    date.getUTCDate() === day;
+}
+
+export function periodForRange(from, to) {
+  if (!validIsoDate(from)) throw new Error(`Invalid --from date: ${from || "(missing)"}. Use YYYY-MM-DD.`);
+  if (!validIsoDate(to)) throw new Error(`Invalid --to date: ${to || "(missing)"}. Use YYYY-MM-DD.`);
+  if (from > to) throw new Error(`Invalid exact period: --from (${from}) must not be after --to (${to}).`);
+  return { from, to };
+}
+
+export function periodForMonth(value) {
+  if (!/^\d{4}-\d{2}$/.test(value || "")) {
+    throw new Error(`Invalid --month value: ${value || "(missing)"}. Use YYYY-MM.`);
+  }
+  const [year, month] = value.split("-").map(Number);
+  if (month < 1 || month > 12) throw new Error(`Invalid --month value: ${value}. Use YYYY-MM.`);
+  const lastDay = new Date(Date.UTC(year, month, 0)).getUTCDate();
+  return {
+    from: `${value}-01`,
+    to: `${value}-${String(lastDay).padStart(2, "0")}`
+  };
+}
+
+export function dateFilterFor(options) {
+  if (options.exactPeriod) {
+    return `day >= '${options.exactPeriod.from}' AND day <= '${options.exactPeriod.to}'`;
+  }
+  return options.sinceStart ? "1 = 1" : `day >= date('now', '-${options.days - 1} days')`;
+}
+
+export function requestedPeriodFor(options) {
+  if (options.exactPeriod) {
+    return `${options.exactPeriod.from} → ${options.exactPeriod.to} (inclusive)`;
+  }
+  return options.sinceStart ? "Since measurement started" : `Last ${options.days} days`;
 }
 
 export function buildDailyTrend(rows) {
@@ -299,7 +361,7 @@ export async function main(args = process.argv.slice(2), environment = process.e
         databaseId: environment.CLOUDFLARE_D1_DATABASE_ID,
         apiToken: environment.CLOUDFLARE_API_TOKEN
       }, sql);
-  const dateFilter = options.sinceStart ? "1 = 1" : `day >= date('now', '-${options.days - 1} days')`;
+  const dateFilter = dateFilterFor(options);
 
   const [dailyRows, eventTotals, pageViews, paths, targets, consent, campaigns] = await Promise.all([
     query(`
@@ -361,7 +423,7 @@ export async function main(args = process.argv.slice(2), environment = process.e
 
   const dailyTrend = buildDailyTrend(dailyRows);
   const markdown = renderMarkdown({
-    requestedPeriod: options.sinceStart ? "Since measurement started" : `Last ${options.days} days`,
+    requestedPeriod: requestedPeriodFor(options),
     generatedAt: new Date().toISOString(),
     environment: options.local ? "Local integration" : "Production",
     dailyTrend,

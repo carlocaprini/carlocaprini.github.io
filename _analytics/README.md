@@ -6,6 +6,20 @@ The browser sends a fixed semantic payload to a Cloudflare Worker. The Worker va
 
 Work uses the same semantic contract as the rest of the site. `work_open` records which site context led to `/work/`; `work_section_view` records a first meaningful view of Review or Advisory; `contact_open` with `work_contact` identifies the outbound conversation path. These remain coarse allowlisted transitions and never include problem descriptions or other visitor prose.
 
+## Semantic coverage
+
+The site measures meaningful transitions rather than every click:
+
+- page and content views establish which public destinations were reached;
+- global navigation and in-page entry points distinguish movement into Thinking, Explore, Influences, Experience and Work;
+- note, question, series, topic and external-reading events preserve the discovery context that led to them;
+- Work-section visibility and contact events separate professional exploration from opening a contact channel;
+- series visuals and RSS have dedicated events because their destination is not adequately described by a page view.
+
+Home and brand links, back links, skip links, Privacy, consent-settings reopening and purely visual interactions intentionally have no semantic navigation event. Their destination page view or dedicated consent behavior is sufficient, and adding click events would create noise without answering a measurement question. Desktop and mobile navigation use the same destination semantics while retaining separate `primary_navigation` and `mobile_navigation` contexts.
+
+Cross-system measurement operations live under [`measurement/`](measurement/README.md). That directory owns the GA4 reporting target, internal/developer traffic handling, professional-outcome structure and repeatable monthly/quarterly evidence workflow. It does not introduce another telemetry destination.
+
 When a landing URL contains the complete canonical UTM tuple, the browser also sends one aggregate `campaign_landing` event. Missing, partial, duplicated or unknown UTM values are ignored and do not affect the normal page and interaction counters. Campaign attribution is limited to the landing page and is never persisted across navigation.
 
 ## Canonical UTM contract
@@ -145,6 +159,20 @@ node _analytics/reports/generate-report.mjs --since-start
 ```
 
 `--since-start` and `--days=N` are mutually exclusive; the default remains `--days=30`. CSV output includes `daily-trend.csv` alongside the existing exports, including the separate campaign-landings file when UTM-attributed visits exist. Generated reports stay outside this public repository.
+
+Official monthly reports must use an exact immutable calendar period. The month shortcut resolves month boundaries, including leap years:
+
+```bash
+node _analytics/reports/generate-report.mjs --month=2026-08 --csv-dir=/tmp/site-analytics/2026-08
+```
+
+Use an inclusive custom range when a calendar month is not the intended period:
+
+```bash
+node _analytics/reports/generate-report.mjs --from=2026-08-01 --to=2026-08-31 --csv-dir=/tmp/site-analytics/2026-08
+```
+
+`--month` and `--from`/`--to` cannot be combined with `--days` or `--since-start`. Markdown and every CSV export are generated from the same date filter. Rolling windows remain available only for informal investigation.
 
 ## Retention
 

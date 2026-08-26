@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "native_dimensions": [
+    "Page path and screen class",
+    "Landing page + query string",
+    "Session source / medium",
+    "First user source / medium",
+    "Device category",
+    "Country"
+  ],
+  "custom_dimensions": [
+    { "name": "Page type", "event_parameter": "page_type", "scope": "event" },
+    { "name": "Page ID", "event_parameter": "page_id", "scope": "event" },
+    { "name": "Page topic", "event_parameter": "page_topic", "scope": "event" },
+    { "name": "Page series", "event_parameter": "page_series", "scope": "event" },
+    { "name": "Page episode", "event_parameter": "page_episode", "scope": "event" },
+    { "name": "Link context", "event_parameter": "link_context", "scope": "event" },
+    { "name": "Collection", "event_parameter": "collection", "scope": "event" },
+    { "name": "Note ID", "event_parameter": "note_id", "scope": "event" },
+    { "name": "Question ID", "event_parameter": "question_id", "scope": "event" },
+    { "name": "Series ID", "event_parameter": "series_id", "scope": "event" },
+    { "name": "Episode number", "event_parameter": "episode_number", "scope": "event" },
+    { "name": "Topic", "event_parameter": "topic", "scope": "event" },
+    { "name": "Reading ID", "event_parameter": "reading_id", "scope": "event" },
+    { "name": "Work section", "event_parameter": "work_section", "scope": "event" },
+    { "name": "Contact method", "event_parameter": "contact_method", "scope": "event" }
+  ],
+  "derived_events": [
+    {
+      "name": "work_contact_open",
+      "source_event": "contact_open",
+      "conditions": {
+        "link_context": "work_contact"
+      },
+      "copy_source_parameters": true,
+      "key_event": true
+    }
+  ]
+}

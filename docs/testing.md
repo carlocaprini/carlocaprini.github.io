@@ -8,7 +8,7 @@
 | --- | --- | --- |
 | `bin/check source` | Ruby syntax, validator mutation fixtures and source contracts | Ruby |
 | `bin/check generated` | Production Jekyll build plus generated-site validation | Ruby; local Bundler/Jekyll or Docker |
-| `bin/check analytics` | Generated contract freshness, browser/Worker contract and unit tests | Node dependencies |
+| `bin/check analytics` | Generated contract freshness, browser/Worker contract, reporting periods and measurement-operation tests | Node dependencies |
 | `bin/check analytics-integration` | Browser → Worker → disposable D1 path | Node dependencies, Chromium |
 | `bin/check infrastructure` | Docker Compose configuration | Docker |
 | `bin/check browser` | Broad Chromium behavior on desktop, mobile and portrait tablet | built `_site`, Chromium |

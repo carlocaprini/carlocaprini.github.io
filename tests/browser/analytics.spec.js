@@ -177,6 +177,19 @@ test("Note views expose the editorial analytics context", async ({ page }) => {
   });
 });
 
+test("Full-size article images are not misclassified as external readings", async ({ page }) => {
+  await captureAnalytics(page);
+  await page.goto("/thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/");
+
+  const figureLink = page.locator(".article-figure-link");
+  await expect(figureLink).not.toHaveAttribute("data-analytics-event", /.+/);
+  await figureLink.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+
+  const eventCount = await page.evaluate(() => window.__analyticsEvents.length);
+  await figureLink.click();
+  expect(await page.evaluate(() => window.__analyticsEvents.length)).toBe(eventCount);
+});
+
 test("Topic filters emit one semantic selection event", async ({ page }) => {
   await captureAnalytics(page);
   await page.goto("/explore/");
@@ -217,7 +230,7 @@ test("Editorial collection links retain their entry point", async ({ page }) => 
   await captureAnalytics(page);
   await page.goto("/");
 
-  const link = page.locator('[data-analytics-event="collection_open"][data-analytics-collection="explore"]:visible').first();
+  const link = page.locator('[data-analytics-event="collection_open"][data-analytics-collection="explore"][data-analytics-link-context="home_hero"]');
   await link.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
   await link.click();
 
@@ -230,6 +243,46 @@ test("Editorial collection links retain their entry point", async ({ page }) => 
       page_type: "home"
     }
   });
+});
+
+test("Primary navigation preserves editorial and professional path context", async ({ page }) => {
+  await captureAnalytics(page);
+  await page.goto("/");
+
+  const mobileMenu = page.locator("details.mobile-nav");
+  const navigationName = await mobileMenu.isVisible() ? "Mobile navigation" : "Primary navigation";
+  const navigation = page.getByRole("navigation", { name: navigationName });
+
+  async function clickWithoutNavigation(label) {
+    if (await mobileMenu.isVisible() && !(await mobileMenu.getAttribute("open"))) {
+      await mobileMenu.locator("summary").click();
+    }
+    const link = navigation.getByRole("link", { name: label, exact: true });
+    await link.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+    await link.click();
+    return page.evaluate(() => window.__analyticsEvents.at(-1));
+  }
+
+  await expect(clickWithoutNavigation("Thinking")).resolves.toMatchObject({
+    name: "collection_open",
+    parameters: { collection: "thinking", page_type: "home" }
+  });
+  await expect(clickWithoutNavigation("Explore")).resolves.toMatchObject({
+    name: "collection_open",
+    parameters: { collection: "explore", page_type: "home" }
+  });
+  await expect(clickWithoutNavigation("Experience")).resolves.toMatchObject({
+    name: "experience_open",
+    parameters: { page_type: "home" }
+  });
+  await expect(clickWithoutNavigation("Influences")).resolves.toMatchObject({
+    name: "collection_open",
+    parameters: { collection: "influences", page_type: "home" }
+  });
+
+  const expectedContext = navigationName === "Mobile navigation" ? "mobile_navigation" : "primary_navigation";
+  const events = await page.evaluate(() => window.__analyticsEvents.slice(-4));
+  expect(events.every((event) => event.parameters.link_context === expectedContext)).toBe(true);
 });
 
 test("Contact section intent is distinct from opening a channel", async ({ page }) => {

@@ -41,7 +41,7 @@
     track(element.getAttribute("data-analytics-event"), analyticsParameters(element));
   }
 
-  document.querySelectorAll(".article-body a:not([data-analytics-event])").forEach(function (link) {
+  document.querySelectorAll(".article-body a:not([data-analytics-event]):not(.article-figure-link)").forEach(function (link) {
     var url;
     try {
       url = new URL(link.href, window.location.href);
