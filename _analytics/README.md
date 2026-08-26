@@ -6,6 +6,8 @@ The browser sends a fixed semantic payload to a Cloudflare Worker. The Worker va
 
 Work uses the same semantic contract as the rest of the site. `work_open` records which site context led to `/work/`; `work_section_view` records a first meaningful view of Review or Advisory; `contact_open` with `work_contact` identifies the outbound conversation path. These remain coarse allowlisted transitions and never include problem descriptions or other visitor prose.
 
+Cross-system measurement operations live under [`measurement/`](measurement/README.md). That directory owns the GA4 reporting target, internal/developer traffic handling, professional-outcome structure and repeatable monthly/quarterly evidence workflow. It does not introduce another telemetry destination.
+
 When a landing URL contains the complete canonical UTM tuple, the browser also sends one aggregate `campaign_landing` event. Missing, partial, duplicated or unknown UTM values are ignored and do not affect the normal page and interaction counters. Campaign attribution is limited to the landing page and is never persisted across navigation.
 
 ## Canonical UTM contract
