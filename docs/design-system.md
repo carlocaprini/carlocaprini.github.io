@@ -517,16 +517,23 @@ At narrower widths, hide “On this page” instead of moving it below the note.
 
 ### Article Signature
 
-The signature is a compact identity surface at the end of each note. It should establish authorship and offer useful next steps without adding generic positioning copy.
+The signature is a responsive identity surface at the end of each note. It should make the author recognizable, offer a restrained relationship CTA and connect the note to the professional layer of the site without becoming a second article conclusion.
 
 Keep:
 
-- name and short role label
-- one restrained accent marker
-- standard editorial links to Experience and Contact
-- the same link treatment used elsewhere on the site
+- name, short role label and local monochrome portrait
 
-Avoid biographies, promotional claims or duplicate summaries of the article.
+- the existing cyan identity marker; the portrait complements rather than replaces it
+
+- LinkedIn as the primary relationship CTA, with a short publication-oriented explanation where space allows
+
+- Work and Contact as lower-priority actions using the standard site link treatment
+
+- one semantic component and one canonical set of person data across breakpoints
+
+On desktop and portrait tablet, retain the short description and LinkedIn microcopy. On mobile, hide those supporting lines while preserving identity, portrait and all three actions. The compact state is a responsive representation of the same component, not separate content.
+
+Avoid biographies, promotional claims, article summaries, unrelated navigation and generic icon families for the secondary actions.
 
 ### Credentials
 
