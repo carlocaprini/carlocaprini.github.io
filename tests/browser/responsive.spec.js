@@ -40,6 +40,49 @@ test("Home uses compact discovery cards below desktop width", async ({ page }, t
   }
 });
 
+test("Home Contact preserves CTA-first identity hierarchy across breakpoints", async ({ page }, testInfo) => {
+  await page.goto("/");
+
+  const contact = page.locator("#contact");
+  const grid = contact.locator(".contact-grid");
+  const linkedin = contact.locator(".contact-linkedin");
+  const identity = contact.locator(".contact-identity");
+  const portrait = contact.locator(".contact-portrait");
+
+  await expect(linkedin).toBeVisible();
+  await expect(identity).toBeVisible();
+  await expect(portrait).toBeVisible();
+
+  const state = await contact.evaluate((section) => {
+    const gridElement = section.querySelector(".contact-grid");
+    const linkElement = section.querySelector(".contact-linkedin");
+    const identityElement = section.querySelector(".contact-identity");
+    const portraitElement = section.querySelector(".contact-portrait");
+    const identityText = identityElement.querySelector("p");
+    const identityBox = identityElement.getBoundingClientRect();
+    const portraitBox = portraitElement.getBoundingClientRect();
+
+    return {
+      columns: getComputedStyle(gridElement).gridTemplateColumns.split(" ").length,
+      linkTop: linkElement.getBoundingClientRect().top,
+      identityTop: identityBox.top,
+      identityRight: identityBox.right,
+      linkFontSize: Number.parseFloat(getComputedStyle(linkElement).fontSize),
+      identityFontSize: Number.parseFloat(getComputedStyle(identityText).fontSize),
+      portraitWidth: portraitBox.width,
+      viewportWidth: document.documentElement.clientWidth,
+      scrollWidth: document.documentElement.scrollWidth
+    };
+  });
+
+  expect(state.columns).toBe(testInfo.project.name === "desktop-chromium" ? 2 : 1);
+  expect(state.linkTop).toBeLessThan(state.identityTop);
+  expect(state.linkFontSize).toBeGreaterThan(state.identityFontSize);
+  expect(state.portraitWidth).toBeLessThanOrEqual(testInfo.project.name === "mobile-chromium" ? 80 : 120);
+  expect(state.identityRight).toBeLessThanOrEqual(state.viewportWidth - 16);
+  expect(state.scrollWidth).toBe(state.viewportWidth);
+});
+
 test("Work keeps its recognition and evidence layers readable across breakpoints", async ({ page }, testInfo) => {
   await page.goto("/work/");
 

@@ -356,6 +356,24 @@ Rules:
 - Avoid yellow unless there is a deliberate warm semantic reason.
 - Notes should be short and confident.
 
+### Home Contact Identity
+
+The Home Contact section remains a low-pressure continuation path, not an author profile or promotional panel. Preserve its two-column composition on desktop and its existing explanatory copy.
+
+Keep:
+
+- the conversation heading and supporting copy as the primary section content
+
+- LinkedIn as the strongest action in the secondary column, using the shared LinkedIn profile-link treatment
+
+- one compact, non-interactive portrait and a single restrained identity tagline below the action
+
+- the canonical portrait, LinkedIn URL, handle and tagline from person data
+
+- a stacked mobile order of copy, LinkedIn action, then supporting identity
+
+The Contact portrait reuses the article-signature crop and border treatment, but the two sections remain separate components with different purposes. Avoid cards, biography copy, new social-icon families, animation and visual effects that compete with the LinkedIn action.
+
 ### Influence Cards
 
 Keep:

@@ -151,9 +151,6 @@
   width: 8.5rem;
   height: 8.5rem;
   align-self: start;
-  border: 1px solid var(--accent-cyan-border);
-  border-radius: 50%;
-  object-fit: cover;
 }
 
 .article-signature-accent {
@@ -179,35 +176,6 @@
   grid-column: 1;
   grid-row: 4;
   margin-left: 1.58rem;
-}
-
-.article-signature-follow > a {
-  display: inline-flex;
-  min-height: 2.75rem;
-  align-items: center;
-  gap: 0.55rem;
-  color: var(--accent-cyan);
-  font-size: 0.92rem;
-  font-weight: 500;
-  text-decoration: none;
-}
-
-.article-signature-follow > a:hover {
-  color: #67e8f9;
-}
-
-.article-signature-linkedin-mark {
-  display: inline-flex;
-  width: 1.75rem;
-  height: 1.75rem;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid currentColor;
-  border-radius: 0.38rem;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: -0.05em;
-  line-height: 1;
 }
 
 .article-signature-follow > p {
