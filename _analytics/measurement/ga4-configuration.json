@@ -23,7 +23,8 @@
     { "name": "Topic", "event_parameter": "topic", "scope": "event" },
     { "name": "Reading ID", "event_parameter": "reading_id", "scope": "event" },
     { "name": "Work section", "event_parameter": "work_section", "scope": "event" },
-    { "name": "Contact method", "event_parameter": "contact_method", "scope": "event" }
+    { "name": "Contact method", "event_parameter": "contact_method", "scope": "event" },
+    { "name": "Social platform", "event_parameter": "platform", "scope": "event" }
   ],
   "derived_events": [
     {

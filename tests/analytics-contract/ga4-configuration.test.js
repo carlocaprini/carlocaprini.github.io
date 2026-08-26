@@ -19,6 +19,7 @@ test("GA4 reporting dimensions have unique event parameters and event scope", ()
   assert.ok(parameters.includes("link_context"));
   assert.ok(parameters.includes("work_section"));
   assert.ok(parameters.includes("contact_method"));
+  assert.ok(parameters.includes("platform"));
   for (const dimension of ga4.custom_dimensions) assert.equal(dimension.scope, "event");
 });
 

@@ -104,6 +104,33 @@ test("accepts an allowlisted event and increments one aggregate row", async () =
   ]);
 });
 
+test("accepts social profile intent without treating it as contact", async () => {
+  const DB = new FakeDatabase();
+  const result = await handleRequest(
+    request(validPayload({
+      event_name: "social_profile_open",
+      source_type: "note",
+      source_id: "/thinking/waiting-as-product-decision/",
+      target_type: "social_profile",
+      target_id: "linkedin",
+      link_context: "article_signature"
+    })),
+    { DB, ALLOWED_ORIGIN: origin },
+    new Date("2026-08-26T12:00:00Z")
+  );
+
+  assert.equal(result.status, 204);
+  assert.deepEqual(DB.calls[0].values, [
+    "2026-08-26",
+    "social_profile_open",
+    "note",
+    "/thinking/waiting-as-product-decision/",
+    "social_profile",
+    "linkedin",
+    "article_signature"
+  ]);
+});
+
 test("discards unknown payload fields before storage", () => {
   const result = validatePayload(validPayload({
     timestamp: "2026-08-10T12:00:00Z",

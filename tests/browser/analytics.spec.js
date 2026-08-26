@@ -97,6 +97,12 @@ test("Aggregate measurement maps semantic events without personal fields", async
       page_id: "/work/",
       work_section: "review",
       link_context: "work_page"
+    }),
+    socialProfile: window.siteAggregateAnalytics.buildEvent("social_profile_open", {
+      page_type: "note",
+      page_id: "/thinking/waiting-as-product-decision/",
+      platform: "linkedin",
+      link_context: "article_signature"
     })
   }));
 
@@ -154,6 +160,15 @@ test("Aggregate measurement maps semantic events without personal fields", async
     target_type: "work_section",
     target_id: "review",
     link_context: "work_page"
+  });
+  expect(mapped.socialProfile).toEqual({
+    version: 1,
+    event_name: "social_profile_open",
+    source_type: "note",
+    source_id: "/thinking/waiting-as-product-decision/",
+    target_type: "social_profile",
+    target_id: "linkedin",
+    link_context: "article_signature"
   });
 });
 
@@ -340,4 +355,40 @@ test("Work discovery and meaningful section views expose their context", async (
       event.name === "work_section_view" && event.parameters.work_section === "review"
     )
   )).toBe(true);
+});
+
+test("Article signature actions expose distinct professional intent", async ({ page }) => {
+  await captureAnalytics(page);
+  await page.goto("/thinking/waiting-as-product-decision/");
+
+  const signature = page.locator(".article-signature");
+  const actions = [
+    {
+      link: signature.getByRole("link", { name: /Follow on LinkedIn/ }),
+      event: "social_profile_open",
+      parameters: { platform: "linkedin", link_context: "article_signature" }
+    },
+    {
+      link: signature.getByRole("link", { name: /See how I work/ }),
+      event: "work_open",
+      parameters: { link_context: "article_signature" }
+    },
+    {
+      link: signature.getByRole("link", { name: /Contact/ }),
+      event: "contact_section_open",
+      parameters: { link_context: "article_signature" }
+    }
+  ];
+
+  for (const action of actions) {
+    await action.link.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+    await action.link.click();
+    expect(await page.evaluate(() => window.__analyticsEvents.at(-1))).toMatchObject({
+      name: action.event,
+      parameters: {
+        ...action.parameters,
+        page_type: "note"
+      }
+    });
+  }
 });

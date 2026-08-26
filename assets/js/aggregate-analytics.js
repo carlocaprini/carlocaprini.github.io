@@ -96,6 +96,8 @@
         return { type: "contact", id: "section" };
       case "contact_open":
         return { type: "contact", id: cleanIdentifier(parameters.contact_method, 160) };
+      case "social_profile_open":
+        return { type: "social_profile", id: cleanIdentifier(parameters.platform, 160) };
       case "series_visual_open":
         return {
           type: "visual",

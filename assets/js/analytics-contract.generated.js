@@ -19,6 +19,7 @@
         "work_section_view",
         "contact_section_open",
         "contact_open",
+        "social_profile_open",
         "series_visual_open",
         "rss_open"
       ],
@@ -35,6 +36,7 @@
         "work_section_view",
         "contact_section_open",
         "contact_open",
+        "social_profile_open",
         "series_visual_open",
         "rss_open"
       ],
@@ -74,6 +76,7 @@
       "topic",
       "reading",
       "contact",
+      "social_profile",
       "work_section",
       "visual",
       "rss",
