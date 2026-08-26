@@ -97,7 +97,7 @@ test("Home Contact keeps LinkedIn primary and adds restrained profile identity",
     await expect(contact.getByText(copy, { exact: true })).toBeVisible();
   }
 
-  await expect(contact.getByText("Product leader with a software engineering background.", { exact: true })).toBeVisible();
+  await expect(contact.getByText("Product leader working across software, platforms and AI.", { exact: true })).toBeVisible();
   await expect(contact.getByText("I work at the intersection of product, systems and teams.", { exact: true })).toHaveCount(0);
   await expect(contact.locator(".contact-portrait")).toHaveAttribute("src", "/assets/carlo-caprini-profile.png");
   await expect(contact.locator(".contact-portrait")).toHaveAttribute("alt", "");
