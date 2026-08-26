@@ -134,7 +134,7 @@ test("notes end with a consistent author signature and professional paths", asyn
     "href",
     "https://www.linkedin.com/in/carlocaprini/"
   );
-  await expect(signature.getByRole("link", { name: /See how I work/ })).toHaveAttribute("href", "/work/");
+  await expect(signature.getByRole("link", { name: /How I can help/ })).toHaveAttribute("href", "/work/");
   await expect(signature.getByRole("link", { name: /Contact/ })).toHaveAttribute("href", "/#contact");
   await expect(signature.getByRole("link", { name: /Experience/ })).toHaveCount(0);
 });
