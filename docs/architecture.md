@@ -21,6 +21,8 @@ The browser has two distinct destinations:
 
 Both are disabled in ordinary local development. The Worker implementation and private reporting workflow live under `_analytics/`; `_analytics/README.md` is the operational owner.
 
+Cross-system measurement configuration and review templates live under `_analytics/measurement/`. They keep GA4 reporting, aggregate counters and private professional outcomes separate. Completed evidence packages and conversation records remain outside the public repository and are never joined to analytics identities.
+
 ## Validation layers
 
 `scripts/validate_source.rb` checks canonical repository relationships without Jekyll. `scripts/validate_site.rb` checks the deployable output. Shared parsing mechanics live in `scripts/lib/validation.rb`; business rules stay with their owning layer. Mutation fixtures prove important rules actually fail. See `docs/validation.md`.

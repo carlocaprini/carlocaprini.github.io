@@ -1,7 +1,9 @@
 # Monthly measurement review — YYYY-MM
 
-**Period:** YYYY-MM-01 → YYYY-MM-DD (inclusive)  
-**Collected:** YYYY-MM-DD  
+**Period:** YYYY-MM-01 → YYYY-MM-DD (inclusive)
+
+**Collected:** YYYY-MM-DD
+
 **Measurement changes or known internal tests:** None recorded.
 
 ## Executive reading

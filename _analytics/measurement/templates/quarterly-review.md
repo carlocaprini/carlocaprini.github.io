@@ -1,6 +1,7 @@
 # Quarterly measurement review — YYYY QN
 
-**Monthly reviews consumed:** YYYY-MM, YYYY-MM, YYYY-MM  
+**Monthly reviews consumed:** YYYY-MM, YYYY-MM, YYYY-MM
+
 **Reviewed:** YYYY-MM-DD
 
 This review compares the three completed monthly packages. It does not recollect or silently redefine their underlying metrics.
