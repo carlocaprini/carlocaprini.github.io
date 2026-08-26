@@ -61,22 +61,22 @@
           </div>
           <nav class="nav-right" aria-label="Primary navigation">
             <a href="{{ '/' | relative_url }}" {% if is_home %}class="is-active" aria-current="page"{% endif %}>Home</a>
-            <a href="{{ '/thinking/' | relative_url }}" {% if is_thinking %}class="is-active" aria-current="page"{% endif %}>Thinking</a>
-            <a href="{{ '/explore/' | relative_url }}" {% if is_explore %}class="is-active" aria-current="page"{% endif %}>Explore</a>
+            <a href="{{ '/thinking/' | relative_url }}" {% if is_thinking %}class="is-active" aria-current="page"{% endif %} data-analytics-event="collection_open" data-analytics-collection="thinking" data-analytics-link-context="primary_navigation">Thinking</a>
+            <a href="{{ '/explore/' | relative_url }}" {% if is_explore %}class="is-active" aria-current="page"{% endif %} data-analytics-event="collection_open" data-analytics-collection="explore" data-analytics-link-context="primary_navigation">Explore</a>
             <a href="{{ '/work/' | relative_url }}" {% if is_work %}class="is-active" aria-current="page"{% endif %} data-analytics-event="work_open" data-analytics-link-context="primary_navigation">Work</a>
-            <a href="{{ '/experience/' | relative_url }}" {% if is_experience %}class="is-active" aria-current="page"{% endif %}>Experience</a>
-            <a href="{{ '/influences/' | relative_url }}" {% if is_influences %}class="is-active" aria-current="page"{% endif %}>Influences</a>
+            <a href="{{ '/experience/' | relative_url }}" {% if is_experience %}class="is-active" aria-current="page"{% endif %} data-analytics-event="experience_open" data-analytics-link-context="primary_navigation">Experience</a>
+            <a href="{{ '/influences/' | relative_url }}" {% if is_influences %}class="is-active" aria-current="page"{% endif %} data-analytics-event="collection_open" data-analytics-collection="influences" data-analytics-link-context="primary_navigation">Influences</a>
             <a href="{{ '/' | relative_url }}#contact" data-analytics-event="contact_section_open" data-analytics-link-context="primary_navigation">Contact</a>
           </nav>
           <details class="mobile-nav">
             <summary>Menu</summary>
             <nav class="mobile-nav-panel" aria-label="Mobile navigation">
               <a href="{{ '/' | relative_url }}" {% if is_home %}class="is-active" aria-current="page"{% endif %}>Home</a>
-              <a href="{{ '/thinking/' | relative_url }}" {% if is_thinking %}class="is-active" aria-current="page"{% endif %}>Thinking</a>
-              <a href="{{ '/explore/' | relative_url }}" {% if is_explore %}class="is-active" aria-current="page"{% endif %}>Explore</a>
+              <a href="{{ '/thinking/' | relative_url }}" {% if is_thinking %}class="is-active" aria-current="page"{% endif %} data-analytics-event="collection_open" data-analytics-collection="thinking" data-analytics-link-context="mobile_navigation">Thinking</a>
+              <a href="{{ '/explore/' | relative_url }}" {% if is_explore %}class="is-active" aria-current="page"{% endif %} data-analytics-event="collection_open" data-analytics-collection="explore" data-analytics-link-context="mobile_navigation">Explore</a>
               <a href="{{ '/work/' | relative_url }}" {% if is_work %}class="is-active" aria-current="page"{% endif %} data-analytics-event="work_open" data-analytics-link-context="mobile_navigation">Work</a>
-              <a href="{{ '/experience/' | relative_url }}" {% if is_experience %}class="is-active" aria-current="page"{% endif %}>Experience</a>
-              <a href="{{ '/influences/' | relative_url }}" {% if is_influences %}class="is-active" aria-current="page"{% endif %}>Influences</a>
+              <a href="{{ '/experience/' | relative_url }}" {% if is_experience %}class="is-active" aria-current="page"{% endif %} data-analytics-event="experience_open" data-analytics-link-context="mobile_navigation">Experience</a>
+              <a href="{{ '/influences/' | relative_url }}" {% if is_influences %}class="is-active" aria-current="page"{% endif %} data-analytics-event="collection_open" data-analytics-collection="influences" data-analytics-link-context="mobile_navigation">Influences</a>
               <a href="{{ '/' | relative_url }}#contact" data-analytics-event="contact_section_open" data-analytics-link-context="mobile_navigation">Contact</a>
             </nav>
           </details>
