@@ -83,6 +83,30 @@ test("Home follows the discovery-first content order", async ({ page }) => {
   await expect(page.locator(".home-entry-grid").getByRole("link", { name: /Explore/ })).toHaveAttribute("href", "/explore/");
 });
 
+test("Home Contact keeps LinkedIn primary and adds restrained profile identity", async ({ page }) => {
+  await page.goto("/");
+
+  const contact = page.locator("#contact");
+  await expect(contact.getByRole("heading", { name: "Continue the conversation" })).toBeVisible();
+  for (const copy of [
+    "If a note here connects with a product, platform or team problem you are working through, I am always interested in comparing perspectives.",
+    "I’m also open to selected collaborations where product direction, platform evolution and AI adoption intersect.",
+    "The easiest way to reach me is via LinkedIn.",
+    "Based in Italy, working with teams globally."
+  ]) {
+    await expect(contact.getByText(copy, { exact: true })).toBeVisible();
+  }
+
+  await expect(contact.getByText("Product leader with a software engineering background.", { exact: true })).toBeVisible();
+  await expect(contact.getByText("I work at the intersection of product, systems and teams.", { exact: true })).toHaveCount(0);
+  await expect(contact.locator(".contact-portrait")).toHaveAttribute("src", "/assets/carlo-caprini-profile.png");
+  await expect(contact.locator(".contact-portrait")).toHaveAttribute("alt", "");
+  await expect(contact.getByRole("link", { name: /carlocaprini/ })).toHaveAttribute(
+    "href",
+    "https://www.linkedin.com/in/carlocaprini/"
+  );
+});
+
 test("Work explains recognizable problems and exactly two engagement models", async ({ page }) => {
   await page.goto("/work/");
 
