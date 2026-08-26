@@ -6,6 +6,8 @@ The browser sends a fixed semantic payload to a Cloudflare Worker. The Worker va
 
 Work uses the same semantic contract as the rest of the site. `work_open` records which site context led to `/work/`; `work_section_view` records a first meaningful view of Review or Advisory; `contact_open` with `work_contact` identifies the outbound conversation path. These remain coarse allowlisted transitions and never include problem descriptions or other visitor prose.
 
+`social_profile_open` records a deliberate move to an author's external profile and preserves the allowlisted platform plus the site context that prompted it. It is relationship exploration, not contact intent: `contact_open` remains reserved for opening an actual contact channel.
+
 ## Semantic coverage
 
 The site measures meaningful transitions rather than every click:
@@ -14,6 +16,7 @@ The site measures meaningful transitions rather than every click:
 - global navigation and in-page entry points distinguish movement into Thinking, Explore, Influences, Experience and Work;
 - note, question, series, topic and external-reading events preserve the discovery context that led to them;
 - Work-section visibility and contact events separate professional exploration from opening a contact channel;
+- social-profile events keep relationship exploration distinct from direct contact intent;
 - series visuals and RSS have dedicated events because their destination is not adequately described by a page view.
 
 Home and brand links, back links, skip links, Privacy, consent-settings reopening and purely visual interactions intentionally have no semantic navigation event. Their destination page view or dedicated consent behavior is sufficient, and adding click events would create noise without answering a measurement question. Desktop and mobile navigation use the same destination semantics while retaining separate `primary_navigation` and `mobile_navigation` contexts.

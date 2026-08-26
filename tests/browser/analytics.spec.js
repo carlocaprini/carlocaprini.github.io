@@ -97,6 +97,12 @@ test("Aggregate measurement maps semantic events without personal fields", async
       page_id: "/work/",
       work_section: "review",
       link_context: "work_page"
+    }),
+    socialProfile: window.siteAggregateAnalytics.buildEvent("social_profile_open", {
+      page_type: "note",
+      page_id: "/thinking/waiting-as-product-decision/",
+      platform: "linkedin",
+      link_context: "article_signature"
     })
   }));
 
@@ -154,6 +160,15 @@ test("Aggregate measurement maps semantic events without personal fields", async
     target_type: "work_section",
     target_id: "review",
     link_context: "work_page"
+  });
+  expect(mapped.socialProfile).toEqual({
+    version: 1,
+    event_name: "social_profile_open",
+    source_type: "note",
+    source_id: "/thinking/waiting-as-product-decision/",
+    target_type: "social_profile",
+    target_id: "linkedin",
+    link_context: "article_signature"
   });
 });
 
@@ -350,8 +365,8 @@ test("Article signature actions expose distinct professional intent", async ({ p
   const actions = [
     {
       link: signature.getByRole("link", { name: /Follow on LinkedIn/ }),
-      event: "contact_open",
-      parameters: { contact_method: "linkedin", link_context: "article_signature" }
+      event: "social_profile_open",
+      parameters: { platform: "linkedin", link_context: "article_signature" }
     },
     {
       link: signature.getByRole("link", { name: /See how I work/ }),

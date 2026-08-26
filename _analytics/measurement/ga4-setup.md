@@ -21,7 +21,8 @@ The selected dimensions cover:
 - source-to-target navigation context;
 - topic, question, series and reading exploration;
 - Work section visibility;
-- outbound contact method.
+- outbound contact method;
+- social-profile platform.
 
 Do not create custom definitions for native GA4 dimensions listed in `native_dimensions`. Do not register every incidental parameter merely because it exists. Custom dimensions are not retroactive and may take time to become available in reports.
 
@@ -48,7 +49,7 @@ Use separate tabs rather than one artificial funnel:
 
 1. **Acquisition** — Landing page + query string, Session source / medium; Sessions, Engaged sessions and Average engagement time.
 2. **Content** — Page path and screen class, Page type, Page ID and Page topic; Views, Sessions, Engaged sessions and Average engagement time.
-3. **Depth** — Event name, Link context and the relevant target dimension; Event count.
+3. **Depth** — Event name, Link context, Social platform and the relevant target dimension; Event count. Include `social_profile_open` here as relationship exploration rather than contact intent.
 4. **Professional intent** — Event name, Work section, Link context and Contact method; Event count and Key events. Filter event name to `experience_open`, `work_open`, `work_section_view`, `contact_section_open`, `contact_open` and `work_contact_open`.
 5. **Audience diagnostics** — Device category and Country; Active users and Sessions. Use city only to investigate an anomaly.
 
