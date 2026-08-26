@@ -26,7 +26,8 @@ These stages are evidence layers, not one visitor-level funnel. The aggregate co
 ## Cadence
 
 - During the month: investigate only specific questions.
-- Approximately 5–7 days after month end: collect and analyse the exact previous calendar month once.
+- Approximately 5–7 days after month end: collect and analyse the exact previous calendar month once, using the lightweight core evidence set.
+- Add detailed platform exports only when the core evidence raises a specific diagnostic question.
 - After three completed months: compare the three monthly reviews and classify findings as emerging signals, repeated patterns or strategic evidence.
 
 Evidence packages and professional-outcome records contain private operational information and stay outside this public repository. Copy the templates into the private analysis workspace rather than committing completed records here.

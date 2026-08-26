@@ -54,6 +54,10 @@
 
 Keep LinkedIn link interactions, Search Console clicks, GA4 sessions, aggregate campaign landings and aggregate page views separate.
 
+## Optional diagnostic questions pursued
+
+Leave empty when the core evidence was sufficient. For each diagnostic, record the question, additional export or view used and whether it changed the interpretation.
+
 ## Interpretation
 
 ### Emerging signals

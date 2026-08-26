@@ -18,11 +18,11 @@ YYYY-MM-site-measurement/
 
 Copy [`templates/professional-outcomes.csv`](templates/professional-outcomes.csv) and [`templates/monthly-review.md`](templates/monthly-review.md) into it. Record the exact inclusive period at the top of the review.
 
-## 2. Collect required evidence
+## 2. Collect core monthly evidence
 
 ### LinkedIn — Discovery
 
-Save the monthly platform export or a clearly dated manual record covering, where available:
+When one or more publications appeared during the month, save the monthly platform export or a clearly dated manual record covering, where available:
 
 - impressions;
 - members reached;
@@ -33,32 +33,17 @@ Save the monthly platform export or a clearly dated manual record covering, wher
 
 Do not sum LinkedIn impressions with another platform's impressions.
 
+When nothing was published, record that no LinkedIn publication evidence was expected and skip the export.
+
 ### Search Console — Discovery
 
-Use the exact calendar month and export:
-
-- dates;
-- queries;
-- pages;
-- countries;
-- devices;
-- search appearance.
-
-Record clicks, impressions, CTR and average position. Keep Search Console as the authority for Google Search discovery.
+Use the exact calendar month. Save a dated export or record containing clicks, impressions, CTR and average position, plus the leading queries and pages needed to understand what was discovered. Keep Search Console as the authority for Google Search discovery.
 
 ### GA4 — Arrival, engagement quality and professional intent
 
-Use the **Monthly body of work** Exploration defined in [`ga4-setup.md`](ga4-setup.md). Export:
+Use the exact calendar month and save a dated high-level GA4 record containing active users, new users, sessions, engaged sessions, engagement rate, average engagement time, views, event count and Key Events. Add only the acquisition, content or professional-intent observations needed to support the month's interpretation.
 
-- `ga4/acquisition.csv`;
-- `ga4/content.csv`;
-- `ga4/depth.csv`;
-- `ga4/professional-intent.csv`;
-- `ga4/audience-diagnostics.csv`.
-
-Also record active users, new users, sessions, engaged sessions, engagement rate, average engagement time, views, event count and Key Events.
-
-Treat Direct as unresolved attribution. Use city only when investigating a clear anomaly. Do not infer relevance from geography alone.
+Treat Direct as unresolved attribution. The **Monthly body of work** Exploration defined in [`ga4-setup.md`](ga4-setup.md) remains available for diagnostics; its five detailed tabs are not required monthly exports.
 
 ### Aggregate D1 — Arrival, depth and professional intent
 
@@ -79,17 +64,19 @@ Aggregate event ratios are directional comparisons, not user conversion rates. T
 
 Update the private `professional-outcomes.csv` using the canonical template. Zero outcomes is a valid monthly result. Never add names, companies, email addresses, analytics identifiers or visitor histories.
 
-## 3. Optional diagnostics
+## 3. Collect optional diagnostic evidence
 
-Use only when a specific question warrants them:
+Collect these only when the core evidence raises a specific question worth investigating. Record that question before exporting the drill-down:
 
+- one or more detailed GA4 Exploration exports: `ga4/acquisition.csv`, `ga4/content.csv`, `ga4/depth.csv`, `ga4/professional-intent.csv` or `ga4/audience-diagnostics.csv`;
 - GA4 Realtime or DebugView for validating a new configuration;
 - city-level geography for a suspected data-quality anomaly;
 - rolling aggregate `--days=N` reports during the month;
 - a specific LinkedIn publication view;
+- Search Console dates, countries, devices or search-appearance exports;
 - a filtered Search Console page or query investigation.
 
-Label diagnostics as exploratory. Do not replace the official calendar-month package with them.
+Use city only to investigate a clear anomaly and do not infer relevance from geography alone. Label every diagnostic as exploratory and keep it separate from the core evidence. Do not replace the official calendar-month package with it.
 
 ## 4. Interpret once
 
@@ -109,8 +96,9 @@ Preserve platform discrepancies instead of averaging them away. Record known pro
 
 ## 5. Close the month
 
-- Confirm every export uses the same exact period.
-- Confirm filenames and source folders are present.
+- Confirm every core source uses the same exact period.
+- Confirm the core evidence, review and professional-outcomes record are present; empty source folders are acceptable when no relevant evidence existed.
+- Confirm optional diagnostics state the question they investigated.
 - Confirm the review separates Discovery, Arrival, Depth, Professional Intent and Professional Outcome.
 - Record unknowns explicitly.
 - Do not create a new strategy from one spike.

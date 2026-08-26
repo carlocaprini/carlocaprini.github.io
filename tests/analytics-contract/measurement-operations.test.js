@@ -30,6 +30,23 @@ test("monthly evidence uses one exact calendar period and the canonical aggregat
   }
 });
 
+test("detailed platform exports remain optional monthly diagnostics", () => {
+  const [core, diagnostics = ""] = checklist.split("## 3. Collect optional diagnostic evidence");
+  assert.match(core, /high-level GA4 record/i);
+  assert.match(core, /when one or more publications appeared/i);
+  assert.doesNotMatch(core, /ga4\/acquisition\.csv/);
+  for (const exportName of [
+    "ga4/acquisition.csv",
+    "ga4/content.csv",
+    "ga4/depth.csv",
+    "ga4/professional-intent.csv",
+    "ga4/audience-diagnostics.csv"
+  ]) {
+    assert.match(diagnostics, new RegExp(exportName.replace(/[./-]/g, "\\$&")));
+  }
+  assert.match(diagnostics, /specific question worth investigating/i);
+});
+
 test("monthly and quarterly reviews preserve the five measurement stages", () => {
   for (const stage of stages) {
     assert.match(monthly, new RegExp(stage, "i"));
