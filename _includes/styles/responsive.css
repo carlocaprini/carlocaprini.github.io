@@ -1,4 +1,72 @@
 @media (max-width: 640px) {
+  .article-signature {
+    grid-template-columns: minmax(0, 1fr) 4.75rem;
+    gap: 0.85rem 0.9rem;
+    padding: 1.1rem;
+  }
+
+  .article-signature-identity {
+    align-items: flex-start;
+    gap: 0.72rem;
+  }
+
+  .article-signature-marker {
+    width: 0.56rem;
+    height: 0.56rem;
+    margin-top: 0.3rem;
+    box-shadow: 0 0 0 5px var(--accent-cyan-soft);
+  }
+
+  .article-signature-name {
+    font-size: 1rem;
+  }
+
+  .article-signature-role {
+    font-size: 0.78rem;
+  }
+
+  .article-signature-portrait {
+    grid-row: 1 / 3;
+    width: 4.75rem;
+    height: 4.75rem;
+  }
+
+  .article-signature-accent {
+    margin-left: 1.28rem;
+  }
+
+  .article-signature-description,
+  .article-signature-follow > p {
+    display: none;
+  }
+
+  .article-signature-follow {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    margin: 0;
+  }
+
+  .article-signature-follow > a {
+    width: 100%;
+  }
+
+  .article-signature-actions {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    margin: 0;
+    padding-top: 0.75rem;
+  }
+
+  .article-signature-link {
+    min-height: 2.6rem;
+    padding-right: 0.85rem;
+    font-size: 0.82rem;
+  }
+
+  .article-signature-link + .article-signature-link {
+    padding-left: 0.85rem;
+  }
+
   .consent-panel {
     grid-template-columns: minmax(0, 1fr);
     gap: 0.9rem;

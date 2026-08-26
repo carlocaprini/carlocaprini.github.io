@@ -222,9 +222,21 @@ layout: default
               <p class="article-signature-role">{{ site.data.person.article_signature_role }}</p>
             </div>
           </div>
+          <img class="article-signature-portrait" src="{{ site.data.person.article_signature_portrait | relative_url }}" alt="" width="384" height="384" loading="lazy" decoding="async">
+          <span class="article-signature-accent" aria-hidden="true"></span>
+          <p class="article-signature-description">{{ site.data.person.article_signature_description }}</p>
+          <div class="article-signature-follow">
+            <a href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_open" data-analytics-contact-method="linkedin" data-analytics-link-context="article_signature">
+              <span class="article-signature-linkedin-mark" aria-hidden="true">in</span>
+              <span>Follow on LinkedIn</span>
+              <span aria-hidden="true">→</span>
+              <span class="visually-hidden"> (opens in new tab)</span>
+            </a>
+            <p>{{ site.data.person.article_signature_follow_note }}</p>
+          </div>
           <div class="article-signature-actions">
-            <a class="section-link article-signature-link" href="{{ '/experience/' | relative_url }}" data-analytics-event="experience_open" data-analytics-link-context="note_signature">Experience <span aria-hidden="true">→</span></a>
-            <a class="section-link article-signature-link" href="{{ '/#contact' | relative_url }}" data-analytics-event="contact_section_open" data-analytics-link-context="note_signature">Contact <span aria-hidden="true">→</span></a>
+            <a class="section-link article-signature-link" href="{{ '/work/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="article_signature">See how I work <span aria-hidden="true">→</span></a>
+            <a class="section-link article-signature-link" href="{{ '/#contact' | relative_url }}" data-analytics-event="contact_section_open" data-analytics-link-context="article_signature">Contact <span aria-hidden="true">→</span></a>
           </div>
         </div>
       </div>
