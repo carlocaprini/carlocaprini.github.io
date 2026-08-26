@@ -222,15 +222,12 @@ layout: default
               <p class="article-signature-role">{{ site.data.person.article_signature_role }}</p>
             </div>
           </div>
-          <img class="article-signature-portrait" src="{{ site.data.person.article_signature_portrait | relative_url }}" alt="" width="384" height="384" loading="lazy" decoding="async">
+          <img class="profile-portrait article-signature-portrait" src="{{ site.data.person.article_signature_portrait | relative_url }}" alt="" width="384" height="384" loading="lazy" decoding="async">
           <span class="article-signature-accent" aria-hidden="true"></span>
           <p class="article-signature-description">{{ site.data.person.article_signature_description }}</p>
           <div class="article-signature-follow">
-            <a href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer" data-analytics-event="social_profile_open" data-analytics-platform="linkedin" data-analytics-link-context="article_signature">
-              <span class="article-signature-linkedin-mark" aria-hidden="true">in</span>
-              <span>Follow on LinkedIn</span>
-              <span aria-hidden="true">→</span>
-              <span class="visually-hidden"> (opens in new tab)</span>
+            <a class="linkedin-profile-link" href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer" data-analytics-event="social_profile_open" data-analytics-platform="linkedin" data-analytics-link-context="article_signature">
+              {% include linkedin-profile-link-content.html label="Follow on LinkedIn" %}
             </a>
             <p>{{ site.data.person.article_signature_follow_note }}</p>
           </div>
