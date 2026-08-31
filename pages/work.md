@@ -4,19 +4,16 @@ title: Work
 permalink: /work/
 meta_title: Product & Engineering Work | Carlo Caprini
 meta_description: Independent Product & Engineering reviews and advisory work for software teams facing difficult product, technical, delivery or AI decisions.
-last_modified_at: 2026-08-25
+last_modified_at: 2026-08-31
 hero:
   label: Work
   title: Working through difficult Product & Engineering problems.
   paragraphs:
-    - I spend most of my time building and evolving software products from inside product organisations.
-    - I also occasionally work with software teams that need an independent perspective on a product, technical or organisational problem.
-    - "These engagements have a clear focus: understand the problem, make the trade-offs visible and leave the team with something actionable."
-  credibility: I started my career in software engineering before moving into Product, and I still approach many Product decisions through the technical systems that make them possible.
+    - I occasionally work with software teams when a product, technical or organisational problem has become difficult to reason about from inside the system.
+    - The aim is to understand the problem, make the trade-offs visible and leave the team with something useful to act on.
 useful_when:
   eyebrow: Where this tends to be useful
   title: When the problem crosses boundaries.
-  intro: This kind of work tends to be most useful for software companies with an existing Product & Engineering team, especially when a problem has become difficult to reason about from inside the system.
   items:
     - title: Releases keep getting harder
       body: Small changes increasingly require coordination, manual checks or risky deployments, and the team is losing confidence in what a “safe release” actually means.
@@ -33,8 +30,7 @@ useful_when:
   boundary: The answer is not always more automation or more AI. Sometimes the useful decision is to keep a workflow explicit, manual or human-owned.
 review:
   eyebrow: Product & Engineering Review
-  title: Understand before changing.
-  description: A focused independent assessment to understand what is actually making a software system difficult to change, separate symptoms from root causes and decide what deserves attention first.
+  title: Understand the system before changing it.
   principle: The goal is not to find as many problems as possible. It is to understand which problems matter, which ones can wait and what is already working well enough to preserve.
   scope_title: What I may look at
   scope_intro: "Depending on the problem:"
@@ -47,10 +43,8 @@ review:
     - Product & Engineering interfaces
     - Platform and API evolution
     - AI-assisted development where relevant
-  evidence: Depending on the problem, I may work directly from repositories, tests, CI/CD configuration, technical documentation and architecture decisions rather than relying only on interviews or presentations.
   outcome_title: Outcome
-  outcome: A structured assessment of what matters, why it matters, what I would address first, what I would deliberately leave alone, and what is already working well enough to preserve.
-  outcome_note: A useful Review identifies what deserves attention and what should be preserved. Existing decisions are not automatically treated as mistakes.
+  outcome: A structured assessment connecting the most important findings to supporting evidence, priorities and recommended actions.
   possible_outputs:
     - Executive assessment
     - Prioritized findings
@@ -79,17 +73,15 @@ advisory:
     - Evaluating whether an AI-assisted workflow should be automated, constrained or left alone
 principles:
   eyebrow: How I work
-  title: Evidence, context and selective change.
-  intro: The aim is to understand the system that exists before deciding what deserves to change.
+  title: Three principles for working through the problem.
+  intro: Recommendations should follow understanding rather than precede it.
   items:
-    - title: Understand before recommending
-      body: "I start from the existing system: product context, code, architecture, processes, constraints and the decisions that created the current situation."
-    - title: Work with evidence and context
-      body: Depending on the problem, that can mean repositories, tests, CI/CD configuration, technical documentation and conversations with the people closest to the system. The goal is to understand why the current system evolved the way it did before recommending what should change.
+    - title: Understand the system before recommending changes
+      body: Start from the existing product, software, architecture, processes, constraints and the decisions that created them.
+    - title: Work from evidence, not only opinions
+      body: Depending on the problem, this can include repositories, tests, CI/CD configuration, technical documentation, architecture decisions and conversations with the people closest to the system.
     - title: Review the system, not the team
-      body: The purpose is to understand the system, not to grade the team that built it. Most technical decisions make more sense once the constraints and context that produced them are understood.
-    - title: Change only what deserves changing
-      body: The goal is not to produce a long list of best practices. It is to identify the few things worth changing, what can safely wait and what is already working well enough to preserve.
+      body: The purpose is to understand the system, not to grade the people who built it. Existing decisions should be considered in the context and constraints that produced them.
 next_steps:
   eyebrow: What happens next
   title: Start with the problem, not a package.
