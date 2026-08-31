@@ -4,20 +4,18 @@ title: Experience
 permalink: /experience/
 meta_title: Product Leadership and Engineering Experience | Carlo Caprini
 meta_description: The Product & Engineering experience behind Carlo Caprini's work on product decisions, API platforms, AI adoption and software systems.
-last_modified_at: 2026-08-25
+last_modified_at: 2026-08-31
 hero:
   label: Experience
   title_prefix: "Experience behind "
   title_highlight: "the ideas on this site"
   subtitle_paragraphs:
     - My work has moved from building software in a startup to shaping product direction and developer-facing platforms. The common thread is learning how technical systems, product choices and organisations constrain one another.
-    - This page highlights the problem spaces behind my notes, with the career path kept as context.
   actions:
     secondary: Back to home
 evidence:
-  eyebrow: Experience as evidence
-  title: Problems I have worked close to.
-  description: Selected areas where the ideas on this site connect to responsibilities and systems I have experienced directly.
+  eyebrow: Selected experience
+  title: Problems I have worked on directly.
   items:
     - id: platforms
       title: Developer-facing platforms as product surfaces
@@ -106,19 +104,4 @@ career_context:
       tags:
         - Engineering
         - Startup
-credentials:
-  eyebrow: Credentials
-  title: Credentials and certifications
-  description: Selected learning paths that supported my work across product leadership and developer ecosystems.
-  items:
-    - title: Product & Leadership
-      items:
-        - Negotiation Fundamentals — ESSEC Business School
-        - "Leading Teams: Building Effective Team Cultures — University of Illinois"
-        - Managing an Agile Team — Coursera
-    - title: Developer & Platform Ecosystems
-      items:
-        - GitLab TeamOps Certification
-        - GitLab CI/CD Associate
-        - GitLab Remote Foundations
 ---

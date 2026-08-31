@@ -553,10 +553,6 @@ On desktop and portrait tablet, retain the short description and LinkedIn microc
 
 Avoid biographies, promotional claims, article summaries, unrelated navigation and generic icon families for the secondary actions.
 
-### Credentials
-
-Credentials are supporting evidence, not a primary visual destination. Render them as semantic lists inside standard cards; do not create a new certification badge system or another accent family.
-
 ### Footer
 
 Keep the footer minimal:
@@ -643,7 +639,7 @@ Minimum rules:
 - Mobile layout must be checked for horizontal overflow.
 - Every page must expose a keyboard skip link to the main content.
 - Links and buttons must have an obvious `:focus-visible` treatment, not only hover feedback.
-- Lists of credentials, related material and navigation items should use semantic list markup.
+- Lists of related material and navigation items should use semantic list markup.
 - Links opening a new tab must communicate that behavior to assistive technology and use `noopener noreferrer`.
 
 ## Editorial Metadata

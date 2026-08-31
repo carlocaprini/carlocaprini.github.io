@@ -1,6 +1,6 @@
 ---
 layout: default
-# Layout for Experience page. Expects: hero, evidence, career_context, credentials
+# Layout for Experience page. Expects: hero, evidence, independent_work, career_context
 ---
 <div class="page experience-page">
   <section class="hero hero--compact">
@@ -31,7 +31,6 @@ layout: default
           <div class="section-eyebrow">{{ page.evidence.eyebrow }}</div>
           <h2 class="section-title">{{ page.evidence.title }}</h2>
         </div>
-        <p class="section-description">{{ page.evidence.description }}</p>
       </div>
 
       <div class="experience-evidence-grid">
@@ -117,33 +116,6 @@ layout: default
     </div>
   </section>
 
-  <section id="credentials" class="section experience-credentials-section">
-    <div class="container section-grid-balanced">
-      <div>
-        <div class="section-header">
-          <div>
-            <div class="section-eyebrow">{{ page.credentials.eyebrow }}</div>
-            <h2 class="section-title">{{ page.credentials.title }}</h2>
-          </div>
-          <p class="section-description">{{ page.credentials.description }}</p>
-        </div>
-      </div>
-      <div class="card-list">
-        {% for group in page.credentials.items %}
-          <article class="card">
-            <div class="card-header">
-              <h3 class="card-title">{{ group.title }}</h3>
-            </div>
-            <ul class="credential-list">
-              {% for credential in group.items %}
-                <li>{{ credential }}</li>
-              {% endfor %}
-            </ul>
-          </article>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
 </div>
 
 <script>
