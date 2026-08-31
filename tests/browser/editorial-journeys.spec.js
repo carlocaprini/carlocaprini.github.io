@@ -117,7 +117,19 @@ test("Work explains recognizable problems and exactly two engagement models", as
   await expect(page.getByRole("heading", { name: "Work through the changes together." })).toBeVisible();
   await expect(page.getByText("Illustrative example", { exact: true })).toHaveCount(0);
   await expect(page.locator(".work-engagement--advisory").getByText("Outcome", { exact: true })).toHaveCount(0);
+  await expect(page.locator(".work-principle-list > li")).toHaveCount(3);
+  await expect(page.getByRole("heading", { name: "Review the system, not the team" })).toBeVisible();
   await expect(page.getByRole("link", { name: /Start a conversation/ })).toHaveAttribute("href", /^https:\/\//);
+});
+
+test("Experience leads with direct work and leaves credentials out of the public page", async ({ page }) => {
+  await page.goto("/experience/");
+
+  await expect(page.getByRole("heading", { name: "Problems I have worked on directly." })).toBeVisible();
+  await expect(page.locator(".experience-evidence-card")).toHaveCount(4);
+  await expect(page.getByText("Career context", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Credentials and certifications" })).toHaveCount(0);
+  await expect(page.locator("#credentials")).toHaveCount(0);
 });
 
 test("question pages connect Thinking, Influences and Experience", async ({ page }) => {
