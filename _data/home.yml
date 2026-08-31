@@ -3,7 +3,7 @@ hero:
   title_prefix: ""
   title_highlight: "Product decisions in complex software systems"
   subtitle_paragraphs:
-    - "I work across product, software and AI, especially where product decisions meet technical constraints, platform evolution and the way teams actually build."
+    - "I work in Product, with a software engineering background. I’m particularly interested in decisions where product direction, technical constraints and the way teams build software affect one another."
     - "This site brings together the ideas I develop, the experience behind them and the problems I occasionally help other software teams work through."
   actions:
     primary:
@@ -26,7 +26,7 @@ hero:
 selected_notes:
   eyebrow: Start here
   title: Selected notes
-  description: A short route through product judgment, AI in practice, and the way teams make sense of shared context.
+  description: A short route through product decisions, AI in practice, and the way teams make sense of shared context.
   links:
     - url: /thinking/waiting-as-product-decision/
     - url: /thinking/designing-for-unattended-development/
@@ -38,7 +38,7 @@ selected_notes:
 featured_series:
   slug: building-my-ai-operating-system
   eyebrow: Featured series
-  description: A first-person series about moving from a failed general assistant to bounded services and a working orchestration layer, while keeping judgment and ownership explicit.
+  description: A first-person series about what happened when I stopped trying to build one general AI assistant and started giving different systems smaller, clearer jobs.
   action: Read the series
 
 questions:
@@ -72,7 +72,7 @@ where_i_can_help:
 
 experience:
   eyebrow: Experience behind the ideas
-  title: Product judgment grounded in technical systems.
+  title: A path from software engineering to Product.
   description: My perspective comes from moving between software engineering, product direction and developer-facing platforms, from a startup through global product organisations.
   action:
     label: See the experience
@@ -85,7 +85,7 @@ entry_points:
   cards:
     - title: Thinking
       url: /thinking/
-      body: Individual notes on product decisions, AI-enabled work, software systems and collaboration.
+      body: Individual notes on product decisions, AI and work, software systems and collaboration.
     - title: Explore
       url: /explore/
       body: Curated questions connecting notes, professional experience and selected readings.

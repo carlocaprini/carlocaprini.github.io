@@ -3,7 +3,7 @@ questions:
     title: How do teams make better decisions?
     short_title: Better product decisions
     description: How information, trade-offs and timing shape product decisions when several directions look reasonable.
-    home_description: Better decisions rarely come from finding an option without costs. They come from making information, trade-offs and timing explicit.
+    home_description: Product decisions get difficult when several directions look reasonable. Information, trade-offs and timing often make the difference.
     sidebar_description: Notes on information, trade-offs and timing when several product directions look reasonable.
     topics:
       - product-decisions
@@ -82,7 +82,7 @@ questions:
     title: What changes when AI becomes part of the work?
     short_title: AI as part of the work
     description: What AI changes about contribution, ownership and system design when it becomes part of everyday work.
-    home_description: AI can accelerate contribution and make new workflows possible. The harder questions are where judgment, ownership and system boundaries should remain.
+    home_description: AI changes what people can delegate, how quickly work moves and what the systems around it need to support. I’m interested in what happens to the work around it.
     sidebar_description: Notes on contribution, ownership and system boundaries when AI becomes part of everyday work.
     topics:
       - ai-and-automation
