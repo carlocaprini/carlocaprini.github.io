@@ -80,6 +80,7 @@ test("Home follows the discovery-first content order", async ({ page }) => {
     "contact"
   ]);
   await expect(page.getByRole("heading", { name: "Problems I occasionally help teams work through." })).toBeVisible();
+  await expect(page.getByRole("link", { name: "How I can help", exact: true })).toHaveCount(2);
   await expect(page.locator(".home-entry-grid").getByRole("link", { name: /Explore/ })).toHaveAttribute("href", "/explore/");
 });
 
@@ -128,6 +129,7 @@ test("Experience leads with direct work and leaves credentials out of the public
   await expect(page.getByRole("heading", { name: "Problems I have worked on directly." })).toBeVisible();
   await expect(page.locator(".experience-evidence-card")).toHaveCount(4);
   await expect(page.getByText("Career context", { exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "How I can help", exact: true })).toHaveAttribute("href", "/work/");
   await expect(page.getByRole("heading", { name: "Credentials and certifications" })).toHaveCount(0);
   await expect(page.locator("#credentials")).toHaveCount(0);
 });

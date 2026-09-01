@@ -10,7 +10,7 @@ hero:
       label: Explore the thinking
       url: /explore/
     secondary:
-      label: See how I work
+      label: How I can help
       url: /work/
   snapshot:
     badge: Ideas on this site
@@ -67,7 +67,7 @@ where_i_can_help:
     - title: AI adoption and AI-assisted development
       body: When a team is trying to move from experimenting with AI to using it reliably in products or development workflows.
   actions:
-    - label: See how I work
+    - label: How I can help
       url: /work/
 
 experience:

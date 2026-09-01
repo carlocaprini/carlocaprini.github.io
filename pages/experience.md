@@ -66,7 +66,7 @@ independent_work:
   title: A selected part of my professional practice.
   body: Alongside my product roles, I occasionally work independently with software teams on focused Product & Engineering reviews and advisory engagements.
   action:
-    label: See how I work
+    label: How I can help
     url: /work/
 career_context:
   eyebrow: Career context
