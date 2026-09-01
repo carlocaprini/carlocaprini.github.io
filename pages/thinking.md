@@ -54,4 +54,5 @@ notes:
   - url: /thinking/product-decisions-are-mostly-trade-offs/
   - url: /thinking/the-urgency-of-customer-requests/
   - url: /thinking/temporary-solutions-become-permanent/
+  - url: /thinking/better-output-makes-shallow-review-more-dangerous/
 ---
