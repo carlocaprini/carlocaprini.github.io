@@ -108,6 +108,7 @@ questions:
       - title: Coordinate attention without taking control
         description: Orchestration becomes useful when it helps a person see what needs attention while leaving authority with them.
         notes:
+          - /thinking/why-i-started-building-friday/
           - /thinking/friday-connects-the-services-without-owning-their-work/
           - /thinking/stop-asking-people-for-information-the-system-already-has/
           - /thinking/i-need-my-ai-dashboard-to-leave-things-out/
