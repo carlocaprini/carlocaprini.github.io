@@ -96,6 +96,7 @@ questions:
         description: AI can help someone contribute sooner without giving them a deep model of the system or the work.
         notes:
           - /thinking/ai-accelerates-contribution-not-mastery/
+          - /thinking/better-output-makes-shallow-review-more-dangerous/
           - /thinking/shared-context-is-not-shared-understanding/
       - title: Bound the work and keep ownership explicit
         description: Useful AI systems need a clear job, visible state and boundaries around what they can decide.
@@ -107,6 +108,7 @@ questions:
       - title: Coordinate attention without taking control
         description: Orchestration becomes useful when it helps a person see what needs attention while leaving authority with them.
         notes:
+          - /thinking/why-i-started-building-friday/
           - /thinking/friday-connects-the-services-without-owning-their-work/
           - /thinking/stop-asking-people-for-information-the-system-already-has/
           - /thinking/i-need-my-ai-dashboard-to-leave-things-out/
