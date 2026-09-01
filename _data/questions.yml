@@ -96,6 +96,7 @@ questions:
         description: AI can help someone contribute sooner without giving them a deep model of the system or the work.
         notes:
           - /thinking/ai-accelerates-contribution-not-mastery/
+          - /thinking/better-output-makes-shallow-review-more-dangerous/
           - /thinking/shared-context-is-not-shared-understanding/
       - title: Bound the work and keep ownership explicit
         description: Useful AI systems need a clear job, visible state and boundaries around what they can decide.
