@@ -137,6 +137,22 @@ layout: default
     </div>
   </section>
 
+  <section class="section work-evidence-section">
+    <div class="container work-section-intro work-reveal" data-work-reveal>
+      <div>
+        <div class="section-eyebrow">{{ page.experience.eyebrow }}</div>
+        <h2 class="section-title">{{ page.experience.title }}</h2>
+        <p class="work-evidence-copy">{{ page.experience.body }}</p>
+      </div>
+      <div>
+        <ul class="work-compact-list work-evidence-signals">
+          {% for signal in page.experience.signals %}<li>{{ signal }}</li>{% endfor %}
+        </ul>
+        <a class="section-link" href="{{ page.experience.action.url | relative_url }}" data-analytics-event="experience_open" data-analytics-link-context="work_experience">{{ page.experience.action.label }} <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
   <section class="section work-next-section">
     <div class="container work-section-intro work-reveal" data-work-reveal>
       <div>

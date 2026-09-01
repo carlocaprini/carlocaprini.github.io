@@ -2,17 +2,6 @@
   max-width: 46rem;
 }
 
-.work-credibility {
-  max-width: 45rem;
-  margin: 1.8rem 0 0;
-  padding: 1rem 1.1rem;
-  border-left: 2px solid var(--accent-cyan);
-  color: var(--color-text-secondary);
-  font-size: 0.95rem;
-  line-height: 1.75;
-  background: linear-gradient(90deg, var(--accent-cyan-soft), transparent 72%);
-}
-
 .work-section-intro {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
@@ -206,6 +195,18 @@
 
 .work-engagement--advisory .work-compact-list li::before {
   background: var(--accent-indigo);
+}
+
+.work-evidence-copy {
+  max-width: 34rem;
+  margin: 1rem 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+  line-height: 1.75;
+}
+
+.work-evidence-signals {
+  margin-bottom: 1.2rem;
 }
 
 .work-outcome {

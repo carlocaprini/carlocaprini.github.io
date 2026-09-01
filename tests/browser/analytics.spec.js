@@ -355,6 +355,17 @@ test("Work discovery and meaningful section views expose their context", async (
       event.name === "work_section_view" && event.parameters.work_section === "review"
     )
   )).toBe(true);
+
+  const experienceLink = page.locator('[data-analytics-event="experience_open"][data-analytics-link-context="work_experience"]');
+  await experienceLink.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+  await experienceLink.click();
+  expect(await page.evaluate(() => window.__analyticsEvents.at(-1))).toMatchObject({
+    name: "experience_open",
+    parameters: {
+      link_context: "work_experience",
+      page_type: "work"
+    }
+  });
 });
 
 test("Article signature actions expose distinct professional intent", async ({ page }) => {

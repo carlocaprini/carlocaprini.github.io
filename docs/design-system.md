@@ -424,6 +424,7 @@ Keep:
 - calm grouped surfaces for the engagement models, with the Review output more prominent than activity lists
 - present Review scope and outcome as an editorial split rather than nested cards
 - explicit technical evidence balanced with product and organisational context
+- one compact credibility bridge grounded in established Experience, presented as an editorial split rather than a CV or proof card
 - a low-pressure contact panel using the standard primary button
 - ruled lists with internal dividers only and no duplicate closing boundary
 
@@ -435,7 +436,7 @@ Avoid:
 - separate cards for every possible capability
 - turning Work into a new brand or making it visually louder than Thinking
 
-On smaller screens, collapse two-column recognition and evidence structures to one column. Reduce panel padding without removing the standard page gutter, and preserve the reading order: relevance, Review, Advisory, principles, next step and contact.
+On smaller screens, collapse two-column recognition and evidence structures to one column. Reduce panel padding without removing the standard page gutter, and preserve the reading order: relevance, Review, Advisory, principles, experience, next step and contact.
 
 ### Explore
 

@@ -4,7 +4,7 @@ title: Work
 permalink: /work/
 meta_title: Product & Engineering Work | Carlo Caprini
 meta_description: Independent Product & Engineering reviews and advisory work for software teams facing difficult product, technical, delivery or AI decisions.
-last_modified_at: 2026-08-31
+last_modified_at: 2026-09-02
 hero:
   label: Work
   title: Working through difficult Product & Engineering problems.
@@ -82,6 +82,17 @@ principles:
       body: Depending on the problem, this can include repositories, tests, CI/CD configuration, technical documentation, architecture decisions and conversations with the people closest to the system.
     - title: Review the system, not the team
       body: The purpose is to understand the system, not to grade the people who built it. Existing decisions should be considered in the context and constraints that produced them.
+experience:
+  eyebrow: Experience behind this work
+  title: Engineering foundation, product leadership.
+  body: I started in software engineering and have spent more than a decade working across product management, APIs, platforms and developer-facing software.
+  signals:
+    - Software engineering to Product leadership
+    - B2B platforms and APIs
+    - Product organisations from startup to global scale
+  action:
+    label: See full experience
+    url: /experience/
 next_steps:
   eyebrow: What happens next
   title: Start with the problem, not a package.
