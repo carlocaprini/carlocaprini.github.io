@@ -89,8 +89,19 @@ test("Work keeps its recognition and evidence layers readable across breakpoints
   const columns = await page.locator(".work-situation-list").evaluate(
     (element) => getComputedStyle(element).gridTemplateColumns.split(" ").length
   );
+  const principleFlow = await page.locator(".step-flow").evaluate((element) => ({
+    columns: getComputedStyle(element).gridTemplateColumns.split(" ").length,
+    left: element.getBoundingClientRect().left,
+    right: element.getBoundingClientRect().right,
+    scrollWidth: document.documentElement.scrollWidth,
+    viewportWidth: document.documentElement.clientWidth
+  }));
 
   expect(columns).toBe(testInfo.project.name === "desktop-chromium" ? 2 : 1);
+  expect(principleFlow.columns).toBe(testInfo.project.name === "desktop-chromium" ? 3 : 1);
+  expect(principleFlow.left).toBeGreaterThanOrEqual(0);
+  expect(principleFlow.right).toBeLessThanOrEqual(principleFlow.viewportWidth);
+  expect(principleFlow.scrollWidth).toBe(principleFlow.viewportWidth);
   await expect(page.locator(".work-outcome")).toBeVisible();
   await expect(page.locator(".work-contact-panel .button-primary")).toBeVisible();
 
