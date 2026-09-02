@@ -497,6 +497,22 @@
   max-width: 34rem;
 }
 
+.question-synthesis {
+  max-width: 48rem;
+  margin-top: 1.5rem;
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.question-synthesis p {
+  margin: 0;
+}
+
+.question-synthesis p + p {
+  margin-top: 0.9rem;
+}
+
 .question-note-groups {
   display: grid;
   gap: 1rem;

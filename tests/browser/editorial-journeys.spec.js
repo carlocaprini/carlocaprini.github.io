@@ -140,6 +140,7 @@ test("Experience leads with direct work and leaves credentials out of the public
 test("question pages connect Thinking, Influences and Experience", async ({ page }) => {
   await page.goto("/explore/product-decisions/");
 
+  await expect(page.locator(".question-synthesis > p")).toHaveCount(2);
   await expect(page.getByRole("heading", { name: "Notes that develop the question." })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Ideas that sharpen the question." })).toBeVisible();
   await expect(page.getByRole("link", { name: /See the experience behind this question/ })).toHaveAttribute(

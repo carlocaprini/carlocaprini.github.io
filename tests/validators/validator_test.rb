@@ -113,8 +113,6 @@ class ValidatorTest < Minitest::Test
     File.write(File.join(directory, "sitemap.txt"), urls.map { |path| "https://carlocaprini.github.io#{path}" }.join("\n") + "\n")
     File.write(File.join(directory, "robots.txt"), <<~TEXT)
       Sitemap: https://carlocaprini.github.io/sitemap.xml
-      Sitemap: https://carlocaprini.github.io/sitemap.txt
-      Sitemap: https://carlocaprini.github.io/sitemap-static.xml
     TEXT
     File.write(File.join(directory, "feed.xml"), "<?xml version=\"1.0\"?><feed/>\n")
   end
@@ -199,6 +197,13 @@ class ValidatorTest < Minitest::Test
     end
   end
 
+  def test_source_rejects_missing_question_synthesis
+    assert_invalid_source(/must define two synthesis paragraphs/) do |directory|
+      path = File.join(directory, "_data/questions.yml")
+      replace!(path, /^    synthesis:\n(?:      - .*\n){2}/, "")
+    end
+  end
+
   def test_source_rejects_question_experience_anchor
     assert_invalid_source(/references unknown Experience anchor/) do |directory|
       path = File.join(directory, "_data/questions.yml")
@@ -257,6 +262,13 @@ class ValidatorTest < Minitest::Test
   def test_generated_output_rejects_inconsistent_sitemap
     assert_invalid_output(/Sitemap URL has no generated file/) do |directory|
       FileUtils.rm_rf(File.join(directory, "thinking"))
+    end
+  end
+
+  def test_generated_output_rejects_redundant_sitemap_declarations
+    assert_invalid_output(/must declare only the canonical sitemap.xml/) do |directory|
+      path = File.join(directory, "robots.txt")
+      File.open(path, "a") { |file| file.puts("Sitemap: https://carlocaprini.github.io/sitemap.txt") }
     end
   end
 
