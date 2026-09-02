@@ -119,13 +119,13 @@ layout: default
 
   <section class="section work-principles-section">
     <div class="container">
-      <div class="work-section-intro work-reveal" data-work-reveal>
-        <div>
-          <div class="section-eyebrow">{{ page.principles.eyebrow }}</div>
-          <h2 class="section-title">{{ page.principles.title }}</h2>
+        <div class="work-section-intro work-section-intro--flow work-reveal" data-work-reveal>
+          <div>
+            <div class="section-eyebrow">{{ page.principles.eyebrow }}</div>
+            <h2 class="section-title">{{ page.principles.title }}</h2>
+            <p class="section-description">{{ page.principles.intro }}</p>
+          </div>
         </div>
-        <p class="section-description">{{ page.principles.intro }}</p>
-      </div>
         <ol class="step-flow work-reveal" data-work-reveal>
           {% for item in page.principles.items %}
             <li class="step-flow__item">

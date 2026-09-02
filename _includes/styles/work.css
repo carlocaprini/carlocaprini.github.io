@@ -14,6 +14,18 @@
   max-width: 35rem;
 }
 
+.work-section-intro--flow {
+  display: block;
+}
+
+.work-section-intro--flow > div {
+  max-width: 38rem;
+}
+
+.work-section-intro--flow .section-description {
+  margin-top: 0.75rem;
+}
+
 .work-situation-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
