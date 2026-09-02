@@ -646,6 +646,11 @@ Minimum rules:
 ## Editorial Metadata
 
 - Public pages need a specific title and meta description when the site-wide fallback would be too generic.
+- A Note's `title` remains the human/editorial title shown on the page. Do not rewrite it mechanically around search terms.
+- `summary` is the short editorial description reused around the site.
+- Add `meta_title` when a visible title is narrative, ambiguous or weak outside the site's context. Use it to name the underlying problem in recognizable language without keyword stuffing.
+- Add `meta_description` when the summary does not clearly explain the subject or search intent. It may differ from the summary, but it must accurately describe what the page develops.
+- During publication review, identify the Note's canonical Topic, relevant Explore question and deliberate internal links. Topics remain information architecture rather than SEO keywords.
 - New or materially revised index pages should set `last_modified_at` so sitemap metadata remains useful.
 - For Thinking notes, change `last_modified_at` only when the note's editorial content changes. Taxonomy, layout, styling, related-content logic and metadata-only maintenance do not count as a content change.
 - Topic labels and descriptions live in `_data/topics.yml`; do not duplicate the canonical taxonomy in page content or layout logic.

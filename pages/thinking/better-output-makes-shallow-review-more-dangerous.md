@@ -4,6 +4,8 @@ title: Better output makes shallow review more dangerous
 date: 2026-09-01
 permalink: /thinking/better-output-makes-shallow-review-more-dangerous/
 summary: AI can make work look ready before its reasoning deserves trust. Review depth should follow the consequences of the decision, not the polish of the output.
+meta_title: Why Better AI Code Makes Shallow Code Review More Dangerous
+meta_description: Polished AI-generated code can make weak reasoning harder to notice. Review depth should follow the consequences of a change, not the quality of its presentation.
 topics:
   - ai-and-automation
   - teams-and-collaboration
