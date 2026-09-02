@@ -120,7 +120,7 @@ test("Work explains recognizable problems and exactly two engagement models", as
   await expect(page.locator(".work-engagement--advisory").getByText("Outcome", { exact: true })).toHaveCount(0);
   await expect(page.locator(".work-principle-list > li")).toHaveCount(3);
   await expect(page.getByRole("heading", { name: "Review the system, not the team" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Engineering foundation, product leadership." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Experience across Product & Engineering." })).toBeVisible();
   await expect(page.locator(".work-evidence-signals > li")).toHaveCount(3);
   await expect(page.getByRole("link", { name: /See full experience/ })).toHaveAttribute("href", "/experience/");
   await expect(page.getByRole("link", { name: /Start a conversation/ })).toHaveAttribute("href", /^https:\/\//);

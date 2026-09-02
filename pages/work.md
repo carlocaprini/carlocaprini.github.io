@@ -84,12 +84,12 @@ principles:
       body: The purpose is to understand the system, not to grade the people who built it. Existing decisions should be considered in the context and constraints that produced them.
 experience:
   eyebrow: Experience behind this work
-  title: Engineering foundation, product leadership.
+  title: Experience across Product & Engineering.
   body: I started in software engineering and have spent more than a decade working across product management, APIs, platforms and developer-facing software.
   signals:
-    - Software engineering to Product leadership
+    - From software engineering to Product leadership
     - B2B platforms and APIs
-    - Product organisations from startup to global scale
+    - Startup and global product organisations
   action:
     label: See full experience
     url: /experience/
