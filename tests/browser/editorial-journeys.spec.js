@@ -115,6 +115,7 @@ test("Work explains recognizable problems and exactly two engagement models", as
   await expect(page.locator(".work-situation-list > li")).toHaveCount(6);
   await expect(page.locator(".work-engagement")).toHaveCount(2);
   await expect(page.getByRole("heading", { name: "Understand the system before changing it." })).toBeVisible();
+  await expect(page.getByText("Depending on the problem, I may look directly at repositories, tests, CI/CD configuration and technical documentation, not just interviews or presentations.", { exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Work through the changes together." })).toBeVisible();
   await expect(page.getByText("Illustrative example", { exact: true })).toHaveCount(0);
   await expect(page.locator(".work-engagement--advisory").getByText("Outcome", { exact: true })).toHaveCount(0);

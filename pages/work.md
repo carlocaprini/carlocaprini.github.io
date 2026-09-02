@@ -43,6 +43,7 @@ review:
     - Product & Engineering interfaces
     - Platform and API evolution
     - AI-assisted development where relevant
+  scope_evidence: Depending on the problem, I may look directly at repositories, tests, CI/CD configuration and technical documentation, not just interviews or presentations.
   outcome_title: Outcome
   outcome: A structured assessment connecting the most important findings to supporting evidence, priorities and recommended actions.
   possible_outputs:
