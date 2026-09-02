@@ -5,6 +5,8 @@ date: 2026-06-13
 last_modified_at: 2026-07-14
 permalink: /thinking/shared-context-is-not-shared-understanding/
 summary: AI makes context easier to retrieve, but access to the same information does not automatically create shared understanding, alignment, or better decisions.
+meta_title: Shared Context vs Shared Understanding in Product Teams
+meta_description: Why easier access to information does not automatically create alignment, shared understanding or better Product & Engineering decisions.
 topics:
   - ai-and-automation
   - teams-and-collaboration

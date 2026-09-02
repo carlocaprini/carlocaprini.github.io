@@ -5,6 +5,8 @@ date: 2026-03-20
 last_modified_at: 2026-07-14
 permalink: /thinking/the-urgency-of-customer-requests/
 summary: Not everything that feels urgent is a real priority. In product work, reacting before urgency is understood can lead teams to the wrong decisions.
+meta_title: How to Evaluate Urgent Customer Requests in Product Management
+meta_description: How product teams can examine the source, impact and timing of an urgent customer request before treating it as a priority.
 topics:
   - product-decisions
 intro:

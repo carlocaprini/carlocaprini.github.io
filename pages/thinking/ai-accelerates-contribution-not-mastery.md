@@ -4,6 +4,8 @@ title: AI accelerates contribution, not mastery
 date: 2026-05-08
 permalink: /thinking/ai-accelerates-contribution-not-mastery/
 summary: AI makes it possible to contribute much earlier in a new environment. But contributing faster is not the same as deeply understanding the system.
+meta_title: AI Accelerates Contribution, Not Software System Understanding
+meta_description: AI helps people contribute to software systems earlier, but faster contribution does not automatically create deeper context, judgment or mastery.
 topics:
   - ai-and-automation
   - teams-and-collaboration

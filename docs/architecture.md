@@ -33,4 +33,4 @@ Playwright covers Chromium behavior, a focused WebKit smoke path and curated vis
 
 ## Sitemap controls
 
-`jekyll-sitemap` owns `/sitemap.xml`; `/sitemap.txt` is the text equivalent. `/sitemap-static.xml` is a deliberately minimal diagnostic control, not a second canonical sitemap. If Search Console retrieves the control but not the canonical sitemap, investigate generated content or cached state. If neither is retrievable, investigate the exact Search Console property or Google retrieval rather than adding another generator.
+`jekyll-sitemap` owns the canonical `/sitemap.xml`, and `robots.txt` declares only that sitemap to crawlers. `/sitemap.txt` remains a text-equivalent operational check and `/sitemap-static.xml` remains a deliberately minimal diagnostic control; neither is advertised as a second canonical sitemap. If Search Console retrieves a control but not the canonical sitemap, investigate generated content or cached state. If neither is retrievable, investigate the exact Search Console property or Google retrieval rather than adding another generator.

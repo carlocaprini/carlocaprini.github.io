@@ -424,6 +424,7 @@ Keep:
 - calm grouped surfaces for the engagement models, with the Review output more prominent than activity lists
 - present Review scope and outcome as an editorial split rather than nested cards
 - explicit technical evidence balanced with product and organisational context
+- one compact credibility bridge grounded in established Experience, presented as an editorial split rather than a CV or proof card
 - a low-pressure contact panel using the standard primary button
 - ruled lists with internal dividers only and no duplicate closing boundary
 
@@ -435,7 +436,7 @@ Avoid:
 - separate cards for every possible capability
 - turning Work into a new brand or making it visually louder than Thinking
 
-On smaller screens, collapse two-column recognition and evidence structures to one column. Reduce panel padding without removing the standard page gutter, and preserve the reading order: relevance, Review, Advisory, principles, next step and contact.
+On smaller screens, collapse two-column recognition and evidence structures to one column. Reduce panel padding without removing the standard page gutter, and preserve the reading order: relevance, Review, Advisory, principles, experience, next step and contact.
 
 ### Explore
 
@@ -553,10 +554,6 @@ On desktop and portrait tablet, retain the short description and LinkedIn microc
 
 Avoid biographies, promotional claims, article summaries, unrelated navigation and generic icon families for the secondary actions.
 
-### Credentials
-
-Credentials are supporting evidence, not a primary visual destination. Render them as semantic lists inside standard cards; do not create a new certification badge system or another accent family.
-
 ### Footer
 
 Keep the footer minimal:
@@ -643,12 +640,17 @@ Minimum rules:
 - Mobile layout must be checked for horizontal overflow.
 - Every page must expose a keyboard skip link to the main content.
 - Links and buttons must have an obvious `:focus-visible` treatment, not only hover feedback.
-- Lists of credentials, related material and navigation items should use semantic list markup.
+- Lists of related material and navigation items should use semantic list markup.
 - Links opening a new tab must communicate that behavior to assistive technology and use `noopener noreferrer`.
 
 ## Editorial Metadata
 
 - Public pages need a specific title and meta description when the site-wide fallback would be too generic.
+- A Note's `title` remains the human/editorial title shown on the page. Do not rewrite it mechanically around search terms.
+- `summary` is the short editorial description reused around the site.
+- Add `meta_title` when a visible title is narrative, ambiguous or weak outside the site's context. Use it to name the underlying problem in recognizable language without keyword stuffing.
+- Add `meta_description` when the summary does not clearly explain the subject or search intent. It may differ from the summary, but it must accurately describe what the page develops.
+- During publication review, identify the Note's canonical Topic, relevant Explore question and deliberate internal links. Topics remain information architecture rather than SEO keywords.
 - New or materially revised index pages should set `last_modified_at` so sitemap metadata remains useful.
 - For Thinking notes, change `last_modified_at` only when the note's editorial content changes. Taxonomy, layout, styling, related-content logic and metadata-only maintenance do not count as a content change.
 - Topic labels and descriptions live in `_data/topics.yml`; do not duplicate the canonical taxonomy in page content or layout logic.

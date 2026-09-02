@@ -13,7 +13,6 @@ layout: default
         {% for paragraph in page.hero.paragraphs %}
           <p class="hero-subtitle hero-subtitle--wide">{{ paragraph }}</p>
         {% endfor %}
-        <p class="work-credibility">{{ page.hero.credibility }}</p>
       </div>
     </div>
   </section>
@@ -25,7 +24,6 @@ layout: default
           <div class="section-eyebrow">{{ page.useful_when.eyebrow }}</div>
           <h2 class="section-title">{{ page.useful_when.title }}</h2>
         </div>
-        <p class="section-description">{{ page.useful_when.intro }}</p>
       </div>
       <ol class="work-situation-list work-reveal" data-work-reveal>
         {% for item in page.useful_when.items %}
@@ -70,7 +68,6 @@ layout: default
         <header class="work-engagement-header">
           <div class="section-eyebrow">{{ page.review.eyebrow }}</div>
           <h2>{{ page.review.title }}</h2>
-          <p>{{ page.review.description }}</p>
           <p class="work-engagement-principle">{{ page.review.principle }}</p>
         </header>
         <div class="work-engagement-details">
@@ -80,12 +77,11 @@ layout: default
             <ul class="work-compact-list">
               {% for item in page.review.scope %}<li>{{ item }}</li>{% endfor %}
             </ul>
-            <p>{{ page.review.evidence }}</p>
+            <p class="work-scope-evidence">{{ page.review.scope_evidence }}</p>
           </section>
           <section class="work-outcome">
             <div class="section-eyebrow">{{ page.review.outcome_title }}</div>
             <p class="work-outcome-lead">{{ page.review.outcome }}</p>
-            <p>{{ page.review.outcome_note }}</p>
             <ul class="work-output-list">
               {% for item in page.review.possible_outputs %}<li>{{ item }}</li>{% endfor %}
             </ul>
@@ -139,6 +135,22 @@ layout: default
           </li>
         {% endfor %}
       </ol>
+    </div>
+  </section>
+
+  <section class="section work-evidence-section">
+    <div class="container work-section-intro work-reveal" data-work-reveal>
+      <div>
+        <div class="section-eyebrow">{{ page.experience.eyebrow }}</div>
+        <h2 class="section-title">{{ page.experience.title }}</h2>
+        <p class="work-evidence-copy">{{ page.experience.body }}</p>
+      </div>
+      <div>
+        <ul class="work-compact-list work-evidence-signals">
+          {% for signal in page.experience.signals %}<li>{{ signal }}</li>{% endfor %}
+        </ul>
+        <a class="section-link" href="{{ page.experience.action.url | relative_url }}" data-analytics-event="experience_open" data-analytics-link-context="work_experience">{{ page.experience.action.label }} <span aria-hidden="true">→</span></a>
+      </div>
     </div>
   </section>
 

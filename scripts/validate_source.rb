@@ -106,6 +106,11 @@ questions.each_with_index do |question, index|
     fail_check("#{label} is missing #{field}") unless present?(question[field])
   end
 
+  synthesis = Array(question["synthesis"])
+  unless synthesis.length == 2 && synthesis.all? { |paragraph| present?(paragraph) }
+    fail_check("#{label} must define two synthesis paragraphs")
+  end
+
   unless question["slug"].to_s.match?(/\A[a-z0-9]+(?:-[a-z0-9]+)*\z/)
     fail_check("#{label} has an invalid slug")
   end

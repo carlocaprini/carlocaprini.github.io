@@ -34,18 +34,6 @@
   font-weight: 500;
 }
 
-.credential-list {
-  margin: 0;
-  padding-left: 1.15rem;
-  color: var(--color-text-muted);
-  font-size: 0.9rem;
-  line-height: 1.7;
-}
-
-.credential-list li + li {
-  margin-top: 0.45rem;
-}
-
 .card-tags {
   display: flex;
   flex-wrap: wrap;

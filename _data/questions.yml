@@ -3,7 +3,10 @@ questions:
     title: How do teams make better decisions?
     short_title: Better product decisions
     description: How information, trade-offs and timing shape product decisions when several directions look reasonable.
-    home_description: Better decisions rarely come from finding an option without costs. They come from making information, trade-offs and timing explicit.
+    synthesis:
+      - Product decisions are rarely choices between a clearly right and clearly wrong answer. Teams usually choose between reasonable options that protect different things, such as customer value, speed, technical simplicity, compatibility or future flexibility.
+      - The notes collected here examine the information, trade-offs and timing behind those choices. I have found it more useful to surface those tensions before comparing solutions. The first notes deal with missing information and trade-offs; the pieces on waiting and customer urgency show how the same choice can change with timing.
+    home_description: Product decisions get difficult when several directions look reasonable. Information, trade-offs and timing often make the difference.
     sidebar_description: Notes on information, trade-offs and timing when several product directions look reasonable.
     topics:
       - product-decisions
@@ -44,6 +47,9 @@ questions:
     title: How do people build shared understanding?
     short_title: Shared understanding
     description: How teams interpret context, surface disagreement and work across Product & Engineering boundaries.
+    synthesis:
+      - Shared documents, dashboards and AI tools can make the same information available to more people. They cannot ensure that everyone interprets it in the same way, notices the same risks or gives the same weight to each constraint.
+      - The notes in this path look at the work that remains after access improves. In my experience, people begin to build shared understanding when they compare how they have interpreted the context. The notes on disagreement and Product & Engineering boundaries show what can remain unclear even after everyone has seen the same material.
     home_description: Access to the same information does not guarantee alignment. Teams still need to interpret context, surface disagreement and build a shared view of the work.
     sidebar_description: Notes on context, disagreement and collaboration across Product & Engineering.
     topics:
@@ -82,7 +88,10 @@ questions:
     title: What changes when AI becomes part of the work?
     short_title: AI as part of the work
     description: What AI changes about contribution, ownership and system design when it becomes part of everyday work.
-    home_description: AI can accelerate contribution and make new workflows possible. The harder questions are where judgment, ownership and system boundaries should remain.
+    synthesis:
+      - AI can help people contribute sooner and move work through a system faster. It also makes boundaries, review and ownership more important because convincing output can arrive before anyone has developed enough context to judge it well.
+      - These notes follow that tension through software development and the small services I build for my own work. I am interested in what the surrounding system needs when AI performs more of the work. The notes move from contribution and review into my bounded-service experiments, then to Friday and the problem of coordinating those services without transferring ownership to the orchestrator.
+    home_description: AI changes what people can delegate, how quickly work moves and what the systems around it need to support. I’m interested in what happens to the work around it.
     sidebar_description: Notes on contribution, ownership and system boundaries when AI becomes part of everyday work.
     topics:
       - ai-and-automation

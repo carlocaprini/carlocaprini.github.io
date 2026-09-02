@@ -6,5 +6,3 @@ User-agent: *
 Allow: /
 
 Sitemap: {{ site.production_url | default: site.url }}{{ '/sitemap.xml' | relative_url }}
-Sitemap: {{ site.production_url | default: site.url }}{{ '/sitemap.txt' | relative_url }}
-Sitemap: {{ site.production_url | default: site.url }}{{ '/sitemap-static.xml' | relative_url }}

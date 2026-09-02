@@ -13,6 +13,13 @@ layout: default
         </div>
         <h1 class="hero-title hero-title--compact">{{ question.title }}</h1>
         <p class="hero-subtitle hero-subtitle--wide">{{ question.description }}</p>
+        {% if question.synthesis %}
+        <div class="question-synthesis">
+          {% for paragraph in question.synthesis %}
+          <p>{{ paragraph }}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
         <div class="hero-actions hero-actions--compact">
           <a href="{{ '/explore/' | relative_url }}" class="button-ghost">Back to Explore</a>
         </div>

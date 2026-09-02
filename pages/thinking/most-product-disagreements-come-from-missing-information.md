@@ -4,6 +4,8 @@ title: Most product disagreements come from missing information
 date: 2026-03-12
 permalink: /thinking/most-product-disagreements-come-from-missing-information/
 summary: Product discussions often look like disagreements of opinion. In reality, teams are often missing the same piece of information.
+meta_title: Why Product Teams Disagree | Missing Information and Context
+meta_description: Why product disagreements often come from missing customer evidence, strategy or context rather than fundamentally different opinions.
 topics:
   - product-decisions
   - teams-and-collaboration

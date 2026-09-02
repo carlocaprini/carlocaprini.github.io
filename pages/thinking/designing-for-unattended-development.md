@@ -5,6 +5,7 @@ date: 2026-08-01
 last_modified_at: 2026-08-01
 permalink: /thinking/designing-for-unattended-development/
 summary: Unattended development is not the same as leaving an agent alone. It requires explicit eligibility, isolation, verification, stop conditions, and a separate decision about what may enter the stable codebase.
+meta_title: Designing Safe Unattended AI Development Workflows
 meta_description: Carlo Caprini describes the boundaries behind unattended AI development, from approved issues and isolated workspaces to verification and human-controlled merge.
 meta_image: /assets/og-thinking-v2.png
 meta_image_alt: Thinking by Carlo Caprini, notes on product decisions, AI, software systems and teams.

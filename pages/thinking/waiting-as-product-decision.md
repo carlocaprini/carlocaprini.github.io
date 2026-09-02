@@ -5,6 +5,8 @@ date: 2026-02-20
 last_modified_at: 2026-07-14
 permalink: /thinking/waiting-as-product-decision/
 summary: Product teams are often rewarded for shipping new things. But building something is not always progress. Sometimes the smartest decision is simply to wait.
+meta_title: When Waiting Is the Right Product Decision | Carlo Caprini
+meta_description: Why product teams should sometimes delay or stop building when demand, evidence or timing does not justify further investment.
 topics:
   - product-decisions
 intro:

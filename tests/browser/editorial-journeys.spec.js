@@ -80,6 +80,7 @@ test("Home follows the discovery-first content order", async ({ page }) => {
     "contact"
   ]);
   await expect(page.getByRole("heading", { name: "Problems I occasionally help teams work through." })).toBeVisible();
+  await expect(page.getByRole("link", { name: "How I can help", exact: true })).toHaveCount(2);
   await expect(page.locator(".home-entry-grid").getByRole("link", { name: /Explore/ })).toHaveAttribute("href", "/explore/");
 });
 
@@ -113,16 +114,34 @@ test("Work explains recognizable problems and exactly two engagement models", as
   await expect(page.getByRole("heading", { name: "When the problem crosses boundaries." })).toBeVisible();
   await expect(page.locator(".work-situation-list > li")).toHaveCount(6);
   await expect(page.locator(".work-engagement")).toHaveCount(2);
-  await expect(page.getByRole("heading", { name: "Understand before changing." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Understand the system before changing it." })).toBeVisible();
+  await expect(page.getByText("Depending on the problem, I may look directly at repositories, tests, CI/CD configuration and technical documentation, not just interviews or presentations.", { exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Work through the changes together." })).toBeVisible();
   await expect(page.getByText("Illustrative example", { exact: true })).toHaveCount(0);
   await expect(page.locator(".work-engagement--advisory").getByText("Outcome", { exact: true })).toHaveCount(0);
+  await expect(page.locator(".work-principle-list > li")).toHaveCount(3);
+  await expect(page.getByRole("heading", { name: "Review the system, not the team" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Experience across Product & Engineering." })).toBeVisible();
+  await expect(page.locator(".work-evidence-signals > li")).toHaveCount(3);
+  await expect(page.getByRole("link", { name: /See full experience/ })).toHaveAttribute("href", "/experience/");
   await expect(page.getByRole("link", { name: /Start a conversation/ })).toHaveAttribute("href", /^https:\/\//);
+});
+
+test("Experience leads with direct work and leaves credentials out of the public page", async ({ page }) => {
+  await page.goto("/experience/");
+
+  await expect(page.getByRole("heading", { name: "Problems I have worked on directly." })).toBeVisible();
+  await expect(page.locator(".experience-evidence-card")).toHaveCount(4);
+  await expect(page.getByText("Career context", { exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: "How I can help", exact: true })).toHaveAttribute("href", "/work/");
+  await expect(page.getByRole("heading", { name: "Credentials and certifications" })).toHaveCount(0);
+  await expect(page.locator("#credentials")).toHaveCount(0);
 });
 
 test("question pages connect Thinking, Influences and Experience", async ({ page }) => {
   await page.goto("/explore/product-decisions/");
 
+  await expect(page.locator(".question-synthesis > p")).toHaveCount(2);
   await expect(page.getByRole("heading", { name: "Notes that develop the question." })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Ideas that sharpen the question." })).toBeVisible();
   await expect(page.getByRole("link", { name: /See the experience behind this question/ })).toHaveAttribute(
