@@ -26,6 +26,41 @@
   margin-top: 0.75rem;
 }
 
+.work-principles-section {
+  padding-top: 0.8rem;
+}
+
+.work-evidence-section,
+.work-next-section {
+  position: relative;
+  padding-top: 3.4rem;
+}
+
+.work-evidence-section::before,
+.work-next-section::before {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: calc(100% - 3rem);
+  max-width: 720px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(148, 163, 184, 0.28),
+    transparent
+  );
+  content: "";
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.work-principles-section,
+.work-evidence-section,
+.work-next-section {
+  margin-bottom: 3.8rem;
+}
+
 .work-situation-list {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
