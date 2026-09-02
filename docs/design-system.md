@@ -250,6 +250,26 @@ Use for one important sentence that should interrupt a text-heavy page without b
 
 Do not reuse the same abstract symbol across unrelated ideas. The visual should express the structure of the specific argument rather than act as a generic ornament.
 
+### Connected Step Flow
+
+Use a connected step flow when three to five ordered items form one process or progression and a card grid would incorrectly imply that they are independent.
+
+Do not use it for unrelated items, benefits, features or collections where order does not matter.
+
+Structure:
+
+- an ordered list
+
+- a two-digit step number
+
+- a decorative node and connector
+
+- a title and description for each step
+
+On wide screens, use a horizontal sequence with comparable content widths. At narrow breakpoints, preserve the same markup and turn it into a vertical sequence. Connector graphics stay decorative and must not add screen-reader noise.
+
+The pattern reuses the existing cyan and indigo accents, `--color-line`, type scale and spacing rhythm. Do not add step-specific colors, icons, panels or component-only color tokens. Motion may progressively reveal the connector, nodes and content using an owning page's established timing; reduced-motion users receive the complete static structure.
+
 ### Repeated Card Rows
 
 For three related entry points, use the entry-card pattern:

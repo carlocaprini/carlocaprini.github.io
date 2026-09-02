@@ -119,7 +119,14 @@ test("Work explains recognizable problems and exactly two engagement models", as
   await expect(page.getByRole("heading", { name: "Work through the changes together." })).toBeVisible();
   await expect(page.getByText("Illustrative example", { exact: true })).toHaveCount(0);
   await expect(page.locator(".work-engagement--advisory").getByText("Outcome", { exact: true })).toHaveCount(0);
-  await expect(page.locator(".work-principle-list > li")).toHaveCount(3);
+  const principleFlow = page.locator("ol.step-flow");
+  await expect(principleFlow).toHaveCount(1);
+  await expect(principleFlow.locator(":scope > li")).toHaveCount(3);
+  await expect(principleFlow.locator(":scope > li h3")).toHaveText([
+    "Understand the system before recommending changes",
+    "Work from evidence, not only opinions",
+    "Review the system, not the team"
+  ]);
   await expect(page.getByRole("heading", { name: "Review the system, not the team" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Experience across Product & Engineering." })).toBeVisible();
   await expect(page.locator(".work-evidence-signals > li")).toHaveCount(3);
