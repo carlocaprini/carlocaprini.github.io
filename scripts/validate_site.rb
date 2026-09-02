@@ -215,9 +215,14 @@ end
 
 robots = read_file(site_path("robots.txt"))
 if robots
-  fail_check("robots.txt does not reference sitemap.xml") unless robots.include?("#{SITE_URL}/sitemap.xml")
-  fail_check("robots.txt does not reference sitemap.txt") unless robots.include?("#{SITE_URL}/sitemap.txt")
-  fail_check("robots.txt does not reference sitemap-static.xml") unless robots.include?("#{SITE_URL}/sitemap-static.xml")
+  sitemap_declarations = robots.lines.map do |line|
+    match = line.match(/^Sitemap:\s*(\S+)\s*$/i)
+    match && match[1]
+  end.compact
+  canonical_sitemap = "#{SITE_URL}/sitemap.xml"
+  unless sitemap_declarations == [canonical_sitemap]
+    fail_check("robots.txt must declare only the canonical sitemap.xml")
+  end
 end
 
 feed = read_file(site_path("feed.xml"))
