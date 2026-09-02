@@ -126,15 +126,20 @@ layout: default
         </div>
         <p class="section-description">{{ page.principles.intro }}</p>
       </div>
-      <ol class="work-principle-list work-reveal" data-work-reveal>
-        {% for item in page.principles.items %}
-          <li>
-            <span class="work-item-index" aria-hidden="true">0{{ forloop.index }}</span>
-            <h3>{{ item.title }}</h3>
-            <p>{{ item.body }}</p>
-          </li>
-        {% endfor %}
-      </ol>
+        <ol class="step-flow work-reveal" data-work-reveal>
+          {% for item in page.principles.items %}
+            <li class="step-flow__item">
+              <span class="step-flow__marker" aria-hidden="true">
+                <span class="step-flow__index">0{{ forloop.index }}</span>
+                <span class="step-flow__node"></span>
+              </span>
+              <div class="step-flow__content">
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.body }}</p>
+              </div>
+            </li>
+          {% endfor %}
+        </ol>
     </div>
   </section>
 

@@ -170,8 +170,7 @@
     border-left: 0;
   }
 
-  .work-situation-list,
-  .work-principle-list {
+  .work-situation-list {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -191,16 +190,32 @@
     border-bottom: 0;
   }
 
-  .work-principle-list > li,
-  .work-principle-list > li:nth-child(odd),
-  .work-principle-list > li:nth-child(even) {
-    padding: 1.2rem 0;
-    border-right: 0;
-    border-bottom: 1px solid var(--color-line);
+  .step-flow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.6rem;
   }
 
-  .work-principle-list > li:last-child {
-    border-bottom: 0;
+  .step-flow__item {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: 0.85rem;
+  }
+
+  .step-flow__marker {
+    align-self: stretch;
+    margin-bottom: 0;
+  }
+
+  .step-flow__marker::after {
+    top: 2.25rem;
+    bottom: -1.6rem;
+    left: 0.32rem;
+    width: 1px;
+    height: auto;
+  }
+
+  .step-flow__content {
+    padding-top: 0.05rem;
   }
 
   .work-contact-panel .button-primary {
@@ -539,14 +554,12 @@
     transition-duration: 480ms, 480ms, 800ms, 800ms;
   }
 
-  .work-page--motion-observed .work-situation-list > li,
-  .work-page--motion-observed .work-principle-list > li {
+  .work-page--motion-observed .work-situation-list > li {
     position: relative;
     border-bottom-color: transparent;
   }
 
-  .work-page--motion-observed .work-situation-list > li:not(:last-child)::after,
-  .work-page--motion-observed .work-principle-list > li:not(:last-child)::after {
+  .work-page--motion-observed .work-situation-list > li:not(:last-child)::after {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -559,8 +572,7 @@
     transition: transform 460ms ease-out 100ms;
   }
 
-  .work-page--motion-observed .work-situation-list.is-visible > li:not(:last-child)::after,
-  .work-page--motion-observed .work-principle-list.is-visible > li:not(:last-child)::after {
+  .work-page--motion-observed .work-situation-list.is-visible > li:not(:last-child)::after {
     transform: scaleX(1);
   }
 
@@ -569,6 +581,15 @@
   .work-situation-list > li:nth-child(even) {
     grid-template-columns: 2rem minmax(0, 1fr);
     gap: 0.7rem;
+  }
+
+  .work-page--motion-observed .step-flow__marker::after {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  .work-page--motion-observed .step-flow.is-visible .step-flow__marker::after {
+    transform: scaleY(1);
   }
 
   .work-engagement {
@@ -911,9 +932,9 @@
   .work-page--motion-observed .work-reveal,
   .work-page--motion-observed .work-reveal.is-visible,
   .work-page--motion-observed .work-situation-list > li:not(:last-child)::after,
-  .work-page--motion-observed .work-principle-list > li:not(:last-child)::after,
   .work-page--motion-observed .work-situation-list.is-visible > li:not(:last-child)::after,
-  .work-page--motion-observed .work-principle-list.is-visible > li:not(:last-child)::after {
+  .work-page--motion-observed .step-flow__marker::after,
+  .work-page--motion-observed .step-flow.is-visible .step-flow__marker::after {
     transform: none;
     transition: none;
   }
