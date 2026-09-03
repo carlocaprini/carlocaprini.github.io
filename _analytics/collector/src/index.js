@@ -116,8 +116,11 @@ export function validateCampaignPayload(input) {
   if (!validString(input.landing_type, 32, TYPE_PATTERN) || !SOURCE_TYPES.has(input.landing_type)) return null;
   if (!validString(input.landing_id, 160, IDENTIFIER_PATTERN)) return null;
 
-  const values = [input.utm_source, input.utm_medium, input.utm_campaign, input.utm_content];
-  if (!values.every((value) => validString(value, 96, UTM_VALUE_PATTERN))) return null;
+  const content = input.utm_content === undefined ? "" : input.utm_content;
+  const requiredValues = [input.utm_source, input.utm_medium, input.utm_campaign];
+  if (!requiredValues.every((value) => validString(value, 96, UTM_VALUE_PATTERN))) return null;
+  if (content !== "" && !validString(content, 96, UTM_VALUE_PATTERN)) return null;
+  const values = [...requiredValues, content];
   if (!validCampaignCombination(...values)) return null;
 
   return {
@@ -128,7 +131,7 @@ export function validateCampaignPayload(input) {
     utm_source: input.utm_source,
     utm_medium: input.utm_medium,
     utm_campaign: input.utm_campaign,
-    utm_content: input.utm_content
+    utm_content: content
   };
 }
 

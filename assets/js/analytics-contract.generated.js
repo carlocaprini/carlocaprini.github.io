@@ -94,6 +94,7 @@
         "social",
         "comment",
         "profile",
+        "profile_button",
         "referral",
         "email",
         "direct",
@@ -111,6 +112,7 @@
         "experience",
         "explore",
         "profile",
+        "premium_test",
         "monthly_updates"
       ],
       "fixedContent": [
@@ -123,6 +125,14 @@
       ],
       "publicationContentPattern": "^[a-z0-9]+(?:_[a-z0-9]+)*_(?:text_post|single_image|carousel)$",
       "combinations": [
+        {
+          "source": "linkedin",
+          "medium": "profile_button",
+          "campaigns": [
+            "premium_test"
+          ],
+          "content": "none"
+        },
         {
           "source": "linkedin",
           "medium": "social",
@@ -194,6 +204,7 @@
   if (!rule) return false;
   const campaigns = rule.campaigns === "editorial" ? contract.campaign.editorialCampaigns : rule.campaigns;
   if (!campaigns.includes(campaign)) return false;
+  if (rule.content === "none") return content === "";
   if (rule.content === "publication") return publicationContentPattern.test(content);
   return rule.content.includes(content);
   }

@@ -91,6 +91,7 @@ export const ANALYTICS_CONTRACT = Object.freeze({
       "social",
       "comment",
       "profile",
+      "profile_button",
       "referral",
       "email",
       "direct",
@@ -108,6 +109,7 @@ export const ANALYTICS_CONTRACT = Object.freeze({
       "experience",
       "explore",
       "profile",
+      "premium_test",
       "monthly_updates"
     ],
     "fixedContent": [
@@ -120,6 +122,14 @@ export const ANALYTICS_CONTRACT = Object.freeze({
     ],
     "publicationContentPattern": "^[a-z0-9]+(?:_[a-z0-9]+)*_(?:text_post|single_image|carousel)$",
     "combinations": [
+      {
+        "source": "linkedin",
+        "medium": "profile_button",
+        "campaigns": [
+          "premium_test"
+        ],
+        "content": "none"
+      },
       {
         "source": "linkedin",
         "medium": "social",
@@ -199,6 +209,7 @@ export function validCampaignCombination(source, medium, campaign, content) {
   if (!rule) return false;
   const campaigns = rule.campaigns === "editorial" ? ANALYTICS_CONTRACT.campaign.editorialCampaigns : rule.campaigns;
   if (!campaigns.includes(campaign)) return false;
+  if (rule.content === "none") return content === "";
   if (rule.content === "publication") return PUBLICATION_CONTENT_PATTERN.test(content);
   return rule.content.includes(content);
 }

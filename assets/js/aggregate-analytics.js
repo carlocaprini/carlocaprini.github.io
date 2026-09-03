@@ -7,8 +7,6 @@
   var contract = window.siteAnalyticsContract;
   if (!contract) return;
   var semanticEvents = new Set(contract.aggregateForwardedEvents);
-  var fixedCampaignContent = new Set(contract.campaign.fixedContent);
-  var publicationContentPattern = contract.publicationContentPattern;
 
   function localPreview() {
     var hostname = window.location.hostname;
@@ -155,16 +153,16 @@
 
   function buildCampaignLanding(search) {
     var parameters = new URLSearchParams(search === undefined ? window.location.search : search);
-    var names = ["utm_source", "utm_medium", "utm_campaign", "utm_content"];
+    var names = ["utm_source", "utm_medium", "utm_campaign"];
 
     if (names.some(function (name) { return parameters.getAll(name).length !== 1; })) return null;
+    if (parameters.getAll("utm_content").length > 1) return null;
 
     var sourceValue = parameters.get("utm_source") || "";
     var mediumValue = parameters.get("utm_medium") || "";
     var campaignValue = parameters.get("utm_campaign") || "";
     var contentValue = parameters.get("utm_content") || "";
 
-    if (!fixedCampaignContent.has(contentValue) && !publicationContentPattern.test(contentValue)) return null;
     if (!contract.validCampaignCombination(sourceValue, mediumValue, campaignValue, contentValue)) return null;
 
     var eventSource = source({});

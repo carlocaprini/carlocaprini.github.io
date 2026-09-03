@@ -164,6 +164,27 @@ try {
     }));
   });
   await page.waitForTimeout(500);
+  await page.goto(`${siteOrigin}/?utm_source=linkedin&utm_medium=profile_button&utm_campaign=premium_test`);
+  await page.waitForFunction(() => window.siteAggregateAnalytics?.enabled === true);
+  const premiumParsing = await page.evaluate(() => {
+    const build = window.siteAggregateAnalytics.buildCampaignLanding;
+    const query = "?utm_source=linkedin&utm_medium=profile_button&utm_campaign=premium_test";
+    return {
+      accepted: build(query)?.utm_content,
+      duplicateContent: build(`${query}&utm_content=&utm_content=`),
+      duplicateSource: build(`${query}&utm_source=linkedin`),
+      unexpectedContent: build(`${query}&utm_content=about`),
+      incompleteEditorial: build("?utm_source=linkedin&utm_medium=social&utm_campaign=thinking")
+    };
+  });
+  assert.deepEqual(premiumParsing, {
+    accepted: "",
+    duplicateContent: null,
+    duplicateSource: null,
+    unexpectedContent: null,
+    incompleteEditorial: null
+  });
+  await page.waitForTimeout(500);
   await browser.close();
   browser = null;
   await new Promise((resolvePromise) => server.close(resolvePromise));
@@ -178,16 +199,24 @@ try {
     ORDER BY event_name
   `);
   assert.deepEqual(eventRows, [
-    { event_name: "content_view", total: 1 },
+    { event_name: "content_view", total: 2 },
     { event_name: "note_open", total: 1 },
-    { event_name: "page_view", total: 1 }
+    { event_name: "page_view", total: 2 }
   ]);
 
   const campaignRows = query(`
     SELECT landing_id, utm_source, utm_medium, utm_campaign, utm_content, event_count
     FROM daily_campaign_counts
+    ORDER BY utm_medium
   `);
   assert.deepEqual(campaignRows, [{
+    landing_id: "/thinking/local-integration/",
+    utm_source: "linkedin",
+    utm_medium: "profile_button",
+    utm_campaign: "premium_test",
+    utm_content: "",
+    event_count: 1
+  }, {
     landing_id: "/thinking/local-integration/",
     utm_source: "linkedin",
     utm_medium: "social",
