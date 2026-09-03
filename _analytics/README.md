@@ -37,7 +37,7 @@ The table below explains the canonical combinations for humans. Runtime acceptan
 | LinkedIn comment | `linkedin` | `comment` | Editorial initiative | `comment` |
 | LinkedIn Featured | `linkedin` | `profile` | `profile` | `featured` |
 | LinkedIn About | `linkedin` | `profile` | `profile` | `about` |
-| LinkedIn Premium website button | `linkedin` | `profile_button` | `premium_test` | Omitted |
+| LinkedIn Premium website button | `linkedin` | `profile` | `premium_subscription` | `website_button` |
 | Medium article | `medium` | `referral` | Editorial initiative | `article` |
 | Newsletter | `newsletter` | `email` | `monthly_updates` | `article` |
 | Manual sharing | `manual` | `direct` | Editorial initiative | `shared_link` |
@@ -45,9 +45,9 @@ The table below explains the canonical combinations for humans. Runtime acceptan
 
 Allowed editorial initiatives are `thinking`, `building_my_ai_operating_system`, `experience` and `explore`. The profile and newsletter scenarios use the dedicated campaign values `profile` and `monthly_updates`.
 
-The Premium website-button combination deliberately accepts no content value (omitted or empty). All other combinations still require their canonical `utm_content`. Missing content is stored as an empty string in the existing campaign dimension; no schema migration is needed. These counters measure attributed landing events, not LinkedIn-side clicks or unique people. Deploy the updated collector contract as well as the site before using the link in production. GA4 attribution remains consent-dependent; ordinary local previews remain excluded.
+The Premium website-button combination requires all four UTM parameters, like every other scenario. It reuses the `profile` medium while distinguishing the subscription campaign and the specific website button. Featured/About remain on the `profile` campaign; these content values are not interchangeable with `website_button`. No schema migration is needed. These counters measure attributed landing events, not LinkedIn-side clicks or unique people. Deploy the updated collector contract as well as the site before using the link in production. GA4 attribution remains consent-dependent; ordinary local previews remain excluded.
 
-Website-button URL: `https://carlocaprini.github.io/?utm_source=linkedin&utm_medium=profile_button&utm_campaign=premium_test`.
+Website-button URL: `https://carlocaprini.github.io/?utm_source=linkedin&utm_medium=profile&utm_campaign=premium_subscription&utm_content=website_button`.
 
 For LinkedIn posts, `<format>` is one of `text_post`, `single_image` or `carousel`. For example:
 

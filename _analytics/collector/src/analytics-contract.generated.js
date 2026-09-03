@@ -91,7 +91,6 @@ export const ANALYTICS_CONTRACT = Object.freeze({
       "social",
       "comment",
       "profile",
-      "profile_button",
       "referral",
       "email",
       "direct",
@@ -109,13 +108,14 @@ export const ANALYTICS_CONTRACT = Object.freeze({
       "experience",
       "explore",
       "profile",
-      "premium_test",
+      "premium_subscription",
       "monthly_updates"
     ],
     "fixedContent": [
       "comment",
       "featured",
       "about",
+      "website_button",
       "article",
       "shared_link",
       "qr"
@@ -124,11 +124,13 @@ export const ANALYTICS_CONTRACT = Object.freeze({
     "combinations": [
       {
         "source": "linkedin",
-        "medium": "profile_button",
+        "medium": "profile",
         "campaigns": [
-          "premium_test"
+          "premium_subscription"
         ],
-        "content": "none"
+        "content": [
+          "website_button"
+        ]
       },
       {
         "source": "linkedin",
@@ -203,13 +205,11 @@ export const TARGET_TYPES = new Set(ANALYTICS_CONTRACT.targetTypes);
 export const PUBLICATION_CONTENT_PATTERN = new RegExp(ANALYTICS_CONTRACT.campaign.publicationContentPattern);
 
 export function validCampaignCombination(source, medium, campaign, content) {
-  const rule = ANALYTICS_CONTRACT.campaign.combinations.find((candidate) =>
-    candidate.source === source && candidate.medium === medium
-  );
-  if (!rule) return false;
+  return ANALYTICS_CONTRACT.campaign.combinations.some((rule) => {
+  if (rule.source !== source || rule.medium !== medium) return false;
   const campaigns = rule.campaigns === "editorial" ? ANALYTICS_CONTRACT.campaign.editorialCampaigns : rule.campaigns;
   if (!campaigns.includes(campaign)) return false;
-  if (rule.content === "none") return content === "";
   if (rule.content === "publication") return PUBLICATION_CONTENT_PATTERN.test(content);
   return rule.content.includes(content);
+  });
 }

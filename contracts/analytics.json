@@ -80,7 +80,7 @@
   ],
   "campaign": {
     "sources": ["linkedin", "medium", "newsletter", "manual", "qr"],
-    "mediums": ["social", "comment", "profile", "profile_button", "referral", "email", "direct", "offline"],
+    "mediums": ["social", "comment", "profile", "referral", "email", "direct", "offline"],
     "editorialCampaigns": [
       "thinking",
       "building_my_ai_operating_system",
@@ -93,17 +93,17 @@
       "experience",
       "explore",
       "profile",
-      "premium_test",
+      "premium_subscription",
       "monthly_updates"
     ],
-    "fixedContent": ["comment", "featured", "about", "article", "shared_link", "qr"],
+    "fixedContent": ["comment", "featured", "about", "website_button", "article", "shared_link", "qr"],
     "publicationContentPattern": "^[a-z0-9]+(?:_[a-z0-9]+)*_(?:text_post|single_image|carousel)$",
     "combinations": [
       {
         "source": "linkedin",
-        "medium": "profile_button",
-        "campaigns": ["premium_test"],
-        "content": "none"
+        "medium": "profile",
+        "campaigns": ["premium_subscription"],
+        "content": ["website_button"]
       },
       {
         "source": "linkedin",

@@ -94,7 +94,6 @@
         "social",
         "comment",
         "profile",
-        "profile_button",
         "referral",
         "email",
         "direct",
@@ -112,13 +111,14 @@
         "experience",
         "explore",
         "profile",
-        "premium_test",
+        "premium_subscription",
         "monthly_updates"
       ],
       "fixedContent": [
         "comment",
         "featured",
         "about",
+        "website_button",
         "article",
         "shared_link",
         "qr"
@@ -127,11 +127,13 @@
       "combinations": [
         {
           "source": "linkedin",
-          "medium": "profile_button",
+          "medium": "profile",
           "campaigns": [
-            "premium_test"
+            "premium_subscription"
           ],
-          "content": "none"
+          "content": [
+            "website_button"
+          ]
         },
         {
           "source": "linkedin",
@@ -198,15 +200,13 @@
   var publicationContentPattern = new RegExp(contract.campaign.publicationContentPattern);
 
   function validCampaignCombination(source, medium, campaign, content) {
-  const rule = contract.campaign.combinations.find((candidate) =>
-    candidate.source === source && candidate.medium === medium
-  );
-  if (!rule) return false;
+  return contract.campaign.combinations.some((rule) => {
+  if (rule.source !== source || rule.medium !== medium) return false;
   const campaigns = rule.campaigns === "editorial" ? contract.campaign.editorialCampaigns : rule.campaigns;
   if (!campaigns.includes(campaign)) return false;
-  if (rule.content === "none") return content === "";
   if (rule.content === "publication") return publicationContentPattern.test(content);
   return rule.content.includes(content);
+  });
   }
 
   global.siteAnalyticsContract = Object.freeze({

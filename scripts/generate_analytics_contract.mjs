@@ -39,7 +39,7 @@ function validate(contract) {
     if (!contract.campaign.sources.includes(rule.source)) throw new Error(`Unknown campaign source in rule: ${rule.source}`);
     if (!contract.campaign.mediums.includes(rule.medium)) throw new Error(`Unknown campaign medium in rule: ${rule.medium}`);
     const campaigns = rule.campaigns === "editorial" ? contract.campaign.editorialCampaigns : rule.campaigns;
-    const content = ["publication", "none"].includes(rule.content) ? [] : rule.content;
+    const content = rule.content === "publication" ? [] : rule.content;
     if (!Array.isArray(campaigns) || campaigns.some((value) => !contract.campaign.names.includes(value))) {
       throw new Error(`Invalid campaigns in ${rule.source}/${rule.medium} rule`);
     }
@@ -51,15 +51,13 @@ function validate(contract) {
 
 function sharedMatcherBody() {
   return `
-  const rule = contract.campaign.combinations.find((candidate) =>
-    candidate.source === source && candidate.medium === medium
-  );
-  if (!rule) return false;
+  return contract.campaign.combinations.some((rule) => {
+  if (rule.source !== source || rule.medium !== medium) return false;
   const campaigns = rule.campaigns === "editorial" ? contract.campaign.editorialCampaigns : rule.campaigns;
   if (!campaigns.includes(campaign)) return false;
-  if (rule.content === "none") return content === "";
   if (rule.content === "publication") return publicationContentPattern.test(content);
-  return rule.content.includes(content);`;
+  return rule.content.includes(content);
+  });`;
 }
 
 function browserSource(contract) {

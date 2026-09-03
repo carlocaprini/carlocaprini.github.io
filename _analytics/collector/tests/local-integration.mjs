@@ -164,21 +164,25 @@ try {
     }));
   });
   await page.waitForTimeout(500);
-  await page.goto(`${siteOrigin}/?utm_source=linkedin&utm_medium=profile_button&utm_campaign=premium_test`);
+  await page.goto(`${siteOrigin}/?utm_source=linkedin&utm_medium=profile&utm_campaign=premium_subscription&utm_content=website_button`);
   await page.waitForFunction(() => window.siteAggregateAnalytics?.enabled === true);
   const premiumParsing = await page.evaluate(() => {
     const build = window.siteAggregateAnalytics.buildCampaignLanding;
-    const query = "?utm_source=linkedin&utm_medium=profile_button&utm_campaign=premium_test";
+    const query = "?utm_source=linkedin&utm_medium=profile&utm_campaign=premium_subscription&utm_content=website_button";
     return {
       accepted: build(query)?.utm_content,
       duplicateContent: build(`${query}&utm_content=&utm_content=`),
       duplicateSource: build(`${query}&utm_source=linkedin`),
-      unexpectedContent: build(`${query}&utm_content=about`),
+      unexpectedContent: build(query.replace("website_button", "about")),
+      missingContent: build(query.replace("&utm_content=website_button", "")),
+      emptyContent: build(query.replace("website_button", "")),
       incompleteEditorial: build("?utm_source=linkedin&utm_medium=social&utm_campaign=thinking")
     };
   });
   assert.deepEqual(premiumParsing, {
-    accepted: "",
+    accepted: "website_button",
+    missingContent: null,
+    emptyContent: null,
     duplicateContent: null,
     duplicateSource: null,
     unexpectedContent: null,
@@ -212,9 +216,9 @@ try {
   assert.deepEqual(campaignRows, [{
     landing_id: "/thinking/local-integration/",
     utm_source: "linkedin",
-    utm_medium: "profile_button",
-    utm_campaign: "premium_test",
-    utm_content: "",
+    utm_medium: "profile",
+    utm_campaign: "premium_subscription",
+    utm_content: "website_button",
     event_count: 1
   }, {
     landing_id: "/thinking/local-integration/",
