@@ -1,5 +1,27 @@
 import { expect, test, captureAnalytics } from "./support/site-test.js";
 
+test("Semantic GA4 events discard undeclared parameters and private URL components", async ({ page }) => {
+  await page.goto("/thinking/i-stopped-trying-to-build-jarvis/");
+  const recorded = await page.evaluate(() => {
+    const events = [];
+    window.gtag = (...args) => events.push(args);
+    window.siteAnalytics.track("reading_open", {
+      destination: "https://publisher.example/article/?email=private@example.test#private",
+      link_context: "note_body", email: "private@example.test", user_id: "private",
+      hostname: "technical", enabled: "true", note_id: "wrong_event",
+      reading_id: { answer: "private learner text" }
+    });
+    window.dispatchEvent(new CustomEvent("site:analytics-ready"));
+    delete window.gtag;
+    return events;
+  });
+  expect(recorded[0]).toEqual(["event", "reading_open", {
+    link_context: "note_body", destination: "https://publisher.example/article/"
+  }]);
+  for (const key of ["enabled", "id", "hostname", "content"]) expect(recorded[1][2]).not.toHaveProperty(key);
+  expect(JSON.stringify(recorded)).not.toContain("private");
+});
+
 test("Optional analytics stays unloaded until consent is granted", async ({ page }) => {
   await page.goto("/");
 

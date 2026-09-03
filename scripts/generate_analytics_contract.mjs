@@ -29,6 +29,10 @@ function validate(contract) {
   new RegExp(contract.campaign.publicationContentPattern);
 
   const semantic = new Set(contract.events.semantic);
+  unique(contract.parameters.common, "parameters.common");
+  for (const event of semantic) {
+    if (!Array.isArray(contract.parameters.byEvent[event])) throw new Error(`Missing parameter contract: ${event}`);
+  }
   for (const event of contract.events.aggregateForwarded) {
     if (!semantic.has(event)) throw new Error(`Aggregate-forwarded event is not semantic: ${event}`);
   }
@@ -51,14 +55,13 @@ function validate(contract) {
 
 function sharedMatcherBody() {
   return `
-  const rule = contract.campaign.combinations.find((candidate) =>
-    candidate.source === source && candidate.medium === medium
-  );
-  if (!rule) return false;
+  return contract.campaign.combinations.some((rule) => {
+  if (rule.source !== source || rule.medium !== medium) return false;
   const campaigns = rule.campaigns === "editorial" ? contract.campaign.editorialCampaigns : rule.campaigns;
   if (!campaigns.includes(campaign)) return false;
   if (rule.content === "publication") return publicationContentPattern.test(content);
-  return rule.content.includes(content);`;
+  return rule.content.includes(content);
+  });`;
 }
 
 function browserSource(contract) {
@@ -76,6 +79,7 @@ function browserSource(contract) {
   global.siteAnalyticsContract = Object.freeze({
     version: contract.version,
     semanticEvents: Object.freeze(contract.events.semantic.slice()),
+    parameters: Object.freeze(contract.parameters),
     aggregateForwardedEvents: Object.freeze(contract.events.aggregateForwarded.slice()),
     aggregateOnlyEvents: Object.freeze(contract.events.aggregateOnly.slice()),
     sourceTypes: Object.freeze(contract.sourceTypes.slice()),

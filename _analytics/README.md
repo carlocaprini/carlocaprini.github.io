@@ -23,7 +23,7 @@ Home and brand links, back links, skip links, Privacy, consent-settings reopenin
 
 Cross-system measurement operations live under [`measurement/`](measurement/README.md). That directory owns the GA4 reporting target, internal/developer traffic handling, professional-outcome structure and repeatable monthly/quarterly evidence workflow. It does not introduce another telemetry destination.
 
-When a landing URL contains the complete canonical UTM tuple, the browser also sends one aggregate `campaign_landing` event. Missing, partial, duplicated or unknown UTM values are ignored and do not affect the normal page and interaction counters. Campaign attribution is limited to the landing page and is never persisted across navigation.
+When a landing URL matches a canonical UTM combination, the browser also sends one aggregate `campaign_landing` event. Missing required, duplicated or unknown UTM values are ignored and do not affect the normal page and interaction counters. Campaign attribution is limited to the landing page and is never persisted across navigation.
 
 ## Canonical UTM contract
 
@@ -37,12 +37,17 @@ The table below explains the canonical combinations for humans. Runtime acceptan
 | LinkedIn comment | `linkedin` | `comment` | Editorial initiative | `comment` |
 | LinkedIn Featured | `linkedin` | `profile` | `profile` | `featured` |
 | LinkedIn About | `linkedin` | `profile` | `profile` | `about` |
+| LinkedIn Premium website button | `linkedin` | `profile` | `premium_subscription` | `website_button` |
 | Medium article | `medium` | `referral` | Editorial initiative | `article` |
 | Newsletter | `newsletter` | `email` | `monthly_updates` | `article` |
 | Manual sharing | `manual` | `direct` | Editorial initiative | `shared_link` |
 | QR code | `qr` | `offline` | Editorial initiative | `qr` |
 
 Allowed editorial initiatives are `thinking`, `building_my_ai_operating_system`, `experience` and `explore`. The profile and newsletter scenarios use the dedicated campaign values `profile` and `monthly_updates`.
+
+The Premium website-button combination requires all four UTM parameters, like every other scenario. It reuses the `profile` medium while distinguishing the subscription campaign and the specific website button. Featured/About remain on the `profile` campaign; these content values are not interchangeable with `website_button`. No schema migration is needed. These counters measure attributed landing events, not LinkedIn-side clicks or unique people. Deploy the updated collector contract as well as the site before using the link in production. GA4 attribution remains consent-dependent; ordinary local previews remain excluded.
+
+Website-button URL: `https://carlocaprini.github.io/?utm_source=linkedin&utm_medium=profile&utm_campaign=premium_subscription&utm_content=website_button`.
 
 For LinkedIn posts, `<format>` is one of `text_post`, `single_image` or `carousel`. For example:
 
@@ -180,3 +185,9 @@ node _analytics/reports/generate-report.mjs --from=2026-08-01 --to=2026-08-31 --
 ## Retention
 
 The scheduled Worker task deletes normal and campaign daily rows older than 14 calendar months. If longer history is needed later, add an explicitly reviewed monthly-rollup migration before changing retention.
+
+## Semantic parameter safety and note links
+
+`contracts/analytics.json` owns the common and per-event parameter allowlists. The browser filters both DOM attributes and programmatic events before sending them to GA4 or the semantic event bus. Technical configuration, unknown parameters, objects and free prose are discarded. The consent-ready content event uses the same filter. This boundary concerns custom semantic events, not Google's independently collected native fields.
+
+Automatic note-body tracking distinguishes collection indexes from individual notes/questions/series and recognizes Work and Experience. Same-page links, unsupported internal routes and non-HTTP links are not automatically tracked. External reading destinations preserve the public origin and path to distinguish publishers, but omit credentials, query strings and fragments. Existing explicit event annotations take precedence.

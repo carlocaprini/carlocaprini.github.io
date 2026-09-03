@@ -170,6 +170,17 @@ test("accepts a complete canonical UTM landing and increments only its aggregate
   ]);
 });
 
+test("accepts the Premium button with all four canonical dimensions", async () => {
+  const DB = new FakeDatabase();
+  const payload = validCampaignPayload({ utm_medium: "profile", utm_campaign: "premium_subscription", utm_content: "website_button" });
+  const result = await handleRequest(request(payload), { DB, ALLOWED_ORIGIN: origin }, new Date("2026-09-03T08:00:00Z"));
+  assert.equal(result.status, 204);
+  assert.deepEqual(DB.calls[0].values.slice(-4), ["linkedin", "profile", "premium_subscription", "website_button"]);
+  assert.equal(validateCampaignPayload({ ...payload, utm_content: undefined }), null);
+  assert.equal(validateCampaignPayload({ ...payload, utm_content: "" }), null);
+  assert.equal(validateCampaignPayload({ ...payload, utm_content: "about" }), null);
+});
+
 test("rejects partial, unknown and inconsistent UTM combinations", () => {
   const invalid = [
     validCampaignPayload({ utm_content: undefined }),

@@ -39,6 +39,7 @@ test("source and target types share the canonical runtime vocabulary", () => {
 });
 
 const validCampaigns = [
+  ["linkedin", "profile", "premium_subscription", "website_button"],
   ["linkedin", "social", "thinking", "waiting_as_product_decision_text_post"],
   ["linkedin", "comment", "explore", "comment"],
   ["linkedin", "profile", "profile", "featured"],
@@ -57,6 +58,12 @@ test("browser and Worker accept every representative canonical campaign tuple", 
 });
 
 const invalidCampaigns = [
+  ["linkedin", "profile_button", "premium_subscription", "website_button"],
+  ["linkedin", "profile", "premium_subscription", "about"],
+  ["linkedin", "profile", "premium_subscription", ""],
+  ["linkedin", "profile", "profile", "website_button"],
+  ["linkedin", "profile", "premium_test", "website_button"],
+  ["linkedin", "social", "thinking", ""],
   ["linkedin", "social", "profile", "featured"],
   ["linkedin", "social", "thinking", "article"],
   ["medium", "social", "thinking", "article"],

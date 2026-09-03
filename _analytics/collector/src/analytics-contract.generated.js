@@ -1,6 +1,80 @@
 /* GENERATED from contracts/analytics.json by scripts/generate_analytics_contract.mjs. Do not edit. */
 export const ANALYTICS_CONTRACT = Object.freeze({
   "version": 1,
+  "parameters": {
+    "common": [
+      "page_type",
+      "page_id",
+      "page_topic",
+      "page_series",
+      "page_episode",
+      "link_context"
+    ],
+    "byEvent": {
+      "content_view": [],
+      "collection_open": [
+        "collection",
+        "destination"
+      ],
+      "note_open": [
+        "note_id",
+        "destination"
+      ],
+      "question_open": [
+        "question_id",
+        "destination"
+      ],
+      "series_open": [
+        "series_id",
+        "destination"
+      ],
+      "series_episode_open": [
+        "series_id",
+        "episode_number",
+        "note_id",
+        "direction",
+        "destination"
+      ],
+      "topic_select": [
+        "topic",
+        "interaction"
+      ],
+      "reading_open": [
+        "reading_id",
+        "destination"
+      ],
+      "experience_open": [
+        "destination"
+      ],
+      "work_open": [
+        "destination"
+      ],
+      "work_section_view": [
+        "work_section"
+      ],
+      "contact_section_open": [
+        "destination"
+      ],
+      "contact_open": [
+        "contact_method",
+        "destination"
+      ],
+      "social_profile_open": [
+        "platform",
+        "destination"
+      ],
+      "series_visual_open": [
+        "series_id",
+        "episode_number",
+        "service",
+        "interaction",
+        "destination"
+      ],
+      "rss_open": [
+        "destination"
+      ]
+    }
+  },
   "events": {
     "semantic": [
       "content_view",
@@ -108,18 +182,30 @@ export const ANALYTICS_CONTRACT = Object.freeze({
       "experience",
       "explore",
       "profile",
+      "premium_subscription",
       "monthly_updates"
     ],
     "fixedContent": [
       "comment",
       "featured",
       "about",
+      "website_button",
       "article",
       "shared_link",
       "qr"
     ],
     "publicationContentPattern": "^[a-z0-9]+(?:_[a-z0-9]+)*_(?:text_post|single_image|carousel)$",
     "combinations": [
+      {
+        "source": "linkedin",
+        "medium": "profile",
+        "campaigns": [
+          "premium_subscription"
+        ],
+        "content": [
+          "website_button"
+        ]
+      },
       {
         "source": "linkedin",
         "medium": "social",
@@ -193,12 +279,11 @@ export const TARGET_TYPES = new Set(ANALYTICS_CONTRACT.targetTypes);
 export const PUBLICATION_CONTENT_PATTERN = new RegExp(ANALYTICS_CONTRACT.campaign.publicationContentPattern);
 
 export function validCampaignCombination(source, medium, campaign, content) {
-  const rule = ANALYTICS_CONTRACT.campaign.combinations.find((candidate) =>
-    candidate.source === source && candidate.medium === medium
-  );
-  if (!rule) return false;
+  return ANALYTICS_CONTRACT.campaign.combinations.some((rule) => {
+  if (rule.source !== source || rule.medium !== medium) return false;
   const campaigns = rule.campaigns === "editorial" ? ANALYTICS_CONTRACT.campaign.editorialCampaigns : rule.campaigns;
   if (!campaigns.includes(campaign)) return false;
   if (rule.content === "publication") return PUBLICATION_CONTENT_PATTERN.test(content);
   return rule.content.includes(content);
+  });
 }
