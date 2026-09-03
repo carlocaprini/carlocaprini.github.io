@@ -23,7 +23,7 @@ Home and brand links, back links, skip links, Privacy, consent-settings reopenin
 
 Cross-system measurement operations live under [`measurement/`](measurement/README.md). That directory owns the GA4 reporting target, internal/developer traffic handling, professional-outcome structure and repeatable monthly/quarterly evidence workflow. It does not introduce another telemetry destination.
 
-When a landing URL contains the complete canonical UTM tuple, the browser also sends one aggregate `campaign_landing` event. Missing, partial, duplicated or unknown UTM values are ignored and do not affect the normal page and interaction counters. Campaign attribution is limited to the landing page and is never persisted across navigation.
+When a landing URL matches a canonical UTM combination, the browser also sends one aggregate `campaign_landing` event. Missing required, duplicated or unknown UTM values are ignored and do not affect the normal page and interaction counters. Campaign attribution is limited to the landing page and is never persisted across navigation.
 
 ## Canonical UTM contract
 
@@ -37,12 +37,17 @@ The table below explains the canonical combinations for humans. Runtime acceptan
 | LinkedIn comment | `linkedin` | `comment` | Editorial initiative | `comment` |
 | LinkedIn Featured | `linkedin` | `profile` | `profile` | `featured` |
 | LinkedIn About | `linkedin` | `profile` | `profile` | `about` |
+| LinkedIn Premium website button | `linkedin` | `profile_button` | `premium_test` | Omitted |
 | Medium article | `medium` | `referral` | Editorial initiative | `article` |
 | Newsletter | `newsletter` | `email` | `monthly_updates` | `article` |
 | Manual sharing | `manual` | `direct` | Editorial initiative | `shared_link` |
 | QR code | `qr` | `offline` | Editorial initiative | `qr` |
 
 Allowed editorial initiatives are `thinking`, `building_my_ai_operating_system`, `experience` and `explore`. The profile and newsletter scenarios use the dedicated campaign values `profile` and `monthly_updates`.
+
+The Premium website-button combination deliberately accepts no content value (omitted or empty). All other combinations still require their canonical `utm_content`. Missing content is stored as an empty string in the existing campaign dimension; no schema migration is needed. These counters measure attributed landing events, not LinkedIn-side clicks or unique people. Deploy the updated collector contract as well as the site before using the link in production. GA4 attribution remains consent-dependent; ordinary local previews remain excluded.
+
+Website-button URL: `https://carlocaprini.github.io/?utm_source=linkedin&utm_medium=profile_button&utm_campaign=premium_test`.
 
 For LinkedIn posts, `<format>` is one of `text_post`, `single_image` or `carousel`. For example:
 
