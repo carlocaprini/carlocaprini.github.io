@@ -185,3 +185,9 @@ node _analytics/reports/generate-report.mjs --from=2026-08-01 --to=2026-08-31 --
 ## Retention
 
 The scheduled Worker task deletes normal and campaign daily rows older than 14 calendar months. If longer history is needed later, add an explicitly reviewed monthly-rollup migration before changing retention.
+
+## Semantic parameter safety and note links
+
+`contracts/analytics.json` owns the common and per-event parameter allowlists. The browser filters both DOM attributes and programmatic events before sending them to GA4 or the semantic event bus. Technical configuration, unknown parameters, objects and free prose are discarded. The consent-ready content event uses the same filter. This boundary concerns custom semantic events, not Google's independently collected native fields.
+
+Automatic note-body tracking distinguishes collection indexes from individual notes/questions/series and recognizes Work and Experience. Same-page links, unsupported internal routes and non-HTTP links are not automatically tracked. External reading destinations preserve the public origin and path to distinguish publishers, but omit credentials, query strings and fragments. Existing explicit event annotations take precedence.

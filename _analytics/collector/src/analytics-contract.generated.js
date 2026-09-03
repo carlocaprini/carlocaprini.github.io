@@ -1,6 +1,80 @@
 /* GENERATED from contracts/analytics.json by scripts/generate_analytics_contract.mjs. Do not edit. */
 export const ANALYTICS_CONTRACT = Object.freeze({
   "version": 1,
+  "parameters": {
+    "common": [
+      "page_type",
+      "page_id",
+      "page_topic",
+      "page_series",
+      "page_episode",
+      "link_context"
+    ],
+    "byEvent": {
+      "content_view": [],
+      "collection_open": [
+        "collection",
+        "destination"
+      ],
+      "note_open": [
+        "note_id",
+        "destination"
+      ],
+      "question_open": [
+        "question_id",
+        "destination"
+      ],
+      "series_open": [
+        "series_id",
+        "destination"
+      ],
+      "series_episode_open": [
+        "series_id",
+        "episode_number",
+        "note_id",
+        "direction",
+        "destination"
+      ],
+      "topic_select": [
+        "topic",
+        "interaction"
+      ],
+      "reading_open": [
+        "reading_id",
+        "destination"
+      ],
+      "experience_open": [
+        "destination"
+      ],
+      "work_open": [
+        "destination"
+      ],
+      "work_section_view": [
+        "work_section"
+      ],
+      "contact_section_open": [
+        "destination"
+      ],
+      "contact_open": [
+        "contact_method",
+        "destination"
+      ],
+      "social_profile_open": [
+        "platform",
+        "destination"
+      ],
+      "series_visual_open": [
+        "series_id",
+        "episode_number",
+        "service",
+        "interaction",
+        "destination"
+      ],
+      "rss_open": [
+        "destination"
+      ]
+    }
+  },
   "events": {
     "semantic": [
       "content_view",

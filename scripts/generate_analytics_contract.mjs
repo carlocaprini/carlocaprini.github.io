@@ -29,6 +29,10 @@ function validate(contract) {
   new RegExp(contract.campaign.publicationContentPattern);
 
   const semantic = new Set(contract.events.semantic);
+  unique(contract.parameters.common, "parameters.common");
+  for (const event of semantic) {
+    if (!Array.isArray(contract.parameters.byEvent[event])) throw new Error(`Missing parameter contract: ${event}`);
+  }
   for (const event of contract.events.aggregateForwarded) {
     if (!semantic.has(event)) throw new Error(`Aggregate-forwarded event is not semantic: ${event}`);
   }
@@ -75,6 +79,7 @@ function browserSource(contract) {
   global.siteAnalyticsContract = Object.freeze({
     version: contract.version,
     semanticEvents: Object.freeze(contract.events.semantic.slice()),
+    parameters: Object.freeze(contract.parameters),
     aggregateForwardedEvents: Object.freeze(contract.events.aggregateForwarded.slice()),
     aggregateOnlyEvents: Object.freeze(contract.events.aggregateOnly.slice()),
     sourceTypes: Object.freeze(contract.sourceTypes.slice()),
