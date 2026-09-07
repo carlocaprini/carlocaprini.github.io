@@ -36,6 +36,7 @@ recent_notes:
   limit: 3
 # Order of notes on the list. Title and summary come from each note's front matter.
 notes:
+  - url: /thinking/adding-mcp-doesnt-make-a-product-agent-first/
   - url: /thinking/stop-asking-people-for-information-the-system-already-has/
   - url: /thinking/i-need-my-ai-dashboard-to-leave-things-out/
   - url: /thinking/friday-connects-the-services-without-owning-their-work/
