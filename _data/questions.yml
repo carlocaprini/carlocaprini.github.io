@@ -35,6 +35,8 @@ questions:
         context: A useful distinction between decisions that can be reversed and decisions that require more care.
       - slug: the-product-minded-engineer
         context: A practical view of product judgment as a shared capability rather than a role boundary.
+      - slug: using-platform-engineering-to-simplify-the-developer-experience-part-one
+        context: A concrete example of treating a paved road as a compelling default while using repeated exceptions as evidence for platform product decisions.
       - slug: boundaries-between-product-and-engineering
         context: A closer look at how Product & Engineering responsibilities meet around decisions.
     experience:
@@ -113,6 +115,7 @@ questions:
           - /thinking/i-stopped-trying-to-build-jarvis/
           - /thinking/i-built-august-because-copy-and-paste-was-not-collaboration/
           - /thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/
+          - /thinking/adding-mcp-doesnt-make-a-product-agent-first/
           - /thinking/designing-for-unattended-development/
       - title: Coordinate attention without taking control
         description: Orchestration becomes useful when it helps a person see what needs attention while leaving authority with them.
