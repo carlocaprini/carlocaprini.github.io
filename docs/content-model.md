@@ -34,7 +34,11 @@ Validators protect membership and references, but should not replace these choic
 
 Set `last_modified_at` on a Note only when its editorial content changes. Topic remapping, layout, styling and related-content logic do not change the Note’s editorial modification date. Index pages may update it when their public copy or structure changes.
 
-Use at most two canonical Topics per Note or Influence, most characteristic first. To add a Topic, change `_data/topics.yml` and let source validation identify every dependent contract; do not maintain a parallel prose allowlist.
+Use at most two canonical Topics per Note or Influence. The list is ordered: the first Topic is the editorial and visual primary Topic, and any second Topic is a secondary lens. The order answers “what is this piece mainly about?” and must not be alphabetized or changed as a formatting side effect. Reordering Topics is a meaningful editorial change even when membership stays the same.
+
+The primary Topic owns the content accent. Secondary Topics remain visible as labelled chips, but ordinary cards do not blend topic colors. If a future content object legitimately has no Topic, give it a neutral treatment instead of an arbitrary color. Do not introduce a parallel `primary_topic` field.
+
+For every content review, confirm that the first Topic matches the central argument. For an Influence, judge the reason the external work belongs in this corpus rather than the source’s broadest subject. To add a Topic, change `_data/topics.yml` and let source validation identify every dependent contract; do not maintain a parallel prose allowlist.
 
 ## Responsive editorial behavior
 

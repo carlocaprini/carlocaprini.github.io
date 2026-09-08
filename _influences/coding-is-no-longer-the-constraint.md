@@ -4,8 +4,8 @@ external_url: https://engineering.atspotify.com/2026/6/code-with-claude-coding-i
 author: Spotify Engineering
 weight: 2
 topics:
-  - ai-and-automation
   - software-systems
+  - ai-and-automation
 related_note: /thinking/ai-accelerates-contribution-not-mastery/
 summary: "Shows how AI leverage compounds earlier investments in developer platforms, standardization, ownership data, and automated feedback loops. As implementation gets faster, the limiting work moves toward review, prioritization, and the human judgment needed to decide what should change."
 ---

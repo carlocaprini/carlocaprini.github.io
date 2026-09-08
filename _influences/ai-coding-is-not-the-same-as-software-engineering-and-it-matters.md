@@ -4,8 +4,8 @@ external_url: https://community.atlassian.com/forums/Rovo-articles/AI-Coding-Is-
 author: Atlassian Community
 weight: 2
 topics:
-  - ai-and-automation
   - software-systems
+  - ai-and-automation
 related_note: /thinking/temporary-solutions-become-permanent/
 summary: "Generating code quickly is not the same as building systems that can evolve, scale, and be maintained over time. As AI accelerates implementation, the long-term complexity and quality of software increasingly depend on architecture, trade-offs, and engineering discipline rather than raw output speed."
 ---

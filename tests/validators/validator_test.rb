@@ -144,6 +144,18 @@ class ValidatorTest < Minitest::Test
     end
   end
 
+  def test_source_rejects_topics_that_are_not_an_ordered_list
+    assert_invalid_source(/must define one or two topics as an ordered list/) do |directory|
+      replace!(note_path(directory), "topics:\n  - product-decisions", "topics: product-decisions")
+    end
+  end
+
+  def test_source_rejects_duplicate_topics
+    assert_invalid_source(/duplicate topics make primary-topic order ambiguous/) do |directory|
+      replace!(note_path(directory), "  - product-decisions", "  - product-decisions\n  - product-decisions")
+    end
+  end
+
   def test_source_rejects_duplicate_permalink
     assert_invalid_source(/duplicate permalink/) do |directory|
       replace!(note_path(directory), "/thinking/waiting-as-product-decision/", "/thinking/temporary-solutions-become-permanent/")

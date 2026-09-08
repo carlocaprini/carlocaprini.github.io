@@ -4,8 +4,8 @@ external_url: https://www.duperrin.com/english/2026/05/07/ai-tacit-knowledge-dig
 author: Bertrand Duperrin
 weight: 2
 topics:
-  - ai-and-automation
   - teams-and-collaboration
+  - ai-and-automation
 related_note: /thinking/shared-context-is-not-shared-understanding/
 summary: "Draws a useful boundary between retrieving explicit traces of work and actually understanding how work happens under real constraints. It reinforces the idea that better access to context does not automatically create shared understanding, especially when tacit knowledge, judgment, and interpretation are still required."
 ---
