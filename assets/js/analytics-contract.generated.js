@@ -159,6 +159,7 @@
     "campaign": {
       "sources": [
         "linkedin",
+        "github",
         "medium",
         "newsletter",
         "manual",
@@ -193,6 +194,7 @@
         "featured",
         "about",
         "website_button",
+        "profile_readme",
         "article",
         "shared_link",
         "qr"
@@ -232,6 +234,16 @@
           "content": [
             "featured",
             "about"
+          ]
+        },
+        {
+          "source": "github",
+          "medium": "profile",
+          "campaigns": [
+            "profile"
+          ],
+          "content": [
+            "profile_readme"
           ]
         },
         {

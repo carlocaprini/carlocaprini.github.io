@@ -181,6 +181,22 @@ test("accepts the Premium button with all four canonical dimensions", async () =
   assert.equal(validateCampaignPayload({ ...payload, utm_content: "about" }), null);
 });
 
+test("accepts GitHub profile README attribution without broadening profile combinations", async () => {
+  const DB = new FakeDatabase();
+  const payload = validCampaignPayload({
+    utm_source: "github",
+    utm_medium: "profile",
+    utm_campaign: "profile",
+    utm_content: "profile_readme"
+  });
+  const result = await handleRequest(request(payload), { DB, ALLOWED_ORIGIN: origin }, new Date("2026-09-08T08:00:00Z"));
+
+  assert.equal(result.status, 204);
+  assert.deepEqual(DB.calls[0].values.slice(-4), ["github", "profile", "profile", "profile_readme"]);
+  assert.equal(validateCampaignPayload({ ...payload, utm_content: "featured" }), null);
+  assert.equal(validateCampaignPayload({ ...payload, utm_medium: "social" }), null);
+});
+
 test("rejects partial, unknown and inconsistent UTM combinations", () => {
   const invalid = [
     validCampaignPayload({ utm_content: undefined }),
