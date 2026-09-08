@@ -107,6 +107,7 @@ test("Aggregate measurement maps semantic events without personal fields", async
     consent: window.siteAggregateAnalytics.buildConsentChoice("denied"),
     pageView: window.siteAggregateAnalytics.buildPageView(),
     campaign: window.siteAggregateAnalytics.buildCampaignLanding(),
+    githubProfile: window.siteAggregateAnalytics.buildCampaignLanding("?utm_source=github&utm_medium=profile&utm_campaign=profile&utm_content=profile_readme"),
     missingCampaign: window.siteAggregateAnalytics.buildCampaignLanding("?utm_source=linkedin&utm_medium=social"),
     invalidCampaign: window.siteAggregateAnalytics.buildCampaignLanding("?utm_source=linkedin&utm_medium=organic_social&utm_campaign=building_my_ai_operating_system&utm_content=episode_05_single_image"),
     work: window.siteAggregateAnalytics.buildEvent("work_open", {
@@ -162,6 +163,16 @@ test("Aggregate measurement maps semantic events without personal fields", async
     utm_medium: "social",
     utm_campaign: "building_my_ai_operating_system",
     utm_content: "episode_05_single_image"
+  });
+  expect(mapped.githubProfile).toEqual({
+    version: 1,
+    event_name: "campaign_landing",
+    landing_type: "thinking",
+    landing_id: "/thinking/",
+    utm_source: "github",
+    utm_medium: "profile",
+    utm_campaign: "profile",
+    utm_content: "profile_readme"
   });
   expect(mapped.missingCampaign).toBeNull();
   expect(mapped.invalidCampaign).toBeNull();
