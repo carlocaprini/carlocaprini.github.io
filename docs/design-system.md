@@ -137,7 +137,7 @@ Rules:
 - keep the motif decorative and hidden from assistive technology;
 - preserve the hero height, title hierarchy and existing dark background;
 - derive both topology and corner glow from the same canonical Topic color;
-- simplify or crop the motif at smaller breakpoints before constraining content;
+- use a dedicated mobile crop that preserves each family's defining gesture, then remove secondary density before constraining content;
 - make the complete static state the design; motion is optional, finite and must respect reduced-motion preferences;
 - keep Series identity in sequence and Question identity in connections rather than in this motif.
 
@@ -217,6 +217,8 @@ Recommended style:
 - hover: slight border-color change, optional `translateY(-2px)`
 
 Repeated cards should use semantic Topic accents only when their content is classified by Topic. Otherwise use a neutral surface, one brand accent or a clear structural rhythm rather than a positional color cycle.
+
+Non-topic card groups default to neutral structural surfaces. Use composition, sequence, line placement and density to distinguish their parts; reserve the cyan brand accent for interaction and deliberately emphasized brand signals rather than repeating it across every surface.
 
 ## Typography
 

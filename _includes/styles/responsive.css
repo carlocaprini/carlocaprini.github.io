@@ -545,21 +545,66 @@
   }
 
   .article-topic-motif {
-    opacity: 0.46;
-    mask-image: linear-gradient(to right, transparent 0%, transparent 30%, #000 62%);
+    top: -1rem;
+    right: -1rem;
+    width: 18rem;
+    opacity: 0.56;
+    mask-image: linear-gradient(to right, transparent 0%, transparent 18%, #000 48%);
   }
 
   .article-topic-motif--balanced {
-    top: -2.25rem;
-    right: -5rem;
-    width: 14rem;
+    top: -1rem;
+    right: -1rem;
+    width: 18rem;
   }
 
   .article-topic-motif--spatial {
-    top: -5.5rem;
-    right: -7.5rem;
+    top: -2.75rem;
+    right: -2.5rem;
+    width: 22rem;
+    mask-image: linear-gradient(to right, transparent 0%, transparent 22%, #000 52%);
+  }
+
+  .topic-motif--product-decisions {
+    top: -1.25rem;
+    right: -1.25rem;
+  }
+
+  .topic-motif--ai-and-automation {
+    top: -1.4rem;
+    right: -0.35rem;
+  }
+
+  .topic-motif--software-systems {
+    top: -3.1rem;
+    right: -1.8rem;
     width: 19rem;
-    mask-image: linear-gradient(to right, transparent 0%, transparent 35%, #000 68%);
+  }
+
+  .topic-motif--teams-and-collaboration {
+    top: -0.75rem;
+    right: -0.4rem;
+  }
+
+  .article-topic-motif--spatial.topic-motif--product-decisions {
+    top: -3rem;
+    right: -3rem;
+  }
+
+  .article-topic-motif--spatial.topic-motif--ai-and-automation {
+    top: -2.15rem;
+    right: -1.4rem;
+  }
+
+  .article-topic-motif--spatial.topic-motif--software-systems {
+    top: -3rem;
+    right: -3.2rem;
+    width: 23rem;
+  }
+
+  .article-topic-motif--spatial.topic-motif--teams-and-collaboration {
+    top: -2.25rem;
+    right: -1.4rem;
   }
 
   .article-topic-motif--balanced .motif-density-secondary,
