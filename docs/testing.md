@@ -71,3 +71,5 @@ Visual-regression fixtures detect unexpected pixels. Visual Reference is navigab
 Do not update screenshots merely to silence a failure.
 
 Generated-site validation also enforces one canonical local stylesheet link per page. This protects the build-time CSS composition from accidentally becoming multiple runtime requests or omitting `main.css`; visual checks protect rule order and rendered equivalence.
+
+Article topic motif evaluation is intentionally separate from the default full-page Visual Reference. Run `npm run topic-motif-reference:generate` to build both site-level variants and capture hero-only comparisons under `visual-reference/article-topic-motifs/`. Run `npm run topic-motif-reference:check` to rebuild Balanced and Spatial independently, verify topic/family/color/accessibility contracts and compare all committed color and grayscale references.

@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "viewports": {
+    "desktop": { "width": 1440, "height": 900 },
+    "tablet": { "width": 834, "height": 1112 },
+    "mobile": { "width": 390, "height": 844 }
+  },
+  "topics": {
+    "product-decisions": {
+      "family": "branching",
+      "path": "/thinking/product-decisions-are-mostly-trade-offs/"
+    },
+    "ai-and-automation": {
+      "family": "bounded-loops",
+      "path": "/thinking/adding-mcp-doesnt-make-a-product-agent-first/"
+    },
+    "software-systems": {
+      "family": "layered-interfaces",
+      "path": "/thinking/stop-asking-people-for-information-the-system-already-has/"
+    },
+    "teams-and-collaboration": {
+      "family": "partial-convergence",
+      "path": "/thinking/shared-context-is-not-shared-understanding/"
+    }
+  },
+  "captures": [
+    { "id": "comparison/balanced/desktop", "variant": "balanced", "topic": "product-decisions", "viewport": "desktop" },
+    { "id": "comparison/balanced/tablet", "variant": "balanced", "topic": "product-decisions", "viewport": "tablet" },
+    { "id": "comparison/balanced/mobile", "variant": "balanced", "topic": "product-decisions", "viewport": "mobile" },
+    { "id": "comparison/spatial/desktop", "variant": "spatial", "topic": "product-decisions", "viewport": "desktop" },
+    { "id": "comparison/spatial/tablet", "variant": "spatial", "topic": "product-decisions", "viewport": "tablet" },
+    { "id": "comparison/spatial/mobile", "variant": "spatial", "topic": "product-decisions", "viewport": "mobile" },
+    { "id": "topics/product-decisions", "variant": "balanced", "topic": "product-decisions", "viewport": "desktop" },
+    { "id": "topics/ai-and-automation", "variant": "balanced", "topic": "ai-and-automation", "viewport": "desktop" },
+    { "id": "topics/software-systems", "variant": "balanced", "topic": "software-systems", "viewport": "desktop" },
+    { "id": "topics/teams-and-collaboration", "variant": "balanced", "topic": "teams-and-collaboration", "viewport": "desktop" },
+    { "id": "grayscale/product-decisions", "variant": "balanced", "topic": "product-decisions", "viewport": "desktop", "grayscale": true },
+    { "id": "grayscale/ai-and-automation", "variant": "balanced", "topic": "ai-and-automation", "viewport": "desktop", "grayscale": true },
+    { "id": "grayscale/software-systems", "variant": "balanced", "topic": "software-systems", "viewport": "desktop", "grayscale": true },
+    { "id": "grayscale/teams-and-collaboration", "variant": "balanced", "topic": "teams-and-collaboration", "viewport": "desktop", "grayscale": true }
+  ]
+}
