@@ -79,10 +79,7 @@ layout: default
                 <strong>{{ question.title }}</strong>
                 <span>{{ question.home_description }}</span>
                 <span class="content-topic-list" aria-label="Topics in this question">
-                  {% for question_topic in question.topics %}
-                    {% assign topic_data = site.data.topics | where: "slug", question_topic | first %}
-                    <span class="content-topic-link content-topic-link--{{ question_topic }}{% if forloop.first %} content-topic-link--primary{% endif %}">{{ topic_data.label | default: question_topic }}</span>
-                  {% endfor %}
+                  {% include content-topic-items.html topics=question.topics %}
                 </span>
               </span>
               <span class="question-path-arrow" aria-hidden="true">→</span>
