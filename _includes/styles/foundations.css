@@ -32,6 +32,9 @@
   --brand-accent-soft: var(--accent-cyan-soft);
   --brand-accent-border: var(--accent-cyan-border);
   --interaction-focus: var(--brand-accent);
+  --structural-accent: #94a3b8;
+  --structural-accent-soft: rgba(148, 163, 184, 0.08);
+  --structural-accent-border: rgba(148, 163, 184, 0.24);
   {% for topic in site.data.topics %}
   --topic-{{ topic.slug }}: {{ topic.visual.color }};
   --topic-{{ topic.slug }}-soft: color-mix(in srgb, var(--topic-{{ topic.slug }}) 11%, transparent);

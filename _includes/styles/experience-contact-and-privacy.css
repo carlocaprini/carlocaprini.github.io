@@ -60,18 +60,24 @@
 }
 
 .experience-evidence-card {
-  --experience-accent: var(--brand-accent);
-  --experience-accent-soft: var(--brand-accent-soft);
-  --experience-accent-border: var(--brand-accent-border);
+  --experience-accent: var(--structural-accent);
+  --experience-accent-soft: var(--structural-accent-soft);
+  --experience-accent-border: var(--structural-accent-border);
   position: relative;
   overflow: hidden;
   padding: 1.45rem 1.4rem 1.35rem;
   border: 1px solid rgba(148, 163, 184, 0.18);
   border-radius: 1.15rem;
   background:
-    radial-gradient(circle at top right, var(--experience-accent-soft), transparent 38%),
+    radial-gradient(circle at top right, var(--experience-accent-soft), transparent 32%),
     rgba(15, 23, 42, 0.76);
   box-shadow: 0 22px 58px rgba(2, 6, 23, 0.24);
+}
+
+.experience-evidence-card:nth-child(even) {
+  background:
+    radial-gradient(circle at top left, var(--experience-accent-soft), transparent 32%),
+    rgba(15, 23, 42, 0.76);
 }
 
 .experience-evidence-marker {
@@ -79,10 +85,11 @@
   height: 1rem;
   margin-bottom: 1.1rem;
   border-radius: 999px;
-  background: var(--experience-accent);
+  border: 1px solid var(--experience-accent-border);
+  background: var(--color-surface-strong);
   box-shadow:
-    0 0 0 6px var(--experience-accent-soft),
-    0 0 30px var(--experience-accent-border);
+    0 0 0 5px var(--experience-accent-soft),
+    0 0 22px var(--experience-accent-soft);
 }
 
 .experience-evidence-card:hover {
@@ -93,7 +100,7 @@
   margin-bottom: 0.45rem;
   font-size: 0.78rem;
   line-height: 1.5;
-  color: #67e8f9;
+  color: var(--color-text-secondary);
 }
 
 .experience-card-title {
@@ -221,7 +228,7 @@
 
 .experience-timeline {
   --timeline-line: rgba(148, 163, 184, 0.24);
-  --timeline-glow: rgba(34, 211, 238, 0.24);
+  --timeline-glow: var(--structural-accent-soft);
   position: relative;
   list-style: none;
   margin: 0;
@@ -239,13 +246,13 @@
   background:
     linear-gradient(to bottom, transparent, var(--timeline-line) 8%, var(--timeline-line) 92%, transparent),
     linear-gradient(to bottom, transparent, var(--timeline-glow), transparent);
-  box-shadow: 0 0 34px rgba(34, 211, 238, 0.14);
+  box-shadow: 0 0 26px var(--structural-accent-soft);
 }
 
 .experience-timeline-item {
-  --experience-accent: var(--brand-accent);
-  --experience-accent-soft: var(--brand-accent-soft);
-  --experience-accent-border: var(--brand-accent-border);
+  --experience-accent: var(--structural-accent);
+  --experience-accent-soft: var(--structural-accent-soft);
+  --experience-accent-border: var(--structural-accent-border);
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 5.8rem minmax(0, 1fr);
@@ -294,10 +301,11 @@
   width: 0.78rem;
   height: 0.78rem;
   border-radius: 999px;
-  background: var(--experience-accent);
+  border: 1px solid var(--experience-accent-border);
+  background: var(--color-surface-strong);
   box-shadow:
     0 0 0 5px var(--experience-accent-soft),
-    0 0 30px var(--experience-accent-border);
+    0 0 24px var(--experience-accent-soft);
 }
 
 .experience-card {
@@ -307,14 +315,22 @@
   border: 1px solid rgba(148, 163, 184, 0.18);
   border-radius: 1.15rem;
   background:
-    radial-gradient(circle at top left, var(--experience-accent-soft), transparent 34%),
-    radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.1), transparent 35%),
+    radial-gradient(circle at top left, var(--experience-accent-soft), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(148, 163, 184, 0.05), transparent 35%),
     rgba(15, 23, 42, 0.82);
   box-shadow: 0 22px 58px rgba(2, 6, 23, 0.28);
   transition:
     border-color 0.18s ease,
     transform 0.18s ease,
     box-shadow 0.18s ease;
+}
+
+.experience-timeline-item:nth-child(even) .experience-card {
+  grid-column: 3;
+  background:
+    radial-gradient(circle at top right, var(--experience-accent-soft), transparent 30%),
+    radial-gradient(circle at bottom left, rgba(148, 163, 184, 0.05), transparent 35%),
+    rgba(15, 23, 42, 0.82);
 }
 
 .experience-card:hover {
@@ -331,10 +347,6 @@
   width: 2rem;
   height: 1px;
   background: linear-gradient(to right, var(--experience-accent-border), transparent);
-}
-
-.experience-timeline-item:nth-child(even) .experience-card {
-  grid-column: 3;
 }
 
 .experience-timeline-item:nth-child(even) .experience-card::after {

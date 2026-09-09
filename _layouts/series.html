@@ -95,7 +95,10 @@ layout: default
             <img src="{{ visual.thumbnail | relative_url }}" alt="{{ visual.alt }}" width="{{ visual.thumbnail_width }}" height="{{ visual.thumbnail_height }}" loading="lazy" decoding="async">
           </a>
           <div class="series-visual-copy">
-            <span>Episode {{ visual.episode }} · {{ visual.service }}</span>
+            <div class="series-visual-sequence">
+              <span class="series-visual-episode">Episode {{ visual.episode }} / {% if series_notes.size < 10 %}0{% endif %}{{ series_notes.size }}</span>
+              <span class="series-visual-service">{{ visual.service }}</span>
+            </div>
             <h3><a href="{{ visual.note_url | relative_url }}" data-analytics-event="series_episode_open" data-analytics-series-id="{{ page.series_slug | escape }}" data-analytics-episode-number="{{ visual.episode }}" data-analytics-link-context="series_visuals">{{ visual.title }}</a></h3>
             <p>{{ visual.description }}</p>
           </div>

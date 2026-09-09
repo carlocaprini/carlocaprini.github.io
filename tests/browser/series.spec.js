@@ -34,6 +34,25 @@ test("series navigation connects adjacent episodes", async ({ page }) => {
   );
 });
 
+test("series visuals expose episode progress and service identity", async ({ page }) => {
+  await page.goto("/series/building-my-ai-operating-system/");
+
+  await expect(page.locator(".series-visual-episode")).toHaveText([
+    "Episode 02 / 06",
+    "Episode 03 / 06",
+    "Episode 04 / 06",
+    "Episode 05 / 06",
+    "Episode 06 / 06"
+  ]);
+  await expect(page.locator(".series-visual-service")).toHaveText([
+    "August",
+    "March",
+    "Friday",
+    "Friday",
+    "Friday"
+  ]);
+});
+
 test("featured series motion stops when reduced motion is requested", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/thinking/");
