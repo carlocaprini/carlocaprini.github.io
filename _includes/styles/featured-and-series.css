@@ -769,9 +769,9 @@
 }
 
 .series-visual-card {
-  --series-visual-accent: var(--accent-cyan);
-  --series-visual-accent-soft: var(--accent-cyan-soft);
-  --series-visual-accent-border: var(--accent-cyan-border);
+  --series-visual-accent: var(--topic-ai-and-automation);
+  --series-visual-accent-soft: var(--topic-ai-and-automation-soft);
+  --series-visual-accent-border: var(--topic-ai-and-automation-border);
   overflow: hidden;
   border: 1px solid var(--color-line);
   border-radius: var(--radius-card-lg);
@@ -802,18 +802,6 @@
 
 .series-visuals-grid.is-observed .series-visual-card.is-visible:hover {
   transform: translateY(-2px);
-}
-
-.series-visual-card--august {
-  --series-visual-accent: var(--accent-indigo);
-  --series-visual-accent-soft: var(--accent-indigo-soft);
-  --series-visual-accent-border: var(--accent-indigo-border);
-}
-
-.series-visual-card--march {
-  --series-visual-accent: var(--accent-emerald);
-  --series-visual-accent-soft: var(--accent-emerald-soft);
-  --series-visual-accent-border: var(--accent-emerald-border);
 }
 
 .series-visual-card--wide {

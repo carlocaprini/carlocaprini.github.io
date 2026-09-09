@@ -60,9 +60,9 @@
 }
 
 .experience-evidence-card {
-  --experience-accent: #22d3ee;
-  --experience-accent-soft: rgba(34, 211, 238, 0.12);
-  --experience-accent-border: rgba(34, 211, 238, 0.28);
+  --experience-accent: var(--brand-accent);
+  --experience-accent-soft: var(--brand-accent-soft);
+  --experience-accent-border: var(--brand-accent-border);
   position: relative;
   overflow: hidden;
   padding: 1.45rem 1.4rem 1.35rem;
@@ -72,24 +72,6 @@
     radial-gradient(circle at top right, var(--experience-accent-soft), transparent 38%),
     rgba(15, 23, 42, 0.76);
   box-shadow: 0 22px 58px rgba(2, 6, 23, 0.24);
-}
-
-.experience-evidence-card:nth-child(2) {
-  --experience-accent: #818cf8;
-  --experience-accent-soft: rgba(129, 140, 248, 0.12);
-  --experience-accent-border: rgba(129, 140, 248, 0.28);
-}
-
-.experience-evidence-card:nth-child(3) {
-  --experience-accent: #34d399;
-  --experience-accent-soft: rgba(52, 211, 153, 0.11);
-  --experience-accent-border: rgba(52, 211, 153, 0.26);
-}
-
-.experience-evidence-card:nth-child(4) {
-  --experience-accent: #38bdf8;
-  --experience-accent-soft: rgba(56, 189, 248, 0.11);
-  --experience-accent-border: rgba(56, 189, 248, 0.26);
 }
 
 .experience-evidence-marker {
@@ -261,32 +243,14 @@
 }
 
 .experience-timeline-item {
-  --experience-accent: #22d3ee;
-  --experience-accent-soft: rgba(34, 211, 238, 0.12);
-  --experience-accent-border: rgba(34, 211, 238, 0.28);
+  --experience-accent: var(--brand-accent);
+  --experience-accent-soft: var(--brand-accent-soft);
+  --experience-accent-border: var(--brand-accent-border);
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 5.8rem minmax(0, 1fr);
   align-items: start;
   margin-bottom: 1.65rem;
-}
-
-.experience-timeline-item--2 {
-  --experience-accent: #818cf8;
-  --experience-accent-soft: rgba(129, 140, 248, 0.12);
-  --experience-accent-border: rgba(129, 140, 248, 0.28);
-}
-
-.experience-timeline-item--3 {
-  --experience-accent: #34d399;
-  --experience-accent-soft: rgba(52, 211, 153, 0.11);
-  --experience-accent-border: rgba(52, 211, 153, 0.26);
-}
-
-.experience-timeline-item--4 {
-  --experience-accent: #38bdf8;
-  --experience-accent-soft: rgba(56, 189, 248, 0.11);
-  --experience-accent-border: rgba(56, 189, 248, 0.26);
 }
 
 .experience-timeline.is-observed .experience-timeline-item {
