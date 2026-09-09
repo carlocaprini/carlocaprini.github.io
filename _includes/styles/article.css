@@ -10,6 +10,7 @@
   --article-topic-soft: var(--brand-accent-soft);
   --article-topic-border: var(--brand-accent-border);
   position: relative;
+  overflow: hidden;
 }
 
 .article-topic--product-decisions {
@@ -54,53 +55,129 @@
 }
 
 .article-hero-grid {
-  grid-template-columns: minmax(0, 1fr) minmax(11rem, 14rem);
+  position: relative;
+  grid-template-columns: minmax(0, 1fr);
+  isolation: isolate;
 }
 
-.topic-motif {
+.article-hero-content {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 44rem);
+}
+
+.article-topic-motif {
+  position: absolute;
+  z-index: 0;
+  top: -0.5rem;
+  right: -8rem;
+  width: clamp(19rem, 33vw, 30rem);
   color: var(--article-topic-accent);
-  opacity: 0.78;
+  pointer-events: none;
+  opacity: 0.56;
+  mask-image: linear-gradient(to right, transparent 0%, transparent 10%, #000 40%);
 }
 
-.topic-motif svg {
+.article-topic-motif--spatial {
+  top: -4.5rem;
+  right: -18rem;
+  width: clamp(31rem, 49vw, 45rem);
+  mask-image: linear-gradient(to right, transparent 0%, transparent 10%, #000 38%);
+}
+
+.article-topic-motif svg {
   display: block;
   width: 100%;
   height: auto;
   overflow: visible;
-  filter: drop-shadow(0 0 20px var(--article-topic-soft));
 }
 
-.topic-motif-line,
-.topic-motif-boundary,
-.topic-motif-layer {
+.article-topic-motif-composition {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.article-topic-motif--variation-1 .article-topic-motif-composition {
+  transform: translate(10px, -5px);
+}
+
+.article-topic-motif--variation-2 .article-topic-motif-composition {
+  transform: translate(-8px, 8px);
+}
+
+.article-topic-motif--variation-3 .article-topic-motif-composition {
+  transform: translate(8px, 10px);
+}
+
+.motif-path,
+.motif-boundary,
+.motif-plane {
+  vector-effect: non-scaling-stroke;
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-width: 2;
 }
 
-.topic-motif-line--muted,
-.topic-motif-boundary,
-.topic-motif-layer {
+.motif-path--primary,
+.motif-plane--primary {
+  stroke-width: 1.7;
+  opacity: 0.72;
+}
+
+.motif-path--secondary,
+.motif-boundary,
+.motif-plane {
+  stroke-width: 1.25;
   opacity: 0.42;
 }
 
-.topic-motif-layer--strong {
-  fill: var(--article-topic-soft);
-  opacity: 0.92;
+.motif-path--tertiary {
+  stroke-width: 1;
+  opacity: 0.24;
 }
 
-.topic-motif-node {
+.motif-plane--primary {
+  fill: var(--article-topic-soft);
+}
+
+.motif-node {
+  vector-effect: non-scaling-stroke;
   fill: var(--color-bg);
   stroke: currentColor;
-  stroke-width: 2;
+  stroke-width: 1.4;
+  opacity: 0.58;
 }
 
-.topic-motif-node--strong {
+.motif-node--anchor {
   fill: currentColor;
   stroke: var(--color-bg);
-  stroke-width: 3;
+  stroke-width: 2.5;
+  opacity: 0.78;
+}
+
+.motif-node--open {
+  fill: none;
+}
+
+.article-topic-motif--balanced .motif-density-tertiary {
+  display: none;
+}
+
+.article-topic-motif--spatial .motif-density-tertiary {
+  display: initial;
+}
+
+.article-topic-motif--spatial .motif-path--primary,
+.article-topic-motif--spatial .motif-plane--primary {
+  stroke-width: 1.9;
+}
+
+.topic-motif--product-decisions,
+.topic-motif--ai-and-automation,
+.topic-motif--software-systems,
+.topic-motif--teams-and-collaboration {
+  color: var(--article-topic-accent);
 }
 
 .body-text:last-child {

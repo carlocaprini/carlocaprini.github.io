@@ -101,16 +101,43 @@ Each Topic and reusable brand accent has three forms:
 
 Do not create a new accent for each section unless there is a clear semantic reason.
 
-### Topic motifs
+### Article topic motif
 
-Topic color is paired with a small structural motif so recognition survives grayscale and does not depend on hue alone:
+The Article topic motif gives Thinking article heroes a subtle semantic identity based on their first, visually primary Topic. It is atmospheric background information rather than an illustration or a new interface object. Topic metadata in `_data/topics.yml` is the canonical source for both color and topology family.
 
-- Product decisions: a branch or fork with one chosen path and visible alternatives.
-- AI and automation: nodes and a loop contained by an explicit boundary.
-- Software systems: layers, interfaces and dependencies.
-- Teams and collaboration: distinct paths that diverge or converge.
+Its anatomy is:
 
-Use motifs as restrained article-header or selected-content signals, not mandatory illustrations or card wallpaper. They are decorative to assistive technology; the adjacent Topic label carries the textual meaning. A motif must remain understandable without motion, and should not be reused for an unrelated argument merely as ornament.
+- a decorative inline-SVG topology;
+- the primary Topic color;
+- an exclusion zone protecting hero text and metadata;
+- an upper-right crop area;
+- primary, secondary and optional tertiary paths;
+- small nodes, including an anchor where the topology calls for one.
+
+Geometry carries the distinction in grayscale; color reinforces it:
+
+- Product decisions uses branching alternatives, forks and paths with different endpoints.
+- AI and automation uses bounded loops, delegated paths and a visible authority-retaining anchor.
+- Software systems uses offset layers, interfaces and dependencies crossing boundaries.
+- Teams and collaboration uses separate inputs, divergence and partial convergence without collapsing into one path.
+
+Two composition variants use this same grammar:
+
+- **Balanced editorial** is contained, medium-density and comfortably secondary to the title.
+- **Spatial composition** is larger, more deeply cropped and exposes additional path hierarchy without increasing opacity.
+
+The site-level `article_topic_motif_variant` setting selects the temporary editorial default; an article may override it in front matter for evaluation. Variation is deterministic from the article URL and may make small positional changes without changing topic grammar.
+
+Rules:
+
+- use one primary Topic, one color and one topology family;
+- keep the motif decorative and hidden from assistive technology;
+- preserve the hero height, title hierarchy and existing dark background;
+- simplify or crop the motif at smaller breakpoints before constraining content;
+- make the complete static state the design; motion is optional, finite and must respect reduced-motion preferences;
+- keep Series identity in sequence and Question identity in connections rather than in this motif.
+
+Do not use Article topic motifs for Work, Experience, Contact, global navigation, generic decoration or other non-editorial pages. Do not place them inside cards or panels, and never encode essential information in the SVG.
 
 ## Surfaces
 

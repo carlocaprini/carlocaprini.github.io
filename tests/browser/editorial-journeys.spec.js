@@ -175,6 +175,10 @@ test("primary topic order drives article identity while Questions remain multi-t
   const hero = page.locator(".article-topic-hero");
   await expect(hero).toHaveAttribute("data-primary-topic", "teams-and-collaboration");
   await expect(hero.locator(".topic-motif--teams-and-collaboration")).toHaveCount(1);
+  await expect(hero).toHaveAttribute("data-motif-variant", "balanced");
+  await expect(hero.locator(".article-topic-motif")).toHaveAttribute("data-motif-family", "partial-convergence");
+  await expect(hero.locator(".article-topic-motif")).toHaveAttribute("aria-hidden", "true");
+  await expect(hero.locator(".article-topic-motif svg")).toHaveAttribute("focusable", "false");
   await expect(hero.locator(".content-topic-link").first()).toHaveClass(/content-topic-link--primary/);
   await expect(hero.locator(".content-topic-link").first()).toContainText("Teams and collaboration");
 
@@ -184,6 +188,35 @@ test("primary topic order drives article identity while Questions remain multi-t
     "Teams and collaboration",
     "Product decisions"
   ]);
+});
+
+test("article motifs use the primary topic's canonical color and geometry", async ({ page }) => {
+  const examples = [
+    ["/thinking/product-decisions-are-mostly-trade-offs/", "product-decisions", "branching", "rgb(251, 191, 36)"],
+    ["/thinking/adding-mcp-doesnt-make-a-product-agent-first/", "ai-and-automation", "bounded-loops", "rgb(34, 211, 238)"],
+    ["/thinking/stop-asking-people-for-information-the-system-already-has/", "software-systems", "layered-interfaces", "rgb(129, 140, 248)"],
+    ["/thinking/shared-context-is-not-shared-understanding/", "teams-and-collaboration", "partial-convergence", "rgb(52, 211, 153)"]
+  ];
+
+  for (const [route, topic, family, color] of examples) {
+    await page.goto(route);
+    const hero = page.locator(".article-topic-hero");
+    const motif = hero.locator(".article-topic-motif");
+    await expect(hero).toHaveAttribute("data-primary-topic", topic);
+    await expect(motif).toHaveAttribute("data-motif-family", family);
+    await expect(motif).toHaveCSS("color", color);
+  }
+});
+
+test("article motifs are complete static decoration with reduced motion", async ({ browser }) => {
+  const context = await browser.newContext({ reducedMotion: "reduce" });
+  const reducedPage = await context.newPage();
+  await reducedPage.goto("/thinking/product-decisions-are-mostly-trade-offs/");
+  const motif = reducedPage.locator(".article-topic-motif");
+  await expect(motif).toBeVisible();
+  await expect(motif).toHaveCSS("animation-name", "none");
+  await expect(motif.locator(".motif-path").first()).toBeVisible();
+  await context.close();
 });
 
 test("Influence accents follow the audited first topic", async ({ page }) => {

@@ -301,8 +301,25 @@
   }
 
   .article-hero-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(8rem, 10rem);
-    gap: 1.25rem;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .article-hero-content {
+    width: calc(100% - 8.5rem);
+  }
+
+  .article-topic-motif--balanced {
+    top: 0.25rem;
+    right: -8rem;
+    width: 22rem;
+    mask-image: linear-gradient(to right, transparent 0%, transparent 10%, #000 42%);
+  }
+
+  .article-topic-motif--spatial {
+    top: -2.5rem;
+    right: -18rem;
+    width: 34rem;
+    mask-image: linear-gradient(to right, transparent 0%, transparent 12%, #000 40%);
   }
 
   .experience-section-header {
@@ -531,10 +548,31 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .topic-motif {
-    width: 9rem;
-    margin: -1.2rem 0 -1.35rem auto;
-    opacity: 0.54;
+  .article-hero-content {
+    width: 100%;
+  }
+
+  .article-topic-motif {
+    opacity: 0.4;
+    mask-image: linear-gradient(to right, transparent 0%, transparent 30%, #000 62%);
+  }
+
+  .article-topic-motif--balanced {
+    top: -5rem;
+    right: -7rem;
+    width: 15rem;
+  }
+
+  .article-topic-motif--spatial {
+    top: -8rem;
+    right: -9rem;
+    width: 22rem;
+    mask-image: linear-gradient(to right, transparent 0%, transparent 50%, #000 78%);
+  }
+
+  .article-topic-motif--balanced .motif-density-secondary,
+  .article-topic-motif .motif-density-tertiary {
+    display: none;
   }
 
   .work-section-intro {

@@ -136,11 +136,17 @@ layout: default
   {% assign sidebar_series = site.data.series[page.series] %}
 {% endif %}
 {% assign primary_topic = page.topics | first | default: "general" %}
+{% assign primary_topic_data = site.data.topics | where: "slug", primary_topic | first %}
+{% assign motif_variant = page.article_topic_motif_variant | default: site.article_topic_motif_variant | default: "balanced" %}
+{% unless motif_variant == "balanced" or motif_variant == "spatial" %}
+  {% assign motif_variant = "balanced" %}
+{% endunless %}
+{% assign motif_variation = page.url | size | modulo: 4 %}
 
 <div class="page">
-  <section class="hero hero--article article-topic-hero article-topic--{{ primary_topic }}" data-primary-topic="{{ primary_topic }}">
+  <section class="hero hero--article article-topic-hero article-topic--{{ primary_topic }} article-topic-hero--{{ motif_variant }}" data-primary-topic="{{ primary_topic }}" data-motif-variant="{{ motif_variant }}">
     <div class="container hero-grid article-hero-grid">
-      <div>
+      <div class="article-hero-content">
         <div class="hero-label">
           <span class="hero-label-dot"></span>
           <span>Thinking</span>
@@ -179,7 +185,7 @@ layout: default
           <a href="{{ '/thinking/' | relative_url }}" class="button-ghost">Back to Thinking</a>
         </div>
       </div>
-      {% include topic-motif.html topic=primary_topic %}
+      {% include article-topic-motif.html topic=primary_topic family=primary_topic_data.visual.motif variant=motif_variant variation=motif_variation %}
     </div>
   </section>
 

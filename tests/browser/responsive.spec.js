@@ -23,6 +23,30 @@ test("article navigation and system map adapt to smaller screens", async ({ page
   await expect(mobileSystemMap.locator(".article-system-map-item.is-current")).toBeVisible();
 });
 
+test("article topic motifs protect long titles across responsive compositions", async ({ page }) => {
+  const viewports = [
+    { width: 834, height: 1112 },
+    { width: 390, height: 844 },
+    { width: 320, height: 720 }
+  ];
+
+  for (const viewport of viewports) {
+    await page.setViewportSize(viewport);
+    await page.goto("/thinking/the-transition-to-product-management-starts-before-the-title-changes/");
+    const hero = page.locator(".article-topic-hero");
+    const title = hero.locator("h1");
+    await expect(title).toBeVisible();
+    await expect(hero.locator(".article-topic-motif")).toBeVisible();
+    const metrics = await page.evaluate(() => ({
+      documentWidth: document.documentElement.scrollWidth,
+      viewportWidth: document.documentElement.clientWidth,
+      titleWidth: document.querySelector(".article-topic-hero h1").getBoundingClientRect().width
+    }));
+    expect(metrics.documentWidth).toBe(metrics.viewportWidth);
+    expect(metrics.titleWidth).toBeGreaterThan(viewport.width * 0.72);
+  }
+});
+
 test("Home uses compact discovery cards below desktop width", async ({ page }, testInfo) => {
   await page.goto("/");
 
