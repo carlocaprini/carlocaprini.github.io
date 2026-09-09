@@ -67,7 +67,7 @@ layout: default
             {% if note %}
             <li>
               <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.url | escape }}" data-analytics-link-context="thinking_start_here">{{ note.title }}</a>
-              <span>{{ note.summary }}</span>
+              <span class="selected-note-summary">{{ note.summary }}</span>
             </li>
             {% endif %}
           {% endfor %}

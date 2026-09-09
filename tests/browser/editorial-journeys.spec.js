@@ -155,6 +155,13 @@ test("question pages connect Thinking, Influences and Experience", async ({ page
     "href",
     "/experience/#product-direction"
   );
+
+  const noteTopics = page.locator(".question-note-group .content-topic-list").first();
+  const noteTopic = noteTopics.locator(".content-topic-link").first();
+  await expect(noteTopics).toHaveCSS("display", "flex");
+  await expect(noteTopic).toHaveCSS("display", "flex");
+  await expect(noteTopic).toHaveCSS("align-items", "center");
+  await expect(noteTopic).toHaveCSS("border-radius", "999px");
 });
 
 test("notes expose curated Questions without promoting topics to sidebar navigation", async ({ page }) => {
