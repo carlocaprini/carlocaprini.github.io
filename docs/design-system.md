@@ -112,7 +112,8 @@ Its anatomy is:
 - an exclusion zone protecting hero text and metadata;
 - an upper-right crop area;
 - primary, secondary and optional tertiary paths;
-- small nodes, including an anchor where the topology calls for one.
+- solid and dashed routes for primary and alternative paths;
+- a restrained hierarchy of open, filled, terminal and authority nodes.
 
 Geometry carries the distinction in grayscale; color reinforces it:
 

@@ -74,7 +74,7 @@
   width: clamp(19rem, 33vw, 30rem);
   color: var(--article-topic-accent);
   pointer-events: none;
-  opacity: 0.56;
+  opacity: 0.64;
   mask-image: linear-gradient(to right, transparent 0%, transparent 10%, #000 40%);
 }
 
@@ -137,6 +137,10 @@
   opacity: 0.24;
 }
 
+.motif-path--dashed {
+  stroke-dasharray: 7 10;
+}
+
 .motif-plane--primary {
   fill: var(--article-topic-soft);
 }
@@ -154,6 +158,26 @@
   stroke: var(--color-bg);
   stroke-width: 2.5;
   opacity: 0.78;
+}
+
+.motif-node--large {
+  fill: currentColor;
+  stroke: var(--color-bg);
+  stroke-width: 2;
+  opacity: 0.72;
+}
+
+.motif-node--terminal {
+  fill: currentColor;
+  stroke: var(--color-bg);
+  stroke-width: 2;
+  opacity: 0.8;
+}
+
+.motif-node--authority {
+  fill: none;
+  stroke-width: 2.2;
+  opacity: 0.82;
 }
 
 .motif-node--open {

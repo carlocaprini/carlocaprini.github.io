@@ -309,17 +309,17 @@
   }
 
   .article-topic-motif--balanced {
-    top: 0.25rem;
-    right: -8rem;
-    width: 22rem;
+    top: -0.5rem;
+    right: -3rem;
+    width: 21rem;
     mask-image: linear-gradient(to right, transparent 0%, transparent 10%, #000 42%);
   }
 
   .article-topic-motif--spatial {
-    top: -2.5rem;
-    right: -18rem;
-    width: 34rem;
-    mask-image: linear-gradient(to right, transparent 0%, transparent 12%, #000 40%);
+    top: -3.5rem;
+    right: -12rem;
+    width: 31rem;
+    mask-image: linear-gradient(to right, transparent 0%, transparent 20%, #000 50%);
   }
 
   .experience-section-header {
@@ -553,21 +553,21 @@
   }
 
   .article-topic-motif {
-    opacity: 0.4;
+    opacity: 0.46;
     mask-image: linear-gradient(to right, transparent 0%, transparent 30%, #000 62%);
   }
 
   .article-topic-motif--balanced {
-    top: -5rem;
-    right: -7rem;
-    width: 15rem;
+    top: -1.5rem;
+    right: -4rem;
+    width: 14rem;
   }
 
   .article-topic-motif--spatial {
-    top: -8rem;
-    right: -9rem;
-    width: 22rem;
-    mask-image: linear-gradient(to right, transparent 0%, transparent 50%, #000 78%);
+    top: -3.75rem;
+    right: -7rem;
+    width: 19rem;
+    mask-image: linear-gradient(to right, transparent 0%, transparent 30%, #000 64%);
   }
 
   .article-topic-motif--balanced .motif-density-secondary,

@@ -192,19 +192,20 @@ test("primary topic order drives article identity while Questions remain multi-t
 
 test("article motifs use the primary topic's canonical color and geometry", async ({ page }) => {
   const examples = [
-    ["/thinking/product-decisions-are-mostly-trade-offs/", "product-decisions", "branching", "rgb(251, 191, 36)"],
-    ["/thinking/adding-mcp-doesnt-make-a-product-agent-first/", "ai-and-automation", "bounded-loops", "rgb(34, 211, 238)"],
-    ["/thinking/stop-asking-people-for-information-the-system-already-has/", "software-systems", "layered-interfaces", "rgb(129, 140, 248)"],
-    ["/thinking/shared-context-is-not-shared-understanding/", "teams-and-collaboration", "partial-convergence", "rgb(52, 211, 153)"]
+    ["/thinking/product-decisions-are-mostly-trade-offs/", "product-decisions", "branching", "rgb(251, 191, 36)", ".motif-node--terminal"],
+    ["/thinking/adding-mcp-doesnt-make-a-product-agent-first/", "ai-and-automation", "bounded-loops", "rgb(34, 211, 238)", ".motif-node--authority"],
+    ["/thinking/stop-asking-people-for-information-the-system-already-has/", "software-systems", "layered-interfaces", "rgb(129, 140, 248)", ".motif-plane"],
+    ["/thinking/shared-context-is-not-shared-understanding/", "teams-and-collaboration", "partial-convergence", "rgb(52, 211, 153)", ".motif-node--large"]
   ];
 
-  for (const [route, topic, family, color] of examples) {
+  for (const [route, topic, family, color, structuralMarker] of examples) {
     await page.goto(route);
     const hero = page.locator(".article-topic-hero");
     const motif = hero.locator(".article-topic-motif");
     await expect(hero).toHaveAttribute("data-primary-topic", topic);
     await expect(motif).toHaveAttribute("data-motif-family", family);
     await expect(motif).toHaveCSS("color", color);
+    await expect(motif.locator(structuralMarker).first()).toBeAttached();
   }
 });
 

@@ -11,60 +11,77 @@
     <g class="article-topic-motif-composition">
       {% case motif_family %}
       {% when "branching" %}
-        <path class="motif-path motif-path--primary" d="M22 218C102 218 125 218 184 218C253 218 263 105 352 105H664" />
-        <path class="motif-path motif-path--secondary motif-density-secondary" d="M184 218C258 218 284 218 356 218H612" />
-        <path class="motif-path motif-path--secondary" d="M184 218C252 218 270 332 356 332H548" />
-        <path class="motif-path motif-path--tertiary motif-density-tertiary" d="M356 218C410 218 424 276 486 276H648" />
-        <path class="motif-path motif-path--tertiary motif-density-tertiary" d="M352 105C406 105 430 54 492 54H584" />
-        <circle class="motif-node motif-node--anchor" cx="184" cy="218" r="7" />
-        <circle class="motif-node" cx="352" cy="105" r="5" />
-        <circle class="motif-node motif-density-secondary" cx="356" cy="218" r="4" />
-        <circle class="motif-node" cx="356" cy="332" r="5" />
-        <circle class="motif-node motif-density-tertiary" cx="486" cy="276" r="4" />
-        <circle class="motif-node motif-node--open" cx="664" cy="105" r="5" />
-        <circle class="motif-node motif-node--open motif-density-secondary" cx="612" cy="218" r="4" />
-        <circle class="motif-node motif-node--open" cx="548" cy="332" r="5" />
+        <path class="motif-path motif-path--primary" d="M28 228C146 230 178 182 286 174C383 166 402 226 494 244C570 259 615 307 700 354" />
+        <path class="motif-path motif-path--primary" d="M286 174C338 113 400 87 486 92C558 96 610 62 688 20" />
+        <path class="motif-path motif-path--secondary" d="M286 174C344 212 376 294 450 326C520 357 584 336 660 294" />
+        <path class="motif-path motif-path--secondary motif-path--dashed motif-density-secondary" d="M112 356C210 376 296 334 354 267C414 198 470 168 552 172C610 175 650 148 704 112" />
+        <path class="motif-path motif-path--secondary motif-density-secondary" d="M176 42C228 116 250 151 286 174" />
+        <path class="motif-path motif-path--tertiary motif-density-tertiary" d="M390 18C398 95 416 161 494 244C546 299 612 342 704 372" />
+        <path class="motif-path motif-path--tertiary motif-path--dashed motif-density-tertiary" d="M354 267C416 290 468 268 494 244C527 213 556 196 620 206" />
+        <circle class="motif-node" cx="176" cy="42" r="4" />
+        <circle class="motif-node motif-node--anchor" cx="286" cy="174" r="8" />
+        <circle class="motif-node" cx="354" cy="267" r="4" />
+        <circle class="motif-node motif-node--large" cx="494" cy="244" r="10" />
+        <circle class="motif-node motif-density-secondary" cx="450" cy="326" r="5" />
+        <circle class="motif-node motif-density-secondary" cx="552" cy="172" r="4" />
+        <circle class="motif-node motif-density-tertiary" cx="620" cy="206" r="3" />
+        <rect class="motif-node motif-node--terminal" x="652" y="286" width="16" height="16" />
       {% when "bounded-loops" %}
-        <path class="motif-boundary motif-density-secondary" d="M105 48H574C638 48 680 92 680 157V276C680 338 638 374 574 374H148C82 374 42 334 42 270V151C42 88 70 48 105 48Z" />
-        <path class="motif-path motif-path--primary" d="M142 222C183 111 333 83 470 139C570 180 578 278 492 314C394 355 282 296 319 213C347 151 457 151 495 214C524 262 482 302 427 286" />
-        <path class="motif-path motif-path--secondary motif-density-secondary" d="M142 222C220 238 234 328 332 334" />
-        <path class="motif-path motif-path--secondary" d="M245 138C267 190 213 224 142 222" />
-        <path class="motif-path motif-path--tertiary motif-density-tertiary" d="M470 139C508 99 556 91 620 104" />
-        <circle class="motif-node motif-node--anchor" cx="142" cy="222" r="9" />
-        <circle class="motif-node" cx="245" cy="138" r="5" />
-        <circle class="motif-node motif-density-secondary" cx="332" cy="334" r="5" />
-        <circle class="motif-node" cx="470" cy="139" r="5" />
-        <circle class="motif-node" cx="495" cy="214" r="5" />
-        <circle class="motif-node motif-density-tertiary" cx="620" cy="104" r="4" />
+        <path class="motif-boundary motif-path--dashed" d="M120 111C203 43 343 49 423 95C507 143 567 85 654 123C704 145 715 216 681 271C642 334 552 337 482 309C403 278 335 344 238 321C143 299 84 229 120 111Z" />
+        <path class="motif-path motif-path--primary" d="M82 226C163 226 203 226 262 226C343 226 340 137 426 137C505 137 527 207 584 207C621 207 645 180 665 151" />
+        <path class="motif-path motif-path--primary" d="M262 226C301 269 342 292 402 293C463 294 506 267 544 230" />
+        <path class="motif-path motif-path--secondary motif-density-secondary" d="M169 113C182 172 208 208 262 226" />
+        <path class="motif-path motif-path--secondary" d="M426 137C463 174 474 224 450 262" />
+        <path class="motif-path motif-path--secondary motif-path--dashed motif-density-secondary" d="M262 226C296 178 306 112 372 82C437 52 512 65 570 105" />
+        <path class="motif-path motif-path--tertiary motif-density-tertiary" d="M402 293C440 348 514 374 596 352" />
+        <path class="motif-path motif-path--tertiary motif-density-tertiary" d="M544 230C576 265 601 291 648 298" />
+        <rect class="motif-node motif-node--terminal" x="254" y="218" width="16" height="16" />
+        <circle class="motif-node" cx="169" cy="113" r="5" />
+        <circle class="motif-node motif-node--large" cx="426" cy="137" r="8" />
+        <circle class="motif-node" cx="450" cy="262" r="5" />
+        <circle class="motif-node motif-density-secondary" cx="570" cy="105" r="4" />
+        <circle class="motif-node" cx="544" cy="230" r="5" />
+        <circle class="motif-node motif-node--authority" cx="665" cy="151" r="14" />
+        <circle class="motif-node motif-node--anchor" cx="665" cy="151" r="7" />
       {% when "layered-interfaces" %}
-        <path class="motif-plane motif-plane--primary" d="M88 96L568 96L650 150L168 150Z" />
-        <path class="motif-plane motif-density-secondary" d="M62 194L542 194L624 248L142 248Z" />
-        <path class="motif-plane" d="M36 294L516 294L598 348L116 348Z" />
-        <path class="motif-path motif-path--primary" d="M206 123V321" />
-        <path class="motif-path motif-path--secondary" d="M472 123V321" />
-        <path class="motif-path motif-path--tertiary motif-density-tertiary" d="M590 111L527 321" />
-        <path class="motif-path motif-path--secondary motif-density-secondary" d="M112 222H582" />
-        <circle class="motif-node motif-node--anchor" cx="206" cy="123" r="6" />
-        <circle class="motif-node" cx="206" cy="221" r="5" />
-        <circle class="motif-node" cx="206" cy="321" r="5" />
-        <circle class="motif-node" cx="472" cy="123" r="5" />
-        <circle class="motif-node motif-density-secondary" cx="472" cy="221" r="5" />
-        <circle class="motif-node" cx="472" cy="321" r="5" />
-        <circle class="motif-node motif-density-tertiary" cx="558" cy="221" r="4" />
+        <path class="motif-plane motif-plane--primary" d="M116 78L462 22L626 102L277 159Z" />
+        <path class="motif-plane motif-density-secondary" d="M75 176L421 120L585 200L236 257Z" />
+        <path class="motif-plane" d="M34 278L380 222L544 302L195 359Z" />
+        <path class="motif-plane motif-path--tertiary motif-density-tertiary" d="M311 86L512 53L600 96L398 129Z" />
+        <path class="motif-path motif-path--primary" d="M277 159V340" />
+        <path class="motif-path motif-path--primary" d="M520 72V307" />
+        <path class="motif-path motif-path--secondary" d="M156 111V258" />
+        <path class="motif-path motif-path--secondary motif-density-secondary" d="M421 120V329" />
+        <path class="motif-path motif-path--secondary motif-path--dashed motif-density-secondary" d="M92 223L598 141" />
+        <path class="motif-path motif-path--tertiary motif-density-tertiary" d="M626 102V238" />
+        <circle class="motif-node" cx="156" cy="111" r="5" />
+        <circle class="motif-node" cx="156" cy="209" r="4" />
+        <circle class="motif-node motif-node--large" cx="277" cy="159" r="8" />
+        <circle class="motif-node" cx="277" cy="236" r="5" />
+        <circle class="motif-node motif-node--anchor" cx="277" cy="340" r="7" />
+        <circle class="motif-node motif-density-secondary" cx="421" cy="120" r="5" />
+        <circle class="motif-node motif-density-secondary" cx="421" cy="221" r="4" />
+        <circle class="motif-node motif-node--large" cx="520" cy="72" r="7" />
+        <circle class="motif-node" cx="520" cy="202" r="5" />
+        <circle class="motif-node" cx="520" cy="307" r="6" />
+        <circle class="motif-node motif-density-tertiary" cx="626" cy="102" r="4" />
       {% when "partial-convergence" %}
-        <path class="motif-path motif-path--secondary" d="M28 78H118C225 78 224 194 336 194H674" />
-        <path class="motif-path motif-path--primary" d="M28 180H146C251 180 246 292 368 292H674" />
-        <path class="motif-path motif-path--secondary" d="M28 318H126C226 318 244 236 354 236H674" />
-        <path class="motif-path motif-path--tertiary motif-density-tertiary" d="M118 78C214 78 222 34 330 34H566" />
-        <path class="motif-path motif-path--tertiary motif-density-secondary" d="M146 180C240 180 245 116 346 116H618" />
-        <circle class="motif-node" cx="28" cy="78" r="5" />
-        <circle class="motif-node motif-node--anchor" cx="28" cy="180" r="7" />
-        <circle class="motif-node" cx="28" cy="318" r="5" />
-        <circle class="motif-node motif-density-tertiary" cx="330" cy="34" r="4" />
-        <circle class="motif-node motif-density-secondary" cx="346" cy="116" r="4" />
-        <circle class="motif-node" cx="336" cy="194" r="5" />
-        <circle class="motif-node" cx="354" cy="236" r="5" />
-        <circle class="motif-node" cx="368" cy="292" r="5" />
+        <path class="motif-path motif-path--secondary" d="M18 61C137 67 186 148 282 154C392 161 449 236 650 230" />
+        <path class="motif-path motif-path--primary" d="M18 188C143 187 190 193 282 214C397 241 492 233 650 230" />
+        <path class="motif-path motif-path--primary" d="M18 361C140 331 195 269 282 247C389 220 475 236 650 230" />
+        <path class="motif-path motif-path--secondary" d="M89 116C165 134 196 179 282 214C363 247 421 307 520 329" />
+        <path class="motif-path motif-path--secondary motif-density-secondary" d="M64 282C158 280 214 251 282 247C380 241 416 176 512 129" />
+        <path class="motif-path motif-path--secondary motif-path--dashed motif-density-secondary" d="M282 154C367 81 473 65 582 104C629 120 657 164 650 230" />
+        <path class="motif-path motif-path--tertiary motif-path--dashed motif-density-tertiary" d="M282 247C365 328 473 363 570 313C613 291 638 261 650 230" />
+        <path class="motif-path motif-path--tertiary motif-density-tertiary" d="M145 31C214 84 220 137 282 154" />
+        <circle class="motif-node" cx="89" cy="116" r="5" />
+        <circle class="motif-node motif-node--large" cx="282" cy="154" r="7" />
+        <circle class="motif-node" cx="282" cy="214" r="5" />
+        <circle class="motif-node motif-node--anchor" cx="282" cy="247" r="7" />
+        <circle class="motif-node motif-density-secondary" cx="512" cy="129" r="5" />
+        <circle class="motif-node motif-density-secondary" cx="520" cy="329" r="5" />
+        <circle class="motif-node motif-density-tertiary" cx="582" cy="104" r="4" />
+        <circle class="motif-node motif-node--large" cx="650" cy="230" r="10" />
       {% endcase %}
     </g>
   </svg>
