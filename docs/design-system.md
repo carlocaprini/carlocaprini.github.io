@@ -112,6 +112,7 @@ Its anatomy is:
 - an exclusion zone protecting hero text and metadata;
 - a viewport-edge upper-right crop area;
 - a monochromatic Topic glow binding the topology to the hero background;
+- an uninterrupted hero background beginning at the navigation boundary;
 - primary, secondary and optional tertiary paths;
 - solid and dashed routes for primary and alternative paths;
 - a restrained hierarchy of open, filled, terminal and authority nodes.

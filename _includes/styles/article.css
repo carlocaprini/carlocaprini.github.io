@@ -11,6 +11,8 @@
   --article-topic-border: var(--brand-accent-border);
   position: relative;
   overflow: hidden;
+  margin-top: -4.5rem;
+  padding-top: 4.5rem;
   isolation: isolate;
 }
 

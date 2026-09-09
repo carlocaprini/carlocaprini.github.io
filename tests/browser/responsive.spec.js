@@ -40,10 +40,13 @@ test("article topic motifs protect long titles across responsive compositions", 
     const metrics = await page.evaluate(() => ({
       documentWidth: document.documentElement.scrollWidth,
       viewportWidth: document.documentElement.clientWidth,
-      titleWidth: document.querySelector(".article-topic-hero h1").getBoundingClientRect().width
+      titleWidth: document.querySelector(".article-topic-hero h1").getBoundingClientRect().width,
+      heroTop: document.querySelector(".article-topic-hero").getBoundingClientRect().top,
+      headerBottom: document.querySelector(".site-header").getBoundingClientRect().bottom
     }));
     expect(metrics.documentWidth).toBe(metrics.viewportWidth);
     expect(metrics.titleWidth).toBeGreaterThan(viewport.width * 0.72);
+    expect(Math.abs(metrics.heroTop - metrics.headerBottom)).toBeLessThanOrEqual(1);
   }
 });
 
