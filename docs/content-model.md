@@ -5,7 +5,7 @@
 - Thinking Notes live in `_thinking/` and own their title, summary, publication metadata, topics and body.
 - Influences live in `_influences/` and own external-source metadata, topics and any deliberately selected related Note.
 - Topics live in `_data/topics.yml`. Do not copy the allowed slug list into documentation or runtime code.
-- Questions live in `_data/questions.yml`. They are curated reading paths across Notes, Influences and Experience, not projections of topic tags.
+- Questions live in `_data/questions.yml`. They are curated reading paths across Notes, Influences and Experience, not projections of topic tags. Their Topic metadata remains editorial context and is not exposed as additional navigation on Question surfaces.
 - Series metadata lives in `_data/series.yml`; episode identity remains on the relevant Notes.
 - Home editorial modules live in `_data/home.yml`.
 - The Work proposition lives in `pages/work.md`. It owns the recognizable situations, Review, Advisory, working principles and contact path; client proof must not be inferred or generated from it.

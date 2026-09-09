@@ -13,9 +13,6 @@ layout: default
         </div>
         <h1 class="hero-title hero-title--compact">{{ question.title }}</h1>
         <p class="hero-subtitle hero-subtitle--wide">{{ question.description }}</p>
-        <div class="content-topic-list question-hero-topics" aria-label="Topics in this question">
-          {% include content-topic-items.html topics=question.topics linked=true %}
-        </div>
         {% if question.synthesis %}
         <div class="question-synthesis">
           {% for paragraph in question.synthesis %}

@@ -480,10 +480,6 @@
   line-height: 1.7;
 }
 
-.question-path-content .content-topic-list {
-  margin-top: 0.05rem;
-}
-
 .question-path-arrow {
   color: var(--brand-accent);
   font-size: 1.05rem;

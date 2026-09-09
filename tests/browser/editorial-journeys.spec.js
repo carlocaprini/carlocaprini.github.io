@@ -169,7 +169,7 @@ test("notes expose curated Questions without promoting topics to sidebar navigat
   await expect(page.getByRole("complementary", { name: "Explore topics" })).toHaveCount(0);
 });
 
-test("primary topic order drives article identity while Questions remain multi-topic paths", async ({ page }) => {
+test("primary topic order drives article identity without exposing Question topic navigation", async ({ page }) => {
   await page.goto("/thinking/shared-context-is-not-shared-understanding/");
 
   const hero = page.locator(".article-topic-hero");
@@ -184,10 +184,16 @@ test("primary topic order drives article identity while Questions remain multi-t
 
   await page.goto("/explore/");
   const sharedUnderstanding = page.locator(".question-path-item--shared-understanding");
-  await expect(sharedUnderstanding.locator(".content-topic-link")).toHaveText([
-    "Teams and collaboration",
-    "Product decisions"
-  ]);
+  await expect(sharedUnderstanding.locator(".content-topic-list")).toHaveCount(0);
+
+  await page.goto("/thinking/");
+  await expect(page.locator(".question-path-list .content-topic-list")).toHaveCount(0);
+
+  await page.goto("/");
+  await expect(page.locator(".home-questions-section .content-topic-list")).toHaveCount(0);
+
+  await page.goto("/explore/shared-understanding/");
+  await expect(page.locator(".question-hero-topics")).toHaveCount(0);
 });
 
 test("article motifs use the primary topic's canonical color and geometry", async ({ page }) => {

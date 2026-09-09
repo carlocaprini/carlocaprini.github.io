@@ -69,7 +69,7 @@ The canonical Topic palette is:
 3. Software systems: indigo `#818cf8`, expressing structure, depth and interfaces.
 4. Teams and collaboration: emerald `#34d399`, expressing people, interpretation and convergence.
 
-Every Note and Influence uses its first ordered Topic as its dominant accent. Secondary Topics remain visible as labelled chips. Question paths may show several labelled Topic colors because Questions connect territories rather than owning a color. Series use sequence, and content formats use layout, not new hues.
+Every Note and Influence uses its first ordered Topic as its dominant accent. Secondary Topics remain visible as labelled chips. Questions connect territories without displaying Topic chips: the Question itself is the single navigation choice, while Topic browsing remains a separate path. Series use sequence, and content formats use layout, not new hues.
 
 Cyan remains the non-topic brand and interaction accent, but it enters CSS through dedicated brand or functional tokens. A cyan button does not classify its destination as AI content. Color must never carry meaning without a label, structural motif or explicit state.
 
