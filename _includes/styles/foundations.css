@@ -32,18 +32,11 @@
   --brand-accent-soft: rgba(34, 211, 238, 0.1);
   --brand-accent-border: rgba(34, 211, 238, 0.28);
   --interaction-focus: #22d3ee;
-  --topic-product-decisions: #fbbf24;
-  --topic-product-decisions-soft: rgba(251, 191, 36, 0.11);
-  --topic-product-decisions-border: rgba(251, 191, 36, 0.32);
-  --topic-ai-and-automation: #22d3ee;
-  --topic-ai-and-automation-soft: rgba(34, 211, 238, 0.1);
-  --topic-ai-and-automation-border: rgba(34, 211, 238, 0.28);
-  --topic-software-systems: #818cf8;
-  --topic-software-systems-soft: rgba(129, 140, 248, 0.11);
-  --topic-software-systems-border: rgba(129, 140, 248, 0.3);
-  --topic-teams-and-collaboration: #34d399;
-  --topic-teams-and-collaboration-soft: rgba(52, 211, 153, 0.1);
-  --topic-teams-and-collaboration-border: rgba(52, 211, 153, 0.28);
+  {% for topic in site.data.topics %}
+  --topic-{{ topic.slug }}: {{ topic.visual.color }};
+  --topic-{{ topic.slug }}-soft: color-mix(in srgb, var(--topic-{{ topic.slug }}) 11%, transparent);
+  --topic-{{ topic.slug }}-border: color-mix(in srgb, var(--topic-{{ topic.slug }}) 30%, transparent);
+  {% endfor %}
   --radius-card: 1rem;
   --radius-card-lg: 1.15rem;
   --radius-panel: 1.4rem;

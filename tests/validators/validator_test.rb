@@ -156,6 +156,27 @@ class ValidatorTest < Minitest::Test
     end
   end
 
+  def test_source_rejects_invalid_topic_visual_color
+    assert_invalid_source(/must define a six-digit visual color/) do |directory|
+      path = File.join(directory, "_data/topics.yml")
+      replace!(path, 'color: "#fbbf24"', 'color: "amber"')
+    end
+  end
+
+  def test_source_rejects_duplicate_topic_motif_family
+    assert_invalid_source(/topic motif families must be unique/) do |directory|
+      path = File.join(directory, "_data/topics.yml")
+      replace!(path, "motif: bounded-loops", "motif: branching")
+    end
+  end
+
+  def test_source_rejects_unknown_article_topic_motif_variant
+    assert_invalid_source(/article_topic_motif_variant must be balanced or spatial/) do |directory|
+      path = File.join(directory, "_config.yml")
+      replace!(path, "article_topic_motif_variant: balanced", "article_topic_motif_variant: loud")
+    end
+  end
+
   def test_source_rejects_duplicate_permalink
     assert_invalid_source(/duplicate permalink/) do |directory|
       replace!(note_path(directory), "/thinking/waiting-as-product-decision/", "/thinking/temporary-solutions-become-permanent/")

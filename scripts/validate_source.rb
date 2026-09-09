@@ -88,6 +88,26 @@ topics.each_with_index do |topic, index|
   %w[slug label description].each do |field|
     fail_check("_data/topics.yml: topic #{index + 1} is missing #{field}") unless present?(topic[field])
   end
+
+  visual = topic["visual"] || {}
+  color = visual["color"]
+  motif = visual["motif"]
+  unless color.to_s.match?(/\A#[0-9a-fA-F]{6}\z/)
+    fail_check("_data/topics.yml: topic #{index + 1} must define a six-digit visual color")
+  end
+  unless present?(motif) && motif.to_s.match?(/\A[a-z]+(?:-[a-z]+)*\z/)
+    fail_check("_data/topics.yml: topic #{index + 1} must define a visual motif family")
+  end
+end
+
+motif_families = topics.map { |topic| topic.dig("visual", "motif") }.compact
+duplicate_motifs = motif_families.group_by(&:itself).select { |_, values| values.size > 1 }.keys
+unless duplicate_motifs.empty?
+  fail_check("_data/topics.yml: topic motif families must be unique: #{duplicate_motifs.join(', ')}")
+end
+
+unless %w[balanced spatial].include?(site_config["article_topic_motif_variant"])
+  fail_check("_config.yml: article_topic_motif_variant must be balanced or spatial")
 end
 
 def validate_ordered_topics(path, value, topic_slugs)
