@@ -414,7 +414,7 @@ main {
   gap: 0.55rem;
   justify-items: center;
   margin-bottom: 1.25rem;
-  color: var(--accent-indigo);
+  color: var(--brand-accent);
   text-align: center;
 }
 
@@ -432,7 +432,7 @@ main {
   border: 2px solid currentColor;
   border-radius: 999px;
   background: var(--color-bg);
-  box-shadow: 0 0 0 4px var(--accent-indigo-soft);
+  box-shadow: 0 0 0 4px var(--brand-accent-soft);
 }
 
 .step-flow__marker::after {
@@ -444,14 +444,6 @@ main {
   height: 1px;
   background: var(--color-line);
   content: "";
-}
-
-.step-flow__item:first-child .step-flow__marker {
-  color: var(--accent-cyan);
-}
-
-.step-flow__item:first-child .step-flow__node {
-  box-shadow: 0 0 0 4px var(--accent-cyan-soft);
 }
 
 .step-flow__item:last-child .step-flow__marker::after {
