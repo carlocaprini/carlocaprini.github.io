@@ -41,6 +41,12 @@ layout: default
               <span class="question-path-content">
                 <strong>{{ question.title }}</strong>
                 <span>{{ question.description }}</span>
+                <span class="content-topic-list" aria-label="Topics in this question">
+                  {% for question_topic in question.topics %}
+                    {% assign topic_data = site.data.topics | where: "slug", question_topic | first %}
+                    <span class="content-topic-link content-topic-link--{{ question_topic }}{% if forloop.first %} content-topic-link--primary{% endif %}">{{ topic_data.label | default: question_topic }}</span>
+                  {% endfor %}
+                </span>
               </span>
               <span class="question-path-arrow" aria-hidden="true">→</span>
             </a>
@@ -103,7 +109,7 @@ layout: default
                       <span class="content-topic-list" aria-label="Topics">
                         {% for note_topic in note.topics %}
                           {% assign note_topic_data = site.data.topics | where: "slug", note_topic | first %}
-                          <a class="content-topic-link content-topic-link--{{ note_topic }}" href="{{ '/explore/' | relative_url }}#{{ note_topic }}" data-analytics-event="topic_select" data-analytics-topic="{{ note_topic | escape }}" data-analytics-interaction="navigation" data-analytics-link-context="explore_topic_notes">{{ note_topic_data.label | default: note_topic }}</a>
+                          <a class="content-topic-link content-topic-link--{{ note_topic }}{% if forloop.first %} content-topic-link--primary{% endif %}" href="{{ '/explore/' | relative_url }}#{{ note_topic }}" data-analytics-event="topic_select" data-analytics-topic="{{ note_topic | escape }}" data-analytics-interaction="navigation" data-analytics-link-context="explore_topic_notes">{{ note_topic_data.label | default: note_topic }}</a>
                         {% endfor %}
                       </span>
                     </li>

@@ -300,6 +300,11 @@
     gap: 2.2rem;
   }
 
+  .article-hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(8rem, 10rem);
+    gap: 1.25rem;
+  }
+
   .experience-section-header {
     gap: 0.85rem;
     margin-bottom: 2rem;
@@ -522,6 +527,16 @@
 }
 
 @media (max-width: 640px) {
+  .article-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .topic-motif {
+    width: 9rem;
+    margin: -1.2rem 0 -1.35rem auto;
+    opacity: 0.54;
+  }
+
   .work-section-intro {
     gap: 1rem;
     margin-bottom: 1.6rem;

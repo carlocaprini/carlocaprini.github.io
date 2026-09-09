@@ -28,27 +28,27 @@
 }
 
 .influence-item--product-decisions {
-  --influence-accent: #818cf8;
-  --influence-accent-soft: rgba(129, 140, 248, 0.11);
-  --influence-accent-border: rgba(129, 140, 248, 0.3);
+  --influence-accent: var(--topic-product-decisions);
+  --influence-accent-soft: var(--topic-product-decisions-soft);
+  --influence-accent-border: var(--topic-product-decisions-border);
 }
 
 .influence-item--ai-and-automation {
-  --influence-accent: #22d3ee;
-  --influence-accent-soft: rgba(34, 211, 238, 0.1);
-  --influence-accent-border: rgba(34, 211, 238, 0.28);
+  --influence-accent: var(--topic-ai-and-automation);
+  --influence-accent-soft: var(--topic-ai-and-automation-soft);
+  --influence-accent-border: var(--topic-ai-and-automation-border);
 }
 
 .influence-item--software-systems {
-  --influence-accent: #38bdf8;
-  --influence-accent-soft: rgba(56, 189, 248, 0.1);
-  --influence-accent-border: rgba(56, 189, 248, 0.28);
+  --influence-accent: var(--topic-software-systems);
+  --influence-accent-soft: var(--topic-software-systems-soft);
+  --influence-accent-border: var(--topic-software-systems-border);
 }
 
 .influence-item--teams-and-collaboration {
-  --influence-accent: #34d399;
-  --influence-accent-soft: rgba(52, 211, 153, 0.1);
-  --influence-accent-border: rgba(52, 211, 153, 0.28);
+  --influence-accent: var(--topic-teams-and-collaboration);
+  --influence-accent-soft: var(--topic-teams-and-collaboration-soft);
+  --influence-accent-border: var(--topic-teams-and-collaboration-border);
 }
 
 .influence-board.is-observed .influence-item {
@@ -236,42 +236,42 @@
 }
 
 .topic-filter--product-decisions.is-active {
-  border-color: rgba(129, 140, 248, 0.46);
+  border-color: var(--topic-product-decisions);
 }
 
 .topic-filter--ai-and-automation.is-active {
-  border-color: rgba(34, 211, 238, 0.44);
+  border-color: var(--topic-ai-and-automation);
 }
 
 .topic-filter--software-systems.is-active {
-  border-color: rgba(56, 189, 248, 0.44);
+  border-color: var(--topic-software-systems);
 }
 
 .topic-filter--teams-and-collaboration.is-active {
-  border-color: rgba(52, 211, 153, 0.44);
+  border-color: var(--topic-teams-and-collaboration);
 }
 
 .topic-filter-marker {
   width: 0.48rem;
   height: 0.48rem;
   border-radius: 999px;
-  background: #818cf8;
-  box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.1);
+  background: var(--topic-product-decisions);
+  box-shadow: 0 0 0 4px var(--topic-product-decisions-soft);
 }
 
 .topic-filter--ai-and-automation .topic-filter-marker {
-  background: #22d3ee;
-  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.1);
+  background: var(--topic-ai-and-automation);
+  box-shadow: 0 0 0 4px var(--topic-ai-and-automation-soft);
 }
 
 .topic-filter--software-systems .topic-filter-marker {
-  background: #38bdf8;
-  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
+  background: var(--topic-software-systems);
+  box-shadow: 0 0 0 4px var(--topic-software-systems-soft);
 }
 
 .topic-filter--teams-and-collaboration .topic-filter-marker {
-  background: #34d399;
-  box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.1);
+  background: var(--topic-teams-and-collaboration);
+  box-shadow: 0 0 0 4px var(--topic-teams-and-collaboration-soft);
 }
 
 .topic-filter-count {

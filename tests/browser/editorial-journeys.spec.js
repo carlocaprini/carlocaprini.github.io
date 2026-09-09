@@ -169,6 +169,33 @@ test("notes expose curated Questions without promoting topics to sidebar navigat
   await expect(page.getByRole("complementary", { name: "Explore topics" })).toHaveCount(0);
 });
 
+test("primary topic order drives article identity while Questions remain multi-topic paths", async ({ page }) => {
+  await page.goto("/thinking/shared-context-is-not-shared-understanding/");
+
+  const hero = page.locator(".article-topic-hero");
+  await expect(hero).toHaveAttribute("data-primary-topic", "teams-and-collaboration");
+  await expect(hero.locator(".topic-motif--teams-and-collaboration")).toHaveCount(1);
+  await expect(hero.locator(".content-topic-link").first()).toHaveClass(/content-topic-link--primary/);
+  await expect(hero.locator(".content-topic-link").first()).toContainText("Teams and collaboration");
+
+  await page.goto("/explore/");
+  const sharedUnderstanding = page.locator(".question-path-item--shared-understanding");
+  await expect(sharedUnderstanding.locator(".content-topic-link")).toHaveText([
+    "Teams and collaboration",
+    "Product decisions"
+  ]);
+});
+
+test("Influence accents follow the audited first topic", async ({ page }) => {
+  await page.goto("/influences/");
+
+  const softwareInfluence = page.locator(".influence-item", {
+    has: page.getByRole("link", { name: /AI Coding Is Not the Same as Software Engineering/ })
+  });
+  await expect(softwareInfluence).toHaveClass(/influence-item--software-systems/);
+  await expect(softwareInfluence.locator(".content-topic-link").first()).toContainText("Software systems");
+});
+
 test("notes end with a consistent author signature and professional paths", async ({ page }) => {
   await page.goto("/thinking/waiting-as-product-decision/");
 

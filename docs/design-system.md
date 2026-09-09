@@ -54,18 +54,24 @@ The site uses a dark neutral base plus three recurring accents.
 - `line-muted`: `rgba(148, 163, 184, 0.16-0.28)`
   Borders, dividers and subtle structure.
 
-### Accent Colors
+### Color domains
 
-Use this canonical accent cycle:
+Color has three separate owners. Do not infer one domain from another.
 
-1. Cyan: `#22d3ee`
-   Primary motion, technical/product energy and first items.
-2. Indigo: `#818cf8`
-   Thinking, decision-making and second items.
-3. Emerald: `#34d399`
-   Teams, adaptation and third items.
-4. Sky: `#38bdf8`
-   Optional supporting accent.
+- Topic color communicates what editorial content is about.
+- Functional color communicates interaction or state, such as focus, action, success or error.
+- Decorative color supports structure only where it cannot be mistaken for classification.
+
+The canonical Topic palette is:
+
+1. Product decisions: amber `#fbbf24`, expressing attention, choice and consequences.
+2. AI and automation: cyan `#22d3ee`, expressing computation, delegation and flow.
+3. Software systems: indigo `#818cf8`, expressing structure, depth and interfaces.
+4. Teams and collaboration: emerald `#34d399`, expressing people, interpretation and convergence.
+
+Every Note and Influence uses its first ordered Topic as its dominant accent. Secondary Topics remain visible as labelled chips. Question paths may show several labelled Topic colors because Questions connect territories rather than owning a color. Series use sequence, and content formats use layout, not new hues.
+
+Cyan remains the non-topic brand and interaction accent, but it enters CSS through dedicated brand or functional tokens. A cyan button does not classify its destination as AI content. Color must never carry meaning without a label, structural motif or explicit state.
 
 ### Featured Content Spectrum
 
@@ -87,13 +93,24 @@ Connect the warm spectrum back to the site by retaining one established cool acc
 
 Warm colors are campaign accents, not taxonomy. Do not use them to redefine topic colors, metadata, status labels or the standard card cycle.
 
-Each accent should usually have three forms:
+Each Topic and reusable brand accent has three forms:
 
 - Solid: `#22d3ee`, `#818cf8`, `#34d399`
 - Soft fill: `rgba(accent, 0.10-0.12)`
 - Border: `rgba(accent, 0.26-0.30)`
 
 Do not create a new accent for each section unless there is a clear semantic reason.
+
+### Topic motifs
+
+Topic color is paired with a small structural motif so recognition survives grayscale and does not depend on hue alone:
+
+- Product decisions: a branch or fork with one chosen path and visible alternatives.
+- AI and automation: nodes and a loop contained by an explicit boundary.
+- Software systems: layers, interfaces and dependencies.
+- Teams and collaboration: distinct paths that diverge or converge.
+
+Use motifs as restrained article-header or selected-content signals, not mandatory illustrations or card wallpaper. They are decorative to assistive technology; the adjacent Topic label carries the textual meaning. A motif must remain understandable without motion, and should not be reused for an unrelated argument merely as ornament.
 
 ## Surfaces
 
@@ -168,7 +185,7 @@ Recommended style:
 - optional radial accent: `radial-gradient(circle at top left/right, accent-soft, transparent 34%)`
 - hover: slight border-color change, optional `translateY(-2px)`
 
-Repeated cards should either use the accent cycle or a clear structural rhythm.
+Repeated cards should use semantic Topic accents only when their content is classified by Topic. Otherwise use a neutral surface, one brand accent or a clear structural rhythm rather than a positional color cycle.
 
 ## Typography
 
@@ -279,7 +296,7 @@ For three related entry points, use the entry-card pattern:
 - two-digit index
 - title
 - short body
-- accent cycle cyan / indigo / emerald
+- one restrained brand accent unless the cards expose explicit Topic labels
 
 This is visually stronger and more consistent than plain side-by-side cards.
 

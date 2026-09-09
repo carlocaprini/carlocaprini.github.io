@@ -1,0 +1,45 @@
+{% assign motif_topic = include.topic | default: "general" %}
+<div class="topic-motif topic-motif--{{ motif_topic }}" aria-hidden="true">
+  {% case motif_topic %}
+  {% when "product-decisions" %}
+    <svg viewBox="0 0 240 160" focusable="false">
+      <path class="topic-motif-line topic-motif-line--muted" d="M18 80h58" />
+      <path class="topic-motif-line" d="M76 80c28 0 30-43 61-43h68" />
+      <path class="topic-motif-line topic-motif-line--muted" d="M76 80h129" />
+      <path class="topic-motif-line topic-motif-line--muted" d="M76 80c28 0 30 43 61 43h68" />
+      <circle class="topic-motif-node" cx="76" cy="80" r="6" />
+      <circle class="topic-motif-node topic-motif-node--strong" cx="205" cy="37" r="7" />
+      <circle class="topic-motif-node" cx="205" cy="80" r="5" />
+      <circle class="topic-motif-node" cx="205" cy="123" r="5" />
+    </svg>
+  {% when "ai-and-automation" %}
+    <svg viewBox="0 0 240 160" focusable="false">
+      <rect class="topic-motif-boundary" x="23" y="22" width="194" height="116" rx="30" />
+      <path class="topic-motif-line" d="M61 84c18-42 79-49 113-13 18 19 13 43-8 53" />
+      <path class="topic-motif-line topic-motif-line--muted" d="M166 124l-1-18 18 7" />
+      <circle class="topic-motif-node topic-motif-node--strong" cx="61" cy="84" r="8" />
+      <circle class="topic-motif-node" cx="112" cy="54" r="6" />
+      <circle class="topic-motif-node" cx="177" cy="76" r="6" />
+      <circle class="topic-motif-node" cx="137" cy="117" r="6" />
+    </svg>
+  {% when "software-systems" %}
+    <svg viewBox="0 0 240 160" focusable="false">
+      <rect class="topic-motif-layer" x="35" y="25" width="170" height="28" rx="8" />
+      <rect class="topic-motif-layer topic-motif-layer--strong" x="35" y="66" width="170" height="28" rx="8" />
+      <rect class="topic-motif-layer" x="35" y="107" width="170" height="28" rx="8" />
+      <path class="topic-motif-line topic-motif-line--muted" d="M70 53v13m100-13v13M70 94v13m100-13v13" />
+      <circle class="topic-motif-node" cx="70" cy="80" r="4" />
+      <circle class="topic-motif-node" cx="170" cy="80" r="4" />
+    </svg>
+  {% when "teams-and-collaboration" %}
+    <svg viewBox="0 0 240 160" focusable="false">
+      <path class="topic-motif-line topic-motif-line--muted" d="M22 39h35c35 0 37 82 82 82h78" />
+      <path class="topic-motif-line" d="M22 80h54c34 0 38 41 72 41h69" />
+      <path class="topic-motif-line topic-motif-line--muted" d="M22 121h35c35 0 37-82 82-82h78" />
+      <circle class="topic-motif-node" cx="22" cy="39" r="5" />
+      <circle class="topic-motif-node" cx="22" cy="80" r="5" />
+      <circle class="topic-motif-node" cx="22" cy="121" r="5" />
+      <circle class="topic-motif-node topic-motif-node--strong" cx="217" cy="121" r="8" />
+    </svg>
+  {% endcase %}
+</div>

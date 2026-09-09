@@ -13,6 +13,12 @@ layout: default
         </div>
         <h1 class="hero-title hero-title--compact">{{ question.title }}</h1>
         <p class="hero-subtitle hero-subtitle--wide">{{ question.description }}</p>
+        <div class="content-topic-list question-hero-topics" aria-label="Topics in this question">
+          {% for question_topic in question.topics %}
+            {% assign topic_data = site.data.topics | where: "slug", question_topic | first %}
+            <a class="content-topic-link content-topic-link--{{ question_topic }}{% if forloop.first %} content-topic-link--primary{% endif %}" href="{{ '/explore/' | relative_url }}#{{ question_topic }}">{{ topic_data.label | default: question_topic }}</a>
+          {% endfor %}
+        </div>
         {% if question.synthesis %}
         <div class="question-synthesis">
           {% for paragraph in question.synthesis %}
@@ -54,6 +60,12 @@ layout: default
                   <li>
                     <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.url | escape }}" data-analytics-question-id="{{ question.slug | escape }}" data-analytics-link-context="question_notes">{{ note.title }}</a>
                     <span>{{ note.summary }}</span>
+                    <span class="content-topic-list" aria-label="Topics">
+                      {% for note_topic in note.topics %}
+                        {% assign topic_data = site.data.topics | where: "slug", note_topic | first %}
+                        <span class="content-topic-link content-topic-link--{{ note_topic }}{% if forloop.first %} content-topic-link--primary{% endif %}">{{ topic_data.label | default: note_topic }}</span>
+                      {% endfor %}
+                    </span>
                   </li>
                 {% endif %}
               {% endfor %}
@@ -80,6 +92,10 @@ layout: default
             <li class="influence-item influence-item--{{ ref.topics | first }}">
               <div class="influence-card-meta">
                 {% if ref.author %}<span class="influence-author">{{ ref.author }}</span>{% endif %}
+                {% for influence_topic in ref.topics %}
+                  {% assign topic_data = site.data.topics | where: "slug", influence_topic | first %}
+                  <span class="content-topic-link content-topic-link--{{ influence_topic }}{% if forloop.first %} content-topic-link--primary{% endif %}">{{ topic_data.label | default: influence_topic }}</span>
+                {% endfor %}
               </div>
               <h3 class="influence-card-title">
                 <a class="influence-title influence-title--external" href="{{ ref.external_url }}" target="_blank" rel="noopener noreferrer" data-analytics-event="reading_open" data-analytics-reading-id="{{ ref.slug | escape }}" data-analytics-question-id="{{ question.slug | escape }}" data-analytics-link-context="question_readings">

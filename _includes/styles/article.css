@@ -5,6 +5,104 @@
   margin: 0 0 1rem;
 }
 
+.article-topic-hero {
+  --article-topic-accent: var(--brand-accent);
+  --article-topic-soft: var(--brand-accent-soft);
+  --article-topic-border: var(--brand-accent-border);
+  position: relative;
+}
+
+.article-topic--product-decisions {
+  --article-topic-accent: var(--topic-product-decisions);
+  --article-topic-soft: var(--topic-product-decisions-soft);
+  --article-topic-border: var(--topic-product-decisions-border);
+}
+
+.article-topic--ai-and-automation {
+  --article-topic-accent: var(--topic-ai-and-automation);
+  --article-topic-soft: var(--topic-ai-and-automation-soft);
+  --article-topic-border: var(--topic-ai-and-automation-border);
+}
+
+.article-topic--software-systems {
+  --article-topic-accent: var(--topic-software-systems);
+  --article-topic-soft: var(--topic-software-systems-soft);
+  --article-topic-border: var(--topic-software-systems-border);
+}
+
+.article-topic--teams-and-collaboration {
+  --article-topic-accent: var(--topic-teams-and-collaboration);
+  --article-topic-soft: var(--topic-teams-and-collaboration-soft);
+  --article-topic-border: var(--topic-teams-and-collaboration-border);
+}
+
+.article-topic-hero::after {
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  width: min(9rem, 24vw);
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--article-topic-accent), transparent);
+  content: "";
+  opacity: 0.8;
+  transform: translateX(-50%);
+}
+
+.article-topic-hero .hero-label-dot {
+  background: var(--article-topic-accent);
+  box-shadow: 0 0 0 5px var(--article-topic-soft);
+}
+
+.article-hero-grid {
+  grid-template-columns: minmax(0, 1fr) minmax(11rem, 14rem);
+}
+
+.topic-motif {
+  color: var(--article-topic-accent);
+  opacity: 0.78;
+}
+
+.topic-motif svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 0 20px var(--article-topic-soft));
+}
+
+.topic-motif-line,
+.topic-motif-boundary,
+.topic-motif-layer {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.topic-motif-line--muted,
+.topic-motif-boundary,
+.topic-motif-layer {
+  opacity: 0.42;
+}
+
+.topic-motif-layer--strong {
+  fill: var(--article-topic-soft);
+  opacity: 0.92;
+}
+
+.topic-motif-node {
+  fill: var(--color-bg);
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.topic-motif-node--strong {
+  fill: currentColor;
+  stroke: var(--color-bg);
+  stroke-width: 3;
+}
+
 .body-text:last-child {
   margin-bottom: 0;
 }

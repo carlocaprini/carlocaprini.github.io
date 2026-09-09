@@ -28,6 +28,22 @@
   --accent-sky: #38bdf8;
   --accent-sky-soft: rgba(56, 189, 248, 0.1);
   --accent-sky-border: rgba(56, 189, 248, 0.28);
+  --brand-accent: #22d3ee;
+  --brand-accent-soft: rgba(34, 211, 238, 0.1);
+  --brand-accent-border: rgba(34, 211, 238, 0.28);
+  --interaction-focus: #22d3ee;
+  --topic-product-decisions: #fbbf24;
+  --topic-product-decisions-soft: rgba(251, 191, 36, 0.11);
+  --topic-product-decisions-border: rgba(251, 191, 36, 0.32);
+  --topic-ai-and-automation: #22d3ee;
+  --topic-ai-and-automation-soft: rgba(34, 211, 238, 0.1);
+  --topic-ai-and-automation-border: rgba(34, 211, 238, 0.28);
+  --topic-software-systems: #818cf8;
+  --topic-software-systems-soft: rgba(129, 140, 248, 0.11);
+  --topic-software-systems-border: rgba(129, 140, 248, 0.3);
+  --topic-teams-and-collaboration: #34d399;
+  --topic-teams-and-collaboration-soft: rgba(52, 211, 153, 0.1);
+  --topic-teams-and-collaboration-border: rgba(52, 211, 153, 0.28);
   --radius-card: 1rem;
   --radius-card-lg: 1.15rem;
   --radius-panel: 1.4rem;
@@ -77,7 +93,7 @@ body {
 }
 
 :where(a, button):focus-visible {
-  outline: 2px solid var(--accent-cyan);
+  outline: 2px solid var(--interaction-focus);
   outline-offset: 3px;
 }
 

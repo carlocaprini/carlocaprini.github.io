@@ -67,7 +67,7 @@ layout: default
                   <span class="content-topic-list" aria-label="Topics">
                     {% for note_topic in note.topics %}
                       {% assign topic_data = site.data.topics | where: "slug", note_topic | first %}
-                      <span class="content-topic-link content-topic-link--{{ note_topic }}">{{ topic_data.label | default: note_topic }}</span>
+                      <span class="content-topic-link content-topic-link--{{ note_topic }}{% if forloop.first %} content-topic-link--primary{% endif %}">{{ topic_data.label | default: note_topic }}</span>
                     {% endfor %}
                   </span>
                 {% endif %}
