@@ -110,7 +110,8 @@ Its anatomy is:
 - a decorative inline-SVG topology;
 - the primary Topic color;
 - an exclusion zone protecting hero text and metadata;
-- an upper-right crop area;
+- a viewport-edge upper-right crop area;
+- a monochromatic Topic glow binding the topology to the hero background;
 - primary, secondary and optional tertiary paths;
 - solid and dashed routes for primary and alternative paths;
 - a restrained hierarchy of open, filled, terminal and authority nodes.
@@ -134,6 +135,7 @@ Rules:
 - use one primary Topic, one color and one topology family;
 - keep the motif decorative and hidden from assistive technology;
 - preserve the hero height, title hierarchy and existing dark background;
+- derive both topology and corner glow from the same canonical Topic color;
 - simplify or crop the motif at smaller breakpoints before constraining content;
 - make the complete static state the design; motion is optional, finite and must respect reduced-motion preferences;
 - keep Series identity in sequence and Question identity in connections rather than in this motif.
