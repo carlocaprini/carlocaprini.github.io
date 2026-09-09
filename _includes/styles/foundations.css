@@ -28,10 +28,10 @@
   --accent-sky: #38bdf8;
   --accent-sky-soft: rgba(56, 189, 248, 0.1);
   --accent-sky-border: rgba(56, 189, 248, 0.28);
-  --brand-accent: #22d3ee;
-  --brand-accent-soft: rgba(34, 211, 238, 0.1);
-  --brand-accent-border: rgba(34, 211, 238, 0.28);
-  --interaction-focus: #22d3ee;
+  --brand-accent: var(--accent-cyan);
+  --brand-accent-soft: var(--accent-cyan-soft);
+  --brand-accent-border: var(--accent-cyan-border);
+  --interaction-focus: var(--brand-accent);
   {% for topic in site.data.topics %}
   --topic-{{ topic.slug }}: {{ topic.visual.color }};
   --topic-{{ topic.slug }}-soft: color-mix(in srgb, var(--topic-{{ topic.slug }}) 11%, transparent);
@@ -41,6 +41,7 @@
   --radius-card-lg: 1.15rem;
   --radius-panel: 1.4rem;
   --shadow-card: 0 22px 58px rgba(2, 6, 23, 0.28);
+  --page-top-spacing: 4.5rem;
 }
 
 html,
@@ -233,7 +234,7 @@ main {
 }
 
 .page {
-  padding: 4.5rem 0 4rem;
+  padding: var(--page-top-spacing) 0 4rem;
 }
 
 .hero {

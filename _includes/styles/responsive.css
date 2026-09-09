@@ -300,10 +300,6 @@
     gap: 2.2rem;
   }
 
-  .article-hero-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
   .article-hero-content {
     width: calc(100% - 8.5rem);
   }
@@ -544,15 +540,6 @@
 }
 
 @media (max-width: 640px) {
-  .article-topic-hero {
-    margin-top: -3.3rem;
-    padding-top: 3.3rem;
-  }
-
-  .article-hero-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
   .article-hero-content {
     width: 100%;
   }
@@ -715,10 +702,7 @@
 
   :root {
     --page-gutter: 1.125rem;
-  }
-
-  .page {
-    padding-top: 3.3rem;
+    --page-top-spacing: 3.3rem;
   }
 
   .hero {

@@ -11,8 +11,8 @@
   --article-topic-border: var(--brand-accent-border);
   position: relative;
   overflow: hidden;
-  margin-top: -4.5rem;
-  padding-top: 4.5rem;
+  margin-top: calc(-1 * var(--page-top-spacing));
+  padding-top: var(--page-top-spacing);
   isolation: isolate;
 }
 
@@ -83,8 +83,6 @@
 }
 
 .article-hero-content {
-  position: relative;
-  z-index: 2;
   width: min(100%, 44rem);
 }
 
@@ -202,28 +200,13 @@
   opacity: 0.82;
 }
 
-.motif-node--open {
-  fill: none;
-}
-
 .article-topic-motif--balanced .motif-density-tertiary.motif-node {
   opacity: 0.28;
-}
-
-.article-topic-motif--spatial .motif-density-tertiary {
-  display: initial;
 }
 
 .article-topic-motif--spatial .motif-path--primary,
 .article-topic-motif--spatial .motif-plane--primary {
   stroke-width: 1.9;
-}
-
-.topic-motif--product-decisions,
-.topic-motif--ai-and-automation,
-.topic-motif--software-systems,
-.topic-motif--teams-and-collaboration {
-  color: var(--article-topic-accent);
 }
 
 .body-text:last-child {

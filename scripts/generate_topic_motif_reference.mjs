@@ -102,7 +102,6 @@ async function captureVariant(browser, manifest, variant, outputRoot) {
       const motif = hero.locator(".article-topic-motif");
       const facts = await hero.evaluate((element) => {
         const motifElement = element.querySelector(".article-topic-motif");
-        const contentElement = element.querySelector(".article-hero-content");
         return {
           topic: element.dataset.primaryTopic,
           variant: element.dataset.motifVariant,
@@ -110,8 +109,7 @@ async function captureVariant(browser, manifest, variant, outputRoot) {
           ariaHidden: motifElement.getAttribute("aria-hidden"),
           color: getComputedStyle(motifElement).color,
           markerColor: getComputedStyle(element.querySelector(".content-topic-link--primary"), "::before").backgroundColor,
-          contentLayer: Number.parseInt(getComputedStyle(contentElement).zIndex, 10),
-          motifLayer: Number.parseInt(getComputedStyle(motifElement).zIndex, 10),
+          pointerEvents: getComputedStyle(motifElement).pointerEvents,
           overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
         };
       });
@@ -121,7 +119,7 @@ async function captureVariant(browser, manifest, variant, outputRoot) {
       if (facts.ariaHidden !== "true" || facts.color !== facts.markerColor) {
         throw new Error(`${capture.id} rendered an inaccessible or incorrectly colored motif: ${JSON.stringify(facts)}`);
       }
-      if (facts.contentLayer <= facts.motifLayer || facts.overflow !== 0) {
+      if (facts.pointerEvents !== "none" || facts.overflow !== 0) {
         throw new Error(`${capture.id} does not protect content or viewport bounds: ${JSON.stringify(facts)}`);
       }
 

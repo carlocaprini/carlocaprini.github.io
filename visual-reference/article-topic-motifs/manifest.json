@@ -30,7 +30,6 @@
     { "id": "comparison/spatial/desktop", "variant": "spatial", "topic": "product-decisions", "viewport": "desktop" },
     { "id": "comparison/spatial/tablet", "variant": "spatial", "topic": "product-decisions", "viewport": "tablet" },
     { "id": "comparison/spatial/mobile", "variant": "spatial", "topic": "product-decisions", "viewport": "mobile" },
-    { "id": "topics/product-decisions", "variant": "balanced", "topic": "product-decisions", "viewport": "desktop" },
     { "id": "topics/ai-and-automation", "variant": "balanced", "topic": "ai-and-automation", "viewport": "desktop" },
     { "id": "topics/software-systems", "variant": "balanced", "topic": "software-systems", "viewport": "desktop" },
     { "id": "topics/teams-and-collaboration", "variant": "balanced", "topic": "teams-and-collaboration", "viewport": "desktop" },

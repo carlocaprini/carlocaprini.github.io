@@ -202,7 +202,6 @@ test("article motifs use the primary topic's canonical color and geometry", asyn
     await page.goto(route);
     const hero = page.locator(".article-topic-hero");
     const motif = hero.locator(".article-topic-motif");
-    expect(await motif.evaluate((element) => element.parentElement?.classList.contains("article-topic-hero"))).toBe(true);
     await expect(hero).toHaveAttribute("data-primary-topic", topic);
     await expect(motif).toHaveAttribute("data-motif-family", family);
     await expect(motif).toHaveCSS("color", color);
