@@ -22,7 +22,8 @@
     "visual-reference:generate": "node scripts/generate_visual_reference.mjs",
     "visual-reference:check": "node scripts/generate_visual_reference.mjs --check",
     "topic-motif-reference:generate": "node scripts/generate_topic_motif_reference.mjs",
-    "topic-motif-reference:check": "node scripts/generate_topic_motif_reference.mjs --check"
+    "topic-motif-reference:check": "node scripts/generate_topic_motif_reference.mjs --check",
+    "topic-motif-reference:check-source": "node scripts/generate_topic_motif_reference.mjs --source-check"
   },
   "engines": {
     "node": ">=24"

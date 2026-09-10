@@ -1,9 +1,18 @@
 {
   "version": 1,
   "viewports": {
-    "desktop": { "width": 1440, "height": 900 },
-    "tablet": { "width": 834, "height": 1112 },
-    "mobile": { "width": 390, "height": 844 }
+    "desktop": {
+      "width": 1440,
+      "height": 900
+    },
+    "tablet": {
+      "width": 834,
+      "height": 1112
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844
+    }
   },
   "topics": {
     "product-decisions": {
@@ -24,21 +33,106 @@
     }
   },
   "captures": [
-    { "id": "comparison/balanced/desktop", "variant": "balanced", "topic": "product-decisions", "viewport": "desktop" },
-    { "id": "comparison/balanced/tablet", "variant": "balanced", "topic": "product-decisions", "viewport": "tablet" },
-    { "id": "comparison/balanced/mobile", "variant": "balanced", "topic": "product-decisions", "viewport": "mobile" },
-    { "id": "comparison/spatial/desktop", "variant": "spatial", "topic": "product-decisions", "viewport": "desktop" },
-    { "id": "comparison/spatial/tablet", "variant": "spatial", "topic": "product-decisions", "viewport": "tablet" },
-    { "id": "comparison/spatial/mobile", "variant": "spatial", "topic": "product-decisions", "viewport": "mobile" },
-    { "id": "topics/ai-and-automation", "variant": "balanced", "topic": "ai-and-automation", "viewport": "desktop" },
-    { "id": "topics/ai-and-automation-mobile", "variant": "balanced", "topic": "ai-and-automation", "viewport": "mobile" },
-    { "id": "topics/software-systems", "variant": "balanced", "topic": "software-systems", "viewport": "desktop" },
-    { "id": "topics/software-systems-mobile", "variant": "balanced", "topic": "software-systems", "viewport": "mobile" },
-    { "id": "topics/teams-and-collaboration", "variant": "balanced", "topic": "teams-and-collaboration", "viewport": "desktop" },
-    { "id": "topics/teams-and-collaboration-mobile", "variant": "balanced", "topic": "teams-and-collaboration", "viewport": "mobile" },
-    { "id": "grayscale/product-decisions", "variant": "balanced", "topic": "product-decisions", "viewport": "desktop", "grayscale": true },
-    { "id": "grayscale/ai-and-automation", "variant": "balanced", "topic": "ai-and-automation", "viewport": "desktop", "grayscale": true },
-    { "id": "grayscale/software-systems", "variant": "balanced", "topic": "software-systems", "viewport": "desktop", "grayscale": true },
-    { "id": "grayscale/teams-and-collaboration", "variant": "balanced", "topic": "teams-and-collaboration", "viewport": "desktop", "grayscale": true }
-  ]
+    {
+      "id": "comparison/balanced/desktop",
+      "variant": "balanced",
+      "topic": "product-decisions",
+      "viewport": "desktop"
+    },
+    {
+      "id": "comparison/balanced/tablet",
+      "variant": "balanced",
+      "topic": "product-decisions",
+      "viewport": "tablet"
+    },
+    {
+      "id": "comparison/balanced/mobile",
+      "variant": "balanced",
+      "topic": "product-decisions",
+      "viewport": "mobile"
+    },
+    {
+      "id": "comparison/spatial/desktop",
+      "variant": "spatial",
+      "topic": "product-decisions",
+      "viewport": "desktop"
+    },
+    {
+      "id": "comparison/spatial/tablet",
+      "variant": "spatial",
+      "topic": "product-decisions",
+      "viewport": "tablet"
+    },
+    {
+      "id": "comparison/spatial/mobile",
+      "variant": "spatial",
+      "topic": "product-decisions",
+      "viewport": "mobile"
+    },
+    {
+      "id": "topics/ai-and-automation",
+      "variant": "balanced",
+      "topic": "ai-and-automation",
+      "viewport": "desktop"
+    },
+    {
+      "id": "topics/ai-and-automation-mobile",
+      "variant": "balanced",
+      "topic": "ai-and-automation",
+      "viewport": "mobile"
+    },
+    {
+      "id": "topics/software-systems",
+      "variant": "balanced",
+      "topic": "software-systems",
+      "viewport": "desktop"
+    },
+    {
+      "id": "topics/software-systems-mobile",
+      "variant": "balanced",
+      "topic": "software-systems",
+      "viewport": "mobile"
+    },
+    {
+      "id": "topics/teams-and-collaboration",
+      "variant": "balanced",
+      "topic": "teams-and-collaboration",
+      "viewport": "desktop"
+    },
+    {
+      "id": "topics/teams-and-collaboration-mobile",
+      "variant": "balanced",
+      "topic": "teams-and-collaboration",
+      "viewport": "mobile"
+    },
+    {
+      "id": "grayscale/product-decisions",
+      "variant": "balanced",
+      "topic": "product-decisions",
+      "viewport": "desktop",
+      "grayscale": true
+    },
+    {
+      "id": "grayscale/ai-and-automation",
+      "variant": "balanced",
+      "topic": "ai-and-automation",
+      "viewport": "desktop",
+      "grayscale": true
+    },
+    {
+      "id": "grayscale/software-systems",
+      "variant": "balanced",
+      "topic": "software-systems",
+      "viewport": "desktop",
+      "grayscale": true
+    },
+    {
+      "id": "grayscale/teams-and-collaboration",
+      "variant": "balanced",
+      "topic": "teams-and-collaboration",
+      "viewport": "desktop",
+      "grayscale": true
+    }
+  ],
+  "sourceFingerprint": "df7ec461b9c4dadc1d659b82e2bca2b5a136c085da78654eb6c8ecf5dce00d20"
 }

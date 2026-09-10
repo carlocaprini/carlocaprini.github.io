@@ -1,5 +1,6 @@
 import { chromium } from "@playwright/test";
-import { mkdir, mkdtemp, readFile, rm } from "node:fs/promises";
+import { createHash } from "node:crypto";
+import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { spawn, spawnSync } from "node:child_process";
@@ -9,10 +10,45 @@ const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const referenceRoot = resolve(repositoryRoot, "visual-reference/article-topic-motifs");
 const manifestPath = resolve(referenceRoot, "manifest.json");
 const checkMode = process.argv.includes("--check");
+const sourceCheckMode = process.argv.includes("--source-check");
 const variants = ["balanced", "spatial"];
 const buildRoots = Object.fromEntries(
   variants.map((variant) => [variant, resolve(repositoryRoot, `_site-topic-motif-${variant}`)])
 );
+
+async function sourceFingerprint(manifest) {
+  const styleRoot = resolve(repositoryRoot, "_includes/styles");
+  const styleFiles = (await readdir(styleRoot))
+    .filter((path) => path.endsWith(".css"))
+    .map((path) => `_includes/styles/${path}`);
+  const articleFiles = Object.values(manifest.topics).map(({ path }) =>
+    `pages/thinking/${path.split("/").filter(Boolean).at(-1)}.md`
+  );
+  const sourceFiles = [
+    "_config.yml",
+    "_config.article-motif-balanced.yml",
+    "_config.article-motif-spatial.yml",
+    "_data/topics.yml",
+    "_includes/article-topic-motif.html",
+    "_includes/content-topic-items.html",
+    "_layouts/article.html",
+    "_layouts/default.html",
+    "assets/css/main.css",
+    "package-lock.json",
+    "package.json",
+    "scripts/generate_topic_motif_reference.mjs",
+    ...styleFiles,
+    ...articleFiles
+  ].sort();
+  const hash = createHash("sha256");
+  for (const relativePath of sourceFiles) {
+    hash.update(relativePath);
+    hash.update("\0");
+    hash.update(await readFile(resolve(repositoryRoot, relativePath)));
+    hash.update("\0");
+  }
+  return hash.digest("hex");
+}
 
 function run(command, args, environment = {}) {
   return new Promise((resolveRun, rejectRun) => {
@@ -151,23 +187,40 @@ async function compare(manifest, generatedRoot) {
   if (stale.length) throw new Error(`Article topic motif references are stale or incomplete:\n- ${stale.join("\n- ")}`);
 }
 
-const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
+let manifest = JSON.parse(await readFile(manifestPath, "utf8"));
 if (manifest.version !== 1 || !manifest.captures?.length) throw new Error("Unsupported article topic motif manifest");
-const temporaryOutput = checkMode ? await mkdtemp(join(tmpdir(), "topic-motif-reference-")) : null;
-const outputRoot = temporaryOutput || referenceRoot;
+const currentFingerprint = await sourceFingerprint(manifest);
 
-try {
-  for (const variant of variants) await buildVariant(variant);
-  const browser = await chromium.launch();
-  try {
-    for (const variant of variants) await captureVariant(browser, manifest, variant, outputRoot);
-  } finally {
-    await browser.close();
+if (sourceCheckMode) {
+  if (manifest.sourceFingerprint !== currentFingerprint) {
+    throw new Error("Article topic motif references are stale: their source fingerprint has changed");
   }
-  if (checkMode) await compare(manifest, outputRoot);
-} finally {
-  await Promise.all(variants.map((variant) => rm(buildRoots[variant], { recursive: true, force: true })));
-  if (temporaryOutput) await rm(temporaryOutput, { recursive: true, force: true });
-}
+  process.stdout.write("Article topic motif reference sources are current.\n");
+} else {
+  if (checkMode && manifest.sourceFingerprint !== currentFingerprint) {
+    throw new Error("Article topic motif references are stale: their source fingerprint has changed");
+  }
+  if (!checkMode && manifest.sourceFingerprint !== currentFingerprint) {
+    manifest = { ...manifest, sourceFingerprint: currentFingerprint };
+    await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
+  }
 
-process.stdout.write(checkMode ? "Article topic motif references are current.\n" : `Article topic motif references written to ${referenceRoot}\n`);
+  const temporaryOutput = checkMode ? await mkdtemp(join(tmpdir(), "topic-motif-reference-")) : null;
+  const outputRoot = temporaryOutput || referenceRoot;
+
+  try {
+    for (const variant of variants) await buildVariant(variant);
+    const browser = await chromium.launch();
+    try {
+      for (const variant of variants) await captureVariant(browser, manifest, variant, outputRoot);
+    } finally {
+      await browser.close();
+    }
+    if (checkMode) await compare(manifest, outputRoot);
+  } finally {
+    await Promise.all(variants.map((variant) => rm(buildRoots[variant], { recursive: true, force: true })));
+    if (temporaryOutput) await rm(temporaryOutput, { recursive: true, force: true });
+  }
+
+  process.stdout.write(checkMode ? "Article topic motif references are current.\n" : `Article topic motif references written to ${referenceRoot}\n`);
+}
