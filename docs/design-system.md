@@ -129,7 +129,7 @@ Two composition variants use this same grammar:
 - **Balanced editorial** is contained, medium-density and comfortably secondary to the title.
 - **Spatial composition** is larger, more deeply cropped and exposes additional path hierarchy without increasing opacity.
 
-The site-level `article_topic_motif_variant` setting selects the temporary editorial default; an article may override it in front matter for evaluation. Variation comes from a stable hash of the article slug or canonical URL and may make small positional changes without changing topic grammar.
+The site-level `article_topic_motif_variant` setting selects the temporary editorial default; an article may override it in front matter for evaluation. **Spatial composition is the current temporary default.** Balanced editorial remains fully supported as the comparison variant; this setting records the version being evaluated and does not declare a permanent winner. Variation comes from a stable hash of the article slug or canonical URL and may make small positional changes without changing topic grammar.
 
 Rules:
 

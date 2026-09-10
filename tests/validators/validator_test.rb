@@ -180,7 +180,7 @@ class ValidatorTest < Minitest::Test
   def test_source_rejects_unknown_article_topic_motif_variant
     assert_invalid_source(/article_topic_motif_variant must be balanced or spatial/) do |directory|
       path = File.join(directory, "_config.yml")
-      replace!(path, "article_topic_motif_variant: balanced", "article_topic_motif_variant: loud")
+      replace!(path, "article_topic_motif_variant: spatial", "article_topic_motif_variant: loud")
     end
   end
 

@@ -192,7 +192,7 @@ test("primary topic order drives article identity without exposing Question topi
   const hero = page.locator(".article-topic-hero");
   await expect(hero).toHaveAttribute("data-primary-topic", "teams-and-collaboration");
   await expect(hero.locator(".topic-motif--teams-and-collaboration")).toHaveCount(1);
-  await expect(hero).toHaveAttribute("data-motif-variant", "balanced");
+  await expect(hero).toHaveAttribute("data-motif-variant", "spatial");
   await expect(hero.locator(".article-topic-motif")).toHaveAttribute("data-motif-family", "partial-convergence");
   await expect(hero.locator(".article-topic-motif")).toHaveAttribute("aria-hidden", "true");
   await expect(hero.locator(".article-topic-motif svg")).toHaveAttribute("focusable", "false");
