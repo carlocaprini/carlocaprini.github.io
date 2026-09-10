@@ -162,6 +162,16 @@ test("question pages connect Thinking, Influences and Experience", async ({ page
   await expect(noteTopic).toHaveCSS("display", "flex");
   await expect(noteTopic).toHaveCSS("align-items", "center");
   await expect(noteTopic).toHaveCSS("border-radius", "999px");
+  const restingStyle = await noteTopic.evaluate((element) => ({
+    borderColor: getComputedStyle(element).borderColor,
+    color: getComputedStyle(element).color
+  }));
+  await noteTopic.hover();
+  const hoverStyle = await noteTopic.evaluate((element) => ({
+    borderColor: getComputedStyle(element).borderColor,
+    color: getComputedStyle(element).color
+  }));
+  expect(hoverStyle).toEqual(restingStyle);
 });
 
 test("notes expose curated Questions without promoting topics to sidebar navigation", async ({ page }) => {
@@ -210,6 +220,7 @@ test("article motifs use the primary topic's canonical color and geometry", asyn
     ["/thinking/stop-asking-people-for-information-the-system-already-has/", "software-systems", "layered-interfaces", "rgb(129, 140, 248)", ".motif-plane"],
     ["/thinking/shared-context-is-not-shared-understanding/", "teams-and-collaboration", "partial-convergence", "rgb(52, 211, 153)", ".motif-node--large"]
   ];
+  const variations = new Set();
 
   for (const [route, topic, family, color, structuralMarker] of examples) {
     await page.goto(route);
@@ -217,9 +228,13 @@ test("article motifs use the primary topic's canonical color and geometry", asyn
     const motif = hero.locator(".article-topic-motif");
     await expect(hero).toHaveAttribute("data-primary-topic", topic);
     await expect(motif).toHaveAttribute("data-motif-family", family);
+    await expect(motif).toHaveAttribute("data-motif-variation", /^[0-3]$/);
+    variations.add(await motif.getAttribute("data-motif-variation"));
     await expect(motif).toHaveCSS("color", color);
     await expect(motif.locator(structuralMarker).first()).toBeAttached();
   }
+
+  expect(variations.size).toBeGreaterThanOrEqual(3);
 });
 
 test("article motifs are complete static decoration with reduced motion", async ({ browser }) => {

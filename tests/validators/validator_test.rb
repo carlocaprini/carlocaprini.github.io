@@ -170,10 +170,24 @@ class ValidatorTest < Minitest::Test
     end
   end
 
+  def test_source_rejects_unsupported_topic_motif_family
+    assert_invalid_source(/unsupported visual motif family "bounded-loop"/) do |directory|
+      path = File.join(directory, "_data/topics.yml")
+      replace!(path, "motif: bounded-loops", "motif: bounded-loop")
+    end
+  end
+
   def test_source_rejects_unknown_article_topic_motif_variant
     assert_invalid_source(/article_topic_motif_variant must be balanced or spatial/) do |directory|
       path = File.join(directory, "_config.yml")
       replace!(path, "article_topic_motif_variant: balanced", "article_topic_motif_variant: loud")
+    end
+  end
+
+  def test_source_rejects_unknown_article_topic_motif_variant_override
+    assert_invalid_source(%r{pages/thinking/waiting-as-product-decision.md: article_topic_motif_variant must be balanced or spatial}) do |directory|
+      path = note_path(directory)
+      replace!(path, "layout: article", "layout: article\narticle_topic_motif_variant: loud")
     end
   end
 

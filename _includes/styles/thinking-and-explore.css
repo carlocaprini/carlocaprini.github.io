@@ -179,7 +179,7 @@
   background: var(--topic-product-decisions);
 }
 
-.content-topic-link:hover {
+a.content-topic-link:hover {
   color: #f9fafb;
   border-color: rgba(148, 163, 184, 0.42);
 }

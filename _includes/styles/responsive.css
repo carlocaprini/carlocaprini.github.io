@@ -300,10 +300,6 @@
     gap: 2.2rem;
   }
 
-  .article-hero-content {
-    width: calc(100% - 8.5rem);
-  }
-
   .article-topic-motif--balanced {
     top: -0.5rem;
     right: -7rem;
@@ -540,10 +536,6 @@
 }
 
 @media (max-width: 640px) {
-  .article-hero-content {
-    width: 100%;
-  }
-
   .article-topic-motif {
     top: -1rem;
     right: -1rem;
@@ -998,6 +990,16 @@
     top: 1.9rem;
     left: -0.8rem;
     width: 0.8rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 760px) {
+  .article-topic-motif--balanced {
+    top: -6rem;
+  }
+
+  .article-topic-motif--spatial {
+    top: -10.5rem;
   }
 }
 

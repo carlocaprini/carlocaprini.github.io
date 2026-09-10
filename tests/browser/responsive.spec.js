@@ -26,6 +26,9 @@ test("article navigation and system map adapt to smaller screens", async ({ page
 test("article topic motifs protect long titles across responsive compositions", async ({ page }) => {
   const viewports = [
     { width: 834, height: 1112 },
+    { width: 700, height: 900 },
+    { width: 641, height: 900 },
+    { width: 640, height: 900 },
     { width: 390, height: 844 },
     { width: 320, height: 720 }
   ];
@@ -33,20 +36,31 @@ test("article topic motifs protect long titles across responsive compositions", 
   for (const viewport of viewports) {
     await page.setViewportSize(viewport);
     await page.goto("/thinking/the-transition-to-product-management-starts-before-the-title-changes/");
-    const hero = page.locator(".article-topic-hero");
-    const title = hero.locator("h1");
-    await expect(title).toBeVisible();
-    await expect(hero.locator(".article-topic-motif")).toBeVisible();
-    const metrics = await page.evaluate(() => ({
-      documentWidth: document.documentElement.scrollWidth,
-      viewportWidth: document.documentElement.clientWidth,
-      titleWidth: document.querySelector(".article-topic-hero h1").getBoundingClientRect().width,
-      heroTop: document.querySelector(".article-topic-hero").getBoundingClientRect().top,
-      headerBottom: document.querySelector(".site-header").getBoundingClientRect().bottom
-    }));
-    expect(metrics.documentWidth).toBe(metrics.viewportWidth);
-    expect(metrics.titleWidth).toBeGreaterThan(viewport.width * 0.72);
-    expect(Math.abs(metrics.heroTop - metrics.headerBottom)).toBeLessThanOrEqual(1);
+    for (const variant of ["balanced", "spatial"]) {
+      await page.locator(".article-topic-hero").evaluate((hero, selectedVariant) => {
+        const motif = hero.querySelector(".article-topic-motif");
+        hero.classList.remove("article-topic-hero--balanced", "article-topic-hero--spatial");
+        motif.classList.remove("article-topic-motif--balanced", "article-topic-motif--spatial");
+        hero.classList.add(`article-topic-hero--${selectedVariant}`);
+        motif.classList.add(`article-topic-motif--${selectedVariant}`);
+        hero.dataset.motifVariant = selectedVariant;
+      }, variant);
+
+      const hero = page.locator(".article-topic-hero");
+      const title = hero.locator("h1");
+      await expect(title).toBeVisible();
+      await expect(hero.locator(".article-topic-motif")).toBeVisible();
+      const metrics = await page.evaluate(() => ({
+        documentWidth: document.documentElement.scrollWidth,
+        viewportWidth: document.documentElement.clientWidth,
+        titleWidth: document.querySelector(".article-topic-hero h1").getBoundingClientRect().width,
+        heroTop: document.querySelector(".article-topic-hero").getBoundingClientRect().top,
+        headerBottom: document.querySelector(".site-header").getBoundingClientRect().bottom
+      }));
+      expect(metrics.documentWidth).toBe(metrics.viewportWidth);
+      expect(metrics.titleWidth).toBeGreaterThan(viewport.width * 0.8);
+      expect(Math.abs(metrics.heroTop - metrics.headerBottom)).toBeLessThanOrEqual(1);
+    }
   }
 });
 

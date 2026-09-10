@@ -79,6 +79,7 @@ site_config = read_yaml(File.join(SOURCE_DIR, "_config.yml")) || {}
 topics_path = File.join(SOURCE_DIR, "_data/topics.yml")
 topics = Array(read_yaml(topics_path))
 topic_slugs = topics.map { |topic| topic["slug"] }.compact
+supported_motif_families = %w[branching bounded-loops layered-interfaces partial-convergence].freeze
 fail_check("_data/topics.yml: must define at least one topic") if topic_slugs.empty?
 
 duplicate_topics = topic_slugs.group_by(&:itself).select { |_, values| values.size > 1 }.keys
@@ -95,8 +96,8 @@ topics.each_with_index do |topic, index|
   unless color.to_s.match?(/\A#[0-9a-fA-F]{6}\z/)
     fail_check("_data/topics.yml: topic #{index + 1} must define a six-digit visual color")
   end
-  unless present?(motif) && motif.to_s.match?(/\A[a-z]+(?:-[a-z]+)*\z/)
-    fail_check("_data/topics.yml: topic #{index + 1} must define a visual motif family")
+  unless supported_motif_families.include?(motif)
+    fail_check("_data/topics.yml: topic #{index + 1} has unsupported visual motif family #{motif.inspect}")
   end
 end
 
@@ -216,6 +217,11 @@ page_records.each do |path, (data, _)|
   end
 
   validate_local_asset(path, data["meta_image"], data["meta_image_alt"])
+
+  motif_variant = data["article_topic_motif_variant"]
+  if motif_variant && !%w[balanced spatial].include?(motif_variant)
+    fail_check("#{relative_path(path)}: article_topic_motif_variant must be balanced or spatial")
+  end
 
   published_date = parse_date(data["date"], path, "date") if data.key?("date")
   modified_date = parse_date(data["last_modified_at"], path, "last_modified_at") if data.key?("last_modified_at")

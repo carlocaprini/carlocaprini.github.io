@@ -90,7 +90,7 @@ layout: default
 
       <div class="series-visuals-grid" data-series-visuals>
         {% for visual in series_data.visuals %}
-        <article class="series-visual-card series-visual-card--{{ visual.service | downcase }}{% if visual.wide %} series-visual-card--wide{% endif %}">
+        <article class="series-visual-card{% if visual.wide %} series-visual-card--wide{% endif %}">
           <a class="series-visual-image" href="{{ visual.full_image | relative_url }}" aria-label="Open {{ visual.title }} at full size" data-analytics-event="series_visual_open" data-analytics-series-id="{{ page.series_slug | escape }}" data-analytics-service="{{ visual.service | downcase | escape }}" data-analytics-episode-number="{{ visual.episode }}" data-analytics-link-context="series_visuals">
             <img src="{{ visual.thumbnail | relative_url }}" alt="{{ visual.alt }}" width="{{ visual.thumbnail_width }}" height="{{ visual.thumbnail_height }}" loading="lazy" decoding="async">
           </a>

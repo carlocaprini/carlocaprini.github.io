@@ -141,7 +141,13 @@ layout: default
 {% unless motif_variant == "balanced" or motif_variant == "spatial" %}
   {% assign motif_variant = "balanced" %}
 {% endunless %}
-{% assign motif_variation = page.url | size | modulo: 4 %}
+{% assign motif_variation = 0 %}
+{% assign motif_stable_id = page.slug | default: page.url %}
+{% assign motif_slug_words = motif_stable_id | split: "-" %}
+{% for motif_slug_word in motif_slug_words %}
+  {% assign motif_word_position = forloop.index | times: 3 %}
+  {% assign motif_variation = motif_variation | times: 2 | plus: motif_slug_word.size | plus: motif_word_position | modulo: 4 %}
+{% endfor %}
 
 <div class="page">
   <section class="hero hero--article article-topic-hero article-topic--{{ primary_topic }} article-topic-hero--{{ motif_variant }}" data-primary-topic="{{ primary_topic }}" data-motif-variant="{{ motif_variant }}">
