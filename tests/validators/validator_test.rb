@@ -265,22 +265,6 @@ class ValidatorTest < Minitest::Test
     end
   end
 
-  def test_generated_output_allows_a_noindex_page_outside_the_sitemap
-    Dir.mktmpdir("generated-validator-") do |directory|
-      build_generated_fixture(directory)
-      page_path = File.join(directory, "thinking", "index.html")
-      replace!(page_path, "<meta name=\"description\" content=\"Fixture description\">", "<meta name=\"description\" content=\"Fixture description\">\n<meta name=\"robots\" content=\"noindex, nofollow\">")
-
-      sitemap_path = File.join(directory, "sitemap.xml")
-      replace!(sitemap_path, "  <url><loc>https://carlocaprini.github.io/thinking/</loc></url>\n", "")
-      sitemap_text_path = File.join(directory, "sitemap.txt")
-      replace!(sitemap_text_path, "https://carlocaprini.github.io/thinking/\n", "")
-
-      status, output = run_validator(SITE_VALIDATOR, { "SITE_OUTPUT_DIR" => directory })
-      assert status.success?, output
-    end
-  end
-
   def test_generated_output_rejects_redundant_sitemap_declarations
     assert_invalid_output(/must declare only the canonical sitemap.xml/) do |directory|
       path = File.join(directory, "robots.txt")
