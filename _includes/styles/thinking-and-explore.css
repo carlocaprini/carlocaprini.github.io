@@ -176,40 +176,49 @@
   width: 0.3rem;
   height: 0.3rem;
   border-radius: 999px;
-  background: #818cf8;
+  background: var(--topic-product-decisions);
 }
 
-.content-topic-link:hover {
+a.content-topic-link:hover {
   color: #f9fafb;
   border-color: rgba(148, 163, 184, 0.42);
 }
 
 .content-topic-link--product-decisions {
-  border-color: rgba(129, 140, 248, 0.25);
+  border-color: var(--topic-product-decisions-border);
+}
+
+.content-topic-link--product-decisions::before {
+  background: var(--topic-product-decisions);
 }
 
 .content-topic-link--ai-and-automation {
-  border-color: rgba(34, 211, 238, 0.24);
+  border-color: var(--topic-ai-and-automation-border);
 }
 
 .content-topic-link--ai-and-automation::before {
-  background: #22d3ee;
+  background: var(--topic-ai-and-automation);
 }
 
 .content-topic-link--software-systems {
-  border-color: rgba(56, 189, 248, 0.24);
+  border-color: var(--topic-software-systems-border);
 }
 
 .content-topic-link--software-systems::before {
-  background: #38bdf8;
+  background: var(--topic-software-systems);
 }
 
 .content-topic-link--teams-and-collaboration {
-  border-color: rgba(52, 211, 153, 0.24);
+  border-color: var(--topic-teams-and-collaboration-border);
 }
 
 .content-topic-link--teams-and-collaboration::before {
-  background: #34d399;
+  background: var(--topic-teams-and-collaboration);
+}
+
+.content-topic-link--primary {
+  color: var(--color-text-secondary);
+  background: rgba(30, 41, 59, 0.68);
 }
 
 .article-hero-topics {
@@ -333,23 +342,23 @@
   height: 0.62rem;
   margin-top: 0.35rem;
   border-radius: 999px;
-  background: #818cf8;
-  box-shadow: 0 0 0 6px rgba(129, 140, 248, 0.1);
+  background: var(--topic-product-decisions);
+  box-shadow: 0 0 0 6px var(--topic-product-decisions-soft);
 }
 
 .explore-topic-marker--ai-and-automation {
-  background: #22d3ee;
-  box-shadow: 0 0 0 6px rgba(34, 211, 238, 0.1);
+  background: var(--topic-ai-and-automation);
+  box-shadow: 0 0 0 6px var(--topic-ai-and-automation-soft);
 }
 
 .explore-topic-marker--software-systems {
-  background: #38bdf8;
-  box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.1);
+  background: var(--topic-software-systems);
+  box-shadow: 0 0 0 6px var(--topic-software-systems-soft);
 }
 
 .explore-topic-marker--teams-and-collaboration {
-  background: #34d399;
-  box-shadow: 0 0 0 6px rgba(52, 211, 153, 0.1);
+  background: var(--topic-teams-and-collaboration);
+  box-shadow: 0 0 0 6px var(--topic-teams-and-collaboration-soft);
 }
 
 .explore-topic-title {
@@ -443,23 +452,15 @@
 .question-path-item a:hover {
   padding-right: 0.75rem;
   padding-left: 0.75rem;
-  background: linear-gradient(90deg, var(--accent-indigo-soft), transparent 72%);
+  background: linear-gradient(90deg, var(--brand-accent-soft), transparent 72%);
 }
 
 .question-path-index,
 .question-group-index {
-  color: var(--accent-indigo);
+  color: var(--brand-accent);
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.12em;
-}
-
-.question-path-item--shared-understanding .question-path-index {
-  color: var(--accent-emerald);
-}
-
-.question-path-item--ai-and-work .question-path-index {
-  color: var(--accent-cyan);
 }
 
 .question-path-content {
@@ -480,7 +481,7 @@
 }
 
 .question-path-arrow {
-  color: var(--accent-indigo);
+  color: var(--brand-accent);
   font-size: 1.05rem;
 }
 
@@ -559,16 +560,8 @@
   border-bottom: 0;
 }
 
-.question-note-group .selected-notes-list a {
+.question-note-group .selected-notes-list > li > a {
   display: block;
-}
-
-.question-note-group .selected-notes-list span {
-  display: block;
-  margin-top: 0.45rem;
-  color: var(--color-text-muted);
-  font-size: 0.82rem;
-  line-height: 1.6;
 }
 
 .question-influences-list {
@@ -642,10 +635,17 @@
   color: #a5b4fc;
 }
 
-.selected-notes-list span {
+.selected-note-summary {
   display: block;
   font-size: 0.9rem;
   color: #9ca3af;
   margin-top: 0.35rem;
   line-height: 1.7;
+}
+
+.question-note-group .selected-note-summary {
+  margin-top: 0.45rem;
+  color: var(--color-text-muted);
+  font-size: 0.82rem;
+  line-height: 1.6;
 }

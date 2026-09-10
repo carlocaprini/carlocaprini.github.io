@@ -15,7 +15,9 @@
 | `bin/check webkit` | Focused Safari-like smoke paths | built `_site`, WebKit |
 | `bin/check visual-regression` | Curated component/page screenshot assertions | built `_site`, Chromium |
 | `bin/check visual-reference` | Deterministically compares full-page documentation with committed images | built `_site`, Chromium |
-| `bin/check visual` | Visual regression plus Visual Reference freshness | built `_site`, Chromium |
+| `bin/check topic-motif-reference` | Rebuilds and compares Balanced/Spatial article motif references | Ruby/Jekyll, Chromium |
+| `bin/check topic-motif-source` | Checks the platform-neutral source fingerprint for article motif references | Node.js |
+| `bin/check visual` | Visual regression plus full-page and article-motif Visual Reference freshness | built `_site`, Ruby/Jekyll, Chromium |
 | `bin/check all` | Closest practical local equivalent of the merge gate | all of the above |
 
 `generated` uses the local Bundler/Jekyll environment when available and otherwise falls back to the project’s `site` container. Run `npm ci` before Node/browser checks and install browsers with `npx playwright install chromium webkit`. Browser commands reuse an existing compatible server or start the repository static server for `_site`.
@@ -71,3 +73,5 @@ Visual-regression fixtures detect unexpected pixels. Visual Reference is navigab
 Do not update screenshots merely to silence a failure.
 
 Generated-site validation also enforces one canonical local stylesheet link per page. This protects the build-time CSS composition from accidentally becoming multiple runtime requests or omitting `main.css`; visual checks protect rule order and rendered equivalence.
+
+Article topic motif evaluation is separate from the default full-page Visual Reference but remains part of `bin/check visual` and `bin/check all`. The normal build follows `_config.yml`; dedicated motif generation overlays the explicit Balanced and Spatial configs so both comparison sets remain available regardless of the current default. Run `npm run topic-motif-reference:generate` to build both variants and capture hero-only comparisons under `visual-reference/article-topic-motifs/`. Run `bin/check topic-motif-reference` locally to rebuild Balanced and Spatial independently, verify topic/family/color/accessibility contracts and compare all committed color and grayscale references. CI runs `bin/check topic-motif-source`: its source fingerprint catches stale references without treating operating-system font rasterization as a visual regression.

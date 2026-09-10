@@ -79,6 +79,7 @@ site_config = read_yaml(File.join(SOURCE_DIR, "_config.yml")) || {}
 topics_path = File.join(SOURCE_DIR, "_data/topics.yml")
 topics = Array(read_yaml(topics_path))
 topic_slugs = topics.map { |topic| topic["slug"] }.compact
+supported_motif_families = %w[branching bounded-loops layered-interfaces partial-convergence].freeze
 fail_check("_data/topics.yml: must define at least one topic") if topic_slugs.empty?
 
 duplicate_topics = topic_slugs.group_by(&:itself).select { |_, values| values.size > 1 }.keys
@@ -88,6 +89,41 @@ topics.each_with_index do |topic, index|
   %w[slug label description].each do |field|
     fail_check("_data/topics.yml: topic #{index + 1} is missing #{field}") unless present?(topic[field])
   end
+
+  visual = topic["visual"] || {}
+  color = visual["color"]
+  motif = visual["motif"]
+  unless color.to_s.match?(/\A#[0-9a-fA-F]{6}\z/)
+    fail_check("_data/topics.yml: topic #{index + 1} must define a six-digit visual color")
+  end
+  unless supported_motif_families.include?(motif)
+    fail_check("_data/topics.yml: topic #{index + 1} has unsupported visual motif family #{motif.inspect}")
+  end
+end
+
+motif_families = topics.map { |topic| topic.dig("visual", "motif") }.compact
+duplicate_motifs = motif_families.group_by(&:itself).select { |_, values| values.size > 1 }.keys
+unless duplicate_motifs.empty?
+  fail_check("_data/topics.yml: topic motif families must be unique: #{duplicate_motifs.join(', ')}")
+end
+
+unless %w[balanced spatial].include?(site_config["article_topic_motif_variant"])
+  fail_check("_config.yml: article_topic_motif_variant must be balanced or spatial")
+end
+
+def validate_ordered_topics(path, value, topic_slugs)
+  topics = value.is_a?(Array) ? value : []
+  unless value.is_a?(Array) && topics.size.between?(1, 2)
+    fail_check("#{relative_path(path)}: must define one or two topics as an ordered list")
+  end
+
+  duplicate_topics = topics.group_by(&:itself).select { |_, values| values.size > 1 }.keys
+  unless duplicate_topics.empty?
+    fail_check("#{relative_path(path)}: duplicate topics make primary-topic order ambiguous: #{duplicate_topics.join(', ')}")
+  end
+
+  unknown_topics = topics.reject { |topic| topic.is_a?(String) && topic_slugs.include?(topic) }
+  fail_check("#{relative_path(path)}: unknown topics: #{unknown_topics.join(', ')}") unless unknown_topics.empty?
 end
 
 questions_path = File.join(SOURCE_DIR, "_data/questions.yml")
@@ -182,6 +218,11 @@ page_records.each do |path, (data, _)|
 
   validate_local_asset(path, data["meta_image"], data["meta_image_alt"])
 
+  motif_variant = data["article_topic_motif_variant"]
+  if motif_variant && !%w[balanced spatial].include?(motif_variant)
+    fail_check("#{relative_path(path)}: article_topic_motif_variant must be balanced or spatial")
+  end
+
   published_date = parse_date(data["date"], path, "date") if data.key?("date")
   modified_date = parse_date(data["last_modified_at"], path, "last_modified_at") if data.key?("last_modified_at")
   if published_date && modified_date && modified_date < published_date
@@ -219,10 +260,7 @@ note_records.each do |path, (data, body)|
   permalink = data["permalink"]
   note_by_permalink[permalink] = data if present?(permalink)
 
-  topics_for_note = Array(data["topics"])
-  fail_check("#{relative_path(path)}: must define one or two topics") unless topics_for_note.size.between?(1, 2)
-  unknown_topics = topics_for_note.reject { |topic| topic_slugs.include?(topic) }
-  fail_check("#{relative_path(path)}: unknown topics: #{unknown_topics.join(', ')}") unless unknown_topics.empty?
+  validate_ordered_topics(path, data["topics"], topic_slugs)
 
   validate_markdown_list_spacing(path, body)
 end
@@ -348,10 +386,7 @@ influence_paths.each do |path|
   end
   fail_check("#{relative_path(path)}: invalid external_url") unless valid_http_url?(data["external_url"])
 
-  topics_for_influence = Array(data["topics"])
-  fail_check("#{relative_path(path)}: must define one or two topics") unless topics_for_influence.size.between?(1, 2)
-  unknown_topics = topics_for_influence.reject { |topic| topic_slugs.include?(topic) }
-  fail_check("#{relative_path(path)}: unknown topics: #{unknown_topics.join(', ')}") unless unknown_topics.empty?
+  validate_ordered_topics(path, data["topics"], topic_slugs)
 
   related_note = data["related_note"]
   if present?(related_note) && !note_by_permalink.key?(related_note)

@@ -53,7 +53,10 @@ layout: default
                 {% if note %}
                   <li>
                     <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.url | escape }}" data-analytics-question-id="{{ question.slug | escape }}" data-analytics-link-context="question_notes">{{ note.title }}</a>
-                    <span>{{ note.summary }}</span>
+                    <span class="selected-note-summary">{{ note.summary }}</span>
+                    <span class="content-topic-list" aria-label="Topics">
+                      {% include content-topic-items.html topics=note.topics %}
+                    </span>
                   </li>
                 {% endif %}
               {% endfor %}
@@ -80,6 +83,7 @@ layout: default
             <li class="influence-item influence-item--{{ ref.topics | first }}">
               <div class="influence-card-meta">
                 {% if ref.author %}<span class="influence-author">{{ ref.author }}</span>{% endif %}
+                {% include content-topic-items.html topics=ref.topics %}
               </div>
               <h3 class="influence-card-title">
                 <a class="influence-title influence-title--external" href="{{ ref.external_url }}" target="_blank" rel="noopener noreferrer" data-analytics-event="reading_open" data-analytics-reading-id="{{ ref.slug | escape }}" data-analytics-question-id="{{ question.slug | escape }}" data-analytics-link-context="question_readings">

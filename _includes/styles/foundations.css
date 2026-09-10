@@ -28,10 +28,23 @@
   --accent-sky: #38bdf8;
   --accent-sky-soft: rgba(56, 189, 248, 0.1);
   --accent-sky-border: rgba(56, 189, 248, 0.28);
+  --brand-accent: var(--accent-cyan);
+  --brand-accent-soft: var(--accent-cyan-soft);
+  --brand-accent-border: var(--accent-cyan-border);
+  --interaction-focus: var(--brand-accent);
+  --structural-accent: #94a3b8;
+  --structural-accent-soft: rgba(148, 163, 184, 0.08);
+  --structural-accent-border: rgba(148, 163, 184, 0.24);
+  {% for topic in site.data.topics %}
+  --topic-{{ topic.slug }}: {{ topic.visual.color }};
+  --topic-{{ topic.slug }}-soft: color-mix(in srgb, var(--topic-{{ topic.slug }}) 11%, transparent);
+  --topic-{{ topic.slug }}-border: color-mix(in srgb, var(--topic-{{ topic.slug }}) 30%, transparent);
+  {% endfor %}
   --radius-card: 1rem;
   --radius-card-lg: 1.15rem;
   --radius-panel: 1.4rem;
   --shadow-card: 0 22px 58px rgba(2, 6, 23, 0.28);
+  --page-top-spacing: 4.5rem;
 }
 
 html,
@@ -77,7 +90,7 @@ body {
 }
 
 :where(a, button):focus-visible {
-  outline: 2px solid var(--accent-cyan);
+  outline: 2px solid var(--interaction-focus);
   outline-offset: 3px;
 }
 
@@ -224,7 +237,7 @@ main {
 }
 
 .page {
-  padding: 4.5rem 0 4rem;
+  padding: var(--page-top-spacing) 0 4rem;
 }
 
 .hero {
@@ -398,7 +411,7 @@ main {
   gap: 0.55rem;
   justify-items: center;
   margin-bottom: 1.25rem;
-  color: var(--accent-indigo);
+  color: var(--brand-accent);
   text-align: center;
 }
 
@@ -416,7 +429,7 @@ main {
   border: 2px solid currentColor;
   border-radius: 999px;
   background: var(--color-bg);
-  box-shadow: 0 0 0 4px var(--accent-indigo-soft);
+  box-shadow: 0 0 0 4px var(--brand-accent-soft);
 }
 
 .step-flow__marker::after {
@@ -428,14 +441,6 @@ main {
   height: 1px;
   background: var(--color-line);
   content: "";
-}
-
-.step-flow__item:first-child .step-flow__marker {
-  color: var(--accent-cyan);
-}
-
-.step-flow__item:first-child .step-flow__node {
-  box-shadow: 0 0 0 4px var(--accent-cyan-soft);
 }
 
 .step-flow__item:last-child .step-flow__marker::after {

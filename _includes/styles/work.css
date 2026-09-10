@@ -156,11 +156,18 @@
   padding: 2rem;
   border: 1px solid rgba(148, 163, 184, 0.18);
   border-radius: 1.25rem;
-  background: radial-gradient(circle at top right, var(--accent-cyan-soft), transparent 34%), rgba(15, 23, 42, 0.72);
+  background: radial-gradient(circle at top left, var(--structural-accent-soft), transparent 32%), rgba(15, 23, 42, 0.72);
+}
+
+.work-engagement--review {
+  border-left-color: var(--structural-accent-border);
+  border-left-width: 2px;
 }
 
 .work-engagement--advisory {
-  background: radial-gradient(circle at top right, var(--accent-indigo-soft), transparent 34%), rgba(15, 23, 42, 0.72);
+  border-top-color: var(--structural-accent-border);
+  border-top-width: 2px;
+  background: radial-gradient(circle at top right, var(--structural-accent-soft), transparent 32%), rgba(15, 23, 42, 0.72);
 }
 
 .work-engagement-header {
@@ -234,11 +241,7 @@
   width: 0.35rem;
   height: 0.35rem;
   border-radius: 999px;
-  background: var(--accent-cyan);
-}
-
-.work-engagement--advisory .work-compact-list li::before {
-  background: var(--accent-indigo);
+  background: var(--structural-accent);
 }
 
 .work-evidence-copy {
@@ -255,7 +258,7 @@
 
 .work-outcome {
   padding-left: 2rem;
-  border-left: 1px solid var(--accent-cyan-border);
+  border-left: 1px solid var(--structural-accent-border);
 }
 
 .work-outcome-lead {
@@ -357,14 +360,10 @@
   left: 0;
   width: 22%;
   height: 2px;
-  background: var(--accent-cyan);
+  background: var(--structural-accent);
   content: "";
   opacity: 0;
   transform: translateX(-120%);
-}
-
-.work-page--motion-observed .work-engagement--advisory::after {
-  background: var(--accent-indigo);
 }
 
 .work-page--motion-observed .work-engagement.is-visible::after {
@@ -372,13 +371,13 @@
 }
 
 .work-page--motion-observed .work-engagement--review.is-visible {
-  border-color: var(--accent-cyan-border);
-  box-shadow: 0 16px 42px rgba(2, 132, 199, 0.06);
+  border-color: var(--structural-accent-border);
+  box-shadow: 0 16px 42px rgba(2, 6, 23, 0.22);
 }
 
 .work-page--motion-observed .work-engagement--advisory.is-visible {
-  border-color: var(--accent-indigo-border);
-  box-shadow: 0 16px 42px rgba(99, 102, 241, 0.06);
+  border-color: var(--structural-accent-border);
+  box-shadow: 0 16px 42px rgba(2, 6, 23, 0.22);
 }
 
 .work-page--motion-observed .work-outcome {

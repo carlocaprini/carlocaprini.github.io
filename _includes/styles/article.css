@@ -5,6 +5,198 @@
   margin: 0 0 1rem;
 }
 
+.article-topic-hero {
+  --article-topic-accent: var(--brand-accent);
+  --article-topic-soft: var(--brand-accent-soft);
+  --article-topic-border: var(--brand-accent-border);
+  position: relative;
+  overflow: hidden;
+  margin-top: calc(-1 * var(--page-top-spacing));
+  padding-top: var(--page-top-spacing);
+  isolation: isolate;
+}
+
+.article-topic--product-decisions {
+  --article-topic-accent: var(--topic-product-decisions);
+  --article-topic-soft: var(--topic-product-decisions-soft);
+  --article-topic-border: var(--topic-product-decisions-border);
+}
+
+.article-topic--ai-and-automation {
+  --article-topic-accent: var(--topic-ai-and-automation);
+  --article-topic-soft: var(--topic-ai-and-automation-soft);
+  --article-topic-border: var(--topic-ai-and-automation-border);
+}
+
+.article-topic--software-systems {
+  --article-topic-accent: var(--topic-software-systems);
+  --article-topic-soft: var(--topic-software-systems-soft);
+  --article-topic-border: var(--topic-software-systems-border);
+}
+
+.article-topic--teams-and-collaboration {
+  --article-topic-accent: var(--topic-teams-and-collaboration);
+  --article-topic-soft: var(--topic-teams-and-collaboration-soft);
+  --article-topic-border: var(--topic-teams-and-collaboration-border);
+}
+
+.article-topic-hero::before {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  width: min(42rem, 46vw);
+  height: 100%;
+  background:
+    radial-gradient(circle at 100% 0%, var(--article-topic-border) 0%, transparent 24%),
+    radial-gradient(ellipse at 100% 0%, var(--article-topic-soft) 0%, transparent 52%);
+  content: "";
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.article-topic-hero--spatial::before {
+  width: min(56rem, 60vw);
+}
+
+.article-topic-hero .hero-label-dot {
+  background: var(--article-topic-accent);
+  box-shadow: 0 0 0 5px var(--article-topic-soft);
+}
+
+.article-hero-grid {
+  position: relative;
+  z-index: 2;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.article-hero-content {
+  width: min(100%, 44rem);
+}
+
+.article-topic-motif {
+  position: absolute;
+  z-index: 1;
+  top: -1rem;
+  right: -1.5rem;
+  width: clamp(26rem, 36vw, 34rem);
+  color: var(--article-topic-accent);
+  pointer-events: none;
+  opacity: 0.68;
+  mask-image: linear-gradient(to right, transparent 0%, transparent 8%, #000 32%);
+}
+
+.article-topic-motif--spatial {
+  top: -8rem;
+  right: -5rem;
+  width: clamp(38rem, 52vw, 52rem);
+  mask-image: linear-gradient(to right, transparent 0%, transparent 16%, #000 42%);
+}
+
+.article-topic-motif svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.article-topic-motif-composition {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.article-topic-motif--variation-1 .article-topic-motif-composition {
+  transform: translate(10px, -5px);
+}
+
+.article-topic-motif--variation-2 .article-topic-motif-composition {
+  transform: translate(-8px, 8px);
+}
+
+.article-topic-motif--variation-3 .article-topic-motif-composition {
+  transform: translate(8px, 10px);
+}
+
+.motif-path,
+.motif-boundary,
+.motif-plane {
+  vector-effect: non-scaling-stroke;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.motif-path--primary,
+.motif-plane--primary {
+  stroke-width: 1.7;
+  opacity: 0.72;
+}
+
+.motif-path--secondary,
+.motif-boundary,
+.motif-plane {
+  stroke-width: 1.25;
+  opacity: 0.46;
+}
+
+.motif-path--tertiary {
+  stroke-width: 1;
+  opacity: 0.24;
+}
+
+.motif-path--dashed {
+  stroke-dasharray: 7 10;
+}
+
+.motif-plane--primary {
+  fill: var(--article-topic-soft);
+}
+
+.motif-node {
+  vector-effect: non-scaling-stroke;
+  fill: var(--color-bg);
+  stroke: currentColor;
+  stroke-width: 1.4;
+  opacity: 0.58;
+}
+
+.motif-node--anchor {
+  fill: currentColor;
+  stroke: var(--color-bg);
+  stroke-width: 2.5;
+  opacity: 0.78;
+}
+
+.motif-node--large {
+  fill: currentColor;
+  stroke: var(--color-bg);
+  stroke-width: 2;
+  opacity: 0.72;
+}
+
+.motif-node--terminal {
+  fill: currentColor;
+  stroke: var(--color-bg);
+  stroke-width: 2;
+  opacity: 0.8;
+}
+
+.motif-node--authority {
+  fill: none;
+  stroke-width: 2.2;
+  opacity: 0.82;
+}
+
+.article-topic-motif--balanced .motif-density-tertiary.motif-node {
+  opacity: 0.28;
+}
+
+.article-topic-motif--spatial .motif-path--primary,
+.article-topic-motif--spatial .motif-plane--primary {
+  stroke-width: 1.9;
+}
+
 .body-text:last-child {
   margin-bottom: 0;
 }

@@ -8,8 +8,8 @@ summary: AI makes context easier to retrieve, but access to the same information
 meta_title: Shared Context vs Shared Understanding in Product Teams
 meta_description: Why easier access to information does not automatically create alignment, shared understanding or better Product & Engineering decisions.
 topics:
-  - ai-and-automation
   - teams-and-collaboration
+  - ai-and-automation
 intro:
   - AI is dramatically reducing the cost of accessing context inside organizations.
   - But shared access to information does not automatically produce shared understanding.

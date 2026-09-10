@@ -65,10 +65,7 @@ layout: default
                 <span class="series-page-episode-summary">{{ note.summary }}</span>
                 {% if note.topics and note.topics.size > 0 %}
                   <span class="content-topic-list" aria-label="Topics">
-                    {% for note_topic in note.topics %}
-                      {% assign topic_data = site.data.topics | where: "slug", note_topic | first %}
-                      <span class="content-topic-link content-topic-link--{{ note_topic }}">{{ topic_data.label | default: note_topic }}</span>
-                    {% endfor %}
+                    {% include content-topic-items.html topics=note.topics %}
                   </span>
                 {% endif %}
               </span>
@@ -93,12 +90,15 @@ layout: default
 
       <div class="series-visuals-grid" data-series-visuals>
         {% for visual in series_data.visuals %}
-        <article class="series-visual-card series-visual-card--{{ visual.service | downcase }}{% if visual.wide %} series-visual-card--wide{% endif %}">
+        <article class="series-visual-card{% if visual.wide %} series-visual-card--wide{% endif %}">
           <a class="series-visual-image" href="{{ visual.full_image | relative_url }}" aria-label="Open {{ visual.title }} at full size" data-analytics-event="series_visual_open" data-analytics-series-id="{{ page.series_slug | escape }}" data-analytics-service="{{ visual.service | downcase | escape }}" data-analytics-episode-number="{{ visual.episode }}" data-analytics-link-context="series_visuals">
             <img src="{{ visual.thumbnail | relative_url }}" alt="{{ visual.alt }}" width="{{ visual.thumbnail_width }}" height="{{ visual.thumbnail_height }}" loading="lazy" decoding="async">
           </a>
           <div class="series-visual-copy">
-            <span>Episode {{ visual.episode }} · {{ visual.service }}</span>
+            <div class="series-visual-sequence">
+              <span class="series-visual-episode">Episode {{ visual.episode }} / {% if series_notes.size < 10 %}0{% endif %}{{ series_notes.size }}</span>
+              <span class="series-visual-service">{{ visual.service }}</span>
+            </div>
             <h3><a href="{{ visual.note_url | relative_url }}" data-analytics-event="series_episode_open" data-analytics-series-id="{{ page.series_slug | escape }}" data-analytics-episode-number="{{ visual.episode }}" data-analytics-link-context="series_visuals">{{ visual.title }}</a></h3>
             <p>{{ visual.description }}</p>
           </div>

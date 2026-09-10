@@ -769,14 +769,14 @@
 }
 
 .series-visual-card {
-  --series-visual-accent: var(--accent-cyan);
-  --series-visual-accent-soft: var(--accent-cyan-soft);
-  --series-visual-accent-border: var(--accent-cyan-border);
+  --series-visual-accent: var(--structural-accent);
+  --series-visual-accent-soft: var(--structural-accent-soft);
+  --series-visual-accent-border: var(--structural-accent-border);
   overflow: hidden;
   border: 1px solid var(--color-line);
   border-radius: var(--radius-card-lg);
   background:
-    radial-gradient(circle at top left, var(--series-visual-accent-soft), transparent 52%),
+    linear-gradient(145deg, var(--series-visual-accent-soft), transparent 44%),
     var(--color-surface-soft);
   transition: border-color 0.18s ease, transform 0.18s ease;
 }
@@ -802,18 +802,6 @@
 
 .series-visuals-grid.is-observed .series-visual-card.is-visible:hover {
   transform: translateY(-2px);
-}
-
-.series-visual-card--august {
-  --series-visual-accent: var(--accent-indigo);
-  --series-visual-accent-soft: var(--accent-indigo-soft);
-  --series-visual-accent-border: var(--accent-indigo-border);
-}
-
-.series-visual-card--march {
-  --series-visual-accent: var(--accent-emerald);
-  --series-visual-accent-soft: var(--accent-emerald-soft);
-  --series-visual-accent-border: var(--accent-emerald-border);
 }
 
 .series-visual-card--wide {
@@ -845,12 +833,30 @@
   padding: 1.15rem 1.2rem 1.25rem;
 }
 
-.series-visual-copy > span {
-  color: var(--series-visual-accent);
+.series-visual-sequence {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.series-visual-episode,
+.series-visual-service {
   font-size: 0.67rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+}
+
+.series-visual-episode {
+  padding: 0.3rem 0.48rem;
+  border: 1px solid var(--series-visual-accent-border);
+  border-radius: 999px;
+  color: var(--color-text-secondary);
+  background: var(--series-visual-accent-soft);
+}
+
+.series-visual-service {
+  color: var(--color-text-muted);
 }
 
 .series-visual-copy h3 {

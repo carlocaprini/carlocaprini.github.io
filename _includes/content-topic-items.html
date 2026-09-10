@@ -1,0 +1,13 @@
+{% comment %}
+Renders an ordered topic list as linked or static chips.
+Expects: topics. Optional: linked, analytics, analytics_link_context.
+{% endcomment %}
+{% for content_topic in include.topics %}
+  {% assign content_topic_data = site.data.topics | where: "slug", content_topic | first %}
+  {% capture content_topic_class %}content-topic-link content-topic-link--{{ content_topic }}{% if forloop.first %} content-topic-link--primary{% endif %}{% endcapture %}
+  {% if include.linked %}
+    <a class="{{ content_topic_class }}" href="{{ '/explore/' | relative_url }}#{{ content_topic }}"{% if include.analytics %} data-analytics-event="topic_select" data-analytics-topic="{{ content_topic | escape }}" data-analytics-interaction="navigation"{% if include.analytics_link_context %} data-analytics-link-context="{{ include.analytics_link_context }}"{% endif %}{% endif %}>{{ content_topic_data.label | default: content_topic }}</a>
+  {% else %}
+    <span class="{{ content_topic_class }}">{{ content_topic_data.label | default: content_topic }}</span>
+  {% endif %}
+{% endfor %}

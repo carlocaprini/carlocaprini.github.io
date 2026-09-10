@@ -39,6 +39,12 @@
       "viewports": ["desktop", "mobile"]
     },
     {
+      "id": "question-detail",
+      "path": "/explore/product-decisions/",
+      "description": "Representative Question path with note and Influence topic metadata",
+      "viewports": ["desktop", "mobile"]
+    },
+    {
       "id": "experience",
       "path": "/experience/",
       "description": "Experience evidence and career context",

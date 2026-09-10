@@ -144,6 +144,53 @@ class ValidatorTest < Minitest::Test
     end
   end
 
+  def test_source_rejects_topics_that_are_not_an_ordered_list
+    assert_invalid_source(/must define one or two topics as an ordered list/) do |directory|
+      replace!(note_path(directory), "topics:\n  - product-decisions", "topics: product-decisions")
+    end
+  end
+
+  def test_source_rejects_duplicate_topics
+    assert_invalid_source(/duplicate topics make primary-topic order ambiguous/) do |directory|
+      replace!(note_path(directory), "  - product-decisions", "  - product-decisions\n  - product-decisions")
+    end
+  end
+
+  def test_source_rejects_invalid_topic_visual_color
+    assert_invalid_source(/must define a six-digit visual color/) do |directory|
+      path = File.join(directory, "_data/topics.yml")
+      replace!(path, 'color: "#fbbf24"', 'color: "amber"')
+    end
+  end
+
+  def test_source_rejects_duplicate_topic_motif_family
+    assert_invalid_source(/topic motif families must be unique/) do |directory|
+      path = File.join(directory, "_data/topics.yml")
+      replace!(path, "motif: bounded-loops", "motif: branching")
+    end
+  end
+
+  def test_source_rejects_unsupported_topic_motif_family
+    assert_invalid_source(/unsupported visual motif family "bounded-loop"/) do |directory|
+      path = File.join(directory, "_data/topics.yml")
+      replace!(path, "motif: bounded-loops", "motif: bounded-loop")
+    end
+  end
+
+  def test_source_rejects_unknown_article_topic_motif_variant
+    assert_invalid_source(/article_topic_motif_variant must be balanced or spatial/) do |directory|
+      path = File.join(directory, "_config.yml")
+      replace!(path, "article_topic_motif_variant: spatial", "article_topic_motif_variant: loud")
+    end
+  end
+
+  def test_source_rejects_unknown_article_topic_motif_variant_override
+    assert_invalid_source(%r{pages/thinking/waiting-as-product-decision.md: article_topic_motif_variant must be balanced or spatial}) do |directory|
+      path = note_path(directory)
+      replace!(path, "layout: article", "layout: article\narticle_topic_motif_variant: loud")
+    end
+  end
+
   def test_source_rejects_duplicate_permalink
     assert_invalid_source(/duplicate permalink/) do |directory|
       replace!(note_path(directory), "/thinking/waiting-as-product-decision/", "/thinking/temporary-solutions-become-permanent/")

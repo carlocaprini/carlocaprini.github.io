@@ -155,6 +155,23 @@ test("question pages connect Thinking, Influences and Experience", async ({ page
     "href",
     "/experience/#product-direction"
   );
+
+  const noteTopics = page.locator(".question-note-group .content-topic-list").first();
+  const noteTopic = noteTopics.locator(".content-topic-link").first();
+  await expect(noteTopics).toHaveCSS("display", "flex");
+  await expect(noteTopic).toHaveCSS("display", "flex");
+  await expect(noteTopic).toHaveCSS("align-items", "center");
+  await expect(noteTopic).toHaveCSS("border-radius", "999px");
+  const restingStyle = await noteTopic.evaluate((element) => ({
+    borderColor: getComputedStyle(element).borderColor,
+    color: getComputedStyle(element).color
+  }));
+  await noteTopic.hover();
+  const hoverStyle = await noteTopic.evaluate((element) => ({
+    borderColor: getComputedStyle(element).borderColor,
+    color: getComputedStyle(element).color
+  }));
+  expect(hoverStyle).toEqual(restingStyle);
 });
 
 test("notes expose curated Questions without promoting topics to sidebar navigation", async ({ page }) => {
@@ -167,6 +184,78 @@ test("notes expose curated Questions without promoting topics to sidebar navigat
   );
   await expect(page.locator(".article-hero-topics")).toBeVisible();
   await expect(page.getByRole("complementary", { name: "Explore topics" })).toHaveCount(0);
+});
+
+test("primary topic order drives article identity without exposing Question topic navigation", async ({ page }) => {
+  await page.goto("/thinking/shared-context-is-not-shared-understanding/");
+
+  const hero = page.locator(".article-topic-hero");
+  await expect(hero).toHaveAttribute("data-primary-topic", "teams-and-collaboration");
+  await expect(hero.locator(".topic-motif--teams-and-collaboration")).toHaveCount(1);
+  await expect(hero).toHaveAttribute("data-motif-variant", "spatial");
+  await expect(hero.locator(".article-topic-motif")).toHaveAttribute("data-motif-family", "partial-convergence");
+  await expect(hero.locator(".article-topic-motif")).toHaveAttribute("aria-hidden", "true");
+  await expect(hero.locator(".article-topic-motif svg")).toHaveAttribute("focusable", "false");
+  await expect(hero.locator(".content-topic-link").first()).toHaveClass(/content-topic-link--primary/);
+  await expect(hero.locator(".content-topic-link").first()).toContainText("Teams and collaboration");
+
+  await page.goto("/explore/");
+  const sharedUnderstanding = page.locator(".question-path-item--shared-understanding");
+  await expect(sharedUnderstanding.locator(".content-topic-list")).toHaveCount(0);
+
+  await page.goto("/thinking/");
+  await expect(page.locator(".question-path-list .content-topic-list")).toHaveCount(0);
+
+  await page.goto("/");
+  await expect(page.locator(".home-questions-section .content-topic-list")).toHaveCount(0);
+
+  await page.goto("/explore/shared-understanding/");
+  await expect(page.locator(".question-hero-topics")).toHaveCount(0);
+});
+
+test("article motifs use the primary topic's canonical color and geometry", async ({ page }) => {
+  const examples = [
+    ["/thinking/product-decisions-are-mostly-trade-offs/", "product-decisions", "branching", "rgb(251, 191, 36)", ".motif-node--terminal"],
+    ["/thinking/adding-mcp-doesnt-make-a-product-agent-first/", "ai-and-automation", "bounded-loops", "rgb(34, 211, 238)", ".motif-node--authority"],
+    ["/thinking/stop-asking-people-for-information-the-system-already-has/", "software-systems", "layered-interfaces", "rgb(129, 140, 248)", ".motif-plane"],
+    ["/thinking/shared-context-is-not-shared-understanding/", "teams-and-collaboration", "partial-convergence", "rgb(52, 211, 153)", ".motif-node--large"]
+  ];
+  const variations = new Set();
+
+  for (const [route, topic, family, color, structuralMarker] of examples) {
+    await page.goto(route);
+    const hero = page.locator(".article-topic-hero");
+    const motif = hero.locator(".article-topic-motif");
+    await expect(hero).toHaveAttribute("data-primary-topic", topic);
+    await expect(motif).toHaveAttribute("data-motif-family", family);
+    await expect(motif).toHaveAttribute("data-motif-variation", /^[0-3]$/);
+    variations.add(await motif.getAttribute("data-motif-variation"));
+    await expect(motif).toHaveCSS("color", color);
+    await expect(motif.locator(structuralMarker).first()).toBeAttached();
+  }
+
+  expect(variations.size).toBeGreaterThanOrEqual(3);
+});
+
+test("article motifs are complete static decoration with reduced motion", async ({ browser }) => {
+  const context = await browser.newContext({ reducedMotion: "reduce" });
+  const reducedPage = await context.newPage();
+  await reducedPage.goto("/thinking/product-decisions-are-mostly-trade-offs/");
+  const motif = reducedPage.locator(".article-topic-motif");
+  await expect(motif).toBeVisible();
+  await expect(motif).toHaveCSS("animation-name", "none");
+  await expect(motif.locator(".motif-path").first()).toBeVisible();
+  await context.close();
+});
+
+test("Influence accents follow the audited first topic", async ({ page }) => {
+  await page.goto("/influences/");
+
+  const softwareInfluence = page.locator(".influence-item", {
+    has: page.getByRole("link", { name: /AI Coding Is Not the Same as Software Engineering/ })
+  });
+  await expect(softwareInfluence).toHaveClass(/influence-item--software-systems/);
+  await expect(softwareInfluence.locator(".content-topic-link").first()).toContainText("Software systems");
 });
 
 test("notes end with a consistent author signature and professional paths", async ({ page }) => {

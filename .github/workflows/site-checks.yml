@@ -218,6 +218,9 @@ jobs:
       - name: Run visual regression checks
         run: bin/check visual-regression
 
+      - name: Check Balanced and Spatial article motif reference sources
+        run: bin/check topic-motif-source
+
       - name: Upload visual failure diagnostics
         if: failure()
         uses: actions/upload-artifact@v7

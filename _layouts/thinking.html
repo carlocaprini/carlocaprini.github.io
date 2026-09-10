@@ -67,7 +67,7 @@ layout: default
             {% if note %}
             <li>
               <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.url | escape }}" data-analytics-link-context="thinking_start_here">{{ note.title }}</a>
-              <span>{{ note.summary }}</span>
+              <span class="selected-note-summary">{{ note.summary }}</span>
             </li>
             {% endif %}
           {% endfor %}
@@ -131,10 +131,7 @@ layout: default
                 <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.url | escape }}" data-analytics-link-context="thinking_recent_notes">{{ note.title }}</a>
                 <span class="article-list-summary">{{ note.summary }}</span>
                 <span class="content-topic-list" aria-label="Topics">
-                  {% for note_topic in note.topics %}
-                    {% assign topic_data = site.data.topics | where: "slug", note_topic | first %}
-                    <a class="content-topic-link content-topic-link--{{ note_topic }}" href="{{ '/explore/' | relative_url }}#{{ note_topic }}" data-analytics-event="topic_select" data-analytics-topic="{{ note_topic | escape }}" data-analytics-interaction="navigation" data-analytics-link-context="thinking_recent_notes">{{ topic_data.label | default: note_topic }}</a>
-                  {% endfor %}
+                  {% include content-topic-items.html topics=note.topics linked=true analytics=true analytics_link_context="thinking_recent_notes" %}
                 </span>
               </li>
             {% endfor %}
@@ -182,10 +179,7 @@ layout: default
               <span class="article-list-summary">{{ note.summary }}</span>
               {% if note.topics and note.topics.size > 0 %}
               <span class="content-topic-list" aria-label="Topics">
-                {% for note_topic in note.topics %}
-                  {% assign topic_data = site.data.topics | where: "slug", note_topic | first %}
-                  <a class="content-topic-link content-topic-link--{{ note_topic }}" href="{{ '/explore/' | relative_url }}#{{ note_topic }}" data-analytics-event="topic_select" data-analytics-topic="{{ note_topic | escape }}" data-analytics-interaction="navigation" data-analytics-link-context="thinking_all_notes">{{ topic_data.label | default: note_topic }}</a>
-                {% endfor %}
+                {% include content-topic-items.html topics=note.topics linked=true analytics=true analytics_link_context="thinking_all_notes" %}
               </span>
               {% endif %}
             </li>

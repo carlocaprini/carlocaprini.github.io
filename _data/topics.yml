@@ -1,15 +1,27 @@
 - slug: product-decisions
   label: Product decisions
   description: How teams frame trade-offs, priorities and commitments when no option is complete.
+  visual:
+    color: "#fbbf24"
+    motif: branching
 
 - slug: ai-and-automation
   label: AI and automation
   description: How AI changes contribution, automation and product capability without removing judgment or system constraints.
+  visual:
+    color: "#22d3ee"
+    motif: bounded-loops
 
 - slug: software-systems
   label: Software systems
   description: How architecture, platforms and temporary choices shape what products can become.
+  visual:
+    color: "#818cf8"
+    motif: layered-interfaces
 
 - slug: teams-and-collaboration
   label: Teams and collaboration
   description: How context, disagreement and collaboration affect decisions across Product & Engineering.
+  visual:
+    color: "#34d399"
+    motif: partial-convergence
