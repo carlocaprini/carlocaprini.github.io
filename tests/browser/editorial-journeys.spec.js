@@ -198,3 +198,40 @@ test("curated Influences return to a relevant Question", async ({ page }) => {
     /\/explore\/(product-decisions|shared-understanding|ai-and-work)\/$/
   );
 });
+
+test("the opportunities preview stays unlisted while exposing the curated cohort", async ({ page }) => {
+  await page.goto("/opportunities/preview-2026-09/");
+
+  await expect(page).toHaveTitle("Curated Product Opportunities — Shared Preview | Carlo Caprini");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex, nofollow");
+  await expect(page.getByText("Shared preview · intentionally unlisted and not indexed", { exact: true })).toBeVisible();
+  await expect(page.locator(".opportunity-card")).toHaveCount(8);
+  await expect(page.locator(".eligibility-badge--confirmed")).toHaveCount(4);
+  await expect(page.locator(".eligibility-badge--likely")).toHaveCount(1);
+  await expect(page.locator(".eligibility-badge--unclear")).toHaveCount(3);
+  await expect(page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link", { name: /opportunit/i })).toHaveCount(0);
+
+  const sitemap = await page.request.get("/sitemap.xml");
+  expect(await sitemap.text()).not.toContain("/opportunities/preview-2026-09/");
+  const previewDimensions = await page.evaluate(() => [document.documentElement.scrollWidth, window.innerWidth]);
+  expect(previewDimensions[0]).toBeLessThanOrEqual(previewDimensions[1]);
+});
+
+test("an opportunity page explains Italy eligibility and preserves the employer source", async ({ page }) => {
+  await page.goto("/opportunities/preview-2026-09/seon-principal-product-manager-aml-agentic-ai/");
+
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex, nofollow");
+  await expect(page.getByRole("heading", { level: 1, name: "Principal Product Manager, AML Screening & Agentic AI" })).toBeVisible();
+  await expect(page.getByText("Confirmed from Italy", { exact: true })).toHaveCount(2);
+  await expect(page.locator(".opportunity-question-list > li")).toHaveCount(3);
+  await expect(page.getByRole("link", { name: /View original listing/ })).toHaveAttribute(
+    "href",
+    "https://jobs.ashbyhq.com/seon/bc02bac1-55a9-4963-b13e-e5961fbd84bd"
+  );
+  await expect(page.getByRole("link", { name: /All preview opportunities/ })).toHaveAttribute(
+    "href",
+    "/opportunities/preview-2026-09/"
+  );
+  const detailDimensions = await page.evaluate(() => [document.documentElement.scrollWidth, window.innerWidth]);
+  expect(detailDimensions[0]).toBeLessThanOrEqual(detailDimensions[1]);
+});

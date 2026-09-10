@@ -1,0 +1,89 @@
+---
+layout: default
+---
+{% assign opportunity = site.data.opportunities | where: "slug", page.opportunity_slug | first %}
+<article class="page opportunity-detail-page">
+  <div class="container opportunity-detail-container">
+    <div class="preview-notice" role="note">
+      <span class="preview-notice-marker" aria-hidden="true"></span>
+      <span>Shared preview · intentionally unlisted and not indexed</span>
+    </div>
+    <a class="opportunity-back-link" href="{{ '/opportunities/preview-2026-09/' | relative_url }}">← All preview opportunities</a>
+
+    <header class="opportunity-detail-header">
+      <div class="opportunity-detail-heading">
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          <span>{{ opportunity.company }}</span>
+        </div>
+        <h1>{{ opportunity.role }}</h1>
+        <p class="opportunity-detail-meta">{{ opportunity.work_model }} · {{ opportunity.seniority }}</p>
+      </div>
+      <div class="opportunity-score-panel" aria-label="Editorial score {{ opportunity.score }} out of 100">
+        <span>Editorial score</span>
+        <strong>{{ opportunity.score }}</strong>
+        <small>out of 100</small>
+      </div>
+    </header>
+
+    <section class="opportunity-facts" aria-label="Role facts">
+      <div>
+        <span>Work model</span>
+        <strong>{{ opportunity.work_model }}</strong>
+      </div>
+      <div>
+        <span>Italy eligibility</span>
+        <strong class="eligibility-text eligibility-text--{{ opportunity.italy_status }}">{{ opportunity.italy_label }}</strong>
+      </div>
+      <div>
+        <span>Compensation</span>
+        <strong>{{ opportunity.compensation }}</strong>
+      </div>
+      <div>
+        <span>Last checked</span>
+        <strong>10 September 2026</strong>
+      </div>
+    </section>
+
+    <div class="opportunity-detail-layout">
+      <div class="opportunity-detail-main">
+        <section>
+          <div class="section-eyebrow">Why it caught my eye</div>
+          <h2>What is unusual about the mandate.</h2>
+          <p class="opportunity-lead">{{ opportunity.why_interesting }}</p>
+        </section>
+
+        <section>
+          <div class="section-eyebrow">Signals</div>
+          <h2>What the job description tells us.</h2>
+          <ul class="opportunity-signal-list">
+            {% for signal in opportunity.signals %}<li>{{ signal }}</li>{% endfor %}
+          </ul>
+        </section>
+
+        <section>
+          <div class="section-eyebrow">Work from Italy</div>
+          <h2>{{ opportunity.italy_label }}</h2>
+          <p>{{ opportunity.italy_detail }}</p>
+        </section>
+
+        <section>
+          <div class="section-eyebrow">What I would ask</div>
+          <h2>Questions worth taking into an interview.</h2>
+          <ol class="opportunity-question-list">
+            {% for question in opportunity.questions %}<li>{{ question }}</li>{% endfor %}
+          </ol>
+        </section>
+      </div>
+
+      <aside class="opportunity-detail-aside" aria-label="Opportunity context">
+        <div class="opportunity-archetypes">
+          <span class="section-eyebrow">Role signals</span>
+          <ul>{% for archetype in opportunity.archetypes %}<li>{{ archetype }}</li>{% endfor %}</ul>
+        </div>
+        <a class="button-primary opportunity-source-link" href="{{ opportunity.original_url }}" target="_blank" rel="noopener noreferrer">View original listing <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in new tab)</span></a>
+        <p class="opportunity-source-note">The employer listing is the source of truth for availability, location and application details.</p>
+      </aside>
+    </div>
+  </div>
+</article>

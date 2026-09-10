@@ -1,0 +1,208 @@
+- slug: seon-principal-product-manager-aml-agentic-ai
+  company: SEON
+  role: Principal Product Manager, AML Screening & Agentic AI
+  score: 88
+  seniority: Principal
+  work_model: Remote from the UK or any EU country
+  italy_status: confirmed
+  italy_label: Confirmed from Italy
+  italy_detail: The listing explicitly supports remote work from any EU country, including Italy, subject to the candidate's right to work.
+  compensation: Not disclosed
+  archetypes:
+    - Agentic AI
+    - RegTech
+    - Exceptional scope
+  why_interesting: The mandate connects model behaviour, regulated screening, APIs and measurable analyst outcomes. It is one of the rare roles where agentic AI describes an operating product rather than a positioning layer.
+  signals:
+    - No predefined roadmap; the Principal PM is expected to determine where the product goes next.
+    - Direct collaboration with the CEO, CPO and executive leadership on strategy and market timing.
+    - Production AI screening agent and real-time API products.
+    - Success measures include false positives, analyst time, latency and onboarding velocity.
+  questions:
+    - Which decisions remain with the Head of Product rather than this role?
+    - How are explainability and false-positive reduction traded off when they conflict?
+    - How much time goes to portfolio strategy versus direct squad execution?
+  original_url: https://jobs.ashbyhq.com/seon/bc02bac1-55a9-4963-b13e-e5961fbd84bd
+
+- slug: attio-product-lead
+  company: Attio
+  role: Product Lead
+  score: 86
+  seniority: Lead
+  work_model: Europe remote
+  italy_status: unclear
+  italy_label: Italy eligibility unclear
+  italy_detail: The canonical page says Europe remote but also names the UK, Germany, Ireland and Portugal. That is not enough evidence to confirm Italian employment coverage.
+  compensation: Not disclosed; equity offered
+  archetypes:
+    - Platform
+    - Data models
+    - AI
+  why_interesting: The role expects a Product Lead to reason about schemas, APIs, pipelines, performance and architectural trade-offs. It sits unusually close to foundational system design while retaining responsibility for customer experience and product steering.
+  signals:
+    - Ownership of core Product surfaces and contribution to overall product steering.
+    - Explicit systems thinking and technical depth.
+    - AI capabilities treated as part of core workflows rather than a separate feature layer.
+    - Direct work with Engineering on durable product foundations.
+  questions:
+    - Can Attio employ or contract someone resident in Italy?
+    - Is this an individual-contributor lead role or a people-management role?
+    - Which platform or data-model surface would be owned first?
+  original_url: https://attio.com/careers/product-lead-europe-and-united-kingdom-remote
+
+- slug: open-home-foundation-senior-product-manager
+  company: Open Home Foundation
+  role: Senior Product Manager
+  score: 84
+  seniority: Senior
+  work_model: Fully remote across Europe
+  italy_status: confirmed
+  italy_label: Confirmed from Italy
+  italy_detail: The Foundation accepts candidates based and eligible to work within Europe and provides local salaried employment through Remote.
+  compensation: Local-market compensation; discussed for countries not individually listed
+  archetypes:
+    - Open source
+    - Portfolio
+    - Community Product
+  why_interesting: Product decisions must reconcile a global open-source community, a foundation's principles, a technically complex portfolio and commercial partners. That governance problem makes the role more interesting than a conventional SaaS roadmap mandate.
+  signals:
+    - Portfolio-level product vision and strategy.
+    - Full autonomy explicitly requested.
+    - Discovery-to-delivery work with Engineering, Design and Research.
+    - Community participation is part of Product practice.
+  questions:
+    - Who decides when community and commercial priorities conflict?
+    - Which products would the PM initially own?
+    - How is non-commercial product success measured?
+  original_url: https://jobs.ashbyhq.com/openhomefoundation/9e9d1ec8-4c49-46f4-8fb3-78394de501ac
+
+- slug: toggl-senior-product-manager
+  company: Toggl
+  role: Senior Product Manager
+  score: 83
+  seniority: Senior
+  work_model: Remote worldwide within UTC-4 to UTC+4
+  italy_status: confirmed
+  italy_label: Confirmed from Italy
+  italy_detail: Italy is within the published timezone range, and the listing explicitly says the team hires globally.
+  compensation: EUR 90,000 annually
+  archetypes:
+    - Core SaaS
+    - Product-led growth
+    - Strong remote
+  why_interesting: The posting is unusually clear about accountability for direction, prioritisation and outcomes rather than process. Its timezone policy is also a useful benchmark for genuinely location-flexible remote work.
+  signals:
+    - End-to-end ownership of a Product Tribe.
+    - Authority to make prioritisation calls without unnecessary escalation.
+    - Direct discovery with customers and data.
+    - Transparent fixed salary and explicit global hiring range.
+  questions:
+    - Which user role and Tribe is attached to the vacancy?
+    - Is Toggl Focus a new-product bet or primarily a consolidation effort?
+    - How much autonomy does a Tribe have against company-level priorities?
+  original_url: https://jobs.ashbyhq.com/toggl/941a10e2-dea0-4d62-9e0a-49fb4d8f39e5
+
+- slug: pencil-senior-product-manager-emea
+  company: Pencil
+  role: Senior Product Manager, EMEA Remote
+  score: 82
+  seniority: Senior
+  work_model: Europe and EMEA remote
+  italy_status: likely
+  italy_label: Likely from Italy — confirm first
+  italy_detail: The role is scoped to Europe and says employees can work from their home country, but Pencil does not publish its complete employing-country footprint.
+  compensation: Not disclosed
+  archetypes:
+    - Creative AI
+    - Platform
+    - Zero to one
+  why_interesting: Pencil treats AI as a product-system design problem involving agent behaviours, model constraints, APIs and human creative workflows. The mandate spans both zero-to-one and scaling work.
+  signals:
+    - Ownership of enterprise planning and briefing capabilities.
+    - Agent behaviours, platform frameworks and APIs are explicit parts of the scope.
+    - Model limitations and release cycles are Product concerns.
+    - Discovery, prototyping and experiments are central to the role.
+  questions:
+    - Is Italy within the company's employing-country footprint?
+    - Which shared platform decisions sit with this PM?
+    - Which AI capabilities are internal versus supplied by model providers?
+  original_url: https://jobs.ashbyhq.com/pencil/e4bbf9ae-0be6-455f-8b24-f960be4c6f2c
+
+- slug: vcluster-staff-product-manager
+  company: vCluster Labs
+  role: Staff Product Manager
+  score: 81
+  seniority: Staff title; Senior in the role description
+  work_model: Remote-first, with European working hours
+  italy_status: unclear
+  italy_label: Italy eligibility unclear
+  italy_detail: The company is remote-first and publishes a European salary band, but the vacancy metadata names selected countries alongside a generic remote location.
+  compensation: EUR 130,000–150,000 estimated European base, plus equity and bonus
+  archetypes:
+    - Kubernetes
+    - AI infrastructure
+    - Developer platform
+  why_interesting: This is a genuinely technical platform mandate involving Kubernetes tenancy, GPU infrastructure, architecture trade-offs and hands-on alpha and beta validation.
+  signals:
+    - Product direction for vCluster, vNode or vMetal.
+    - Direct partnership with Product and Engineering leadership.
+    - Customers are platform engineers and AI-cloud operators.
+    - Implementation-level Kubernetes fluency is required.
+  questions:
+    - Is the calibrated level Staff or Senior?
+    - Is Italy an approved employment or contracting country?
+    - Is the 15:00–21:00 CET overlap a daily requirement?
+  original_url: https://jobs.ashbyhq.com/vClusterLabs/74c226ec-ba02-426a-8869-632fb5399cb7
+
+- slug: revenuecat-senior-product-manager-agents
+  company: RevenueCat
+  role: Senior Product Manager, Agents
+  score: 80
+  seniority: Senior
+  work_model: Fully remote across EMEA and the Americas
+  italy_status: unclear
+  italy_label: Italy eligibility unclear
+  italy_detail: The listing says EMEA and fully remote but does not enumerate the countries in which RevenueCat can employ this role.
+  compensation: USD 227,000 displayed, plus equity; EMEA applicability unclear
+  archetypes:
+    - Agents
+    - Developer product
+    - Zero to one
+  why_interesting: RevenueCat combines a credible developer platform, meaningful production scale and an early-stage agent product that can inspect data, evaluate experiments and debug integrations.
+  signals:
+    - The agent spans Slack, the dashboard and the API.
+    - Tool integrations, context management and evaluation are explicit.
+    - Direct work with the CEO and Head of Product.
+    - Strong programming or systems-building capability is required.
+  questions:
+    - Can RevenueCat employ someone based in Italy?
+    - Does the displayed compensation apply to EMEA?
+    - What first user outcome will the Agents product own?
+  original_url: https://jobs.ashbyhq.com/RevenueCat/ec629bf1-20c1-44db-b852-a603a0154a04
+
+- slug: everai-senior-product-manager
+  company: EverAI
+  role: Senior Product Manager
+  score: 78
+  seniority: Senior
+  work_model: Fully remote across Europe
+  italy_status: confirmed
+  italy_label: Confirmed from Italy
+  italy_detail: The listing explicitly describes a Europe-remote, work-from-anywhere arrangement. A long-term B2B contract is preferred.
+  compensation: EUR 75,000–125,000 estimated base
+  contract: B2B preferred
+  archetypes:
+    - Consumer AI
+    - Builder PM
+    - Experimentation
+  why_interesting: This is a sharp signal for the builder-PM model—daily AI-assisted coding, pull requests, experiments and end-to-end squad steering—although its breadth may also show where AI-era expectations become excessive.
+  signals:
+    - Direct work with the co-founder and CTO.
+    - Product discovery through production iteration.
+    - AI-assisted coding is a normal responsibility.
+    - Explicit Europe-remote setup.
+  questions:
+    - What proportion of time is expected in code?
+    - What safety authority does Product hold against growth objectives?
+    - What protections and benefits apply under the preferred B2B arrangement?
+  original_url: https://jobs.ashbyhq.com/everai/67415245-9710-4d32-a544-735d779e1d44
