@@ -10,7 +10,8 @@ Docker keeps the Ruby/Jekyll runtime isolated:
 docker compose up site
 ```
 
-Open [http://localhost:4000](http://localhost:4000). Content and layout changes rebuild automatically with LiveReload.
+Open [http://localhost:4000](http://localhost:4000). Content and layout changes rebuild automatically; refresh the browser to see the rebuilt artifact.
+The local preview routes unknown paths through the generated custom `404.html`, matching GitHub Pages while preserving the `404` response status.
 
 Ordinary local development sends no analytics. To exercise the isolated aggregate-measurement environment, follow [`_analytics/README.md`](_analytics/README.md).
 

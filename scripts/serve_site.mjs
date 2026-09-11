@@ -5,6 +5,7 @@ import { extname, join, normalize, resolve, sep } from "node:path";
 
 const root = resolve(process.env.SITE_ROOT || "_site");
 const port = Number.parseInt(process.env.SITE_PORT || process.argv[2] || "4000", 10);
+const host = process.env.SITE_HOST || "127.0.0.1";
 
 if (!Number.isInteger(port) || port < 1 || port > 65_535) {
   throw new Error(`Invalid SITE_PORT: ${process.env.SITE_PORT || process.argv[2] || ""}`);
@@ -39,7 +40,10 @@ async function resolveFile(pathname) {
 
   try {
     const candidateStat = await stat(candidate);
-    if (candidateStat.isDirectory()) return join(candidate, "index.html");
+    if (candidateStat.isDirectory()) {
+      const indexFile = join(candidate, "index.html");
+      return (await stat(indexFile)).isFile() ? indexFile : null;
+    }
     if (candidateStat.isFile()) return candidate;
   } catch (_error) {
     if (!extname(candidate)) {
@@ -55,27 +59,47 @@ async function resolveFile(pathname) {
   return null;
 }
 
+function streamFile(request, response, file, status = 200) {
+  response.writeHead(status, {
+    "cache-control": "no-store",
+    "content-type": contentTypes.get(extname(file).toLowerCase()) || "application/octet-stream"
+  });
+
+  if (request.method === "HEAD") {
+    response.end();
+    return;
+  }
+
+  createReadStream(file).pipe(response);
+}
+
+async function serveNotFound(request, response) {
+  const notFoundFile = await resolveFile("/404.html");
+  if (notFoundFile) {
+    streamFile(request, response, notFoundFile, 404);
+    return;
+  }
+
+  response.writeHead(404, { "content-type": "text/plain; charset=utf-8" });
+  response.end(request.method === "HEAD" ? undefined : "Not found\n");
+}
+
 const server = createServer(async (request, response) => {
   try {
     const url = new URL(request.url || "/", `http://${request.headers.host || "localhost"}`);
     const file = await resolveFile(url.pathname);
     if (!file) {
-      response.writeHead(404, { "content-type": "text/plain; charset=utf-8" });
-      response.end("Not found\n");
+      await serveNotFound(request, response);
       return;
     }
 
-    response.writeHead(200, {
-      "cache-control": "no-store",
-      "content-type": contentTypes.get(extname(file).toLowerCase()) || "application/octet-stream"
-    });
-    createReadStream(file).pipe(response);
+    streamFile(request, response, file);
   } catch (error) {
     response.writeHead(500, { "content-type": "text/plain; charset=utf-8" });
     response.end(`Server error: ${error.message}\n`);
   }
 });
 
-server.listen(port, "127.0.0.1", () => {
-  process.stdout.write(`Serving ${root} at http://127.0.0.1:${port}\n`);
+server.listen(port, host, () => {
+  process.stdout.write(`Serving ${root} at http://${host}:${port}\n`);
 });

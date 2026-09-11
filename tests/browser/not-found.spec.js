@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises";
-import { expect, test } from "./support/site-test.js";
+import { expect, expectRuntimeErrors, test } from "./support/site-test.js";
 
 const generated404 = await readFile("_site/404.html", "utf8");
 const sitemapXml = await readFile("_site/sitemap.xml", "utf8");
@@ -17,8 +17,10 @@ test("custom 404 output preserves the site shell and focused recovery hierarchy"
   expect(startHereUrls).toHaveLength(3);
   expect(questionUrls).toHaveLength(3);
 
-  const response = await page.goto("/404.html");
-  expect(response?.ok()).toBe(true);
+  expectRuntimeErrors(page, ["console: Failed to load resource: the server responded with a status of 404 (Not Found)"]);
+  const response = await page.goto("/a-clearly-missing-page/");
+  expect(response?.status()).toBe(404);
+  expect(await response?.text()).toBe(generated404);
   await expect(page).toHaveTitle("Page not found | Carlo Caprini");
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex, follow");
   await expect(page.locator("body")).toHaveAttribute("data-analytics-page-type", "not_found");
@@ -65,7 +67,8 @@ test("custom 404 output preserves the site shell and focused recovery hierarchy"
 });
 
 test("recovery remains usable without the decorative motif", async ({ page }) => {
-  await page.goto("/404.html");
+  expectRuntimeErrors(page, ["console: Failed to load resource: the server responded with a status of 404 (Not Found)"]);
+  await page.goto("/another-missing-page/");
   await page.locator(".not-found-motif").evaluate((element) => element.remove());
 
   await expect(page.getByRole("heading", { name: "This page doesn't exist." })).toBeVisible();
