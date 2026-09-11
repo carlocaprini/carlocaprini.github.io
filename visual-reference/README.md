@@ -46,6 +46,12 @@ Routes, descriptions and viewport membership live only in [`manifest.json`](mani
 - [Portrait tablet](work/tablet.webp)
 - [Mobile](work/mobile.webp)
 
+### 404 — missing-page recovery
+
+- [Desktop](404/desktop.webp)
+- [Portrait tablet](404/tablet.webp)
+- [Mobile](404/mobile.webp)
+
 ### Standard article — representative standalone Thinking note
 
 - [Desktop](standard-article/desktop.webp)

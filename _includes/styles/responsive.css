@@ -172,7 +172,7 @@
 
   .not-found-visual img {
     width: 100%;
-    transform: none;
+    transform: translateY(-14%);
   }
 
   .work-outcome {
@@ -804,6 +804,10 @@
   .not-found-visual {
     max-height: 17rem;
     border-radius: var(--radius-card-lg);
+  }
+
+  .not-found-visual img {
+    transform: none;
   }
 
   .not-found-work {

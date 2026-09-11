@@ -274,6 +274,45 @@ test("Curated Note links emit their discovery context", async ({ page }) => {
   expect(event.parameters.note_id).toBeTruthy();
 });
 
+test("404 recovery links distinguish every onward route", async ({ page }) => {
+  await captureAnalytics(page);
+  await page.goto("/404.html");
+
+  const cases = [
+    [
+      page.getByRole("link", { name: "Back to home" }),
+      "collection_open",
+      { collection: "home", link_context: "not_found_primary" }
+    ],
+    [
+      page.getByRole("link", { name: "Go to Thinking" }),
+      "collection_open",
+      { collection: "thinking", link_context: "not_found_primary" }
+    ],
+    [page.locator(".not-found-notes > li > a").first(), "note_open", { link_context: "not_found_start_here" }],
+    [
+      page.getByRole("link", { name: "Explore the questions I'm working on" }),
+      "collection_open",
+      { collection: "explore", link_context: "not_found_explore" }
+    ],
+    [page.getByRole("link", { name: "How I can help" }), "work_open", { link_context: "not_found_work" }]
+  ];
+
+  for (const [link, name, parameters] of cases) {
+    await link.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault(), { once: true }));
+    await link.click();
+    const event = await page.evaluate(() => window.__analyticsEvents.at(-1));
+    expect(event).toMatchObject({
+      name,
+      parameters: {
+        page_type: "not_found",
+        page_id: "/404.html",
+        ...parameters
+      }
+    });
+  }
+});
+
 test("Editorial collection links retain their entry point", async ({ page }) => {
   await captureAnalytics(page);
   await page.goto("/");

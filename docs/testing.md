@@ -56,9 +56,12 @@ Chromium behavioral specs are named by domain:
 - `responsive.spec.js` owns breakpoint-dependent interaction and visibility.
 - `accessibility.spec.js` owns focused keyboard/focus basics; it is not a complete accessibility audit.
 - `analytics.spec.js` and `privacy-analytics.spec.js` own browser instrumentation, consent and local-safety behavior.
+- `not-found.spec.js` owns the generated 404 recovery page, its non-indexable metadata, fallback-safe illustration and onward routes.
 - `series.spec.js` owns Series context, episode navigation and motion behavior.
 
 `support/site-test.js` contains only the shared runtime-error/font fixture and analytics-event capture primitive. `webkit-smoke.spec.js` and `visual.spec.js` are selected by dedicated Playwright projects and must not import the full Chromium inventory.
+
+The repository static server does not emulate GitHub Pages' unknown-route fallback: a nonexistent local path returns a plain 404 response. Browser coverage therefore opens `/404.html` directly; source and generated validation protect the exact root output that GitHub Pages uses in production.
 
 ## Visual updates
 
