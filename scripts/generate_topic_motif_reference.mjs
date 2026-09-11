@@ -1,10 +1,10 @@
 import { chromium } from "@playwright/test";
-import { createHash } from "node:crypto";
-import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { spawn, spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { sourceFingerprint } from "./lib/topic_motif_source_fingerprint.mjs";
 
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const referenceRoot = resolve(repositoryRoot, "visual-reference/article-topic-motifs");
@@ -15,40 +15,6 @@ const variants = ["balanced", "spatial"];
 const buildRoots = Object.fromEntries(
   variants.map((variant) => [variant, resolve(repositoryRoot, `_site-topic-motif-${variant}`)])
 );
-
-async function sourceFingerprint(manifest) {
-  const styleRoot = resolve(repositoryRoot, "_includes/styles");
-  const styleFiles = (await readdir(styleRoot))
-    .filter((path) => path.endsWith(".css"))
-    .map((path) => `_includes/styles/${path}`);
-  const articleFiles = Object.values(manifest.topics).map(({ path }) =>
-    `pages/thinking/${path.split("/").filter(Boolean).at(-1)}.md`
-  );
-  const sourceFiles = [
-    "_config.yml",
-    "_config.article-motif-balanced.yml",
-    "_config.article-motif-spatial.yml",
-    "_data/topics.yml",
-    "_includes/article-topic-motif.html",
-    "_includes/content-topic-items.html",
-    "_layouts/article.html",
-    "_layouts/default.html",
-    "assets/css/main.css",
-    "package-lock.json",
-    "package.json",
-    "scripts/generate_topic_motif_reference.mjs",
-    ...styleFiles,
-    ...articleFiles
-  ].sort();
-  const hash = createHash("sha256");
-  for (const relativePath of sourceFiles) {
-    hash.update(relativePath);
-    hash.update("\0");
-    hash.update(await readFile(resolve(repositoryRoot, relativePath)));
-    hash.update("\0");
-  }
-  return hash.digest("hex");
-}
 
 function run(command, args, environment = {}) {
   return new Promise((resolveRun, rejectRun) => {
@@ -189,16 +155,16 @@ async function compare(manifest, generatedRoot) {
 
 let manifest = JSON.parse(await readFile(manifestPath, "utf8"));
 if (manifest.version !== 1 || !manifest.captures?.length) throw new Error("Unsupported article topic motif manifest");
-const currentFingerprint = await sourceFingerprint(manifest);
+const currentFingerprint = await sourceFingerprint(manifest, repositoryRoot);
 
 if (sourceCheckMode) {
   if (manifest.sourceFingerprint !== currentFingerprint) {
-    throw new Error("Article topic motif references are stale: their source fingerprint has changed");
+    throw new Error("Article topic motif references are stale because a visual source changed. Regenerate the motif references and commit the updated manifest/assets.");
   }
   process.stdout.write("Article topic motif reference sources are current.\n");
 } else {
   if (checkMode && manifest.sourceFingerprint !== currentFingerprint) {
-    throw new Error("Article topic motif references are stale: their source fingerprint has changed");
+    throw new Error("Article topic motif references are stale because a visual source changed. Regenerate the motif references and commit the updated manifest/assets.");
   }
   if (!checkMode && manifest.sourceFingerprint !== currentFingerprint) {
     manifest = { ...manifest, sourceFingerprint: currentFingerprint };
