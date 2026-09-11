@@ -6,11 +6,11 @@ Each invariant has one canonical owner.
 
 `scripts/validate_source.rb` answers whether repository source is internally coherent without building Jekyll. It owns front matter, permalinks, taxonomy, note and Influence metadata, editorial listing membership, Questions, Series, Home and Experience references, dependency configuration, and the source-side privacy/analytics contract.
 
-Editorial ordering in `pages/thinking.md` is intentional source data: the complete `notes` list must contain every published note once, while `start_here` remains a curated subset.
+Editorial ordering in `pages/thinking.md` is intentional source data: the complete `notes` list must contain every published note once. `_data/start_here.yml` separately owns exactly three valid, unique curated selections shared by Home, Thinking and missing-page recovery.
 
 ## Generated-output contracts
 
-`scripts/validate_site.rb` answers whether `_site` is structurally deployable. It owns required and forbidden output, sitemap/feed/robots consistency, canonical and social metadata, internal links and fragments, local assets, landmarks, image attributes and parseable JSON-LD.
+`scripts/validate_site.rb` answers whether `_site` is structurally deployable. It owns required and forbidden output—including the root `404.html`—sitemap/feed/robots consistency, canonical and social metadata, internal links and fragments, local assets, landmarks, image attributes and parseable JSON-LD.
 
 Explore topic hashes are a deliberate cross-layer case: they encode application state rather than an HTML anchor. The generated validator accepts one only when the rendered Explore page exposes the same value through `data-explore-topic`; arbitrary missing fragments still fail.
 

@@ -61,7 +61,7 @@ Chromium behavioral specs are named by domain:
 
 `support/site-test.js` contains only the shared runtime-error/font fixture and analytics-event capture primitive. `webkit-smoke.spec.js` and `visual.spec.js` are selected by dedicated Playwright projects and must not import the full Chromium inventory.
 
-The repository static server and Docker development both serve `_site` directly, matching the artifact uploaded to GitHub Pages. A nonexistent local path returns the exact generated `/404.html` body with status `404`; browser coverage opens clearly nonexistent routes and compares the response with that artifact so this behavior cannot silently regress.
+The repository static server and Docker development both serve `_site` directly rather than Jekyll's development error screen. A nonexistent local path returns the exact local `/404.html` body with status `404`; browser coverage opens clearly nonexistent routes and compares the response with that artifact so the fallback cannot silently regress. CI repeats the browser contract against its production-built `_site` artifact. Production-only analytics attributes and build-time asset cache-busters are intentionally outside byte-for-byte parity, while the visible recovery experience and HTTP missing-page status remain the same.
 
 ## Visual updates
 

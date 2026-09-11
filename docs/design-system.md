@@ -141,7 +141,7 @@ Rules:
 - make the complete static state the design; motion is optional, finite and must respect reduced-motion preferences;
 - keep Series identity in sequence and Question identity in connections rather than in this motif.
 
-Do not use Article topic motifs for Work, Experience, Contact, global navigation, generic decoration or other non-editorial pages. Do not place them inside cards or panels, and never encode essential information in the SVG.
+Do not reuse complete Article topic-motif compositions for Work, Experience, Contact, global navigation, generic decoration or other non-editorial pages. Shared path-and-node primitives may support a dedicated composition only when it has its own documented purpose and remains decorative; the missing-page recovery is the current exception. Do not place Article topic motifs inside cards or panels, and never encode essential information in an SVG.
 
 ## Surfaces
 
@@ -715,9 +715,9 @@ Minimum rules:
 
 ## Missing-page recovery
 
-The 404 surface uses the global shell and the ordinary editorial hierarchy. Its recovery message and two primary actions remain dominant. A static, decorative red/coral path-and-node motif reuses the visual grammar of Note topic motifs and loosely traces `4 0 4`; it remains non-essential and sits behind the protected text area.
+The 404 surface uses the global shell and the ordinary editorial hierarchy. Its recovery message and two primary actions remain dominant. A static, decorative red/coral path-and-node composition uses the shared line grammar without reusing any Article topic family; it loosely traces `4 0 4`, remains non-essential and sits behind the protected text area.
 
-Start Here reuses the Home selected-notes panel and its canonical data. Questions reuses the three numbered question paths from Explore, while Work remains a compact closing route. At narrower widths the motif is cropped and faded more aggressively so it never reduces title readability or changes the content order.
+Start Here reuses the Home selected-notes panel and the canonical selections in `_data/start_here.yml`. Questions reuses all three numbered paths from Explore, while Work remains a compact closing route. At narrower widths the composition is cropped and faded more aggressively so it never reduces title readability or changes the content order.
 
 ## Editorial Metadata
 
