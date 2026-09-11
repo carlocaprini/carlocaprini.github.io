@@ -715,9 +715,9 @@ Minimum rules:
 
 ## Missing-page recovery
 
-The 404 surface uses the global shell and the ordinary editorial hierarchy. Its primary split gives the explanation and two recovery actions priority over a restrained, decorative road-trip illustration. Start Here remains a ruled editorial list rather than a card group; Explore is a text link and Work is a compact closing route.
+The 404 surface uses the global shell and the ordinary editorial hierarchy. Its recovery message and two primary actions remain dominant. A static, decorative red/coral path-and-node motif reuses the visual grammar of Note topic motifs and loosely traces `4 0 4`; it remains non-essential and sits behind the protected text area.
 
-The illustration may use the established amber, cyan and indigo accents, but it must remain decorative, static, dark-background compatible and non-essential. At tablet widths the composition stacks before the text column becomes narrow; on mobile the visual follows the primary actions.
+Start Here reuses the Home selected-notes panel and its canonical data. Questions reuses the three numbered question paths from Explore, while Work remains a compact closing route. At narrower widths the motif is cropped and faded more aggressively so it never reduces title readability or changes the content order.
 
 ## Editorial Metadata
 

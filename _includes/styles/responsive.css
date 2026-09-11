@@ -157,22 +157,19 @@
   }
 
   .not-found-hero-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 2.2rem;
+    min-height: 18rem;
   }
 
   .not-found-message {
     max-width: 38rem;
   }
 
-  .not-found-visual {
-    min-height: 0;
-    max-height: 22rem;
-  }
-
-  .not-found-visual img {
-    width: 100%;
-    transform: translateY(-14%);
+  .not-found-motif {
+    top: -1rem;
+    right: -10rem;
+    width: 42rem;
+    opacity: 0.58;
+    mask-image: linear-gradient(to right, transparent 0%, transparent 22%, #000 52%);
   }
 
   .work-outcome {
@@ -793,7 +790,7 @@
   }
 
   .not-found-hero-grid {
-    gap: 1.7rem;
+    min-height: 0;
   }
 
   .not-found-intro p {
@@ -801,13 +798,17 @@
     line-height: 1.7;
   }
 
-  .not-found-visual {
-    max-height: 17rem;
-    border-radius: var(--radius-card-lg);
+  .not-found-motif {
+    top: 0.5rem;
+    right: -10.5rem;
+    width: 28rem;
+    opacity: 0.46;
+    mask-image: linear-gradient(to right, transparent 0%, transparent 30%, #000 62%);
   }
 
-  .not-found-visual img {
-    transform: none;
+  .not-found-questions {
+    margin-top: 2.7rem;
+    padding-top: 2.7rem;
   }
 
   .not-found-work {

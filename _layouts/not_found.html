@@ -2,8 +2,29 @@
 layout: default
 # Missing-page recovery. Start Here notes come from _data/start_here.yml.
 ---
+{% assign h = site.data.home %}
 <div class="page not-found-page">
   <section class="not-found-hero" aria-labelledby="not-found-title">
+    <div class="not-found-motif" aria-hidden="true">
+      <svg viewBox="0 0 720 420" focusable="false">
+        <g class="not-found-motif-composition">
+          <path class="motif-path motif-path--primary" d="M72 64L22 232H178M139 64V344" />
+          <path class="motif-path motif-path--primary" d="M320 64C234 64 232 344 320 344C408 344 406 64 320 64Z" />
+          <path class="motif-path motif-path--primary" d="M572 64L522 232H678M639 64V344" />
+          <path class="motif-path motif-path--secondary motif-path--dashed" d="M139 344C205 374 252 342 276 289" />
+          <path class="motif-path motif-path--secondary" d="M368 92C438 36 513 47 572 64" />
+          <path class="motif-path motif-path--tertiary motif-path--dashed" d="M22 232C92 286 176 287 238 243" />
+          <path class="motif-path motif-path--tertiary" d="M402 271C456 319 534 327 639 287" />
+          <circle class="motif-node" cx="72" cy="64" r="5" />
+          <circle class="motif-node motif-node--anchor" cx="139" cy="232" r="8" />
+          <circle class="motif-node motif-node--large" cx="320" cy="64" r="8" />
+          <circle class="motif-node" cx="320" cy="344" r="6" />
+          <circle class="motif-node" cx="572" cy="64" r="5" />
+          <circle class="motif-node motif-node--anchor" cx="639" cy="232" r="8" />
+          <rect class="motif-node motif-node--terminal" x="630" y="335" width="18" height="18" />
+        </g>
+      </svg>
+    </div>
     <div class="container not-found-hero-grid">
       <div class="not-found-message">
         <div class="section-eyebrow">404</div>
@@ -17,30 +38,60 @@ layout: default
           <a class="button-ghost" href="{{ '/thinking/' | relative_url }}" data-analytics-event="collection_open" data-analytics-collection="thinking" data-analytics-link-context="not_found_primary">Go to Thinking</a>
         </div>
       </div>
-      <figure class="not-found-visual" aria-hidden="true">
-        <img src="{{ '/assets/illustrations/404-road-trip.svg' | relative_url }}" alt="" width="720" height="480">
-      </figure>
     </div>
   </section>
 
   <section class="section not-found-start" aria-labelledby="not-found-start-title">
-    <div class="container not-found-content">
-      <div class="not-found-section-heading">
-        <div class="section-eyebrow">Start here</div>
-        <h2 class="section-title" id="not-found-start-title">Three good places to begin.</h2>
+    <div class="container home-start-section">
+      <div class="home-start-here selected-notes-panel">
+        <div>
+          <div class="section-header">
+            <div>
+              <div class="section-eyebrow">{{ h.selected_notes.eyebrow }}</div>
+              <h2 class="section-title" id="not-found-start-title">{{ h.selected_notes.title }}</h2>
+            </div>
+            <p class="section-description">{{ h.selected_notes.description }}</p>
+          </div>
+          <a class="section-link" href="{{ h.selected_notes.action.url | relative_url }}" data-analytics-event="collection_open" data-analytics-collection="thinking" data-analytics-link-context="not_found_start_here">{{ h.selected_notes.action.label }}</a>
+        </div>
+        <ul class="selected-notes-list not-found-notes">
+          {% for item in site.data.start_here.notes %}
+            {% assign note = site.pages | where: "url", item.url | first %}
+            {% if note %}
+            <li>
+              <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.url | escape }}" data-analytics-link-context="not_found_start_here">{{ note.title }}</a>
+              <span class="selected-note-summary">{{ note.summary }}</span>
+            </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
       </div>
-      <ul class="selected-notes-list not-found-notes">
-        {% for item in site.data.start_here.notes %}
-          {% assign note = site.pages | where: "url", item.url | first %}
-          {% if note %}
-          <li>
-            <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.url | escape }}" data-analytics-link-context="not_found_start_here">{{ note.title }}</a>
-            <span class="selected-note-summary">{{ note.summary }}</span>
+    </div>
+  </section>
+
+  <section class="section not-found-questions" aria-labelledby="not-found-questions-title">
+    <div class="container explore-wrap">
+      <div class="explore-intro">
+        <div>
+          <div class="section-eyebrow">Questions</div>
+          <h2 class="section-title" id="not-found-questions-title">Three paths through the ideas.</h2>
+        </div>
+        <p class="section-description">Follow one of the questions connecting notes, experience and selected external ideas.</p>
+      </div>
+      <ol class="question-path-list">
+        {% for question in site.data.questions.questions %}
+          <li class="question-path-item question-path-item--{{ question.slug }}">
+            <a href="{{ '/explore/' | append: question.slug | append: '/' | relative_url }}" data-analytics-event="question_open" data-analytics-question-id="{{ question.slug | escape }}" data-analytics-link-context="not_found_questions">
+              <span class="question-path-index" aria-hidden="true">0{{ forloop.index }}</span>
+              <span class="question-path-content">
+                <strong>{{ question.title }}</strong>
+                <span>{{ question.description }}</span>
+              </span>
+              <span class="question-path-arrow" aria-hidden="true">→</span>
+            </a>
           </li>
-          {% endif %}
         {% endfor %}
-      </ul>
-      <a class="section-link not-found-explore-link" href="{{ '/explore/' | relative_url }}" data-analytics-event="collection_open" data-analytics-collection="explore" data-analytics-link-context="not_found_explore">Explore the questions I'm working on <span aria-hidden="true">→</span></a>
+      </ol>
     </div>
   </section>
 
