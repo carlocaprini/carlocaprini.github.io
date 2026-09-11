@@ -156,6 +156,25 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .not-found-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.2rem;
+  }
+
+  .not-found-message {
+    max-width: 38rem;
+  }
+
+  .not-found-visual {
+    min-height: 0;
+    max-height: 22rem;
+  }
+
+  .not-found-visual img {
+    width: 100%;
+    transform: none;
+  }
+
   .work-outcome {
     padding-top: 1.5rem;
     padding-left: 0;
@@ -762,6 +781,43 @@
     min-height: 2.4rem;
     padding: 0.48rem 0.8rem;
     font-size: 0.8rem;
+  }
+
+  .not-found-page {
+    padding-bottom: 2.8rem;
+  }
+
+  .not-found-hero {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.6rem;
+  }
+
+  .not-found-hero-grid {
+    gap: 1.7rem;
+  }
+
+  .not-found-intro p {
+    font-size: 0.94rem;
+    line-height: 1.7;
+  }
+
+  .not-found-visual {
+    max-height: 17rem;
+    border-radius: var(--radius-card-lg);
+  }
+
+  .not-found-work {
+    margin-top: 2.6rem;
+  }
+
+  .not-found-work-inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.9rem;
+    align-items: start;
+  }
+
+  .not-found-work .section-link {
+    justify-self: start;
   }
 
   .thinking-ai-process {

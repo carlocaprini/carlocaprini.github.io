@@ -1,0 +1,117 @@
+.not-found-page {
+  padding-bottom: 3.5rem;
+}
+
+.not-found-hero {
+  margin-bottom: 3rem;
+  padding-bottom: 3.5rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.not-found-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(19rem, 0.88fr);
+  gap: 2.8rem;
+  align-items: center;
+}
+
+.not-found-message {
+  min-width: 0;
+}
+
+.not-found-message .hero-title {
+  max-width: 31rem;
+  margin-top: 1rem;
+}
+
+.not-found-intro {
+  max-width: 32rem;
+}
+
+.not-found-intro p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.not-found-intro p + p {
+  margin-top: 0.7rem;
+}
+
+.not-found-visual {
+  position: relative;
+  min-width: 0;
+  min-height: 18rem;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-panel);
+  background:
+    radial-gradient(circle at 70% 26%, rgba(251, 191, 36, 0.11), transparent 23%),
+    linear-gradient(145deg, var(--accent-indigo-soft), rgba(15, 23, 42, 0.38));
+}
+
+.not-found-visual img {
+  display: block;
+  width: 112%;
+  max-width: none;
+  height: auto;
+  transform: translateX(-6%);
+}
+
+.not-found-content {
+  max-width: 720px;
+}
+
+.not-found-section-heading {
+  margin-bottom: 1.4rem;
+}
+
+.not-found-section-heading .section-title {
+  margin: 0.55rem 0 0;
+}
+
+.not-found-notes {
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.not-found-notes li,
+.not-found-notes li:first-child,
+.not-found-notes li:last-child {
+  padding: 1.25rem 0;
+}
+
+.not-found-notes li + li {
+  border-top: 1px solid var(--color-line);
+}
+
+.not-found-explore-link {
+  margin-top: 1.4rem;
+}
+
+.not-found-work {
+  margin-top: 3.2rem;
+}
+
+.not-found-work-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2rem;
+  align-items: end;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.not-found-work-title {
+  max-width: 32rem;
+  margin: 0.65rem 0 0;
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.not-found-work .section-link {
+  white-space: nowrap;
+}

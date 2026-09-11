@@ -130,6 +130,7 @@
       "note",
       "question",
       "series",
+      "not_found",
       "page",
       "site"
     ],
@@ -143,6 +144,7 @@
       "note",
       "question",
       "series",
+      "not_found",
       "page",
       "site",
       "collection",

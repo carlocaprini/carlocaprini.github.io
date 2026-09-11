@@ -127,6 +127,7 @@ export const ANALYTICS_CONTRACT = Object.freeze({
     "note",
     "question",
     "series",
+    "not_found",
     "page",
     "site"
   ],
@@ -140,6 +141,7 @@ export const ANALYTICS_CONTRACT = Object.freeze({
     "note",
     "question",
     "series",
+    "not_found",
     "page",
     "site",
     "collection",

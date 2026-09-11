@@ -9,4 +9,5 @@
 {% include styles/thinking-and-explore.css %}
 {% include styles/experience-contact-and-privacy.css %}
 {% include styles/work.css %}
+{% include styles/not-found.css %}
 {% include styles/responsive.css %}

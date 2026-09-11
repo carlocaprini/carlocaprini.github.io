@@ -8,7 +8,7 @@ Status: Reference for future site changes
 
 The visual rules below are implemented in `_includes/styles/`, grouped by stable UI domain. `assets/css/main.css` only composes those files into the one production stylesheet; do not add independent rules to the entry point or edit generated `_site/assets/css/main.css`.
 
-Shared tokens, navigation, hero and section primitives belong in `foundations.css`. Reuse them before adding a domain variant. Page-specific rules belong with Home, Work, Article, Thinking/Explore, Influences/Topics, Series/featured content, or Experience/Contact/Privacy. Breakpoint overrides remain centralized in `responsive.css` so responsive precedence stays inspectable.
+Shared tokens, navigation, hero and section primitives belong in `foundations.css`. Reuse them before adding a domain variant. Page-specific rules belong with Home, Work, Article, Thinking/Explore, Influences/Topics, Series/featured content, Experience/Contact/Privacy, or missing-page recovery. Breakpoint overrides remain centralized in `responsive.css` so responsive precedence stays inspectable.
 
 This document defines the visual language for the site. It is based on the current direction across Home, Thinking, Explore, Work, Experience, Influences and individual notes.
 
@@ -712,6 +712,12 @@ Minimum rules:
 - Links and buttons must have an obvious `:focus-visible` treatment, not only hover feedback.
 - Lists of related material and navigation items should use semantic list markup.
 - Links opening a new tab must communicate that behavior to assistive technology and use `noopener noreferrer`.
+
+## Missing-page recovery
+
+The 404 surface uses the global shell and the ordinary editorial hierarchy. Its primary split gives the explanation and two recovery actions priority over a restrained, decorative road-trip illustration. Start Here remains a ruled editorial list rather than a card group; Explore is a text link and Work is a compact closing route.
+
+The illustration may use the established amber, cyan and indigo accents, but it must remain decorative, static, dark-background compatible and non-essential. At tablet widths the composition stacks before the text column becomes narrow; on mobile the visual follows the primary actions.
 
 ## Editorial Metadata
 
