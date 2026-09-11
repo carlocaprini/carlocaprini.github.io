@@ -98,6 +98,7 @@ def validate_generated_url(relative, label, value)
 end
 
 required_files = %w[
+  404.html
   index.html
   robots.txt
   sitemap.xml

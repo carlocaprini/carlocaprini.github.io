@@ -289,6 +289,11 @@ test("404 recovery links distinguish every onward route", async ({ page }) => {
       "collection_open",
       { collection: "thinking", link_context: "not_found_primary" }
     ],
+    [
+      page.locator('.not-found-start [data-analytics-link-context="not_found_start_here"][data-analytics-event="collection_open"]'),
+      "collection_open",
+      { collection: "thinking", link_context: "not_found_start_here" }
+    ],
     [page.locator(".not-found-notes > li > a").first(), "note_open", { link_context: "not_found_start_here" }],
     [
       page.locator(".not-found-questions .question-path-item > a").nth(0),
