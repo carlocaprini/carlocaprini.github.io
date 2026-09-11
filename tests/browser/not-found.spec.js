@@ -24,6 +24,15 @@ test("custom 404 output preserves the site shell and focused recovery hierarchy"
   await expect(page).toHaveTitle("Page not found | Carlo Caprini");
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex, follow");
   await expect(page.locator("body")).toHaveAttribute("data-analytics-page-type", "not_found");
+  await expect.poll(async () => page.evaluate(() => window.siteAggregateAnalytics?.buildPageView())).toEqual({
+    version: 1,
+    event_name: "page_view",
+    source_type: "not_found",
+    source_id: "/404.html",
+    target_type: "not_found",
+    target_id: "/404.html",
+    link_context: "page_load"
+  });
   await expect(page.locator(".site-header")).toBeAttached();
   await expect(page.locator(".site-footer")).toBeAttached();
   await expect(page.locator("[data-consent-settings]")).toBeAttached();

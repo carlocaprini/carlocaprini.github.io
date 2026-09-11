@@ -10,6 +10,7 @@ GA4 configuration is external state. Apply these steps manually in the productio
 - Confirm in Realtime or DebugView that events appear only after analytics consent on the canonical HTTPS hostname.
 - Confirm that ordinary local development on `localhost` or `127.0.0.1` produces no GA4 request.
 - Use page path and landing page as longitudinal page identity. Treat page title as descriptive metadata because titles can change.
+- For missing pages, use the `Page not found | Carlo Caprini` title as the reporting segment. The 404 runtime preserves the requested pathname for diagnosis but removes query strings and fragments before GA4 configuration; do not reconstruct or export discarded URL components.
 
 ## 2. Register event-scoped custom dimensions
 
