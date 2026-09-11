@@ -286,9 +286,16 @@ fail_check("pages/thinking.md: unknown note URLs: #{unknown_listed_urls.join(', 
 missing_listed_urls = note_by_permalink.keys - listed_note_urls
 fail_check("pages/thinking.md: notes missing from notes list: #{missing_listed_urls.join(', ')}") unless missing_listed_urls.empty?
 
-start_here_urls = Array(thinking_data.dig("start_here", "notes")).map { |note| note["url"] }.compact
+start_here_path = File.join(SOURCE_DIR, "_data/start_here.yml")
+start_here_data = read_yaml(start_here_path) || {}
+start_here_urls = Array(start_here_data["notes"]).map { |note| note["url"] }.compact
+fail_check("_data/start_here.yml: must define exactly three notes") unless start_here_urls.size == 3
+duplicate_start_urls = start_here_urls.group_by(&:itself).select { |_, values| values.size > 1 }.keys
+unless duplicate_start_urls.empty?
+  fail_check("_data/start_here.yml: duplicate note URLs: #{duplicate_start_urls.join(', ')}")
+end
 unknown_start_urls = start_here_urls.reject { |url| note_by_permalink.key?(url) }
-fail_check("pages/thinking.md: unknown Start Here URLs: #{unknown_start_urls.join(', ')}") unless unknown_start_urls.empty?
+fail_check("_data/start_here.yml: unknown note URLs: #{unknown_start_urls.join(', ')}") unless unknown_start_urls.empty?
 
 series_path = File.join(SOURCE_DIR, "_data/series.yml")
 series_data = read_yaml(series_path) || {}
