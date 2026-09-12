@@ -4,7 +4,7 @@ layout: default
 ---
 {% assign h = site.data.home %}
 <div class="page not-found-page">
-  <section class="not-found-hero" aria-labelledby="not-found-title">
+  <section class="hero hero--compact not-found-hero" aria-labelledby="not-found-title">
     <div class="not-found-motif" aria-hidden="true">
       <svg viewBox="0 0 720 420" focusable="false">
         <g class="not-found-motif-composition">
@@ -25,14 +25,15 @@ layout: default
         </g>
       </svg>
     </div>
-    <div class="container not-found-hero-grid">
+    <div class="container hero-grid hero-grid--single not-found-hero-grid">
       <div class="not-found-message">
-        <div class="section-eyebrow">404</div>
-        <h1 class="hero-title" id="not-found-title">This page doesn't exist.</h1>
-        <div class="not-found-intro">
-          <p>The link may be old, the page may have moved, or you may have taken a wrong turn.</p>
-          <p>You can return home, or start with one of the notes below.</p>
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          <span>404</span>
         </div>
+        <h1 class="hero-title hero-title--compact" id="not-found-title">This page doesn't exist.</h1>
+        <p class="hero-subtitle hero-subtitle--wide">The link may be old, the page may have moved, or you may have taken a wrong turn.</p>
+        <p class="hero-subtitle hero-subtitle--wide">You can return home, or start with one of the notes below.</p>
         <div class="hero-actions hero-actions--compact">
           <a class="button-primary" href="{{ '/' | relative_url }}" data-analytics-event="collection_open" data-analytics-collection="home" data-analytics-link-context="not_found_primary">Back to home</a>
           <a class="button-ghost" href="{{ '/thinking/' | relative_url }}" data-analytics-event="collection_open" data-analytics-collection="thinking" data-analytics-link-context="not_found_primary">Go to Thinking</a>
@@ -95,13 +96,15 @@ layout: default
     </div>
   </section>
 
-  <section class="not-found-work" aria-labelledby="not-found-work-title">
-    <div class="container not-found-content not-found-work-inner">
-      <div>
-        <div class="section-eyebrow">Looking for something more practical?</div>
-        <h2 class="not-found-work-title" id="not-found-work-title">See how I can help with Product &amp; Engineering problems.</h2>
+  <section class="section not-found-work" aria-labelledby="not-found-work-title">
+    <div class="container explore-wrap">
+      <div class="section-header not-found-work-header">
+        <div>
+          <div class="section-eyebrow">Looking for something more practical?</div>
+          <h2 class="section-title" id="not-found-work-title">See how I can help with Product &amp; Engineering problems.</h2>
+        </div>
+        <a class="section-link" href="{{ '/work/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="not_found_work">How I can help <span aria-hidden="true">→</span></a>
       </div>
-      <a class="section-link" href="{{ '/work/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="not_found_work">How I can help <span aria-hidden="true">→</span></a>
     </div>
   </section>
 </div>

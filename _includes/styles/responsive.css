@@ -156,14 +156,6 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .not-found-hero-grid {
-    min-height: 18rem;
-  }
-
-  .not-found-message {
-    max-width: 38rem;
-  }
-
   .not-found-motif {
     top: -1rem;
     right: -10rem;
@@ -780,29 +772,12 @@
     font-size: 0.8rem;
   }
 
-  .not-found-page {
-    padding-bottom: 2.8rem;
-  }
-
-  .not-found-hero {
-    margin-bottom: 2.5rem;
-    padding-bottom: 2.6rem;
-  }
-
-  .not-found-hero-grid {
-    min-height: 0;
-  }
-
-  .not-found-intro p {
-    font-size: 0.94rem;
-    line-height: 1.7;
-  }
-
   .not-found-motif {
     top: 0.5rem;
     right: -10.5rem;
     width: 28rem;
     opacity: 0.46;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 30%, #000 62%);
     mask-image: linear-gradient(to right, transparent 0%, transparent 30%, #000 62%);
   }
 
@@ -815,14 +790,8 @@
     margin-top: 2.6rem;
   }
 
-  .not-found-work-inner {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.9rem;
+  .not-found-work-header {
     align-items: start;
-  }
-
-  .not-found-work .section-link {
-    justify-self: start;
   }
 
   .thinking-ai-process {

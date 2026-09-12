@@ -36,10 +36,18 @@ test("custom 404 output preserves the site shell and focused recovery hierarchy"
   await expect(page.locator(".site-header")).toBeAttached();
   await expect(page.locator(".site-footer")).toBeAttached();
   await expect(page.locator("[data-consent-settings]")).toBeAttached();
+  await expect(page.locator(".not-found-hero")).toHaveClass(/\bhero\b/);
+  await expect(page.locator(".not-found-hero")).toHaveClass(/\bhero--compact\b/);
+  await expect(page.locator(".not-found-message > .hero-label")).toHaveText("404");
+  await expect(page.locator(".not-found-message > .hero-label .hero-label-dot")).toBeVisible();
+  await expect(page.locator(".not-found-message > .section-eyebrow")).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "This page doesn't exist." })).toBeVisible();
+  await expect(page.locator("#not-found-title")).toHaveClass(/\bhero-title--compact\b/);
+  await expect(page.locator(".not-found-message > .hero-subtitle")).toHaveCount(2);
   await expect(page.getByRole("link", { name: "Back to home" })).toHaveAttribute("href", "/");
   await expect(page.getByRole("link", { name: "Go to Thinking" })).toHaveAttribute("href", "/thinking/");
   await expect(page.getByRole("link", { name: "How I can help" })).toHaveAttribute("href", "/work/");
+  await expect(page.locator(".not-found-work #not-found-work-title")).toHaveClass(/\bsection-title\b/);
 
   const noteLinks = page.locator(".not-found-notes > li > a");
   await expect(noteLinks).toHaveCount(3);
@@ -88,4 +96,30 @@ test("recovery remains usable without the decorative motif", async ({ page }) =>
   await expect(page.getByRole("link", { name: "How I can help" })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth))
     .toBe(await page.evaluate(() => document.documentElement.clientWidth));
+});
+
+test("404 typography uses the canonical hero and section primitives", async ({ page }) => {
+  const styleSignature = async (selector, properties) => page.locator(selector).first().evaluate((element, names) => {
+    const style = getComputedStyle(element);
+    return Object.fromEntries(names.map((name) => [name, style[name]]));
+  }, properties);
+
+  const labelProperties = ["display", "fontSize", "letterSpacing", "padding", "borderRadius", "textTransform"];
+  const titleProperties = ["fontSize", "fontWeight", "letterSpacing", "lineHeight", "marginTop", "marginBottom"];
+  const subtitleProperties = ["fontSize", "lineHeight", "color", "maxWidth"];
+
+  await page.goto("/thinking/");
+  const canonicalLabel = await styleSignature(".hero .hero-label", labelProperties);
+  const canonicalTitle = await styleSignature(".hero .hero-title", titleProperties);
+  const canonicalSubtitle = await styleSignature(".hero .hero-subtitle", subtitleProperties);
+
+  await page.goto("/404.html");
+  expect(await styleSignature(".not-found-message > .hero-label", labelProperties)).toEqual(canonicalLabel);
+  expect(await styleSignature("#not-found-title", titleProperties)).toEqual(canonicalTitle);
+  expect(await styleSignature(".not-found-message > .hero-subtitle", subtitleProperties)).toEqual(canonicalSubtitle);
+
+  const sectionTitleProperties = ["fontSize", "fontWeight", "lineHeight"];
+  expect(await styleSignature("#not-found-work-title", sectionTitleProperties)).toEqual(
+    await styleSignature("#not-found-questions-title", sectionTitleProperties)
+  );
 });

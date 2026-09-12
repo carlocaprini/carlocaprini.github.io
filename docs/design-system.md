@@ -715,9 +715,9 @@ Minimum rules:
 
 ## Missing-page recovery
 
-The 404 surface uses the global shell and the ordinary editorial hierarchy. Its recovery message and two primary actions remain dominant. A static, decorative red/coral path-and-node composition uses the shared line grammar without reusing any Article topic family; it loosely traces `4 0 4`, remains non-essential and sits behind the protected text area.
+The 404 surface uses the global shell and the standard compact-hero primitives: `hero-label`, `hero-title`, `hero-subtitle` and the existing action styles. Its recovery message and two primary actions remain dominant. A static, decorative red/coral path-and-node composition uses the shared line grammar without reusing any Article topic family; it loosely traces `4 0 4`, remains non-essential and sits behind the protected text area.
 
-Start Here reuses the Home selected-notes panel and the canonical selections in `_data/start_here.yml`. Questions reuses all three numbered paths from Explore, while Work remains a compact closing route. At narrower widths the composition is cropped and faded more aggressively so it never reduces title readability or changes the content order.
+Start Here reuses the Home selected-notes panel and the canonical selections in `_data/start_here.yml`. Questions reuses all three numbered paths from Explore. Work uses the shared section eyebrow, title and link primitives as a compact closing route. At narrower widths the composition is cropped and faded more aggressively so it never reduces title readability or changes the content order. Page-specific CSS may position the decorative composition and control section rhythm, but it must not redefine shared hero or section typography.
 
 ## Editorial Metadata
 
