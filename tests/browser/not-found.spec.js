@@ -54,6 +54,8 @@ test("custom 404 output preserves the site shell and focused recovery hierarchy"
   await expect(noteLinks).toHaveCount(3);
   expect(await noteLinks.evaluateAll((links) => links.map((link) => link.getAttribute("href"))))
     .toEqual(startHereUrls);
+  await expect(page.locator(".not-found-notes .not-found-note-arrow")).toHaveCount(3);
+  await expect(page.locator(".not-found-notes .not-found-note-arrow").first()).toHaveAttribute("aria-hidden", "true");
   await expect(page.locator(".not-found-start .selected-note-summary, .not-found-start .section-description")).toHaveCount(0);
   await expect(page.locator('.not-found-start [data-analytics-event="collection_open"]')).toHaveCount(0);
 

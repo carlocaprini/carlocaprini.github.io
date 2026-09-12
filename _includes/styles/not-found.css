@@ -93,6 +93,20 @@
   padding-bottom: 1.18rem;
 }
 
+.not-found-compact-list a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: start;
+  transition: padding 180ms ease, background-color 180ms ease;
+}
+
+.not-found-compact-list a:hover {
+  padding-right: 0.55rem;
+  padding-left: 0.55rem;
+  background: linear-gradient(90deg, var(--brand-accent-soft), transparent 72%);
+}
+
 .not-found-question-list .question-path-item a {
   grid-template-columns: 2.25rem minmax(0, 1fr) auto;
   gap: 0.75rem;

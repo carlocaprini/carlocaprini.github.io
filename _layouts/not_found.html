@@ -52,7 +52,10 @@ layout: default
             {% assign note = site.pages | where: "url", item.url | first %}
             {% if note %}
             <li>
-              <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.url | escape }}" data-analytics-link-context="not_found_start_here">{{ note.title }}</a>
+              <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.url | escape }}" data-analytics-link-context="not_found_start_here">
+                <span>{{ note.title }}</span>
+                <span class="question-path-arrow not-found-note-arrow" aria-hidden="true">→</span>
+              </a>
             </li>
             {% endif %}
           {% endfor %}
