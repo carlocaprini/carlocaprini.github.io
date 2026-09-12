@@ -23,10 +23,6 @@ ai_process:
 start_here:
   title: Start here
   description: Three notes on product decisions, AI-assisted development, and how teams interpret the same context.
-  notes:
-    - url: /thinking/waiting-as-product-decision/
-    - url: /thinking/designing-for-unattended-development/
-    - url: /thinking/shared-context-is-not-shared-understanding/
 featured_series:
   slug: building-my-ai-operating-system
 recent_notes:

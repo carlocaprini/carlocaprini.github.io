@@ -1,0 +1,138 @@
+.not-found-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.not-found-hero-grid {
+  position: relative;
+  z-index: 2;
+}
+
+.not-found-message {
+  min-width: 0;
+  width: min(100%, 34rem);
+}
+
+.not-found-motif {
+  position: absolute;
+  z-index: 1;
+  top: -3.5rem;
+  right: -5rem;
+  width: clamp(38rem, 53vw, 48rem);
+  color: var(--accent-coral);
+  opacity: 0.72;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 18%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 18%);
+  filter: drop-shadow(0 0 34px var(--accent-deep-red-glow));
+}
+
+.not-found-motif::before {
+  position: absolute;
+  inset: 18% 8% 8% 28%;
+  border-radius: 50%;
+  background: var(--accent-deep-red-soft);
+  filter: blur(46px);
+  content: "";
+}
+
+.not-found-motif svg {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.not-found-motif .motif-path--primary {
+  stroke-width: 2;
+  opacity: 0.78;
+}
+
+.not-found-motif .motif-node {
+  fill: var(--color-bg);
+}
+
+.not-found-motif .motif-node--anchor,
+.not-found-motif .motif-node--large,
+.not-found-motif .motif-node--terminal {
+  fill: currentColor;
+}
+
+.not-found-recovery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(3rem, 7vw, 6rem);
+  align-items: start;
+}
+
+.not-found-recovery-column {
+  min-width: 0;
+}
+
+.not-found-recovery-column .section-title {
+  margin-top: 0.55rem;
+}
+
+.not-found-compact-list,
+.not-found-question-list {
+  margin-top: 1.4rem;
+}
+
+.not-found-compact-list {
+  border-top: 1px solid var(--color-line);
+}
+
+.not-found-compact-list li {
+  padding: 1.18rem 0.2rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.not-found-compact-list li:first-child,
+.not-found-compact-list li:last-child {
+  padding-top: 1.18rem;
+  padding-bottom: 1.18rem;
+}
+
+.not-found-compact-list a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: start;
+  transition: padding 180ms ease, background-color 180ms ease;
+}
+
+.not-found-compact-list a:hover {
+  padding-right: 0.55rem;
+  padding-left: 0.55rem;
+  background: linear-gradient(90deg, var(--brand-accent-soft), transparent 72%);
+}
+
+.not-found-question-list .question-path-item a {
+  grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  padding: 1.18rem 0.2rem;
+}
+
+.not-found-explore-link {
+  margin-top: 1.2rem;
+}
+
+.not-found-work {
+  margin-top: 3.2rem;
+}
+
+.not-found-work-header {
+  align-items: flex-end;
+  margin-bottom: 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.not-found-work-header .section-title {
+  max-width: 32rem;
+  margin-top: 0.65rem;
+}
+
+.not-found-work .section-link {
+  white-space: nowrap;
+}

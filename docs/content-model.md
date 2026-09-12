@@ -7,6 +7,7 @@
 - Topics live in `_data/topics.yml`. Do not copy the allowed slug list into documentation or runtime code.
 - Questions live in `_data/questions.yml`. They are curated reading paths across Notes, Influences and Experience, not projections of topic tags. Their Topic metadata remains editorial context and is not exposed as additional navigation on Question surfaces.
 - Series metadata lives in `_data/series.yml`; episode identity remains on the relevant Notes.
+- The three canonical Start Here Notes live in `_data/start_here.yml` and are shared by Home, Thinking and recovery surfaces.
 - Home editorial modules live in `_data/home.yml`.
 - The Work proposition lives in `pages/work.md`. It owns the recognizable situations, Review, Advisory, working principles and contact path; client proof must not be inferred or generated from it.
 - Home’s `Where I can help` module lives in `_data/home.yml`. It is a selective preview of the problem spaces described by Work, not a second service catalogue or a source of independent engagement definitions.
@@ -24,7 +25,7 @@ Work is a first-class professional destination, but it does not redefine Thinkin
 Some lists resemble derived data but are intentionally curated:
 
 - `pages/thinking.md` contains every published Note once in its `notes` list, in editorial order.
-- `pages/thinking.md` separately defines the three `start_here.notes` selections.
+- `_data/start_here.yml` defines the three shared Start Here selections.
 - `_data/home.yml` chooses and orders Home entry points and editorial modules.
 - Question sections choose and order their Notes and Influences.
 

@@ -80,12 +80,16 @@
       ad_personalization: "denied"
     });
     window.gtag("js", new Date());
-    window.gtag("config", analyticsId, {
+    var analyticsConfiguration = {
       allow_google_signals: false,
       allow_ad_personalization_signals: false,
       cookie_expires: 34128000,
       cookie_update: false
-    });
+    };
+    if (body.getAttribute("data-analytics-page-type") === "not_found") {
+      analyticsConfiguration.page_location = window.location.origin + window.location.pathname;
+    }
+    window.gtag("config", analyticsId, analyticsConfiguration);
 
     var script = document.createElement("script");
     script.async = true;

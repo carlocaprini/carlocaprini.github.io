@@ -190,7 +190,8 @@ questions.each do |question|
   fail_check("_data/questions.yml: #{question['slug']} references unknown question #{related_question}")
 end
 
-page_paths = [File.join(SOURCE_DIR, "index.md")] + Dir.glob(File.join(SOURCE_DIR, "pages/**/*.md")).sort
+page_paths = [File.join(SOURCE_DIR, "index.md"), File.join(SOURCE_DIR, "404.html")] +
+  Dir.glob(File.join(SOURCE_DIR, "pages/**/*.md")).sort
 page_records = page_paths.to_h { |path| [path, read_markdown(path)] }
 permalink_records = {}
 
@@ -205,8 +206,8 @@ page_records.each do |path, (data, _)|
   end
 
   if present?(permalink)
-    unless permalink.start_with?("/") && permalink.end_with?("/")
-      fail_check("#{relative_path(path)}: permalink must start and end with /")
+    unless permalink == "/404.html" || permalink.start_with?("/") && permalink.end_with?("/")
+      fail_check("#{relative_path(path)}: permalink must start and end with /, or be /404.html")
     end
 
     if permalink_records.key?(permalink)
@@ -229,6 +230,13 @@ page_records.each do |path, (data, _)|
     fail_check("#{relative_path(path)}: last_modified_at cannot precede date")
   end
 end
+
+not_found_path = File.join(SOURCE_DIR, "404.html")
+not_found_data = page_records.fetch(not_found_path).first
+fail_check("404.html: layout must be not_found") unless not_found_data["layout"] == "not_found"
+fail_check("404.html: permalink must be /404.html") unless not_found_data["permalink"] == "/404.html"
+fail_check("404.html: robots must be noindex, follow") unless not_found_data["robots"] == "noindex, follow"
+fail_check("404.html: sitemap must be false") unless not_found_data["sitemap"] == false
 
 questions.each do |question|
   expected_permalink = "/explore/#{question['slug']}/"
@@ -286,9 +294,16 @@ fail_check("pages/thinking.md: unknown note URLs: #{unknown_listed_urls.join(', 
 missing_listed_urls = note_by_permalink.keys - listed_note_urls
 fail_check("pages/thinking.md: notes missing from notes list: #{missing_listed_urls.join(', ')}") unless missing_listed_urls.empty?
 
-start_here_urls = Array(thinking_data.dig("start_here", "notes")).map { |note| note["url"] }.compact
+start_here_path = File.join(SOURCE_DIR, "_data/start_here.yml")
+start_here_data = read_yaml(start_here_path) || {}
+start_here_urls = Array(start_here_data["notes"]).map { |note| note["url"] }.compact
+fail_check("_data/start_here.yml: must define exactly three notes") unless start_here_urls.size == 3
+duplicate_start_urls = start_here_urls.group_by(&:itself).select { |_, values| values.size > 1 }.keys
+unless duplicate_start_urls.empty?
+  fail_check("_data/start_here.yml: duplicate note URLs: #{duplicate_start_urls.join(', ')}")
+end
 unknown_start_urls = start_here_urls.reject { |url| note_by_permalink.key?(url) }
-fail_check("pages/thinking.md: unknown Start Here URLs: #{unknown_start_urls.join(', ')}") unless unknown_start_urls.empty?
+fail_check("_data/start_here.yml: unknown note URLs: #{unknown_start_urls.join(', ')}") unless unknown_start_urls.empty?
 
 series_path = File.join(SOURCE_DIR, "_data/series.yml")
 series_data = read_yaml(series_path) || {}

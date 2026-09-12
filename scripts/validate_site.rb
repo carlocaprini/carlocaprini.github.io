@@ -98,6 +98,7 @@ def validate_generated_url(relative, label, value)
 end
 
 required_files = %w[
+  404.html
   index.html
   robots.txt
   sitemap.xml
@@ -283,11 +284,14 @@ html_files.each do |file|
 
   canonical_match = html.match(%r{<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']}i)
   legacy_redirect = html.include?("data-legacy-redirect")
+  noindex = meta_content(html, "name", "robots").to_s.split(",").map(&:strip).include?("noindex")
   if canonical_match
     canonical = canonical_match[1]
     canonical_urls << canonical unless legacy_redirect
     fail_check("#{relative}: non-canonical canonical URL #{canonical}") unless canonical.start_with?("#{SITE_URL}/")
-    unless legacy_redirect || sitemap_locs.empty? || sitemap_locs.include?(canonical) || defined?(development_sitemap) && development_sitemap
+    if noindex && !legacy_redirect && sitemap_locs.include?(canonical)
+      fail_check("#{relative}: noindex canonical URL must not be listed in sitemap.xml")
+    elsif !noindex && !(legacy_redirect || sitemap_locs.empty? || sitemap_locs.include?(canonical) || defined?(development_sitemap) && development_sitemap)
       fail_check("#{relative}: canonical URL not listed in sitemap.xml: #{canonical}")
     end
   else

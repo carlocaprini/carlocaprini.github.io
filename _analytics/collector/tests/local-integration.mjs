@@ -74,6 +74,15 @@ function query(sql) {
   return parsed[0]?.results || [];
 }
 
+async function waitForMeasurements(measurements, expectedCount) {
+  const deadline = Date.now() + 5_000;
+  while (Date.now() < deadline) {
+    if (measurements.length >= expectedCount) return;
+    await new Promise((resolvePromise) => setTimeout(resolvePromise, 50));
+  }
+  throw new Error(`Timed out waiting for ${expectedCount} accepted measurements; received ${measurements.length}`);
+}
+
 const html = `<!doctype html>
 <html lang="en">
   <body
@@ -148,8 +157,16 @@ try {
   const page = await browser.newPage({
     userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/140.0.0.0 Safari/537.36"
   });
+  const measurements = [];
+  page.on("response", (response) => {
+    const request = response.request();
+    if (response.url() === `${workerOrigin}/v1/measure` && request.method() === "POST" && response.ok()) {
+      measurements.push(JSON.parse(request.postData()));
+    }
+  });
   await page.goto(`${siteOrigin}/?utm_source=linkedin&utm_medium=social&utm_campaign=thinking&utm_content=local_test_single_image`);
   await page.waitForFunction(() => window.siteAggregateAnalytics?.enabled === true);
+  await waitForMeasurements(measurements, 3);
   await page.evaluate(() => {
     window.dispatchEvent(new CustomEvent("site:analytics", {
       detail: {
@@ -163,9 +180,10 @@ try {
       }
     }));
   });
-  await page.waitForTimeout(500);
+  await waitForMeasurements(measurements, 4);
   await page.goto(`${siteOrigin}/?utm_source=linkedin&utm_medium=profile&utm_campaign=premium_subscription&utm_content=website_button`);
   await page.waitForFunction(() => window.siteAggregateAnalytics?.enabled === true);
+  await waitForMeasurements(measurements, 7);
   const premiumParsing = await page.evaluate(() => {
     const build = window.siteAggregateAnalytics.buildCampaignLanding;
     const query = "?utm_source=linkedin&utm_medium=profile&utm_campaign=premium_subscription&utm_content=website_button";
@@ -188,7 +206,6 @@ try {
     unexpectedContent: null,
     incompleteEditorial: null
   });
-  await page.waitForTimeout(500);
   await browser.close();
   browser = null;
   await new Promise((resolvePromise) => server.close(resolvePromise));

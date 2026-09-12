@@ -8,7 +8,7 @@ Status: Reference for future site changes
 
 The visual rules below are implemented in `_includes/styles/`, grouped by stable UI domain. `assets/css/main.css` only composes those files into the one production stylesheet; do not add independent rules to the entry point or edit generated `_site/assets/css/main.css`.
 
-Shared tokens, navigation, hero and section primitives belong in `foundations.css`. Reuse them before adding a domain variant. Page-specific rules belong with Home, Work, Article, Thinking/Explore, Influences/Topics, Series/featured content, or Experience/Contact/Privacy. Breakpoint overrides remain centralized in `responsive.css` so responsive precedence stays inspectable.
+Shared tokens, navigation, hero and section primitives belong in `foundations.css`. Reuse them before adding a domain variant. Page-specific rules belong with Home, Work, Article, Thinking/Explore, Influences/Topics, Series/featured content, Experience/Contact/Privacy, or missing-page recovery. Breakpoint overrides remain centralized in `responsive.css` so responsive precedence stays inspectable.
 
 This document defines the visual language for the site. It is based on the current direction across Home, Thinking, Explore, Work, Experience, Influences and individual notes.
 
@@ -141,7 +141,7 @@ Rules:
 - make the complete static state the design; motion is optional, finite and must respect reduced-motion preferences;
 - keep Series identity in sequence and Question identity in connections rather than in this motif.
 
-Do not use Article topic motifs for Work, Experience, Contact, global navigation, generic decoration or other non-editorial pages. Do not place them inside cards or panels, and never encode essential information in the SVG.
+Do not reuse complete Article topic-motif compositions for Work, Experience, Contact, global navigation, generic decoration or other non-editorial pages. Shared path-and-node primitives may support a dedicated composition only when it has its own documented purpose and remains decorative; the missing-page recovery is the current exception. Do not place Article topic motifs inside cards or panels, and never encode essential information in an SVG.
 
 ## Surfaces
 
@@ -712,6 +712,14 @@ Minimum rules:
 - Links and buttons must have an obvious `:focus-visible` treatment, not only hover feedback.
 - Lists of related material and navigation items should use semantic list markup.
 - Links opening a new tab must communicate that behavior to assistive technology and use `noopener noreferrer`.
+
+## Missing-page recovery
+
+The 404 surface uses the global shell and the standard compact-hero primitives: `hero-label`, `hero-title`, `hero-subtitle` and the existing action styles. Its recovery message and two primary actions remain dominant. A static, decorative red/coral path-and-node composition uses the shared line grammar without reusing any Article topic family; it loosely traces `4 0 4`, remains non-essential and sits behind the protected text area.
+
+The dedicated motif is part of the missing-page recovery language, not a general error state or a new Topic. Its purpose is to suggest a wrong turn that still has a route forward. Three open path geometries loosely trace `4 0 4`; connecting lines and nodes reuse the site's editorial motif grammar. The palette uses `--accent-coral` for the line work and the warm-spectrum deep-red tokens `--accent-deep-red-soft` and `--accent-deep-red-glow` for atmospheric depth. These colors remain decorative only. The motif must remain static, `aria-hidden`, non-interactive, partially masked behind the message and dispensable to every recovery action. Do not reuse it for validation errors, status messaging, editorial taxonomy, buttons, cards or other page heroes.
+
+Start Here consumes the canonical selections in `_data/start_here.yml`, while Questions consumes all three paths from `_data/questions.yml`. On the 404 both are intentionally reduced to linked titles without summaries or explanatory copy. They form two equal editorial columns on desktop and stack in the same Start Here → Questions order on tablet and mobile. The Questions column ends with the lightweight Explore collection link; Work uses the shared section eyebrow, title and link primitives as a compact closing route below them. At narrower widths the hero motif is cropped and faded more aggressively so it never reduces title readability or changes the content order. Page-specific CSS may position the decorative composition and control recovery-list rhythm, but it must not redefine shared hero or section typography.
 
 ## Editorial Metadata
 

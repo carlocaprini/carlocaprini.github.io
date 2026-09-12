@@ -156,6 +156,19 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .not-found-motif {
+    top: -1rem;
+    right: -10rem;
+    width: 42rem;
+    opacity: 0.58;
+    mask-image: linear-gradient(to right, transparent 0%, transparent 22%, #000 52%);
+  }
+
+  .not-found-recovery-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.8rem;
+  }
+
   .work-outcome {
     padding-top: 1.5rem;
     padding-left: 0;
@@ -762,6 +775,27 @@
     min-height: 2.4rem;
     padding: 0.48rem 0.8rem;
     font-size: 0.8rem;
+  }
+
+  .not-found-motif {
+    top: 0.5rem;
+    right: -10.5rem;
+    width: 28rem;
+    opacity: 0.46;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, transparent 30%, #000 62%);
+    mask-image: linear-gradient(to right, transparent 0%, transparent 30%, #000 62%);
+  }
+
+  .not-found-recovery-grid {
+    gap: 2.5rem;
+  }
+
+  .not-found-work {
+    margin-top: 2.6rem;
+  }
+
+  .not-found-work-header {
+    align-items: start;
   }
 
   .thinking-ai-process {

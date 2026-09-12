@@ -57,6 +57,12 @@
       "viewports": ["desktop", "tablet", "mobile"]
     },
     {
+      "id": "404",
+      "path": "/404.html",
+      "description": "Missing-page recovery with editorial and professional onward routes",
+      "viewports": ["desktop", "tablet", "mobile"]
+    },
+    {
       "id": "standard-article",
       "path": "/thinking/waiting-as-product-decision/",
       "description": "Representative standalone Thinking article",

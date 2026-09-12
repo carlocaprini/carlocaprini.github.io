@@ -21,6 +21,8 @@ The site measures meaningful transitions rather than every click:
 
 Home and brand links, back links, skip links, Privacy, consent-settings reopening and purely visual interactions intentionally have no semantic navigation event. Their destination page view or dedicated consent behavior is sufficient, and adding click events would create noise without answering a measurement question. Desktop and mobile navigation use the same destination semantics while retaining separate `primary_navigation` and `mobile_navigation` contexts.
 
+Missing-page measurement deliberately has two levels. The aggregate collector records only a `page_view` whose source and target are `not_found` with the fixed identifier `/404.html`, plus allowlisted recovery actions; the requested path never enters D1. After analytics consent, GA4 may retain the actual missing pathname for diagnosing recurring broken links, but the 404 configuration removes its query string and fragment before the automatic page view is sent. Do not promote 404 views to `content_view`, an error event or a Key Event.
+
 Cross-system measurement operations live under [`measurement/`](measurement/README.md). That directory owns the GA4 reporting target, internal/developer traffic handling, professional-outcome structure and repeatable monthly/quarterly evidence workflow. It does not introduce another telemetry destination.
 
 When a landing URL matches a canonical UTM combination, the browser also sends one aggregate `campaign_landing` event. Missing required, duplicated or unknown UTM values are ignored and do not affect the normal page and interaction counters. Campaign attribution is limited to the landing page and is never persisted across navigation.

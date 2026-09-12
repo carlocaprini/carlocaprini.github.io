@@ -53,7 +53,7 @@ layout: default
       </section>
       {% endif %}
       <div class="thinking-entry-grid">
-      {% if page.start_here and page.start_here.notes %}
+      {% if page.start_here and site.data.start_here.notes %}
       <div class="thinking-start-here selected-notes-panel selected-notes-panel--compact">
         <div class="section-header">
           <div>
@@ -62,7 +62,7 @@ layout: default
           <p class="section-description">{{ page.start_here.description }}</p>
         </div>
         <ul class="selected-notes-list">
-          {% for item in page.start_here.notes %}
+          {% for item in site.data.start_here.notes %}
             {% assign note = site.pages | where: "url", item.url | first %}
             {% if note %}
             <li>

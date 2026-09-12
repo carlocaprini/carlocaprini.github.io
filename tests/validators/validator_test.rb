@@ -20,6 +20,7 @@ class ValidatorTest < Minitest::Test
     _influences
     _layouts
     assets
+    404.html
     contracts
     index.md
     pages
@@ -105,6 +106,12 @@ class ValidatorTest < Minitest::Test
         </html>
       HTML
     end
+
+    not_found = File.read(File.join(directory, "index.html"))
+      .sub("<title>Fixture page</title>", "<title>Page not found</title>")
+      .sub('<link rel="canonical" href="https://carlocaprini.github.io/">', '<link rel="canonical" href="https://carlocaprini.github.io/404.html">')
+      .sub("</head>", "<meta name=\"robots\" content=\"noindex, follow\">\n</head>")
+    File.write(File.join(directory, "404.html"), not_found)
 
     sitemap_entries = urls.map { |path| "  <url><loc>https://carlocaprini.github.io#{path}</loc></url>" }.join("\n")
     sitemap = "<?xml version=\"1.0\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n#{sitemap_entries}\n</urlset>\n"
@@ -218,6 +225,20 @@ class ValidatorTest < Minitest::Test
     end
   end
 
+  def test_source_rejects_indexable_404
+    assert_invalid_source(/404.html: robots must be noindex, follow/) do |directory|
+      path = File.join(directory, "404.html")
+      replace!(path, "robots: noindex, follow", "robots: index, follow")
+    end
+  end
+
+  def test_source_rejects_incomplete_start_here_selection
+    assert_invalid_source(/_data\/start_here.yml: must define exactly three notes/) do |directory|
+      path = File.join(directory, "_data/start_here.yml")
+      replace!(path, "  - url: /thinking/waiting-as-product-decision/\n", "")
+    end
+  end
+
   def test_source_rejects_invalid_influence_metadata
     assert_invalid_source(/invalid external_url/) do |directory|
       replace!(influence_path(directory), /^external_url:.*$/, "external_url: not-a-url")
@@ -283,6 +304,12 @@ class ValidatorTest < Minitest::Test
   def test_generated_output_rejects_missing_required_file
     assert_invalid_output(/Missing generated file: robots.txt/) do |directory|
       FileUtils.rm(File.join(directory, "robots.txt"))
+    end
+  end
+
+  def test_generated_output_rejects_missing_custom_404
+    assert_invalid_output(/Missing generated file: 404.html/) do |directory|
+      FileUtils.rm(File.join(directory, "404.html"))
     end
   end
 
