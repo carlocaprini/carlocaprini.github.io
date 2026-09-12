@@ -289,11 +289,6 @@ test("404 recovery links distinguish every onward route", async ({ page }) => {
       "collection_open",
       { collection: "thinking", link_context: "not_found_primary" }
     ],
-    [
-      page.locator('.not-found-start [data-analytics-link-context="not_found_start_here"][data-analytics-event="collection_open"]'),
-      "collection_open",
-      { collection: "thinking", link_context: "not_found_start_here" }
-    ],
     [page.locator(".not-found-notes > li > a").first(), "note_open", { link_context: "not_found_start_here" }],
     [
       page.locator(".not-found-questions .question-path-item > a").nth(0),
@@ -309,6 +304,11 @@ test("404 recovery links distinguish every onward route", async ({ page }) => {
       page.locator(".not-found-questions .question-path-item > a").nth(2),
       "question_open",
       { question_id: "ai-and-work", link_context: "not_found_questions" }
+    ],
+    [
+      page.getByRole("link", { name: "Explore the questions I’m working on" }),
+      "collection_open",
+      { collection: "explore", link_context: "not_found_explore" }
     ],
     [page.getByRole("link", { name: "How I can help" }), "work_open", { link_context: "not_found_work" }]
   ];

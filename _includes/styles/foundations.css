@@ -28,6 +28,9 @@
   --accent-sky: #38bdf8;
   --accent-sky-soft: rgba(56, 189, 248, 0.1);
   --accent-sky-border: rgba(56, 189, 248, 0.28);
+  --accent-coral: #fb7185;
+  --accent-deep-red-soft: rgba(190, 24, 93, 0.12);
+  --accent-deep-red-glow: rgba(190, 24, 93, 0.2);
   --brand-accent: var(--accent-cyan);
   --brand-accent-soft: var(--accent-cyan-soft);
   --brand-accent-border: var(--accent-cyan-border);

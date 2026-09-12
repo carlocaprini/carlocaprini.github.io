@@ -46,6 +46,7 @@ test("custom 404 output preserves the site shell and focused recovery hierarchy"
   await expect(page.locator(".not-found-message > .hero-subtitle")).toHaveCount(2);
   await expect(page.getByRole("link", { name: "Back to home" })).toHaveAttribute("href", "/");
   await expect(page.getByRole("link", { name: "Go to Thinking" })).toHaveAttribute("href", "/thinking/");
+  await expect(page.getByRole("link", { name: "Explore the questions I’m working on" })).toHaveAttribute("href", "/explore/");
   await expect(page.getByRole("link", { name: "How I can help" })).toHaveAttribute("href", "/work/");
   await expect(page.locator(".not-found-work #not-found-work-title")).toHaveClass(/\bsection-title\b/);
 
@@ -53,11 +54,19 @@ test("custom 404 output preserves the site shell and focused recovery hierarchy"
   await expect(noteLinks).toHaveCount(3);
   expect(await noteLinks.evaluateAll((links) => links.map((link) => link.getAttribute("href"))))
     .toEqual(startHereUrls);
+  await expect(page.locator(".not-found-start .selected-note-summary, .not-found-start .section-description")).toHaveCount(0);
+  await expect(page.locator('.not-found-start [data-analytics-event="collection_open"]')).toHaveCount(0);
 
   const questionLinks = page.locator(".not-found-questions .question-path-item > a");
   await expect(questionLinks).toHaveCount(3);
   expect(await questionLinks.evaluateAll((links) => links.map((link) => link.getAttribute("href"))))
     .toEqual(questionUrls);
+  await expect(page.locator(".not-found-questions .question-path-content > span, .not-found-questions .section-description")).toHaveCount(0);
+
+  const recoveryColumns = await page.locator(".not-found-recovery-grid").evaluate((element) =>
+    getComputedStyle(element).gridTemplateColumns.split(" ").filter(Boolean).length
+  );
+  expect(recoveryColumns).toBe(testInfo.project.name === "desktop-chromium" ? 2 : 1);
 
   const motif = page.locator('.not-found-motif[aria-hidden="true"] svg');
   await expect(motif).toBeAttached();
@@ -93,6 +102,7 @@ test("recovery remains usable without the decorative motif", async ({ page }) =>
   await expect(page.getByRole("link", { name: "Go to Thinking" })).toBeVisible();
   await expect(page.locator(".not-found-notes > li")).toHaveCount(3);
   await expect(page.locator(".not-found-questions .question-path-item")).toHaveCount(3);
+  await expect(page.getByRole("link", { name: "Explore the questions I’m working on" })).toBeVisible();
   await expect(page.getByRole("link", { name: "How I can help" })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth))
     .toBe(await page.evaluate(() => document.documentElement.clientWidth));

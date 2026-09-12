@@ -164,6 +164,11 @@
     mask-image: linear-gradient(to right, transparent 0%, transparent 22%, #000 52%);
   }
 
+  .not-found-recovery-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.8rem;
+  }
+
   .work-outcome {
     padding-top: 1.5rem;
     padding-left: 0;
@@ -781,9 +786,8 @@
     mask-image: linear-gradient(to right, transparent 0%, transparent 30%, #000 62%);
   }
 
-  .not-found-questions {
-    margin-top: 2.7rem;
-    padding-top: 2.7rem;
+  .not-found-recovery-grid {
+    gap: 2.5rem;
   }
 
   .not-found-work {

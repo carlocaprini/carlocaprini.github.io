@@ -42,59 +42,41 @@ layout: default
     </div>
   </section>
 
-  <section class="section not-found-start" aria-labelledby="not-found-start-title">
-    <div class="container home-start-section">
-      <div class="home-start-here selected-notes-panel">
-        <div>
-          <div class="section-header">
-            <div>
-              <div class="section-eyebrow">{{ h.selected_notes.eyebrow }}</div>
-              <h2 class="section-title" id="not-found-start-title">{{ h.selected_notes.title }}</h2>
-            </div>
-            <p class="section-description">{{ h.selected_notes.description }}</p>
-          </div>
-          <a class="section-link" href="{{ h.selected_notes.action.url | relative_url }}" data-analytics-event="collection_open" data-analytics-collection="thinking" data-analytics-link-context="not_found_start_here">{{ h.selected_notes.action.label }}</a>
-        </div>
-        <ul class="selected-notes-list not-found-notes">
+  <div class="section not-found-recovery">
+    <div class="container explore-wrap not-found-recovery-grid">
+      <section class="not-found-recovery-column not-found-start" aria-labelledby="not-found-start-title">
+        <div class="section-eyebrow">{{ h.selected_notes.eyebrow }}</div>
+        <h2 class="section-title" id="not-found-start-title">{{ h.selected_notes.title }}</h2>
+        <ul class="selected-notes-list not-found-compact-list not-found-notes">
           {% for item in site.data.start_here.notes %}
             {% assign note = site.pages | where: "url", item.url | first %}
             {% if note %}
             <li>
               <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.url | escape }}" data-analytics-link-context="not_found_start_here">{{ note.title }}</a>
-              <span class="selected-note-summary">{{ note.summary }}</span>
             </li>
             {% endif %}
           {% endfor %}
         </ul>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <section class="section not-found-questions" aria-labelledby="not-found-questions-title">
-    <div class="container explore-wrap">
-      <div class="explore-intro">
-        <div>
-          <div class="section-eyebrow">Questions</div>
-          <h2 class="section-title" id="not-found-questions-title">Three paths through the ideas.</h2>
-        </div>
-        <p class="section-description">Follow a question through related notes, experience and selected external ideas.</p>
-      </div>
-      <ol class="question-path-list">
-        {% for question in site.data.questions.questions %}
-          <li class="question-path-item question-path-item--{{ question.slug }}">
-            <a href="{{ '/explore/' | append: question.slug | append: '/' | relative_url }}" data-analytics-event="question_open" data-analytics-question-id="{{ question.slug | escape }}" data-analytics-link-context="not_found_questions">
-              <span class="question-path-index" aria-hidden="true">0{{ forloop.index }}</span>
-              <span class="question-path-content">
-                <strong>{{ question.title }}</strong>
-                <span>{{ question.description }}</span>
-              </span>
-              <span class="question-path-arrow" aria-hidden="true">→</span>
-            </a>
-          </li>
-        {% endfor %}
-      </ol>
+      <section class="not-found-recovery-column not-found-questions" aria-labelledby="not-found-questions-title">
+        <div class="section-eyebrow">Questions</div>
+        <h2 class="section-title" id="not-found-questions-title">Three paths through the ideas.</h2>
+        <ol class="question-path-list not-found-question-list">
+          {% for question in site.data.questions.questions %}
+            <li class="question-path-item question-path-item--{{ question.slug }}">
+              <a href="{{ '/explore/' | append: question.slug | append: '/' | relative_url }}" data-analytics-event="question_open" data-analytics-question-id="{{ question.slug | escape }}" data-analytics-link-context="not_found_questions">
+                <span class="question-path-index" aria-hidden="true">0{{ forloop.index }}</span>
+                <span class="question-path-content"><strong>{{ question.title }}</strong></span>
+                <span class="question-path-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          {% endfor %}
+        </ol>
+        <a class="section-link not-found-explore-link" href="{{ '/explore/' | relative_url }}" data-analytics-event="collection_open" data-analytics-collection="explore" data-analytics-link-context="not_found_explore">Explore the questions I’m working on <span aria-hidden="true">→</span></a>
+      </section>
     </div>
-  </section>
+  </div>
 
   <section class="section not-found-work" aria-labelledby="not-found-work-title">
     <div class="container explore-wrap">
