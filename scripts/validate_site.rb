@@ -235,6 +235,13 @@ def validate_feed_content_urls(content, label)
     end
 
     uri = URI.parse(value)
+    # Fragments remain meaningful inside an item's HTML. Every other relative
+    # reference would resolve against the feed document rather than the article.
+    if uri.relative? && !value.start_with?("#")
+      fail_check("#{label} contains a relative href/src URL: #{value}")
+      next
+    end
+
     next unless uri.host&.downcase == SITE_HOST.downcase
 
     unless uri.is_a?(URI::HTTPS) && value.start_with?("#{SITE_URL}/")

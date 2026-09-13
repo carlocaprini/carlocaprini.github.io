@@ -508,10 +508,46 @@ class ValidatorTest < Minitest::Test
     end
   end
 
+  def test_generated_feed_rejects_bare_relative_content_url
+    assert_invalid_output(%r{content:encoded contains a relative href/src URL: other-note/}) do |directory|
+      path = File.join(directory, "feed.xml")
+      replace!(path,
+        'href="https://carlocaprini.github.io/thinking/newer-note/"',
+        'href="other-note/"')
+    end
+  end
+
+  def test_generated_feed_rejects_parent_relative_content_url
+    assert_invalid_output(%r{content:encoded contains a relative href/src URL: ../other-note/}) do |directory|
+      path = File.join(directory, "feed.xml")
+      replace!(path,
+        'href="https://carlocaprini.github.io/thinking/newer-note/"',
+        'href="../other-note/"')
+    end
+  end
+
+  def test_generated_feed_rejects_relative_asset_url
+    assert_invalid_output(%r{content:encoded contains a relative href/src URL: assets/image.png}) do |directory|
+      path = File.join(directory, "feed.xml")
+      replace!(path,
+        '<p>Newer content with an <a href="https://example.com/reference">',
+        '<p>Newer content with an <img src="assets/image.png" alt=""><a href="https://example.com/reference">')
+    end
+  end
+
   def test_generated_feed_allows_legitimate_external_content_url
     assert_valid_output do |directory|
       path = File.join(directory, "feed.xml")
       replace!(path, "https://example.com/reference", "https://docs.example.org/reference?view=full#details")
+    end
+  end
+
+  def test_generated_feed_allows_fragment_and_non_site_scheme
+    assert_valid_output do |directory|
+      path = File.join(directory, "feed.xml")
+      replace!(path,
+        'external reference</a>.</p>',
+        'external reference</a>, <a href="#details">fragment</a>, and <a href="mailto:hello@example.com">email</a>.</p>')
     end
   end
 
