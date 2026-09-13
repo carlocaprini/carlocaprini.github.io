@@ -8,6 +8,7 @@
 | --- | --- | --- |
 | `bin/check source` | Ruby syntax, validator mutation fixtures and source contracts | Ruby |
 | `bin/check generated` | Production Jekyll build plus generated-site validation | Ruby; local Bundler/Jekyll or Docker |
+| `bin/check sitemap` | Sitemap protocol/origin validation, static packaging, Worker tests and Wrangler dry-run | built `_site`, Ruby, Node dependencies |
 | `bin/check analytics` | Generated contract freshness, browser/Worker contract, reporting periods and measurement-operation tests | Node dependencies |
 | `bin/check analytics-integration` | Browser → Worker → disposable D1 path | Node dependencies, Chromium |
 | `bin/check infrastructure` | Docker Compose configuration | Docker |
@@ -33,6 +34,7 @@
 | Layout/include | `generated` | `browser`, `webkit`, `visual` |
 | CSS | relevant browser project | `browser`, `webkit`, `visual` |
 | Analytics contract/runtime | `analytics` | `analytics-integration` and privacy browser paths |
+| Sitemap delivery | `sitemap` | `generated`, `sitemap`, then complete CI |
 | CI/check scripts | affected command | `all` where prerequisites exist, then complete CI |
 
 ## CI mapping
@@ -42,7 +44,10 @@ The `Site checks` workflow keeps independent jobs for fast feedback:
 - Validate site → `bin/check source`, then `bin/check generated` and upload `_site`.
 - Analytics → `bin/check analytics` and `bin/check analytics-integration`.
 - Infrastructure → `bin/check infrastructure`.
+- Sitemap Worker → download the same generated artifact, then `bin/check sitemap`; pull requests stop after the dry-run.
 - Chromium/WebKit/Visual → the matching browser command after downloading the same generated artifact.
+
+On production runs, GitHub Pages waits for the Sitemap Worker check alongside every other blocking category. The external Worker deployment starts only after Pages succeeds, downloads the same `_site` artifact, repeats the sitemap gate, and then deploys with account-scoped Cloudflare credentials.
 
 Draft pull requests do not run the expensive gate. Marking a PR ready triggers it. Deployment waits for every blocking job.
 

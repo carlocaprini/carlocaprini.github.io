@@ -22,6 +22,7 @@ The repository-owned check interface is:
 ```bash
 bin/check source
 bin/check generated
+bin/check sitemap
 bin/check analytics
 bin/check browser
 bin/check visual
@@ -40,6 +41,7 @@ Use the narrowest relevant check while iterating and the full relevant gate befo
 - [`docs/design-system.md`](docs/design-system.md): canonical visual language.
 - [`contracts/analytics.json`](contracts/analytics.json): machine-readable analytics and campaign vocabulary.
 - [`_analytics/README.md`](_analytics/README.md): aggregate collector, privacy model and operational setup.
+- [`_sitemap/README.md`](_sitemap/README.md): external static sitemap delivery, Cloudflare setup, cost guardrail and Search Console experiment.
 - [`_analytics/measurement/README.md`](_analytics/measurement/README.md): GA4 reporting configuration and repeatable monthly and quarterly evidence workflow.
 - [`visual-reference/README.md`](visual-reference/README.md): versioned representative screenshots.
 

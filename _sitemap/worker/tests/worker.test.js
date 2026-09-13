@@ -10,10 +10,18 @@ const repositoryRoot = new URL("../../../", import.meta.url);
 const canonicalOrigin = "https://carlocaprini.github.io";
 const expectedSitemap = await readFile(new URL("_site/sitemap.xml", repositoryRoot), "utf8");
 const siteConfiguration = await readFile(new URL("_config.yml", repositoryRoot), "utf8");
+const workerConfiguration = JSON.parse(await readFile(new URL("../wrangler.jsonc", import.meta.url), "utf8"));
 const externalUrlMatch = siteConfiguration.match(/^external_sitemap_url:\s*["']?([^"'\n]+)["']?$/m);
 
 assert.ok(externalUrlMatch, "_config.yml must define external_sitemap_url");
 const externalSitemapUrl = new URL(externalUrlMatch[1]);
+
+test("canonical external URL matches the dedicated Worker configuration", () => {
+  assert.equal(externalSitemapUrl.pathname, "/sitemap.xml");
+  assert.equal(externalSitemapUrl.hostname.split(".")[0], workerConfiguration.name);
+  assert.equal(workerConfiguration.workers_dev, true);
+  assert.deepEqual(Object.keys(workerConfiguration).filter((key) => /kv|d1|r2|queue|durable|route|trigger|binding/i.test(key)), []);
+});
 
 test("packaged module is an exact copy of the generated Jekyll sitemap", () => {
   assert.equal(sitemapXml, expectedSitemap);

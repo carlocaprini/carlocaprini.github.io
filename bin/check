@@ -30,6 +30,7 @@ EOF
 check_source() {
   ruby -c scripts/lib/validation.rb
   ruby -c scripts/validate_source.rb
+  ruby -c scripts/validate_sitemap.rb
   ruby -c scripts/validate_site.rb
   ruby tests/validators/validator_test.rb
   ruby scripts/validate_source.rb
