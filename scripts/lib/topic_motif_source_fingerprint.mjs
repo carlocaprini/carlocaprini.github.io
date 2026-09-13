@@ -16,6 +16,24 @@ const DIRECT_VISUAL_SOURCE_FILES = [
   "scripts/lib/topic_motif_source_fingerprint.mjs"
 ];
 
+const NON_VISUAL_CONFIG_KEYS = new Set([
+  "external_sitemap_url"
+]);
+
+function visualSourceContent(relativePath, content) {
+  if (relativePath !== "_config.yml") return content;
+
+  const visualConfiguration = content
+    .toString("utf8")
+    .split("\n")
+    .filter((line) => {
+      const key = line.match(/^([a-z0-9_]+):/)?.[1];
+      return !NON_VISUAL_CONFIG_KEYS.has(key);
+    })
+    .join("\n");
+  return Buffer.from(visualConfiguration, "utf8");
+}
+
 export async function visualSourceFiles(manifest, repositoryRoot) {
   const styleRoot = resolve(repositoryRoot, "_includes/styles");
   const styleFiles = (await readdir(styleRoot))
@@ -37,7 +55,8 @@ export async function sourceFingerprint(manifest, repositoryRoot) {
   for (const relativePath of sourceFiles) {
     hash.update(relativePath);
     hash.update("\0");
-    hash.update(await readFile(resolve(repositoryRoot, relativePath)));
+    const content = await readFile(resolve(repositoryRoot, relativePath));
+    hash.update(visualSourceContent(relativePath, content));
     hash.update("\0");
   }
   return hash.digest("hex");

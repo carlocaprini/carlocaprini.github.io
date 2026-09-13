@@ -86,6 +86,23 @@ test("a Playwright-only dependency change does not invalidate motif references",
   );
 });
 
+test("an external sitemap endpoint change does not invalidate motif references", async () => {
+  await assertIgnored(
+    "_config.yml",
+    "article_topic_motif_variant: spatial\nexternal_sitemap_url: https://first.example.workers.dev/sitemap.xml\n",
+    "article_topic_motif_variant: spatial\nexternal_sitemap_url: https://second.example.workers.dev/sitemap.xml\n"
+  );
+});
+
+test("an article motif configuration change invalidates motif references", async () => {
+  const fingerprints = await fingerprintAfterChange(
+    "_config.yml",
+    "article_topic_motif_variant: spatial\nexternal_sitemap_url: https://example.workers.dev/sitemap.xml\n",
+    "article_topic_motif_variant: balanced\nexternal_sitemap_url: https://example.workers.dev/sitemap.xml\n"
+  );
+  assert.notEqual(fingerprints.changed, fingerprints.initial);
+});
+
 test("a motif template change invalidates motif references", async () => {
   await assertInvalidates("_includes/article-topic-motif.html");
 });
