@@ -120,6 +120,8 @@ class ValidatorTest < Minitest::Test
     File.write(File.join(directory, "sitemap.txt"), urls.map { |path| "https://carlocaprini.github.io#{path}" }.join("\n") + "\n")
     File.write(File.join(directory, "robots.txt"), <<~TEXT)
       Sitemap: https://carlocaprini.github.io/sitemap.xml
+      Sitemap: https://carlocaprini.github.io/sitemap.txt
+      Sitemap: https://carlo-site-sitemap.carlo-site-aggregate-analytics.workers.dev/sitemap.xml
     TEXT
     File.write(File.join(directory, "feed.xml"), "<?xml version=\"1.0\"?><feed/>\n")
   end
@@ -339,10 +341,31 @@ class ValidatorTest < Minitest::Test
     end
   end
 
-  def test_generated_output_rejects_redundant_sitemap_declarations
-    assert_invalid_output(/must declare only the canonical sitemap.xml/) do |directory|
+  def test_generated_output_rejects_unexpected_sitemap_declarations
+    assert_invalid_output(/must declare the canonical, text, and external sitemap URLs in order/) do |directory|
       path = File.join(directory, "robots.txt")
-      File.open(path, "a") { |file| file.puts("Sitemap: https://carlocaprini.github.io/sitemap.txt") }
+      File.open(path, "a") { |file| file.puts("Sitemap: https://example.com/sitemap.xml") }
+    end
+  end
+
+  def test_generated_output_rejects_http_sitemap_urls
+    assert_invalid_output(/Sitemap URL must be absolute HTTPS/) do |directory|
+      path = File.join(directory, "sitemap.xml")
+      replace!(path, "https://carlocaprini.github.io/thinking/", "http://carlocaprini.github.io/thinking/")
+    end
+  end
+
+  def test_generated_output_rejects_worker_host_as_canonical_url
+    assert_invalid_output(/Worker hostname must not appear in sitemap URLs/) do |directory|
+      path = File.join(directory, "sitemap.xml")
+      replace!(path, "https://carlocaprini.github.io/thinking/", "https://carlo-site-sitemap.example.workers.dev/thinking/")
+    end
+  end
+
+  def test_generated_output_rejects_build_paths_in_sitemap
+    assert_invalid_output(/Build or test path must not appear in sitemap.xml/) do |directory|
+      path = File.join(directory, "sitemap.xml")
+      replace!(path, "https://carlocaprini.github.io/thinking/", "https://carlocaprini.github.io/tests/")
     end
   end
 

@@ -12,6 +12,7 @@ Usage: bin/check <command>
 Commands:
   source                 Ruby syntax, validator fixtures and source contracts
   generated              Production Jekyll build and generated-site validation
+  sitemap                Generated sitemap protocol and canonical-host validation
   analytics              Analytics contract and unit tests
   analytics-integration  Browser -> Worker -> D1 integration
   infrastructure         Docker Compose configuration
@@ -43,6 +44,8 @@ check_generated() {
   ruby scripts/validate_site.rb
 }
 
+check_sitemap() { ruby scripts/validate_sitemap.rb; }
+
 check_analytics() { npm run test:analytics; }
 check_analytics_integration() { npm run test:analytics:integration; }
 check_infrastructure() { docker compose config >/dev/null; }
@@ -62,6 +65,7 @@ check_visual() {
 check_all() {
   check_source
   check_generated
+  check_sitemap
   check_analytics
   check_analytics_integration
   check_infrastructure
@@ -73,6 +77,7 @@ check_all() {
 case "${1:-}" in
   source) check_source ;;
   generated) check_generated ;;
+  sitemap) check_sitemap ;;
   analytics) check_analytics ;;
   analytics-integration) check_analytics_integration ;;
   infrastructure) check_infrastructure ;;

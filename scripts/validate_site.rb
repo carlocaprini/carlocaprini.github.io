@@ -6,6 +6,8 @@ require "rexml/document"
 require "set"
 require "uri"
 
+require_relative "validate_sitemap"
+
 SITE_DIR = ENV["SITE_OUTPUT_DIR"] ? File.expand_path(ENV.fetch("SITE_OUTPUT_DIR")) : File.expand_path("../_site", __dir__)
 SITE_URL = "https://carlocaprini.github.io"
 SITE_HOST = URI(SITE_URL).host
@@ -130,44 +132,20 @@ end
 fail_check("Browser tests leaked into generated site") if File.exist?(site_path("tests"))
 fail_check("Aggregate service leaked into generated site") if File.exist?(site_path("_analytics"))
 
-sitemap_locs = []
-sitemap_xml = read_file(site_path("sitemap.xml"))
-if sitemap_xml
-  begin
-    document = REXML::Document.new(sitemap_xml)
-    REXML::XPath.each(document, "//*[local-name()='loc']") do |loc|
-      sitemap_locs << loc.text.to_s.strip
-    end
-  rescue REXML::ParseException => e
-    fail_check("Invalid sitemap.xml: #{e.message.lines.first&.strip}")
-  end
+sitemap_result = SitemapValidation.validate(
+  site_dir: SITE_DIR,
+  config_path: File.expand_path("../_config.yml", __dir__)
+)
+sitemap_result.errors.each { |error| fail_check(error) }
+sitemap_locs = sitemap_result.locations
+development_sitemap = false
 
-  fail_check("sitemap.xml does not contain URLs") if sitemap_locs.empty?
-  duplicates = sitemap_locs.group_by(&:itself).select { |_, values| values.size > 1 }.keys
-  fail_check("Duplicate URLs in sitemap.xml: #{duplicates.join(', ')}") unless duplicates.empty?
+sitemap_locs.each do |url|
+  path = normalize_local_path(url)
+  next if path.nil?
 
-  development_sitemap = sitemap_locs.any? do |url|
-    url.start_with?("http://0.0.0.0:", "http://localhost:", "http://127.0.0.1:")
-  end
-
-  if development_sitemap
-    fail_check("Generated site uses development sitemap URLs. Run `JEKYLL_ENV=production bundle exec jekyll build` before validating.")
-  end
-
-  sitemap_locs.each do |url|
-    next if development_sitemap
-
-    unless url.start_with?("#{SITE_URL}/")
-      fail_check("Non-canonical sitemap URL: #{url}")
-      next
-    end
-
-    path = normalize_local_path(url)
-    next if path.nil?
-
-    target = generated_file_for_path(path)
-    fail_check("Sitemap URL has no generated file: #{url}") unless File.file?(target)
-  end
+  target = generated_file_for_path(path)
+  fail_check("Sitemap URL has no generated file: #{url}") unless File.file?(target)
 end
 
 static_sitemap_urls = [
@@ -221,8 +199,10 @@ if robots
     match && match[1]
   end.compact
   canonical_sitemap = "#{SITE_URL}/sitemap.xml"
-  unless sitemap_declarations == [canonical_sitemap]
-    fail_check("robots.txt must declare only the canonical sitemap.xml")
+  text_sitemap = "#{SITE_URL}/sitemap.txt"
+  expected_sitemaps = [canonical_sitemap, text_sitemap, sitemap_result.external_sitemap_url]
+  unless sitemap_declarations == expected_sitemaps
+    fail_check("robots.txt must declare the canonical, text, and external sitemap URLs in order")
   end
 end
 

@@ -5,6 +5,7 @@ tagline: "Product leadership"
 description: "Notes and curated paths on product decisions, software platforms, AI adoption, engineering collaboration, and complex systems."
 url: "https://carlocaprini.github.io"
 production_url: "https://carlocaprini.github.io"
+external_sitemap_url: "https://carlo-site-sitemap.carlo-site-aggregate-analytics.workers.dev/sitemap.xml"
 baseurl: ""
 timezone: Europe/Rome
 
@@ -43,5 +44,6 @@ exclude:
   - tests
   - visual-reference
   - _analytics
+  - _sitemap
   - _workspace
   - _site

@@ -12,6 +12,8 @@ Editorial ordering in `pages/thinking.md` is intentional source data: the comple
 
 `scripts/validate_site.rb` answers whether `_site` is structurally deployable. It owns required and forbidden output—including the root `404.html`—sitemap/feed/robots consistency, canonical and social metadata, internal links and fragments, local assets, landmarks, image attributes and parseable JSON-LD.
 
+`scripts/validate_sitemap.rb` owns the generated canonical sitemap's protocol limits, XML parsing, URL uniqueness, HTTPS and production-origin rules, forbidden build paths, and the separation between page URLs and the external Worker hostname. `validate_site.rb` reuses that result when checking sitemap-to-page and robots relationships; it does not discover sitemap URLs independently.
+
 Explore topic hashes are a deliberate cross-layer case: they encode application state rather than an HTML anchor. The generated validator accepts one only when the rendered Explore page exposes the same value through `data-explore-topic`; arbitrary missing fragments still fail.
 
 The generated validator does not re-check note topics, summaries, Influence front matter or related-note references. Those are source contracts. It may use a generated URL or asset to prove that Jekyll emitted a valid output relationship, but it must not independently redefine the source rule.
