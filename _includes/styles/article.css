@@ -370,6 +370,28 @@
   margin-left: 1.58rem;
 }
 
+.article-signature-follow-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 1rem;
+}
+
+.article-signature-rss-link {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-text-muted);
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.article-signature-rss-link:hover {
+  color: var(--color-text-secondary);
+}
+
 .article-signature-follow > p {
   margin: -0.1rem 0 0 2.3rem;
   color: var(--color-text-muted);

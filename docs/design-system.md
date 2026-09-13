@@ -616,11 +616,13 @@ Keep:
 
 - LinkedIn as the primary relationship CTA, with a short publication-oriented explanation where space allows
 
+- RSS as a compact, quieter follow path alongside LinkedIn, with `article_signature` recorded as its analytics context
+
 - Work and Contact as lower-priority actions using the standard site link treatment
 
 - one semantic component and one canonical set of person data across breakpoints
 
-On desktop and portrait tablet, retain the short description and LinkedIn microcopy. On mobile, hide those supporting lines while preserving identity, portrait and all three actions. The compact state is a responsive representation of the same component, not separate content.
+On desktop and portrait tablet, retain the short description and LinkedIn microcopy. On mobile, hide those supporting lines while preserving identity, portrait and all four actions. The compact state is a responsive representation of the same component, not separate content.
 
 Avoid biographies, promotional claims, article summaries, unrelated navigation and generic icon families for the secondary actions.
 

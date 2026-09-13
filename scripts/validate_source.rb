@@ -76,6 +76,21 @@ data_files = Dir.glob(File.join(SOURCE_DIR, "_data/*.yml")).sort
 data_files.each { |path| read_yaml(path) }
 site_config = read_yaml(File.join(SOURCE_DIR, "_config.yml")) || {}
 
+if Array(site_config["plugins"]).include?("jekyll-feed")
+  fail_check("_config.yml: jekyll-feed must not be enabled; the custom feed.xml is the sole RSS owner")
+end
+
+gemfile_path = File.join(SOURCE_DIR, "Gemfile")
+gemfile = File.read(gemfile_path)
+if gemfile.match?(/^\s*gem\s+["']jekyll-feed["']/)
+  fail_check("Gemfile: jekyll-feed must not be declared; the custom feed.xml is the sole RSS owner")
+end
+
+feed_path = File.join(SOURCE_DIR, "feed.xml")
+feed_data, = read_markdown(feed_path)
+fail_check("feed.xml: layout must be null") unless feed_data.key?("layout") && feed_data["layout"].nil?
+fail_check("feed.xml: permalink must be /feed.xml") unless feed_data["permalink"] == "/feed.xml"
+
 topics_path = File.join(SOURCE_DIR, "_data/topics.yml")
 topics = Array(read_yaml(topics_path))
 topic_slugs = topics.map { |topic| topic["slug"] }.compact
