@@ -237,9 +237,15 @@ layout: default
           <span class="article-signature-accent" aria-hidden="true"></span>
           <p class="article-signature-description">{{ site.data.person.article_signature_description }}</p>
           <div class="article-signature-follow">
-            <a class="linkedin-profile-link" href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer" data-analytics-event="social_profile_open" data-analytics-platform="linkedin" data-analytics-link-context="article_signature">
-              {% include linkedin-profile-link-content.html label="Follow on LinkedIn" %}
-            </a>
+            <div class="article-signature-follow-links">
+              <a class="linkedin-profile-link" href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer" data-analytics-event="social_profile_open" data-analytics-platform="linkedin" data-analytics-link-context="article_signature">
+                {% include linkedin-profile-link-content.html label="Follow on LinkedIn" %}
+              </a>
+              <a class="article-signature-rss-link" href="{{ '/feed.xml' | relative_url }}" data-analytics-event="rss_open" data-analytics-link-context="article_signature" data-analytics-destination="/feed.xml">
+                <span>Follow via RSS</span>
+                <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
             <p>{{ site.data.person.article_signature_follow_note }}</p>
           </div>
           <div class="article-signature-actions">

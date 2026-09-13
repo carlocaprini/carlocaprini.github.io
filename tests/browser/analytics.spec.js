@@ -467,6 +467,11 @@ test("Article signature actions expose distinct professional intent", async ({ p
       parameters: { platform: "linkedin", link_context: "article_signature" }
     },
     {
+      link: signature.getByRole("link", { name: /Follow via RSS/ }),
+      event: "rss_open",
+      parameters: { destination: "/feed.xml", link_context: "article_signature" }
+    },
+    {
       link: signature.getByRole("link", { name: /How I can help/ }),
       event: "work_open",
       parameters: { link_context: "article_signature" }
@@ -489,4 +494,22 @@ test("Article signature actions expose distinct professional intent", async ({ p
       }
     });
   }
+});
+
+test("Footer RSS link exposes its destination and source context", async ({ page }) => {
+  await captureAnalytics(page);
+  await page.goto("/thinking/waiting-as-product-decision/");
+
+  const rssLink = page.locator('footer [data-analytics-event="rss_open"]');
+  await rssLink.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+  await rssLink.click();
+
+  expect(await page.evaluate(() => window.__analyticsEvents.at(-1))).toMatchObject({
+    name: "rss_open",
+    parameters: {
+      destination: "/feed.xml",
+      link_context: "footer",
+      page_type: "note"
+    }
+  });
 });

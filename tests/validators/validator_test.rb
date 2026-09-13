@@ -114,7 +114,7 @@ class ValidatorTest < Minitest::Test
       <body>
         <a class="skip-link" href="#top">Skip</a>
         <main id="top"><h1>Fixture page</h1></main>
-        <footer><a href="/feed.xml" data-analytics-event="rss_open" data-analytics-link-context="footer">RSS</a></footer>
+        <footer><a href="/feed.xml" data-analytics-event="rss_open" data-analytics-link-context="footer" data-analytics-destination="/feed.xml">RSS</a></footer>
       </body>
       </html>
     HTML
@@ -569,6 +569,20 @@ class ValidatorTest < Minitest::Test
     assert_invalid_output(%r{index.html: footer RSS link must point to /feed.xml}) do |directory|
       path = File.join(directory, "index.html")
       replace!(path, '<a href="/feed.xml" data-analytics-event="rss_open"', '<a href="/rss.xml" data-analytics-event="rss_open"')
+    end
+  end
+
+  def test_generated_output_rejects_missing_footer_rss_analytics_context
+    assert_invalid_output(/index.html: footer RSS link must identify its analytics context/) do |directory|
+      path = File.join(directory, "index.html")
+      replace!(path, ' data-analytics-link-context="footer"', "")
+    end
+  end
+
+  def test_generated_output_rejects_missing_footer_rss_analytics_destination
+    assert_invalid_output(/index.html: footer RSS link must identify its analytics destination/) do |directory|
+      path = File.join(directory, "index.html")
+      replace!(path, ' data-analytics-destination="/feed.xml"', "")
     end
   end
 

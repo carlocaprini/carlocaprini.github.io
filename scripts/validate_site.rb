@@ -181,7 +181,8 @@ def validate_feed_discovery(relative, html)
 end
 
 def validate_footer_feed_link(relative, html)
-  footer_links = html.scan(%r{<a\b[^>]*>}i).select do |tag|
+  footer = html[%r{<footer\b[^>]*>.*?</footer>}im].to_s
+  footer_links = footer.scan(%r{<a\b[^>]*>}i).select do |tag|
     tag_attribute(tag, "data-analytics-event") == "rss_open"
   end
 
@@ -190,9 +191,12 @@ def validate_footer_feed_link(relative, html)
     return
   end
 
-  href = tag_attribute(footer_links.first, "href")
+  link = footer_links.first
+  href = tag_attribute(link, "href")
   allowed = ["/feed.xml", "#{SITE_URL}/feed.xml"]
   fail_check("#{relative}: footer RSS link must point to /feed.xml") unless allowed.include?(href)
+  fail_check("#{relative}: footer RSS link must identify its analytics context") unless tag_attribute(link, "data-analytics-link-context") == "footer"
+  fail_check("#{relative}: footer RSS link must identify its analytics destination") unless tag_attribute(link, "data-analytics-destination") == "/feed.xml"
 end
 
 
