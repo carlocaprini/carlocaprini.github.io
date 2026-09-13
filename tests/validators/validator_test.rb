@@ -58,6 +58,13 @@ class ValidatorTest < Minitest::Test
     File.write(path, replacement)
   end
 
+  def mutate_file!(path)
+    source = File.read(path)
+    replacement = yield source
+    refute_equal source, replacement, "Mutation did not change #{path}"
+    File.write(path, replacement)
+  end
+
   def note_path(directory)
     File.join(directory, "pages/thinking/waiting-as-product-decision.md")
   end
@@ -66,8 +73,100 @@ class ValidatorTest < Minitest::Test
     File.join(directory, "_influences/ai-coding-is-not-the-same-as-software-engineering-and-it-matters.md")
   end
 
+  def generated_destination(directory, path)
+    return File.join(directory, "index.html") if path == "/"
+
+    File.join(directory, path.delete_prefix("/"), "index.html")
+  end
+
+  def generated_page_html(path, article = nil)
+    canonical = "https://carlocaprini.github.io#{path}"
+    article_metadata = if article
+                         <<~HTML
+                           <meta property="article:published_time" content="#{article.fetch(:published_at)}">
+                           <meta property="article:modified_time" content="#{article.fetch(:modified_at)}">
+                         HTML
+                       else
+                         ""
+                       end
+
+    <<~HTML
+      <!doctype html>
+      <html lang="en">
+      <head>
+        <title>Fixture page</title>
+        <meta name="description" content="Fixture description">
+        <meta property="og:title" content="Fixture page">
+        <meta property="og:description" content="Fixture description">
+        <meta property="og:type" content="#{article ? 'article' : 'website'}">
+        <meta property="og:image" content="https://carlocaprini.github.io/assets/test.webp">
+        <meta property="og:image:alt" content="Fixture image">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Fixture page">
+        <meta name="twitter:description" content="Fixture description">
+        <meta name="twitter:image" content="https://carlocaprini.github.io/assets/test.webp">
+        <meta name="twitter:image:alt" content="Fixture image">
+        <link rel="canonical" href="#{canonical}">
+        <link rel="alternate" type="application/rss+xml" title="Fixture feed" href="https://carlocaprini.github.io/feed.xml">
+        <link rel="stylesheet" href="/assets/css/main.css">
+        #{article_metadata}<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage"}</script>
+      </head>
+      <body>
+        <a class="skip-link" href="#top">Skip</a>
+        <main id="top"><h1>Fixture page</h1></main>
+        <footer><a href="/feed.xml" data-analytics-event="rss_open" data-analytics-link-context="footer">RSS</a></footer>
+      </body>
+      </html>
+    HTML
+  end
+
+  def valid_feed_xml
+    <<~XML
+      <?xml version="1.0" encoding="UTF-8"?>
+      <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+        <channel>
+          <title>Fixture Thinking</title>
+          <description>Fixture feed description</description>
+          <link>https://carlocaprini.github.io/thinking/</link>
+          <atom:link href="https://carlocaprini.github.io/feed.xml" rel="self" type="application/rss+xml" />
+          <language>en</language>
+          <lastBuildDate>Fri, 04 Sep 2026 00:00:00 +0000</lastBuildDate>
+          <item>
+            <title>Newer note</title>
+            <description>Newer description</description>
+            <link>https://carlocaprini.github.io/thinking/newer-note/</link>
+            <guid isPermaLink="true">https://carlocaprini.github.io/thinking/newer-note/</guid>
+            <pubDate>Tue, 01 Sep 2026 00:00:00 +0000</pubDate>
+            <content:encoded><![CDATA[<p>Newer content with an <a href="https://example.com/reference">external reference</a>.</p>]]></content:encoded>
+          </item>
+          <item>
+            <title>Older note</title>
+            <description>Older description</description>
+            <link>https://carlocaprini.github.io/thinking/older-note/</link>
+            <guid isPermaLink="true">https://carlocaprini.github.io/thinking/older-note/</guid>
+            <pubDate>Sat, 01 Aug 2026 00:00:00 +0000</pubDate>
+            <content:encoded><![CDATA[<p>Older content with an <a href="https://carlocaprini.github.io/thinking/newer-note/">internal reference</a>.</p>]]></content:encoded>
+          </item>
+        </channel>
+      </rss>
+    XML
+  end
+
   def build_generated_fixture(directory)
-    urls = ["/", "/explore/", "/thinking/"]
+    pages = [
+      { path: "/" },
+      { path: "/explore/" },
+      { path: "/thinking/" },
+      {
+        path: "/thinking/newer-note/",
+        article: { published_at: "2026-09-01T00:00:00+00:00", modified_at: "2026-09-04T00:00:00+00:00" }
+      },
+      {
+        path: "/thinking/older-note/",
+        article: { published_at: "2026-08-01T00:00:00+00:00", modified_at: "2026-08-02T00:00:00+00:00" }
+      }
+    ]
+    urls = pages.map { |page| page.fetch(:path) }
     FileUtils.mkdir_p(File.join(directory, "assets/css"))
     FileUtils.mkdir_p(File.join(directory, "assets/js"))
     FileUtils.mkdir_p(File.join(directory, "assets"))
@@ -77,36 +176,11 @@ class ValidatorTest < Minitest::Test
       File.write(File.join(directory, "assets/js", name), "// fixture\n")
     end
 
-    urls.each do |path|
-      destination = path == "/" ? File.join(directory, "index.html") : File.join(directory, path.delete_prefix("/"), "index.html")
+    pages.each do |page|
+      path = page.fetch(:path)
+      destination = generated_destination(directory, path)
       FileUtils.mkdir_p(File.dirname(destination))
-      canonical = "https://carlocaprini.github.io#{path}"
-      File.write(destination, <<~HTML)
-        <!doctype html>
-        <html lang="en">
-        <head>
-          <title>Fixture page</title>
-          <meta name="description" content="Fixture description">
-          <meta property="og:title" content="Fixture page">
-          <meta property="og:description" content="Fixture description">
-          <meta property="og:type" content="website">
-          <meta property="og:image" content="https://carlocaprini.github.io/assets/test.webp">
-          <meta property="og:image:alt" content="Fixture image">
-          <meta name="twitter:card" content="summary_large_image">
-          <meta name="twitter:title" content="Fixture page">
-          <meta name="twitter:description" content="Fixture description">
-          <meta name="twitter:image" content="https://carlocaprini.github.io/assets/test.webp">
-          <meta name="twitter:image:alt" content="Fixture image">
-          <link rel="canonical" href="#{canonical}">
-          <link rel="stylesheet" href="/assets/css/main.css">
-          <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage"}</script>
-        </head>
-        <body>
-          <a class="skip-link" href="#top">Skip</a>
-          <main id="top"><h1>Fixture page</h1></main>
-        </body>
-        </html>
-      HTML
+      File.write(destination, generated_page_html(path, page[:article]))
     end
 
     not_found = File.read(File.join(directory, "index.html"))
@@ -118,12 +192,14 @@ class ValidatorTest < Minitest::Test
     sitemap_entries = urls.map { |path| "  <url><loc>https://carlocaprini.github.io#{path}</loc></url>" }.join("\n")
     sitemap = "<?xml version=\"1.0\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n#{sitemap_entries}\n</urlset>\n"
     File.write(File.join(directory, "sitemap.xml"), sitemap)
-    File.write(File.join(directory, "sitemap-static.xml"), sitemap)
+    static_urls = ["/", "/explore/", "/thinking/"]
+    static_entries = static_urls.map { |path| "  <url><loc>https://carlocaprini.github.io#{path}</loc></url>" }.join("\n")
+    File.write(File.join(directory, "sitemap-static.xml"), "<?xml version=\"1.0\"?><urlset>\n#{static_entries}\n</urlset>\n")
     File.write(File.join(directory, "sitemap.txt"), urls.map { |path| "https://carlocaprini.github.io#{path}" }.join("\n") + "\n")
     File.write(File.join(directory, "robots.txt"), <<~TEXT)
       Sitemap: https://carlocaprini.github.io/sitemap.xml
     TEXT
-    File.write(File.join(directory, "feed.xml"), "<?xml version=\"1.0\"?><feed/>\n")
+    File.write(File.join(directory, "feed.xml"), valid_feed_xml)
   end
 
   def assert_invalid_output(expected)
@@ -133,6 +209,15 @@ class ValidatorTest < Minitest::Test
       status, output = run_validator(SITE_VALIDATOR, { "SITE_OUTPUT_DIR" => directory })
       refute status.success?, output
       assert_match expected, output
+    end
+  end
+
+  def assert_valid_output
+    Dir.mktmpdir("generated-validator-") do |directory|
+      build_generated_fixture(directory)
+      yield directory if block_given?
+      status, output = run_validator(SITE_VALIDATOR, { "SITE_OUTPUT_DIR" => directory })
+      assert status.success?, output
     end
   end
 
@@ -317,10 +402,173 @@ class ValidatorTest < Minitest::Test
   end
 
   def test_minimal_generated_fixture_is_valid
-    Dir.mktmpdir("generated-validator-") do |directory|
-      build_generated_fixture(directory)
-      status, output = run_validator(SITE_VALIDATOR, { "SITE_OUTPUT_DIR" => directory })
-      assert status.success?, output
+    assert_valid_output
+  end
+
+  def test_generated_feed_rejects_missing_thinking_note
+    assert_invalid_output(/Feed is missing Thinking article URLs: .*older-note/) do |directory|
+      path = File.join(directory, "feed.xml")
+      mutate_file!(path) do |source|
+        source.sub(%r{\s*<item>\s*<title>Older note</title>.*?</item>}m, "")
+      end
+    end
+  end
+
+  def test_generated_feed_rejects_duplicate_item
+    assert_invalid_output(/Duplicate feed item URLs: .*newer-note/) do |directory|
+      path = File.join(directory, "feed.xml")
+      mutate_file!(path) do |source|
+        item = source[%r{<item>\s*<title>Newer note</title>.*?</item>}m]
+        source.sub("</channel>", "#{item}\n  </channel>")
+      end
+    end
+  end
+
+  def test_generated_feed_rejects_extra_unknown_item
+    assert_invalid_output(/Feed contains unknown item URLs: .*unknown-note/) do |directory|
+      path = File.join(directory, "feed.xml")
+      mutate_file!(path) do |source|
+        item = source[%r{<item>\s*<title>Older note</title>.*?</item>}m]
+          .gsub("Older note", "Unknown note")
+          .gsub("older-note", "unknown-note")
+        source.sub("</channel>", "#{item}\n  </channel>")
+      end
+    end
+  end
+
+  def test_generated_feed_rejects_wrong_item_host
+    assert_invalid_output(/item 1 link must use the canonical production origin/) do |directory|
+      path = File.join(directory, "feed.xml")
+      replace!(path, "<link>https://carlocaprini.github.io/thinking/newer-note/</link>", "<link>https://example.com/thinking/newer-note/</link>")
+    end
+  end
+
+  def test_generated_feed_rejects_relative_item_link
+    assert_invalid_output(/item 1 link must use the canonical production origin/) do |directory|
+      path = File.join(directory, "feed.xml")
+      replace!(path, "<link>https://carlocaprini.github.io/thinking/newer-note/</link>", "<link>/thinking/newer-note/</link>")
+    end
+  end
+
+  def test_generated_feed_rejects_duplicate_guid
+    assert_invalid_output(/Duplicate feed GUIDs: .*newer-note/) do |directory|
+      path = File.join(directory, "feed.xml")
+      replace!(path,
+        '<guid isPermaLink="true">https://carlocaprini.github.io/thinking/older-note/</guid>',
+        '<guid isPermaLink="true">https://carlocaprini.github.io/thinking/newer-note/</guid>')
+    end
+  end
+
+  def test_generated_feed_rejects_incorrect_item_order
+    assert_invalid_output(/Feed items must be ordered by publication date descending/) do |directory|
+      path = File.join(directory, "feed.xml")
+      mutate_file!(path) do |source|
+        match = source.match(%r{(\s*<item>\s*<title>Newer note</title>.*?</item>)(\s*<item>\s*<title>Older note</title>.*?</item>)}m)
+        source.sub(match[0], "#{match[2]}#{match[1]}")
+      end
+    end
+  end
+
+  def test_generated_feed_rejects_missing_full_content
+    assert_invalid_output(/item 1 content:encoded is missing/) do |directory|
+      path = File.join(directory, "feed.xml")
+      mutate_file!(path) do |source|
+        source.sub(%r{\s*<content:encoded><!\[CDATA\[<p>Newer content.*?</content:encoded>}m, "")
+      end
+    end
+  end
+
+  def test_generated_feed_rejects_empty_description
+    assert_invalid_output(/item 1 description is missing/) do |directory|
+      path = File.join(directory, "feed.xml")
+      replace!(path, "<description>Newer description</description>", "<description> </description>")
+    end
+  end
+
+  def test_generated_feed_rejects_wrong_self_url
+    assert_invalid_output(/channel self URL must point to .*\/feed.xml/) do |directory|
+      path = File.join(directory, "feed.xml")
+      replace!(path, 'href="https://carlocaprini.github.io/feed.xml" rel="self"', 'href="https://example.com/feed.xml" rel="self"')
+    end
+  end
+
+  def test_generated_feed_rejects_malformed_xml
+    assert_invalid_output(/Invalid feed.xml/) do |directory|
+      path = File.join(directory, "feed.xml")
+      File.write(path, "<?xml version=\"1.0\"?><rss><channel><item></channel></rss>\n")
+    end
+  end
+
+  def test_generated_feed_rejects_root_relative_content_url
+    assert_invalid_output(%r{content:encoded contains a root-relative internal URL: /thinking/newer-note/}) do |directory|
+      path = File.join(directory, "feed.xml")
+      replace!(path,
+        'href="https://carlocaprini.github.io/thinking/newer-note/"',
+        'href="/thinking/newer-note/"')
+    end
+  end
+
+  def test_generated_feed_allows_legitimate_external_content_url
+    assert_valid_output do |directory|
+      path = File.join(directory, "feed.xml")
+      replace!(path, "https://example.com/reference", "https://docs.example.org/reference?view=full#details")
+    end
+  end
+
+  def test_generated_feed_requires_generated_future_dated_article
+    assert_valid_output do |directory|
+      article_path = File.join(directory, "thinking/newer-note/index.html")
+      replace!(article_path, "2026-09-01T00:00:00+00:00", "2030-09-01T00:00:00+00:00")
+      replace!(article_path, "2026-09-04T00:00:00+00:00", "2030-09-04T00:00:00+00:00")
+
+      feed_path = File.join(directory, "feed.xml")
+      replace!(feed_path, "Fri, 04 Sep 2026 00:00:00 +0000", "Wed, 04 Sep 2030 00:00:00 +0000")
+      replace!(feed_path, "Tue, 01 Sep 2026 00:00:00 +0000", "Sun, 01 Sep 2030 00:00:00 +0000")
+    end
+  end
+
+  def test_generated_feed_rejects_publication_date_drift
+    assert_invalid_output(/item 1 pubDate must match the Thinking article publication date/) do |directory|
+      path = File.join(directory, "feed.xml")
+      replace!(path, "Tue, 01 Sep 2026 00:00:00 +0000", "Wed, 02 Sep 2026 00:00:00 +0000")
+    end
+  end
+
+  def test_generated_feed_rejects_deployment_time_as_last_build_date
+    assert_invalid_output(/lastBuildDate must match the newest editorial timestamp/) do |directory|
+      path = File.join(directory, "feed.xml")
+      replace!(path, "Fri, 04 Sep 2026 00:00:00 +0000", "Sun, 13 Sep 2026 00:00:00 +0000")
+    end
+  end
+
+  def test_generated_output_rejects_missing_rss_autodiscovery
+    assert_invalid_output(/index.html: expected exactly one RSS autodiscovery link/) do |directory|
+      path = File.join(directory, "index.html")
+      mutate_file!(path) { |source| source.sub(/^\s*<link rel="alternate" type="application\/rss\+xml".*\n/, "") }
+    end
+  end
+
+  def test_generated_output_rejects_incorrect_rss_autodiscovery
+    assert_invalid_output(%r{index.html: RSS autodiscovery must point to .*\/feed.xml}) do |directory|
+      path = File.join(directory, "index.html")
+      replace!(path, "href=\"https://carlocaprini.github.io/feed.xml\"", "href=\"https://example.com/feed.xml\"")
+    end
+  end
+
+  def test_generated_output_rejects_duplicate_rss_autodiscovery
+    assert_invalid_output(/index.html: expected exactly one RSS autodiscovery link/) do |directory|
+      path = File.join(directory, "index.html")
+      mutate_file!(path) do |source|
+        link = source[%r{<link rel="alternate" type="application/rss\+xml"[^>]*>}]
+        source.sub(link, "#{link}\n#{link}")
+      end
+    end
+  end
+
+  def test_generated_output_rejects_wrong_footer_rss_link
+    assert_invalid_output(%r{index.html: footer RSS link must point to /feed.xml}) do |directory|
+      path = File.join(directory, "index.html")
+      replace!(path, '<a href="/feed.xml" data-analytics-event="rss_open"', '<a href="/rss.xml" data-analytics-event="rss_open"')
     end
   end
 

@@ -4,11 +4,17 @@
 require "json"
 require "rexml/document"
 require "set"
+require "time"
 require "uri"
+require "yaml"
 
 SITE_DIR = ENV["SITE_OUTPUT_DIR"] ? File.expand_path(ENV.fetch("SITE_OUTPUT_DIR")) : File.expand_path("../_site", __dir__)
-SITE_URL = "https://carlocaprini.github.io"
+SOURCE_DIR = File.expand_path("..", __dir__)
+SITE_CONFIG = YAML.safe_load(File.read(File.join(SOURCE_DIR, "_config.yml")), permitted_classes: [Date, Time], aliases: true)
+SITE_URL = (SITE_CONFIG["production_url"] || SITE_CONFIG.fetch("url")).delete_suffix("/")
 SITE_HOST = URI(SITE_URL).host
+ATOM_NAMESPACE = "http://www.w3.org/2005/Atom"
+CONTENT_NAMESPACE = "http://purl.org/rss/1.0/modules/content/"
 
 @errors = []
 
@@ -82,6 +88,267 @@ end
 def meta_content(html, attribute, value)
   tag = html[%r{<meta\b[^>]*\b#{Regexp.escape(attribute)}=["']#{Regexp.escape(value)}["'][^>]*>}i]
   tag&.[](%r{\bcontent=["']([^"']+)["']}i, 1)
+end
+
+def tag_attribute(tag, name)
+  tag[%r{\b#{Regexp.escape(name)}=["']([^"']*)["']}i, 1]
+end
+
+def canonical_href(html)
+  html.scan(%r{<link\b[^>]*>}i).map do |tag|
+    rel = tag_attribute(tag, "rel").to_s.split
+    tag_attribute(tag, "href") if rel.include?("canonical")
+  end.compact.first
+end
+
+def generated_url_for_html(relative)
+  path = if relative == "index.html"
+           "/"
+         elsif relative.end_with?("/index.html")
+           "/#{relative.delete_suffix('index.html')}"
+         else
+           "/#{relative}"
+         end
+  "#{SITE_URL}#{path}"
+end
+
+def parse_iso8601(value, label)
+  if value.to_s.strip.empty?
+    fail_check("#{label} is missing")
+    return nil
+  end
+
+  Time.iso8601(value)
+rescue ArgumentError
+  fail_check("#{label} is not a valid ISO 8601 timestamp: #{value}")
+  nil
+end
+
+def parse_rfc822(value, label)
+  if value.to_s.strip.empty?
+    fail_check("#{label} is missing")
+    return nil
+  end
+
+  Time.rfc2822(value)
+rescue ArgumentError
+  fail_check("#{label} is not a valid RFC822 date: #{value}")
+  nil
+end
+
+def xml_text(element)
+  return "" unless element
+
+  element.children.grep(REXML::Text).map(&:value).join.strip
+end
+
+def validate_canonical_feed_url(value, label)
+  if value.to_s.strip.empty?
+    fail_check("#{label} is missing")
+    return nil
+  end
+
+  uri = URI.parse(value)
+  unless uri.is_a?(URI::HTTPS) && uri.host&.downcase == SITE_HOST.downcase && uri.userinfo.nil? && value.start_with?("#{SITE_URL}/")
+    fail_check("#{label} must use the canonical production origin #{SITE_URL}")
+    return nil
+  end
+
+  fail_check("#{label} must not contain a query string") if uri.query
+  fail_check("#{label} must not contain a fragment") if uri.fragment
+
+  target = generated_file_for_path(uri.path)
+  fail_check("#{label} points to a missing generated page: #{value}") unless File.file?(target)
+  uri
+rescue URI::InvalidURIError
+  fail_check("#{label} is not a valid absolute URL: #{value}")
+  nil
+end
+
+def validate_feed_discovery(relative, html)
+  discovery_links = html.scan(%r{<link\b[^>]*>}i).select do |tag|
+    tag_attribute(tag, "rel").to_s.split.include?("alternate") &&
+      tag_attribute(tag, "type") == "application/rss+xml"
+  end
+
+  unless discovery_links.size == 1
+    fail_check("#{relative}: expected exactly one RSS autodiscovery link")
+    return
+  end
+
+  href = tag_attribute(discovery_links.first, "href")
+  fail_check("#{relative}: RSS autodiscovery must point to #{SITE_URL}/feed.xml") unless href == "#{SITE_URL}/feed.xml"
+end
+
+def validate_footer_feed_link(relative, html)
+  footer_links = html.scan(%r{<a\b[^>]*>}i).select do |tag|
+    tag_attribute(tag, "data-analytics-event") == "rss_open"
+  end
+
+  unless footer_links.size == 1
+    fail_check("#{relative}: expected exactly one footer RSS link")
+    return
+  end
+
+  href = tag_attribute(footer_links.first, "href")
+  allowed = ["/feed.xml", "#{SITE_URL}/feed.xml"]
+  fail_check("#{relative}: footer RSS link must point to /feed.xml") unless allowed.include?(href)
+end
+
+
+def collect_expected_thinking_articles(html_files)
+  article_files = html_files.select do |file|
+    relative = relative_site_path(file)
+    relative.start_with?("thinking/") && relative != "thinking/index.html"
+  end
+
+  article_files.to_h do |file|
+    relative = relative_site_path(file)
+    html = File.read(file)
+    expected_url = generated_url_for_html(relative)
+    canonical = canonical_href(html)
+    fail_check("#{relative}: Thinking article canonical must match its generated URL #{expected_url}") unless canonical == expected_url
+    fail_check("#{relative}: Thinking article must declare og:type=article") unless meta_content(html, "property", "og:type") == "article"
+
+    published_at = parse_iso8601(
+      meta_content(html, "property", "article:published_time"),
+      "#{relative}: article:published_time"
+    )
+    modified_at = parse_iso8601(
+      meta_content(html, "property", "article:modified_time"),
+      "#{relative}: article:modified_time"
+    )
+
+    [expected_url, { relative: relative, published_at: published_at, modified_at: modified_at }]
+  end
+end
+
+def validate_feed_content_urls(content, label)
+  content.scan(%r{\b(?:href|src)\s*=\s*(["'])(.*?)\1}i).each do |(_, value)|
+    if value.start_with?("/")
+      fail_check("#{label} contains a root-relative internal URL: #{value}")
+      next
+    end
+
+    uri = URI.parse(value)
+    next unless uri.host&.downcase == SITE_HOST.downcase
+
+    unless uri.is_a?(URI::HTTPS) && value.start_with?("#{SITE_URL}/")
+      fail_check("#{label} contains a non-canonical internal URL: #{value}")
+    end
+  rescue URI::InvalidURIError
+    fail_check("#{label} contains an invalid href/src URL: #{value}")
+  end
+end
+
+def validate_feed(feed, expected_articles)
+  return unless feed
+
+  begin
+    document = REXML::Document.new(feed)
+  rescue REXML::ParseException => e
+    fail_check("Invalid feed.xml: #{e.message.lines.first&.strip}")
+    return
+  end
+
+  root = document.root
+  unless root&.name == "rss" && root.attributes["version"] == "2.0"
+    fail_check("feed.xml must be an RSS 2.0 document")
+    return
+  end
+
+  channel = root.elements["channel"]
+  unless channel
+    fail_check("feed.xml is missing its channel")
+    return
+  end
+
+  %w[title description].each do |field|
+    fail_check("feed.xml channel #{field} is missing") if xml_text(channel.elements[field]).empty?
+  end
+  fail_check("feed.xml channel link must point to #{SITE_URL}/thinking/") unless xml_text(channel.elements["link"]) == "#{SITE_URL}/thinking/"
+  fail_check("feed.xml channel language must be en") unless xml_text(channel.elements["language"]) == "en"
+
+  atom_links = channel.elements.to_a.select { |element| element.name == "link" && element.namespace == ATOM_NAMESPACE }
+  self_links = atom_links.select { |element| element.attributes["rel"] == "self" }
+  if self_links.size != 1
+    fail_check("feed.xml channel must contain exactly one atom:link rel=self")
+  else
+    self_link = self_links.first
+    fail_check("feed.xml channel self URL must point to #{SITE_URL}/feed.xml") unless self_link.attributes["href"] == "#{SITE_URL}/feed.xml"
+    fail_check("feed.xml channel self link type must be application/rss+xml") unless self_link.attributes["type"] == "application/rss+xml"
+  end
+
+  last_build_date = parse_rfc822(xml_text(channel.elements["lastBuildDate"]), "feed.xml channel lastBuildDate")
+  expected_last_build_date = expected_articles.values.map { |article| article[:modified_at] || article[:published_at] }.compact.max
+  if last_build_date && expected_last_build_date && last_build_date != expected_last_build_date
+    fail_check("feed.xml channel lastBuildDate must match the newest editorial timestamp")
+  end
+
+  item_records = channel.get_elements("item").each_with_index.map do |item, index|
+    label = "feed.xml item #{index + 1}"
+    title = xml_text(item.elements["title"])
+    description = xml_text(item.elements["description"])
+    link = xml_text(item.elements["link"])
+    guid_element = item.elements["guid"]
+    guid = xml_text(guid_element)
+    pub_date = parse_rfc822(xml_text(item.elements["pubDate"]), "#{label} pubDate")
+    content_element = item.elements.to_a.find { |element| element.name == "encoded" && element.namespace == CONTENT_NAMESPACE }
+    content = xml_text(content_element)
+
+    fail_check("#{label} title is missing") if title.empty?
+    fail_check("#{label} description is missing") if description.empty?
+    validate_canonical_feed_url(link, "#{label} link")
+
+    if guid_element.nil?
+      fail_check("#{label} GUID is missing")
+    else
+      fail_check("#{label} GUID must declare isPermaLink=true") unless guid_element.attributes["isPermaLink"] == "true"
+      validate_canonical_feed_url(guid, "#{label} GUID")
+      fail_check("#{label} GUID must equal its canonical link") unless guid == link
+    end
+
+    if content_element.nil?
+      fail_check("#{label} content:encoded is missing")
+    elsif content.empty?
+      fail_check("#{label} content:encoded is empty")
+    else
+      fail_check("#{label} content:encoded must contain rendered HTML") unless content.match?(%r{<[a-z][^>]*>}i)
+      validate_feed_content_urls(content, "#{label} content:encoded")
+    end
+
+    expected = expected_articles[link]
+    if expected && pub_date && expected[:published_at] && pub_date != expected[:published_at]
+      fail_check("#{label} pubDate must match the Thinking article publication date")
+    end
+
+    { link: link, guid: guid, pub_date: pub_date }
+  end
+
+  feed_urls = item_records.map { |item| item[:link] }.reject(&:empty?)
+  duplicate_urls = feed_urls.group_by(&:itself).select { |_, values| values.size > 1 }.keys
+  fail_check("Duplicate feed item URLs: #{duplicate_urls.join(', ')}") unless duplicate_urls.empty?
+
+  guids = item_records.map { |item| item[:guid] }.reject(&:empty?)
+  duplicate_guids = guids.group_by(&:itself).select { |_, values| values.size > 1 }.keys
+  fail_check("Duplicate feed GUIDs: #{duplicate_guids.join(', ')}") unless duplicate_guids.empty?
+
+  expected_urls = expected_articles.keys.to_set
+  actual_urls = feed_urls.to_set
+  missing_urls = expected_urls - actual_urls
+  unknown_urls = actual_urls - expected_urls
+  fail_check("Feed is missing Thinking article URLs: #{missing_urls.to_a.sort.join(', ')}") unless missing_urls.empty?
+  fail_check("Feed contains unknown item URLs: #{unknown_urls.to_a.sort.join(', ')}") unless unknown_urls.empty?
+
+  item_records.each_cons(2) do |previous, current|
+    next unless previous[:pub_date] && current[:pub_date]
+
+    if current[:pub_date] > previous[:pub_date]
+      fail_check("Feed items must be ordered by publication date descending")
+    elsif current[:pub_date] == previous[:pub_date] && current[:link] < previous[:link]
+      fail_check("Feed items with the same publication date must be ordered by canonical URL")
+    end
+  end
 end
 
 def validate_generated_url(relative, label, value)
@@ -227,13 +494,6 @@ if robots
 end
 
 feed = read_file(site_path("feed.xml"))
-if feed
-  begin
-    REXML::Document.new(feed)
-  rescue REXML::ParseException => e
-    fail_check("Invalid feed.xml: #{e.message.lines.first&.strip}")
-  end
-end
 
 canonical_urls = []
 html_files = Dir.glob(site_path("**/*.html")).sort
@@ -244,6 +504,8 @@ html_files.each do |file|
   next unless html
 
   relative = relative_site_path(file)
+  validate_feed_discovery(relative, html)
+  validate_footer_feed_link(relative, html)
   ids = html_ids(html)
   all_ids = html.scan(/\sid=(["'])(.*?)\1/).map { |(_, id)| id }
   duplicate_ids = all_ids.group_by(&:itself).select { |_, values| values.size > 1 }.keys
@@ -359,10 +621,13 @@ end
 duplicate_canonicals = canonical_urls.group_by(&:itself).select { |_, values| values.size > 1 }.keys
 fail_check("Duplicate canonical URLs: #{duplicate_canonicals.join(', ')}") unless duplicate_canonicals.empty?
 
+expected_thinking_articles = collect_expected_thinking_articles(html_files)
+validate_feed(feed, expected_thinking_articles)
+
 if @errors.any?
   warn "\nSite validation failed:"
   @errors.each { |error| warn "- #{error}" }
   exit 1
 end
 
-puts "Site validation passed: #{html_files.size} HTML files checked."
+puts "Site validation passed: #{html_files.size} HTML files and #{expected_thinking_articles.size} RSS items checked."
