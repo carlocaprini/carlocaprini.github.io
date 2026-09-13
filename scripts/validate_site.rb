@@ -123,6 +123,7 @@ forbidden_files = %w[
   package-lock.json
   playwright.config.js
   scripts
+  _sitemap
   visual-reference
 ]
 

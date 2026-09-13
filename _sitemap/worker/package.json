@@ -1,0 +1,19 @@
+{
+  "name": "carlo-site-sitemap",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/package-sitemap.mjs",
+    "test": "node --test tests/*.test.js",
+    "check": "npm run build && npm test && WRANGLER_LOG_PATH=.wrangler/logs wrangler deploy --dry-run --outdir .wrangler/dry-run --config wrangler.jsonc",
+    "dev": "npm run build && WRANGLER_LOG_PATH=.wrangler/logs wrangler dev --local --config wrangler.jsonc --port 8788",
+    "deploy:prepared": "WRANGLER_LOG_PATH=.wrangler/logs wrangler deploy --config wrangler.jsonc"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "devDependencies": {
+    "wrangler": "4.129.1"
+  }
+}

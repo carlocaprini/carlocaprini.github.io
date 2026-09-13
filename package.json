@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "_analytics/collector"
+    "_analytics/collector",
+    "_sitemap/worker"
   ],
   "scripts": {
     "analytics:local:dev": "npm --workspace carlo-site-aggregate-analytics run local:dev",
@@ -13,6 +14,11 @@
     "analytics:local:reset": "npm --workspace carlo-site-aggregate-analytics run local:reset",
     "analytics:contract:generate": "node scripts/generate_analytics_contract.mjs",
     "analytics:contract:check": "node scripts/generate_analytics_contract.mjs --check",
+    "sitemap:package": "npm --workspace carlo-site-sitemap run build",
+    "sitemap:test": "npm --workspace carlo-site-sitemap run test",
+    "sitemap:check": "npm --workspace carlo-site-sitemap run check",
+    "sitemap:dev": "npm --workspace carlo-site-sitemap run dev",
+    "sitemap:deploy": "bin/check sitemap && npm --workspace carlo-site-sitemap run deploy:prepared",
     "test:analytics": "npm run analytics:contract:check && node --test tests/analytics-contract/*.test.js _analytics/collector/tests/*.test.js _analytics/reports/tests/*.test.js",
     "test:analytics:integration": "npm --workspace carlo-site-aggregate-analytics run test:integration",
     "test:browser": "playwright test --project=desktop-chromium --project=mobile-chromium --project=ipad-portrait-chromium",

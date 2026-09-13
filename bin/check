@@ -44,7 +44,10 @@ check_generated() {
   ruby scripts/validate_site.rb
 }
 
-check_sitemap() { ruby scripts/validate_sitemap.rb; }
+check_sitemap() {
+  ruby scripts/validate_sitemap.rb
+  npm run sitemap:check
+}
 
 check_analytics() { npm run test:analytics; }
 check_analytics_integration() { npm run test:analytics:integration; }

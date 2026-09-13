@@ -12,3 +12,5 @@ _workspace
 _analytics/collector/.dev.vars
 _analytics/collector/.wrangler
 _analytics/reports/output
+_sitemap/worker/generated
+_sitemap/worker/.wrangler
