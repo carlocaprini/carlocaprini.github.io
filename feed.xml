@@ -4,6 +4,18 @@ permalink: /feed.xml
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 {% assign feed_site_url = site.production_url | default: site.url %}
+{% assign thinking_pages = site.pages | where: "layout", "article" %}
+{% assign thinking_date_groups = thinking_pages | group_by_exp: "note", "note.date | date: '%Y%m%d%H%M%S'" | sort: "name" | reverse %}
+{% assign feed_last_build_epoch = 0 %}
+{% assign feed_last_build_date = nil %}
+{% for note in thinking_pages %}
+  {% assign note_editorial_date = note.last_modified_at | default: note.date %}
+  {% assign note_editorial_epoch = note_editorial_date | date: '%s' | plus: 0 %}
+  {% if note_editorial_epoch > feed_last_build_epoch %}
+    {% assign feed_last_build_epoch = note_editorial_epoch %}
+    {% assign feed_last_build_date = note_editorial_date %}
+  {% endif %}
+{% endfor %}
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>{{ site.title | xml_escape }} — Thinking</title>
@@ -11,14 +23,21 @@ permalink: /feed.xml
     <link>{{ feed_site_url }}{{ '/thinking/' | relative_url }}</link>
     <atom:link href="{{ feed_site_url }}{{ '/feed.xml' | relative_url }}" rel="self" type="application/rss+xml" />
     <language>en</language>
-    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
-    {% assign thinking_pages = site.pages | where: "layout", "article" | sort: "date" | reverse %}
-    {% for note in thinking_pages %}
+    <lastBuildDate>{{ feed_last_build_date | date_to_rfc822 }}</lastBuildDate>
+    {% for date_group in thinking_date_groups %}
+    {% assign dated_notes = date_group.items | sort: "url" %}
+    {% for note in dated_notes %}
     {% assign rendered_content = note.content | markdownify %}
     {% assign absolute_href_root = 'href="' | append: feed_site_url | append: '/' %}
     {% assign absolute_src_root = 'src="' | append: feed_site_url | append: '/' %}
+    {% assign absolute_href_root_single = "href='" | append: feed_site_url | append: '/' %}
+    {% assign absolute_src_root_single = "src='" | append: feed_site_url | append: '/' %}
     {% assign rendered_content = rendered_content | replace: 'href="/', absolute_href_root %}
     {% assign rendered_content = rendered_content | replace: 'src="/', absolute_src_root %}
+    {% assign rendered_content = rendered_content | replace: "href='/", absolute_href_root_single %}
+    {% assign rendered_content = rendered_content | replace: "src='/", absolute_src_root_single %}
+    {% comment %}Split the forbidden CDATA terminator across adjacent CDATA sections without changing article text.{% endcomment %}
+    {% assign rendered_content = rendered_content | replace: ']]>', ']]]]><![CDATA[>' %}
     <item>
       <title>{{ note.title | xml_escape }}</title>
       <description>{{ note.summary | default: note.excerpt | strip_html | normalize_whitespace | xml_escape }}</description>
@@ -29,6 +48,7 @@ permalink: /feed.xml
       {% endif %}
       <content:encoded><![CDATA[{{ rendered_content }}]]></content:encoded>
     </item>
+    {% endfor %}
     {% endfor %}
   </channel>
 </rss>

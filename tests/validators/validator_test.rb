@@ -22,6 +22,8 @@ class ValidatorTest < Minitest::Test
     assets
     404.html
     contracts
+    feed.xml
+    Gemfile
     index.md
     pages
   ].freeze
@@ -207,6 +209,27 @@ class ValidatorTest < Minitest::Test
   def test_source_rejects_missing_note_summary
     assert_invalid_source(/missing summary/) do |directory|
       replace!(note_path(directory), /^summary:/, "removed_summary:")
+    end
+  end
+
+  def test_source_rejects_jekyll_feed_plugin_ownership
+    assert_invalid_source(/jekyll-feed must not be enabled/) do |directory|
+      path = File.join(directory, "_config.yml")
+      replace!(path, "plugins:\n  - jekyll-sitemap", "plugins:\n  - jekyll-feed\n  - jekyll-sitemap")
+    end
+  end
+
+  def test_source_rejects_jekyll_feed_gem_ownership
+    assert_invalid_source(/jekyll-feed must not be declared/) do |directory|
+      path = File.join(directory, "Gemfile")
+      replace!(path, '  gem "jekyll-sitemap", "~> 1.4"', "  gem \"jekyll-feed\", \"~> 0.17\"\n  gem \"jekyll-sitemap\", \"~> 1.4\"")
+    end
+  end
+
+  def test_source_rejects_noncanonical_feed_permalink
+    assert_invalid_source(/feed.xml: permalink must be \/feed.xml/) do |directory|
+      path = File.join(directory, "feed.xml")
+      replace!(path, "permalink: /feed.xml", "permalink: /rss.xml")
     end
   end
 
