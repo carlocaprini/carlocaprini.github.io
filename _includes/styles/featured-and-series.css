@@ -245,24 +245,10 @@
 }
 
 .series-discovery-index {
-  position: relative;
-  padding-left: 0.9rem;
   color: var(--series-list-accent);
   font-size: 0.7rem;
   font-weight: 650;
   letter-spacing: 0.12em;
-}
-
-.series-discovery-index::before {
-  content: "";
-  position: absolute;
-  top: 0.24rem;
-  left: 0;
-  width: 0.38rem;
-  height: 0.38rem;
-  border-radius: 999px;
-  background: var(--series-list-accent);
-  box-shadow: 0 0 0 4px var(--series-list-accent-soft);
 }
 
 .series-discovery-content {

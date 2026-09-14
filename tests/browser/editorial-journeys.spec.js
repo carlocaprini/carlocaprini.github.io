@@ -14,6 +14,10 @@ test("Explore exposes Questions, both Series and stable topic hashes", async ({ 
   await expect(series.locator(".series-discovery-meta > span")).toHaveText(["7 episodes", "6 episodes"]);
   await expect(series.first().locator("h3 a")).toHaveAttribute("data-analytics-link-context", "explore_series");
   await expect(series.first().locator("h3 a")).toHaveAttribute("data-analytics-series-id", "product-judgment-in-practice");
+  const seriesIndexMarkers = await series.locator(".series-discovery-index").evaluateAll((elements) =>
+    elements.map((element) => getComputedStyle(element, "::before").content)
+  );
+  expect(seriesIndexMarkers).toEqual(["none", "none"]);
   await expect(page.locator('[data-explore-topic="ai-and-automation"]')).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator('[data-explore-topic-panel="ai-and-automation"]')).toBeVisible();
 
