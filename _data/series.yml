@@ -1,12 +1,23 @@
 building-my-ai-operating-system:
   title: Building My Own AI Operating System
+  short_title: AI Operating System
   url: /series/building-my-ai-operating-system/
+  tagline: From one general assistant to smaller services with clearer jobs, boundaries and ownership.
+  listing_description: A first-person series about moving from one general assistant to smaller AI-first services with explicit jobs, boundaries and ownership.
   description: My notes from building a personal AI-first operating system, starting with the failed attempt to make one general assistant useful.
   context: The series follows the decisions, boundaries and failure modes that appear as separate tools begin to form a system that can work across them.
   entry_context: After abandoning a general Jarvis-like assistant, I started building smaller AI-first services around recurring work and connecting them only when a concrete coordination problem appeared.
-  intro:
-    - This series follows my attempt to build a personal AI operating system by starting from work I already do, rather than from one universal assistant.
-    - August keeps documents, versions and review state together. March makes the publishing runway visible without turning it into a commitment. Friday now coordinates signals across them while each service remains responsible for its own work.
+  topics:
+    - ai-and-automation
+    - software-systems
+  overview:
+    eyebrow: The system so far
+    title: Separate services, explicit responsibilities.
+    paragraphs:
+      - This series follows my attempt to build a personal AI operating system by starting from work I already do, rather than from one universal assistant.
+      - August keeps documents, versions and review state together. March makes the publishing runway visible without turning it into a commitment. Friday now coordinates signals across them while each service remains responsible for its own work.
+  article_context:
+    show_related_reading: false
   services:
     - name: Jarvis
       slug: jarvis
@@ -32,6 +43,11 @@ building-my-ai-operating-system:
       url: /thinking/why-i-started-building-friday/
       sidebar_description: Attention layer coordinating signals across services.
       description: The ongoing second attempt, built around noticing what may deserve attention across bounded services without replacing them.
+  visual_section:
+    eyebrow: From the notes
+    title: A few views of the system.
+    description: Screenshots from August, March and Friday, collected as the interfaces changed across the series.
+    note: Interface views use public or fictional demonstration data. No private document content is shown.
   visuals:
     - episode: "02"
       service: August

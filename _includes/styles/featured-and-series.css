@@ -603,62 +603,115 @@
 }
 
 .series-overview {
+  --series-accent: var(--structural-accent);
+  --series-accent-soft: var(--structural-accent-soft);
+  --series-accent-border: var(--structural-accent-border);
+}
+
+.series-page--product-decisions .series-overview {
+  --series-accent: var(--topic-product-decisions);
+  --series-accent-soft: var(--topic-product-decisions-soft);
+  --series-accent-border: var(--topic-product-decisions-border);
+}
+
+.series-page--ai-and-automation .series-overview {
+  --series-accent: var(--topic-ai-and-automation);
+  --series-accent-soft: var(--topic-ai-and-automation-soft);
+  --series-accent-border: var(--topic-ai-and-automation-border);
+}
+
+.series-overview-copy {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: 3rem;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 0 3rem;
   align-items: start;
 }
 
+.series-overview-copy .section-eyebrow,
 .series-overview-copy .section-title {
-  max-width: 30rem;
+  grid-column: 1;
+}
+
+.series-overview-copy .section-title {
+  max-width: 32rem;
   margin-top: 0.65rem;
 }
 
 .series-overview-copy p {
+  grid-column: 2;
   max-width: 40rem;
-  margin: 1rem 0 0;
+  margin: 0;
   color: var(--color-text-muted);
   font-size: 0.96rem;
   line-height: 1.8;
 }
 
-.series-service-list {
-  margin: 0;
+.series-overview-copy p + p {
+  margin-top: 1rem;
 }
 
-.series-service-item {
+.series-overview-items {
   display: grid;
-  grid-template-columns: minmax(7.5rem, 0.4fr) minmax(0, 1fr);
-  gap: 1.25rem;
-  padding: 1.15rem 0;
-  border-bottom: 1px solid var(--color-line);
+  grid-template-columns: repeat(var(--series-overview-count, 4), minmax(0, 1fr));
+  margin: 2.6rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--series-accent-border);
+  list-style: none;
 }
 
-.series-service-item:last-child {
-  border-bottom: none;
+.series-overview-items--sequence {
+  --series-overview-count: 5;
 }
 
-.series-service-item dt {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  color: var(--color-text);
-  font-weight: 600;
+.series-overview-item {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 0.85rem;
+  min-width: 0;
+  padding: 1.25rem 1.2rem 0 0;
 }
 
-.series-service-item dt small {
-  color: #67e8f9;
+.series-overview-item::before {
+  content: "";
+  position: absolute;
+  top: -0.27rem;
+  left: 0;
+  width: 0.52rem;
+  height: 0.52rem;
+  border-radius: 999px;
+  background: var(--series-accent);
+  box-shadow: 0 0 0 5px var(--series-accent-soft);
+}
+
+.series-overview-item-number {
+  color: var(--series-accent);
   font-size: 0.68rem;
-  font-weight: 500;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+}
+
+.series-overview-item h3 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 0.96rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.series-overview-item-label {
+  color: var(--series-accent) !important;
+  font-size: 0.68rem;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.series-service-item dd {
-  margin: 0;
+.series-overview-item p {
+  margin: 0.45rem 0 0;
   color: var(--color-text-muted);
-  font-size: 0.9rem;
-  line-height: 1.7;
+  font-size: 0.82rem;
+  line-height: 1.65;
 }
 
 .series-episodes-section {

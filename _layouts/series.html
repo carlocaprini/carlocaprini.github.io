@@ -4,8 +4,9 @@ layout: default
 ---
 {% assign series_data = site.data.series[page.series_slug] %}
 {% assign series_notes = site.pages | where: "series", page.series_slug | sort: "series_order" %}
+{% assign series_primary_topic = series_data.topics | first %}
 
-<div class="page series-page">
+<div class="page series-page series-page--{{ series_primary_topic }}" data-series-id="{{ page.series_slug }}">
   <section class="hero hero--compact series-hero">
     <div class="container hero-grid hero-grid--single">
       <div>
@@ -14,9 +15,9 @@ layout: default
           <span>Series</span>
         </div>
         <h1 class="hero-title hero-title--compact">{{ series_data.title }}</h1>
-        <p class="hero-subtitle hero-subtitle--wide">{{ series_data.description }}</p>
+        <p class="hero-subtitle hero-subtitle--wide">{{ series_data.tagline }}</p>
         <div class="hero-actions hero-actions--compact">
-          <a href="{{ '/thinking/' | relative_url }}" class="button-ghost">Back to Thinking</a>
+          <a href="{{ '/explore/' | relative_url }}" class="button-ghost">Back to Explore</a>
         </div>
       </div>
     </div>
@@ -25,24 +26,28 @@ layout: default
   <section class="section series-overview-section">
     <div class="container series-overview">
       <div class="series-overview-copy">
-        <div class="section-eyebrow">The system so far</div>
-        <h2 class="section-title">Separate services, explicit responsibilities.</h2>
-        {% for paragraph in series_data.intro %}
+        <div class="section-eyebrow">{{ series_data.overview.eyebrow }}</div>
+        <h2 class="section-title">{{ series_data.overview.title }}</h2>
+        {% for paragraph in series_data.overview.paragraphs %}
           <p>{{ paragraph }}</p>
         {% endfor %}
       </div>
 
-      <dl class="series-service-list">
-        {% for service in series_data.services %}
-          <div class="series-service-item">
-            <dt>
-              <span>{{ service.name }}</span>
-              <small>{{ service.concept }}</small>
-            </dt>
-            <dd>{{ service.description }}</dd>
-          </div>
+      {% assign overview_items = series_data.overview.items | default: series_data.services %}
+      {% if overview_items and overview_items.size > 0 %}
+      <ol class="series-overview-items{% if series_data.overview.items %} series-overview-items--sequence{% endif %}">
+        {% for item in overview_items %}
+          <li class="series-overview-item">
+            <span class="series-overview-item-number" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+            <div>
+              <h3>{{ item.title | default: item.name }}</h3>
+              {% if item.concept %}<p class="series-overview-item-label">{{ item.concept }}</p>{% endif %}
+              <p>{{ item.description }}</p>
+            </div>
+          </li>
         {% endfor %}
-      </dl>
+      </ol>
+      {% endif %}
     </div>
   </section>
 
@@ -82,10 +87,10 @@ layout: default
     <div class="container">
       <div class="series-visuals-header">
         <div>
-          <div class="section-eyebrow">From the notes</div>
-          <h2 class="section-title" id="series-visuals-title">A few views of the system.</h2>
+          <div class="section-eyebrow">{{ series_data.visual_section.eyebrow }}</div>
+          <h2 class="section-title" id="series-visuals-title">{{ series_data.visual_section.title }}</h2>
         </div>
-        <p>Screenshots from August, March and Friday, collected as the interfaces changed across the series.</p>
+        <p>{{ series_data.visual_section.description }}</p>
       </div>
 
       <div class="series-visuals-grid" data-series-visuals>
@@ -106,7 +111,7 @@ layout: default
         {% endfor %}
       </div>
 
-      <p class="series-visuals-note">Interface views use public or fictional demonstration data. No private document content is shown.</p>
+      {% if series_data.visual_section.note %}<p class="series-visuals-note">{{ series_data.visual_section.note }}</p>{% endif %}
     </div>
   </section>
   {% endif %}

@@ -25,8 +25,6 @@ When several systems contribute to the same work, putting them in one view solve
 
 The other half is deciding who owns each fact, which system is allowed to change it, and what should happen when the sources disagree.
 
-{% include series-context.html %}
-
 A convenient shared view can become dangerous. A status may be current in one source and stale in another. A coordinating layer may infer a conclusion that neither source actually owns. If it can also write, ambiguity can quietly turn into an unauthorized decision.
 
 Coordination therefore needs a narrow contract. The shared layer can compare state, explain disagreement, and propose where attention should go. The underlying facts remain with the systems that produced them, while uncertainty stays visible until something with the right authority resolves it.
