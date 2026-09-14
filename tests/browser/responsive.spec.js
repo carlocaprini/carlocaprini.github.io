@@ -171,6 +171,7 @@ test("article signature preserves identity and actions across breakpoints", asyn
   await expect(signature).toBeVisible();
   await expect(signature.locator(".article-signature-portrait")).toBeVisible();
   await expect(signature.getByRole("link", { name: /Follow on LinkedIn/ })).toBeVisible();
+  await expect(signature.getByRole("link", { name: /Follow via RSS/ })).toBeVisible();
   await expect(signature.getByRole("link", { name: /How I can help/ })).toBeVisible();
   await expect(signature.getByRole("link", { name: /Contact/ })).toBeVisible();
 

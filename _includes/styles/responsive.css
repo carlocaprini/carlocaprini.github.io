@@ -46,8 +46,18 @@
     margin: 0;
   }
 
-  .article-signature-follow > a {
+  .article-signature-follow-links {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.1rem;
+  }
+
+  .article-signature-follow-links .linkedin-profile-link {
     width: 100%;
+  }
+
+  .article-signature-rss-link {
+    min-height: 2.5rem;
   }
 
   .article-signature-actions {

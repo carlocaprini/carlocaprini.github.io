@@ -2,7 +2,7 @@
 
 ## Canonical editorial entities
 
-- Thinking Notes live in `_thinking/` and own their title, summary, publication metadata, topics and body.
+- Thinking Notes live in `pages/thinking/` and own their title, summary, publication metadata, topics and body.
 - Influences live in `_influences/` and own external-source metadata, topics and any deliberately selected related Note.
 - Topics live in `_data/topics.yml`. Do not copy the allowed slug list into documentation or runtime code.
 - Questions live in `_data/questions.yml`. They are curated reading paths across Notes, Influences and Experience, not projections of topic tags. Their Topic metadata remains editorial context and is not exposed as additional navigation on Question surfaces.
@@ -34,6 +34,8 @@ Validators protect membership and references, but should not replace these choic
 ## Metadata changes
 
 Set `last_modified_at` on a Note only when its editorial content changes. Topic remapping, layout, styling and related-content logic do not change the Note’s editorial modification date. Index pages may update it when their public copy or structure changes.
+
+Thinking Notes are Jekyll pages, not posts. Their `date` is the original editorial publication timestamp used for ordering and RSS `pubDate`; it is not replaced by build time or `last_modified_at`. The production build defines actual publication: a future-dated Thinking page that is generated is expected in RSS, while a page suppressed by Jekyll (for example with `published: false`) is neither generated nor expected. There is no separate scheduled-RSS state.
 
 Use at most two canonical Topics per Note or Influence. The list is ordered: the first Topic is the editorial and visual primary Topic, and any second Topic is a secondary lens. The order answers “what is this piece mainly about?” and must not be alphabetized or changed as a formatting side effect. Reordering Topics is a meaningful editorial change even when membership stays the same.
 
