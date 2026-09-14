@@ -38,6 +38,7 @@ test("Thinking separates guided, recent and complete discovery", async ({ page }
   await expect(series.first()).toHaveClass(/thinking-series-card--featured/);
   await expect(series.first().locator(".thinking-series-card-label")).toHaveText("Featured series");
   await expect(series.first().locator(".thinking-series-card-link")).toHaveAttribute("data-analytics-link-context", "thinking_series");
+  await expect(page.locator(".thinking-series-stack-header, .thinking-series-browse")).toHaveCount(0);
 });
 
 test("ruled collections stop before the next section divider", async ({ page }) => {

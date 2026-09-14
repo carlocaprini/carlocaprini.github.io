@@ -71,11 +71,7 @@ layout: default
       </div>
       {% endif %}
       {% if page.series and page.series.items %}
-        <section class="thinking-series-stack" aria-labelledby="thinking-series-title">
-          <div class="thinking-series-stack-header">
-            <div class="section-eyebrow" id="thinking-series-title">Series</div>
-            <p>{{ page.series.description }}</p>
-          </div>
+        <section class="thinking-series-stack" aria-label="Editorial series">
           <ol class="thinking-series-cards">
             {% for series_slug in page.series.items %}
               {% assign listed_series = site.data.series[series_slug] %}
@@ -99,7 +95,6 @@ layout: default
               </li>
             {% endfor %}
           </ol>
-          <a class="section-link thinking-series-browse" href="{{ '/explore/#series' | relative_url }}" data-analytics-event="collection_open" data-analytics-collection="explore" data-analytics-link-context="thinking_series">Explore both <span aria-hidden="true">→</span></a>
         </section>
       {% endif %}
       </div>

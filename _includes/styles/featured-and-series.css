@@ -6,7 +6,7 @@
 
 .thinking-entry-grid {
   display: grid;
-  grid-template-columns: minmax(17rem, 0.72fr) minmax(0, 1.28fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.4rem;
   align-items: start;
   margin-bottom: 2.8rem;
@@ -356,14 +356,6 @@
 
 .thinking-series-stack {
   min-width: 0;
-  padding: 0.15rem 0 0;
-}
-
-.thinking-series-stack-header p {
-  margin: 0.55rem 0 1rem;
-  color: var(--color-text-muted);
-  font-size: 0.86rem;
-  line-height: 1.65;
 }
 
 .thinking-series-cards {
@@ -463,11 +455,6 @@
   line-height: 1.4;
 }
 
-.thinking-series-card--featured .thinking-series-card-content > strong {
-  max-width: 30rem;
-  font-size: clamp(1.2rem, 2vw, 1.48rem);
-}
-
 .thinking-series-card-description {
   max-width: 38rem;
   margin-top: 0.45rem;
@@ -505,10 +492,6 @@
   border-radius: 999px;
   color: var(--thinking-series-accent);
   background: var(--thinking-series-accent-soft);
-}
-
-.thinking-series-browse {
-  margin-top: 1rem;
 }
 
 .home-series-preview {

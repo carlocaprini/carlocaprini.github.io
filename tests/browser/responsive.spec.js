@@ -217,11 +217,15 @@ test("multi-Series discovery and Product sequence adapt across breakpoints", asy
   );
   expect(thinkingColumns).toBe(testInfo.project.name === "desktop-chromium" ? 2 : 1);
   await expect(page.locator(".thinking-series-stack .thinking-series-card")).toHaveCount(2);
+  const seriesTitleSizes = await page.locator(".thinking-series-card-content > strong").evaluateAll((elements) =>
+    elements.map((element) => getComputedStyle(element).fontSize)
+  );
+  expect(new Set(seriesTitleSizes).size).toBe(1);
   if (testInfo.project.name === "desktop-chromium") {
     const entryWidths = await page.locator(".thinking-entry-grid > *").evaluateAll((elements) =>
       elements.map((element) => element.getBoundingClientRect().width)
     );
-    expect(entryWidths[0]).toBeLessThan(entryWidths[1]);
+    expect(Math.abs(entryWidths[0] - entryWidths[1])).toBeLessThanOrEqual(1);
   }
 
   await page.goto("/explore/#series");
