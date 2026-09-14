@@ -509,6 +509,274 @@
   }
 }
 
+.series-discovery-list {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-line);
+  list-style: none;
+}
+
+.series-discovery-item {
+  --series-list-accent: var(--structural-accent);
+  --series-list-accent-soft: var(--structural-accent-soft);
+  --series-list-accent-border: var(--structural-accent-border);
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr) auto;
+  gap: 1.2rem;
+  align-items: start;
+  padding: 1.55rem 0.2rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.series-discovery-item:last-child {
+  border-bottom: 0;
+}
+
+.series-discovery-item--product-decisions {
+  --series-list-accent: var(--topic-product-decisions);
+  --series-list-accent-soft: var(--topic-product-decisions-soft);
+  --series-list-accent-border: var(--topic-product-decisions-border);
+}
+
+.series-discovery-item--ai-and-automation {
+  --series-list-accent: var(--topic-ai-and-automation);
+  --series-list-accent-soft: var(--topic-ai-and-automation-soft);
+  --series-list-accent-border: var(--topic-ai-and-automation-border);
+}
+
+.series-discovery-index {
+  position: relative;
+  padding-left: 0.9rem;
+  color: var(--series-list-accent);
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+}
+
+.series-discovery-index::before {
+  content: "";
+  position: absolute;
+  top: 0.24rem;
+  left: 0;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-radius: 999px;
+  background: var(--series-list-accent);
+  box-shadow: 0 0 0 4px var(--series-list-accent-soft);
+}
+
+.series-discovery-content {
+  min-width: 0;
+}
+
+.series-discovery-content h3,
+.home-series-secondary-row h3 {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.45;
+}
+
+.series-discovery-content h3 a,
+.home-series-secondary-row h3 a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.series-discovery-content h3 a:hover,
+.home-series-secondary-row h3 a:hover {
+  color: var(--series-list-accent);
+}
+
+.series-discovery-content > p,
+.home-series-secondary-row p {
+  max-width: 44rem;
+  margin: 0.5rem 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.series-discovery-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.8rem;
+}
+
+.series-discovery-topic {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-text-muted);
+  font-size: 0.7rem;
+}
+
+.series-discovery-topic::before {
+  content: "";
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 999px;
+  background: var(--structural-accent);
+}
+
+.series-discovery-topic--product-decisions::before {
+  background: var(--topic-product-decisions);
+}
+
+.series-discovery-topic--ai-and-automation::before {
+  background: var(--topic-ai-and-automation);
+}
+
+.series-discovery-topic--software-systems::before {
+  background: var(--topic-software-systems);
+}
+
+.series-discovery-topic--teams-and-collaboration::before {
+  background: var(--topic-teams-and-collaboration);
+}
+
+.series-discovery-meta {
+  display: flex;
+  min-width: 7.6rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+}
+
+.series-discovery-meta a,
+.series-discovery-arrow,
+.home-series-secondary-meta a {
+  display: inline-flex;
+  width: 2.2rem;
+  height: 2.2rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--series-list-accent-border);
+  border-radius: 999px;
+  color: var(--series-list-accent);
+  background: var(--series-list-accent-soft);
+  text-decoration: none;
+}
+
+.thinking-series-stack {
+  min-width: 0;
+  padding: 0.4rem 0.2rem 0;
+}
+
+.thinking-series-stack-header p {
+  margin: 0.55rem 0 1rem;
+  color: var(--color-text-muted);
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+
+.series-discovery-list--thinking .series-discovery-item {
+  grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  padding: 1rem 0;
+}
+
+.series-discovery-list--thinking .series-discovery-content h3 {
+  font-size: 0.94rem;
+}
+
+.series-discovery-list--thinking .series-discovery-content > p {
+  margin-top: 0.25rem;
+  font-size: 0.72rem;
+}
+
+.series-discovery-list--thinking .series-discovery-topic {
+  margin-top: 0.42rem;
+}
+
+.thinking-series-browse {
+  margin-top: 1rem;
+}
+
+.home-series-featured {
+  --home-series-accent: var(--structural-accent);
+  --home-series-accent-soft: var(--structural-accent-soft);
+  --home-series-accent-border: var(--structural-accent-border);
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) auto;
+  gap: 2rem;
+  align-items: end;
+  padding: 2.2rem;
+  border: 1px solid var(--home-series-accent-border);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 90% 10%, var(--home-series-accent-soft), transparent 36%),
+    rgba(15, 23, 42, 0.76);
+  box-shadow: 0 24px 70px rgba(2, 6, 23, 0.35);
+}
+
+.home-series-featured--product-decisions {
+  --home-series-accent: var(--topic-product-decisions);
+  --home-series-accent-soft: var(--topic-product-decisions-soft);
+  --home-series-accent-border: var(--topic-product-decisions-border);
+}
+
+.home-series-featured .section-eyebrow {
+  color: var(--home-series-accent);
+}
+
+.home-series-featured .home-series-title {
+  max-width: 38rem;
+}
+
+.home-series-tagline {
+  max-width: 44rem;
+  margin: 0 0 0.65rem;
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.home-series-featured .home-series-description {
+  max-width: 44rem;
+}
+
+.home-series-featured .home-series-count {
+  border-color: var(--home-series-accent-border);
+  color: var(--home-series-accent);
+  background: var(--home-series-accent-soft);
+}
+
+.home-series-featured .section-link {
+  color: var(--home-series-accent);
+}
+
+.home-series-secondary {
+  margin-top: 1.4rem;
+  padding: 1.4rem 0.2rem 0;
+  border-top: 1px solid var(--color-line);
+}
+
+.home-series-secondary-row {
+  --series-list-accent: var(--topic-ai-and-automation);
+  --series-list-accent-soft: var(--topic-ai-and-automation-soft);
+  --series-list-accent-border: var(--topic-ai-and-automation-border);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2rem;
+  align-items: center;
+  padding: 1rem 0 0.6rem;
+}
+
+.home-series-secondary-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+}
+
+.home-series-browse {
+  margin-top: 0.8rem;
+}
+
 .article-series-context span {
   display: inline-flex;
   align-items: center;

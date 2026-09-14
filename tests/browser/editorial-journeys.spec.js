@@ -1,12 +1,23 @@
 import { expect, test } from "./support/site-test.js";
 
-test("Explore exposes curated questions and stable topic hashes", async ({ page }) => {
+test("Explore exposes Questions, both Series and stable topic hashes", async ({ page }) => {
   await page.goto("/explore/#ai-and-automation");
 
   await expect(page.getByRole("heading", { name: "Three paths through the ideas." })).toBeVisible();
   await expect(page.getByRole("link", { name: /How do teams make better decisions/ })).toBeVisible();
+  const series = page.locator("#series .series-discovery-item");
+  await expect(series).toHaveCount(2);
+  await expect(series.locator("h3")).toHaveText([
+    "Product Judgment in Practice",
+    "Building My Own AI Operating System"
+  ]);
+  await expect(series.locator(".series-discovery-meta > span")).toHaveText(["7 episodes", "6 episodes"]);
   await expect(page.locator('[data-explore-topic="ai-and-automation"]')).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator('[data-explore-topic-panel="ai-and-automation"]')).toBeVisible();
+
+  await page.goto("/explore/#series");
+  await expect(page).toHaveURL(/\/explore\/#series$/);
+  await expect(page.locator("#series")).toBeVisible();
 });
 
 test("Thinking separates guided, recent and complete discovery", async ({ page }) => {
@@ -16,6 +27,13 @@ test("Thinking separates guided, recent and complete discovery", async ({ page }
   await expect(page.getByRole("heading", { name: "The latest notes." })).toBeVisible();
   await expect(page.locator("h2#all-notes")).toHaveText("All notes");
   await expect(page.locator(".thinking-recent-list > li")).toHaveCount(3);
+  const series = page.locator(".thinking-series-stack .series-discovery-item");
+  await expect(series).toHaveCount(2);
+  await expect(series.locator("h3")).toHaveText([
+    "Product Judgment in Practice",
+    "Building My Own AI Operating System"
+  ]);
+  await expect(page.locator(".thinking-series-preview")).toHaveCount(0);
 });
 
 test("ruled collections stop before the next section divider", async ({ page }) => {
@@ -82,6 +100,10 @@ test("Home follows the discovery-first content order", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Problems I occasionally help teams work through." })).toBeVisible();
   await expect(page.getByRole("link", { name: "How I can help", exact: true })).toHaveCount(2);
   await expect(page.locator(".home-entry-grid").getByRole("link", { name: /Explore/ })).toHaveAttribute("href", "/explore/");
+  await expect(page.locator(".home-series-featured").getByRole("heading", { name: "Product Judgment in Practice" })).toBeVisible();
+  await expect(page.locator(".home-series-featured").getByText("7 episodes", { exact: true })).toBeVisible();
+  await expect(page.locator(".home-series-secondary-row").getByRole("heading", { name: "Building My Own AI Operating System" })).toBeVisible();
+  await expect(page.locator(".home-series-secondary-row").getByText("6 episodes", { exact: true })).toBeVisible();
 });
 
 test("Home Contact keeps LinkedIn primary and adds restrained profile identity", async ({ page }) => {

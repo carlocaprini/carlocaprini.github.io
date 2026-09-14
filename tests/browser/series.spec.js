@@ -62,6 +62,7 @@ test("Product Judgment presents the decision loop and seven ordered episodes", a
   )).toEqual(productSeriesRoutes);
   await expect(page.getByText("A few views of the system.", { exact: true })).toHaveCount(0);
   await expect(page.locator(".series-visuals-section")).toHaveCount(0);
+  await expect(page.getByRole("link", { name: "Back to Explore" })).toHaveAttribute("href", "/explore/#series");
 });
 
 test("Product episodes keep reading context without generic notes or a system map", async ({ page }) => {
@@ -120,21 +121,16 @@ test("series visuals expose episode progress and service identity", async ({ pag
     "Friday",
     "Friday"
   ]);
+  await expect(page.getByRole("complementary", { name: "Related reading" })).toHaveCount(0);
 });
 
-test("featured series motion stops when reduced motion is requested", async ({ page }) => {
+test("Series sequence remains static when reduced motion is requested", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/thinking/");
+  await page.goto("/series/product-judgment-in-practice/");
 
-  const animationNames = await page.locator(".thinking-series-preview").evaluate((element) => ({
-    panel: getComputedStyle(element).animationName,
-    before: getComputedStyle(element, "::before").animationName,
-    after: getComputedStyle(element, "::after").animationName
-  }));
+  const animationNames = await page.locator(".series-overview-items").evaluate((element) =>
+    Array.from(element.children, (item) => getComputedStyle(item).animationName)
+  );
 
-  expect(animationNames).toEqual({
-    panel: "none",
-    before: "none",
-    after: "none"
-  });
+  expect(animationNames).toEqual(["none", "none", "none", "none", "none"]);
 });

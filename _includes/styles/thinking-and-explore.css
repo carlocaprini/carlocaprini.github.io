@@ -407,6 +407,7 @@ a.content-topic-link:hover {
 }
 
 .explore-questions-section,
+.explore-series-section,
 .explore-topics-section,
 .question-notes-section,
 .question-evidence-section,
@@ -414,6 +415,7 @@ a.content-topic-link:hover {
   position: relative;
 }
 
+.explore-series-section,
 .explore-topics-section,
 .question-evidence-section,
 .question-bridge-section {

@@ -417,16 +417,54 @@ fail_check("Thinking notes reference unknown series: #{unknown_series.join(', ')
 unknown_series_pages = series_pages_by_slug.keys - series_data.keys
 fail_check("Series pages reference unknown Series: #{unknown_series_pages.join(', ')}") unless unknown_series_pages.empty?
 
-featured_series = thinking_data.dig("featured_series", "slug")
-unless series_data.key?(featured_series)
-  fail_check("pages/thinking.md: featured_series must reference _data/series.yml")
+expected_series_order = %w[product-judgment-in-practice building-my-ai-operating-system].freeze
+unless series_data.keys.sort == expected_series_order.sort
+  fail_check("_data/series.yml: must define exactly the two supported Series")
+end
+
+explore_path = File.join(SOURCE_DIR, "pages/explore.md")
+explore_data = page_records.fetch(explore_path).first
+explore_series_value = explore_data.dig("series", "items")
+unless explore_series_value.is_a?(Array)
+  fail_check("pages/explore.md: series.items must exist as an ordered list")
+end
+explore_series_items = Array(explore_series_value)
+duplicate_explore_series = explore_series_items.group_by(&:itself).select { |_, values| values.size > 1 }.keys
+unless duplicate_explore_series.empty?
+  fail_check("pages/explore.md: series.items contains duplicates: #{duplicate_explore_series.join(', ')}")
+end
+unknown_explore_series = explore_series_items - series_data.keys
+unless unknown_explore_series.empty?
+  fail_check("pages/explore.md: series.items contains unknown Series: #{unknown_explore_series.join(', ')}")
+end
+missing_explore_series = series_data.keys - explore_series_items
+unless missing_explore_series.empty?
+  fail_check("pages/explore.md: series.items is missing Series: #{missing_explore_series.join(', ')}")
+end
+unless explore_series_items == expected_series_order
+  fail_check("pages/explore.md: series.items must use the intended editorial order")
+end
+
+thinking_series_items = Array(thinking_data.dig("series", "items"))
+unless thinking_series_items == explore_series_items
+  fail_check("pages/thinking.md: series.items must match Explore Series order")
 end
 
 home_path = File.join(SOURCE_DIR, "_data/home.yml")
 home_data = read_yaml(home_path) || {}
-home_featured_series = home_data.dig("featured_series", "slug")
-unless series_data.key?(home_featured_series)
-  fail_check("_data/home.yml: featured_series must reference _data/series.yml")
+home_series_items = Array(home_data.dig("series", "items"))
+unless home_series_items == explore_series_items
+  fail_check("_data/home.yml: series.items must match Explore Series order")
+end
+home_featured_series = home_data.dig("series", "featured")
+unless series_data.key?(home_featured_series) && home_series_items.include?(home_featured_series)
+  fail_check("_data/home.yml: series.featured must reference a Series in series.items")
+end
+unless home_featured_series == "product-judgment-in-practice"
+  fail_check("_data/home.yml: Product Judgment must be the featured Series")
+end
+unless home_data.dig("series", "browse", "url") == "/explore/#series"
+  fail_check("_data/home.yml: Series browse URL must point to /explore/#series")
 end
 
 home_question_slugs = Array(home_data.dig("questions", "items"))
