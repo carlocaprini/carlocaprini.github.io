@@ -1,12 +1,29 @@
 import { expect, test } from "./support/site-test.js";
 
-test("Explore exposes curated questions and stable topic hashes", async ({ page }) => {
+test("Explore exposes Questions, both Series and stable topic hashes", async ({ page }) => {
   await page.goto("/explore/#ai-and-automation");
 
   await expect(page.getByRole("heading", { name: "Three paths through the ideas." })).toBeVisible();
   await expect(page.getByRole("link", { name: /How do teams make better decisions/ })).toBeVisible();
+  const series = page.locator("#series .series-discovery-item");
+  await expect(series).toHaveCount(2);
+  await expect(series.locator("h3")).toHaveText([
+    "Product Judgment in Practice",
+    "Building My Own AI Operating System"
+  ]);
+  await expect(series.locator(".series-discovery-meta > span")).toHaveText(["7 episodes", "6 episodes"]);
+  await expect(series.first().locator("h3 a")).toHaveAttribute("data-analytics-link-context", "explore_series");
+  await expect(series.first().locator("h3 a")).toHaveAttribute("data-analytics-series-id", "product-judgment-in-practice");
+  const seriesIndexMarkers = await series.locator(".series-discovery-index").evaluateAll((elements) =>
+    elements.map((element) => getComputedStyle(element, "::before").content)
+  );
+  expect(seriesIndexMarkers).toEqual(["none", "none"]);
   await expect(page.locator('[data-explore-topic="ai-and-automation"]')).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator('[data-explore-topic-panel="ai-and-automation"]')).toBeVisible();
+
+  await page.goto("/explore/#series");
+  await expect(page).toHaveURL(/\/explore\/#series$/);
+  await expect(page.locator("#series")).toBeVisible();
 });
 
 test("Thinking separates guided, recent and complete discovery", async ({ page }) => {
@@ -16,6 +33,27 @@ test("Thinking separates guided, recent and complete discovery", async ({ page }
   await expect(page.getByRole("heading", { name: "The latest notes." })).toBeVisible();
   await expect(page.locator("h2#all-notes")).toHaveText("All notes");
   await expect(page.locator(".thinking-recent-list > li")).toHaveCount(3);
+  const series = page.locator(".thinking-series-stack .thinking-series-card");
+  await expect(series).toHaveCount(2);
+  await expect(series.locator(".thinking-series-card-content > strong")).toHaveText([
+    "Product Judgment in Practice",
+    "Building My Own AI Operating System"
+  ]);
+  await expect(series.first().locator(".thinking-series-card-label")).toHaveText("Featured series");
+  await expect(series.locator(".thinking-series-card-label")).toHaveCount(1);
+  const seriesCardGeometry = await series.locator(".thinking-series-card-link").evaluateAll((links) =>
+    links.map((link) => {
+      const style = getComputedStyle(link);
+      return {
+        minHeight: style.minHeight,
+        padding: style.padding,
+        borderRadius: style.borderRadius
+      };
+    })
+  );
+  expect(new Set(seriesCardGeometry.map((style) => JSON.stringify(style))).size).toBe(1);
+  await expect(series.first().locator(".thinking-series-card-link")).toHaveAttribute("data-analytics-link-context", "thinking_series");
+  await expect(page.locator(".thinking-series-stack-header, .thinking-series-browse")).toHaveCount(0);
 });
 
 test("ruled collections stop before the next section divider", async ({ page }) => {
@@ -82,6 +120,12 @@ test("Home follows the discovery-first content order", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Problems I occasionally help teams work through." })).toBeVisible();
   await expect(page.getByRole("link", { name: "How I can help", exact: true })).toHaveCount(2);
   await expect(page.locator(".home-entry-grid").getByRole("link", { name: /Explore/ })).toHaveAttribute("href", "/explore/");
+  const featuredSeries = page.locator(".home-series-preview");
+  await expect(featuredSeries).toHaveCount(1);
+  await expect(featuredSeries.getByRole("heading", { name: "Product Judgment in Practice" })).toBeVisible();
+  await expect(featuredSeries.getByText("7 episodes", { exact: true })).toBeVisible();
+  await expect(featuredSeries.getByRole("link", { name: /Read the series/ })).toHaveAttribute("data-analytics-link-context", "home_featured_series");
+  await expect(page.getByRole("heading", { name: "Building My Own AI Operating System" })).toHaveCount(0);
 });
 
 test("Home Contact keeps LinkedIn primary and adds restrained profile identity", async ({ page }) => {

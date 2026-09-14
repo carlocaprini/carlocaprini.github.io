@@ -396,6 +396,97 @@ class ValidatorTest < Minitest::Test
     end
   end
 
+  def test_source_rejects_missing_generic_series_metadata
+    assert_invalid_source(/product-judgment-in-practice is missing short_title/) do |directory|
+      path = File.join(directory, "_data/series.yml")
+      replace!(path, "  short_title: Product judgment\n", "")
+    end
+  end
+
+  def test_source_rejects_missing_series_overview_structure
+    assert_invalid_source(/product-judgment-in-practice must define overview.items or services/) do |directory|
+      path = File.join(directory, "_data/series.yml")
+      mutate_file!(path) do |source|
+        source.sub(/    items:\n(?:      .*\n)+?  article_context:/, "  article_context:")
+      end
+    end
+  end
+
+  def test_source_rejects_missing_series_article_context
+    assert_invalid_source(/product-judgment-in-practice must define article_context/) do |directory|
+      path = File.join(directory, "_data/series.yml")
+      replace!(path, "  article_context:\n    show_related_reading: true\n", "")
+    end
+  end
+
+  def test_source_rejects_invalid_series_related_reading_behavior
+    assert_invalid_source(/article_context.show_related_reading must be true or false/) do |directory|
+      path = File.join(directory, "_data/series.yml")
+      replace!(path, "    show_related_reading: false", "    show_related_reading: sometimes")
+    end
+  end
+
+  def test_source_rejects_manual_series_context_include
+    assert_invalid_source(/Series context is rendered by the article layout/) do |directory|
+      path = File.join(directory, "pages/thinking/i-stopped-trying-to-build-jarvis.md")
+      replace!(path, "## The ambition came before the job", "{% include series-context.html %}\n\n## The ambition came before the job")
+    end
+  end
+
+  def test_source_rejects_duplicate_explore_series
+    assert_invalid_source(/series.items contains duplicates/) do |directory|
+      path = File.join(directory, "pages/explore.md")
+      replace!(path, "    - building-my-ai-operating-system", "    - product-judgment-in-practice")
+    end
+  end
+
+  def test_source_rejects_thinking_series_order_drift
+    assert_invalid_source(/pages\/thinking.md: series.items must match Explore Series order/) do |directory|
+      path = File.join(directory, "pages/thinking.md")
+      replace!(path, "    - product-judgment-in-practice", "    - building-my-ai-operating-system")
+    end
+  end
+
+  def test_source_rejects_unknown_thinking_featured_series
+    assert_invalid_source(/pages\/thinking.md: series.featured must reference a valid Series/) do |directory|
+      path = File.join(directory, "pages/thinking.md")
+      replace!(path, "  featured: product-judgment-in-practice", "  featured: missing-series")
+    end
+  end
+
+  def test_source_rejects_wrong_home_featured_series
+    assert_invalid_source(/Product Judgment must be the featured Series/) do |directory|
+      path = File.join(directory, "_data/home.yml")
+      replace!(path, "  featured: product-judgment-in-practice", "  featured: building-my-ai-operating-system")
+    end
+  end
+
+  def test_source_rejects_a_home_series_collection
+    assert_invalid_source(/series must expose only the featured Series/) do |directory|
+      path = File.join(directory, "_data/home.yml")
+      replace!(path, "  featured: product-judgment-in-practice", "  featured: product-judgment-in-practice\n  items:\n    - product-judgment-in-practice")
+    end
+  end
+
+  def test_source_rejects_duplicate_series_page
+    assert_invalid_source(/Series slugs must have exactly one page/) do |directory|
+      source = File.join(directory, "pages/series/product-judgment-in-practice.md")
+      FileUtils.cp(source, File.join(directory, "pages/series/product-judgment-copy.md"))
+    end
+  end
+
+  def test_source_rejects_series_index_page
+    assert_invalid_source(/A \/series\/ index page must not exist/) do |directory|
+      File.write(File.join(directory, "pages/series/index.md"), <<~MARKDOWN)
+        ---
+        layout: default
+        title: Series
+        permalink: /series/
+        ---
+      MARKDOWN
+    end
+  end
+
   def test_source_rejects_invalid_home_destination
     assert_invalid_source(/entry_points cards must match/) do |directory|
       path = File.join(directory, "_data/home.yml")

@@ -20,6 +20,7 @@
     "@type": "WebSite",
     "@id": "{{ website_id }}"
   },
+  "numberOfItems": {{ structured_series_notes.size }},
   "hasPart": [
     {% for note in structured_series_notes %}
     {
@@ -47,8 +48,8 @@
     {
       "@type": "ListItem",
       "position": 2,
-      "name": "Thinking",
-      "item": "{{ site_url }}/thinking/"
+      "name": "Explore",
+      "item": "{{ site_url }}/explore/"
     },
     {
       "@type": "ListItem",

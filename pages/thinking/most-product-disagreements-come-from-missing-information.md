@@ -9,6 +9,9 @@ meta_description: Why product disagreements often come from missing customer evi
 topics:
   - product-decisions
   - teams-and-collaboration
+series: product-judgment-in-practice
+series_order: 2
+series_context: "The next step is identifying what the team does not know before opinions harden into positions."
 intro:
   - Product discussions can quickly turn into disagreements, especially in larger organizations with many stakeholders and competing priorities.
   - In many cases the problem is not that people strongly disagree. The problem is that the information required to make a decision is incomplete or missing.

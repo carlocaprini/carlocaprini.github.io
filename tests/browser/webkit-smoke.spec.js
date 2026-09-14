@@ -26,7 +26,7 @@ test("representative pages avoid horizontal overflow", async ({ page }) => {
 });
 
 test("normal and Series articles retain their navigation", async ({ page }) => {
-  await page.goto("/thinking/waiting-as-product-decision/");
+  await page.goto("/thinking/shared-context-is-not-shared-understanding/");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await expect(page.getByRole("complementary", { name: "Part of a bigger question" })).toBeVisible();
 

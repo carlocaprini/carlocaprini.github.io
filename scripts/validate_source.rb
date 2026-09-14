@@ -322,20 +322,79 @@ fail_check("_data/start_here.yml: unknown note URLs: #{unknown_start_urls.join('
 
 series_path = File.join(SOURCE_DIR, "_data/series.yml")
 series_data = read_yaml(series_path) || {}
-series_pages = page_records.map do |path, (data, _)|
-  [data["series_slug"], [path, data]] if present?(data["series_slug"])
-end.compact.to_h
+series_page_records = page_records.map do |path, (data, _)|
+  [data["series_slug"], path, data] if present?(data["series_slug"])
+end.compact
+series_pages_by_slug = series_page_records.group_by(&:first)
+duplicate_series_pages = series_pages_by_slug.select { |_, records| records.size > 1 }.keys
+unless duplicate_series_pages.empty?
+  fail_check("Series slugs must have exactly one page: #{duplicate_series_pages.join(', ')}")
+end
+
+series_urls = series_data.values.map { |series| series["url"] }.compact
+duplicate_series_urls = series_urls.group_by(&:itself).select { |_, values| values.size > 1 }.keys
+fail_check("_data/series.yml: duplicate Series URLs: #{duplicate_series_urls.join(', ')}") unless duplicate_series_urls.empty?
+fail_check("A /series/ index page must not exist") if permalink_records.key?("/series/")
 
 series_data.each do |slug, series|
-  %w[title url description context entry_context].each do |field|
+  label = "_data/series.yml: #{slug}"
+  %w[title short_title url tagline listing_description description context entry_context].each do |field|
     fail_check("_data/series.yml: #{slug} is missing #{field}") unless present?(series[field])
   end
+  unless series["url"] == "/series/#{slug}/"
+    fail_check("#{label} URL must match its Series slug")
+  end
 
-  series_page = series_pages[slug]
-  if series_page
-    path, data = series_page
+  series_topics = series["topics"]
+  unless series_topics.is_a?(Array) && series_topics.size.between?(1, 2)
+    fail_check("#{label} must define one or two topics as an ordered list")
+  end
+  duplicate_topics = Array(series_topics).group_by(&:itself).select { |_, values| values.size > 1 }.keys
+  fail_check("#{label} has duplicate topics: #{duplicate_topics.join(', ')}") unless duplicate_topics.empty?
+  unknown_topics = Array(series_topics) - topic_slugs
+  fail_check("#{label} has unknown topics: #{unknown_topics.join(', ')}") unless unknown_topics.empty?
+
+  overview = series["overview"] || {}
+  %w[eyebrow title].each do |field|
+    fail_check("#{label} overview is missing #{field}") unless present?(overview[field])
+  end
+  overview_paragraphs = Array(overview["paragraphs"])
+  unless overview_paragraphs.any? && overview_paragraphs.all? { |paragraph| present?(paragraph) }
+    fail_check("#{label} overview must define at least one non-empty paragraph")
+  end
+  overview_items = Array(overview["items"])
+  services = Array(series["services"])
+  structured_items = overview_items.any? ? overview_items : services
+  if structured_items.empty?
+    fail_check("#{label} must define overview.items or services")
+  else
+    structured_items.each_with_index do |item, index|
+      unless present?(item["title"]) || present?(item["name"])
+        fail_check("#{label} structured overview item #{index + 1} is missing title or name")
+      end
+      fail_check("#{label} structured overview item #{index + 1} is missing description") unless present?(item["description"])
+    end
+  end
+
+  article_context = series["article_context"]
+  unless article_context.is_a?(Hash)
+    fail_check("#{label} must define article_context")
+  end
+  show_related_reading = article_context.is_a?(Hash) ? article_context["show_related_reading"] : nil
+  unless show_related_reading == true || show_related_reading == false
+    fail_check("#{label} article_context.show_related_reading must be true or false")
+  end
+
+  series_page_records_for_slug = series_pages_by_slug.fetch(slug, [])
+  if series_page_records_for_slug.size == 1
+    _, path, data = series_page_records_for_slug.first
     if data["permalink"] != series["url"]
       fail_check("#{relative_path(path)}: permalink must match the series URL #{series['url']}")
+    end
+    fail_check("#{relative_path(path)}: layout must be series") unless data["layout"] == "series"
+    fail_check("#{relative_path(path)}: title must match the canonical Series title") unless data["title"] == series["title"]
+    %w[meta_title meta_description].each do |field|
+      fail_check("#{relative_path(path)}: Series page is missing #{field}") unless present?(data[field])
     end
   else
     fail_check("_data/series.yml: #{slug} has no page with matching series_slug")
@@ -359,25 +418,70 @@ series_data.each do |slug, series|
 
   notes.each do |path, data|
     fail_check("#{relative_path(path)}: missing series_context") unless present?(data["series_context"])
-    unless data["show_related_notes"] == false
-      fail_check("#{relative_path(path)}: series notes must disable generic related notes")
+    _, body = note_records.fetch(path)
+    if body.include?("{% include series-context.html %}")
+      fail_check("#{relative_path(path)}: Series context is rendered by the article layout and must not be included in note Markdown")
     end
   end
 end
 
 unknown_series = note_records.values.map { |(data, _)| data["series"] }.compact.uniq - series_data.keys
 fail_check("Thinking notes reference unknown series: #{unknown_series.join(', ')}") unless unknown_series.empty?
+unknown_series_pages = series_pages_by_slug.keys - series_data.keys
+fail_check("Series pages reference unknown Series: #{unknown_series_pages.join(', ')}") unless unknown_series_pages.empty?
 
-featured_series = thinking_data.dig("featured_series", "slug")
-unless series_data.key?(featured_series)
-  fail_check("pages/thinking.md: featured_series must reference _data/series.yml")
+expected_series_order = %w[product-judgment-in-practice building-my-ai-operating-system].freeze
+unless series_data.keys.sort == expected_series_order.sort
+  fail_check("_data/series.yml: must define exactly the two supported Series")
+end
+
+explore_path = File.join(SOURCE_DIR, "pages/explore.md")
+explore_data = page_records.fetch(explore_path).first
+explore_series_value = explore_data.dig("series", "items")
+unless explore_series_value.is_a?(Array)
+  fail_check("pages/explore.md: series.items must exist as an ordered list")
+end
+explore_series_items = Array(explore_series_value)
+duplicate_explore_series = explore_series_items.group_by(&:itself).select { |_, values| values.size > 1 }.keys
+unless duplicate_explore_series.empty?
+  fail_check("pages/explore.md: series.items contains duplicates: #{duplicate_explore_series.join(', ')}")
+end
+unknown_explore_series = explore_series_items - series_data.keys
+unless unknown_explore_series.empty?
+  fail_check("pages/explore.md: series.items contains unknown Series: #{unknown_explore_series.join(', ')}")
+end
+missing_explore_series = series_data.keys - explore_series_items
+unless missing_explore_series.empty?
+  fail_check("pages/explore.md: series.items is missing Series: #{missing_explore_series.join(', ')}")
+end
+unless explore_series_items == expected_series_order
+  fail_check("pages/explore.md: series.items must use the intended editorial order")
+end
+
+thinking_series_items = Array(thinking_data.dig("series", "items"))
+unless thinking_series_items == explore_series_items
+  fail_check("pages/thinking.md: series.items must match Explore Series order")
+end
+thinking_featured_series = thinking_data.dig("series", "featured")
+unless series_data.key?(thinking_featured_series)
+  fail_check("pages/thinking.md: series.featured must reference a valid Series")
+end
+unless thinking_series_items.include?(thinking_featured_series)
+  fail_check("pages/thinking.md: series.featured must be included in series.items")
 end
 
 home_path = File.join(SOURCE_DIR, "_data/home.yml")
 home_data = read_yaml(home_path) || {}
-home_featured_series = home_data.dig("featured_series", "slug")
+home_series_config = home_data["series"]
+unless home_series_config.is_a?(Hash) && home_series_config.keys == ["featured"]
+  fail_check("_data/home.yml: series must expose only the featured Series")
+end
+home_featured_series = home_data.dig("series", "featured")
 unless series_data.key?(home_featured_series)
-  fail_check("_data/home.yml: featured_series must reference _data/series.yml")
+  fail_check("_data/home.yml: series.featured must reference a valid Series")
+end
+unless home_featured_series == "product-judgment-in-practice"
+  fail_check("_data/home.yml: Product Judgment must be the featured Series")
 end
 
 home_question_slugs = Array(home_data.dig("questions", "items"))

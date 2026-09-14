@@ -25,8 +25,6 @@ Most dashboards try to help by showing more. That works when the problem is acce
 
 When work is spread across different tools, I can usually find every open item myself. The expensive part is repeatedly scanning those systems, comparing their state, and deciding what deserves attention first.
 
-{% include series-context.html %}
-
 An attention layer should take that first pass. It should collect the available signals, reduce them to a short list, and explain why those items appear now. The benefit is not discovering something I could never have found. It is letting me begin with the closest or most important decisions instead of reconstructing the whole landscape each time.
 
 That makes omission part of the product. A system that shows everything has transferred information, but it has not reduced the work of deciding.

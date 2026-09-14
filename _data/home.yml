@@ -31,11 +31,8 @@ selected_notes:
     label: All notes
     url: /thinking/
 
-featured_series:
-  slug: building-my-ai-operating-system
-  eyebrow: Featured series
-  description: A first-person series about what happened when I stopped trying to build one general AI assistant and started giving different systems smaller, clearer jobs.
-  action: Read the series
+series:
+  featured: product-judgment-in-practice
 
 questions:
   eyebrow: Questions I’m exploring

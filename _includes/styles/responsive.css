@@ -155,8 +155,7 @@
   .home-series-preview--wide,
   .home-experience-grid,
   .thinking-ai-process,
-  .thinking-entry-grid,
-  .series-overview {
+  .thinking-entry-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -279,9 +278,46 @@
     border-bottom: 0;
   }
 
-  .thinking-entry-grid,
-  .series-overview {
+  .thinking-entry-grid {
     gap: 1.35rem;
+  }
+
+  .series-overview-copy {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .series-overview-copy .section-eyebrow,
+  .series-overview-copy .section-title,
+  .series-overview-copy p {
+    grid-column: 1;
+  }
+
+  .series-overview-copy p:first-of-type {
+    margin-top: 0.35rem;
+  }
+
+  .series-overview-items,
+  .series-overview-items--sequence {
+    grid-template-columns: minmax(0, 1fr);
+    border-top: 0;
+    border-left: 1px solid var(--series-accent-border);
+  }
+
+  .series-overview-item {
+    grid-template-columns: 2.6rem minmax(0, 1fr);
+    grid-template-rows: auto;
+    gap: 0.7rem;
+    padding: 0 0 1.6rem 1.2rem;
+  }
+
+  .series-overview-item:last-child {
+    padding-bottom: 0;
+  }
+
+  .series-overview-item::before {
+    top: 0.25rem;
+    left: -0.27rem;
   }
 
   .thinking-ai-process {
@@ -840,8 +876,7 @@
     margin-bottom: 2.1rem;
   }
 
-  .thinking-page .thinking-start-here,
-  .thinking-page .thinking-series-preview {
+  .thinking-page .thinking-start-here {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
   }
@@ -907,16 +942,38 @@
     opacity: 0.38;
   }
 
-  .thinking-series-preview {
-    padding: 1.75rem;
-  }
-
   .home-series-preview {
-    padding: 1.75rem;
+    gap: 1.35rem;
+    padding: 1.5rem 1.2rem;
+    border-radius: 22px;
   }
 
   .home-series-preview--wide .home-series-action {
     align-items: flex-start;
+  }
+
+  .series-discovery-list--explore .series-discovery-item {
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: 0.8rem;
+  }
+
+  .series-discovery-list--explore .series-discovery-meta {
+    grid-column: 2;
+    justify-content: space-between;
+    min-width: 0;
+  }
+
+  .thinking-series-card-link {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: 0.65rem;
+    min-height: 0;
+    padding: 1.2rem 1.05rem;
+    border-radius: 20px;
+  }
+
+  .thinking-series-card-arrow {
+    grid-column: 2;
+    justify-self: end;
   }
 
   .thinking-entry-grid .selected-notes-panel {
@@ -944,11 +1001,6 @@
   .series-page-episode-action {
     grid-column: 2;
     grid-row: 2;
-  }
-
-  .series-service-item {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.55rem;
   }
 
   .article-series-navigation {

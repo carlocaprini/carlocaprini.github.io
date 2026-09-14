@@ -27,8 +27,6 @@ intro:
 
 Then I had a different problem.
 
-{% include series-context.html %}
-
 I could see the state of one document, but not the shape of the work around it.
 
 Which pieces were close to ready? Which ones still needed development? Was I putting effort into material for a distant month while an earlier part of the plan remained empty? Had an idea earned a place in the publishing sequence, or was I turning it into a commitment too early?

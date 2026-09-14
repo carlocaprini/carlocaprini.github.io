@@ -19,10 +19,10 @@
     {% if current_url == "/work/" %}
       {% assign is_work = true %}
     {% endif %}
-    {% if current_url == "/thinking/" or page.layout == "article" or page.layout == "series" %}
+    {% if current_url == "/thinking/" or page.layout == "article" %}
       {% assign is_thinking = true %}
     {% endif %}
-    {% if current_url == "/explore/" or page.layout == "question" %}
+    {% if current_url == "/explore/" or page.layout == "question" or page.layout == "series" %}
       {% assign is_explore = true %}
     {% endif %}
     {% if current_url == "/influences/" %}

@@ -27,8 +27,6 @@ For years, I have wanted something like Jarvis.
 
 Not necessarily the voice, the holograms, or a system running an Iron Man suit—although that would still be so cool, and I still aim for it. What interested me most was having an intelligence that knew what I was working on, kept track of the moving pieces, and could help without needing the whole situation explained again every time.
 
-{% include series-context.html %}
-
 ## The ambition came before the job
 
 When AI agents started appearing everywhere, that old idea suddenly felt achievable.

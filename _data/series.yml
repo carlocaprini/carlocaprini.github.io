@@ -1,12 +1,57 @@
+product-judgment-in-practice:
+  title: Product Judgment in Practice
+  short_title: Product judgment
+  url: /series/product-judgment-in-practice/
+  tagline: How product decisions get made when information is incomplete and every option has a cost.
+  listing_description: Evidence, trade-offs, urgency, timing and disagreement before implementation begins.
+  description: >
+    Product work rarely presents one obviously correct answer. The difficult part is usually deciding with incomplete information, competing pressures and consequences that may only become visible later. This series follows the judgment behind those decisions.
+  context: >
+    Product decisions are often treated as exercises in prioritization or solution selection. I find the harder work happens earlier: understanding what is actually known, what each option gives up, how urgent the decision really is, and how difficult it will be to change course later.
+  entry_context: This series follows the judgment behind product decisions, from evidence and trade-offs to timing, commitment and disagreement.
+  topics:
+    - product-decisions
+    - teams-and-collaboration
+  overview:
+    eyebrow: The decision loop
+    title: Better product decisions start before prioritization.
+    paragraphs:
+      - A prioritization score cannot compensate for missing context. Before comparing options, teams need to understand the problem, the evidence available, the constraints around it and what each path would make easier or harder later.
+      - The notes in this series follow that decision loop. They begin with information and trade-offs, move through urgency and timing, and end with the work of creating enough shared understanding for a team to commit.
+    items:
+      - title: Information
+        description: What do we know, what is missing, and which assumptions are carrying the decision?
+      - title: Trade-offs
+        description: What does each reasonable option protect, and what does it make harder?
+      - title: Timing
+        description: Is the decision actually urgent, or would waiting create better information and more options?
+      - title: Commitment
+        description: What becomes costly to reverse once customers, teams or systems depend on the choice?
+      - title: Alignment
+        description: Can the team move forward without pretending every perspective has become the same?
+  article_context:
+    show_related_reading: true
+
 building-my-ai-operating-system:
   title: Building My Own AI Operating System
+  short_title: AI Operating System
   url: /series/building-my-ai-operating-system/
+  tagline: From one general assistant to smaller services with clearer jobs, boundaries and ownership.
+  listing_description: A first-person series about moving from one general assistant to smaller AI-first services with explicit jobs, boundaries and ownership.
   description: My notes from building a personal AI-first operating system, starting with the failed attempt to make one general assistant useful.
   context: The series follows the decisions, boundaries and failure modes that appear as separate tools begin to form a system that can work across them.
   entry_context: After abandoning a general Jarvis-like assistant, I started building smaller AI-first services around recurring work and connecting them only when a concrete coordination problem appeared.
-  intro:
-    - This series follows my attempt to build a personal AI operating system by starting from work I already do, rather than from one universal assistant.
-    - August keeps documents, versions and review state together. March makes the publishing runway visible without turning it into a commitment. Friday now coordinates signals across them while each service remains responsible for its own work.
+  topics:
+    - ai-and-automation
+    - software-systems
+  overview:
+    eyebrow: The system so far
+    title: Separate services, explicit responsibilities.
+    paragraphs:
+      - This series follows my attempt to build a personal AI operating system by starting from work I already do, rather than from one universal assistant.
+      - August keeps documents, versions and review state together. March makes the publishing runway visible without turning it into a commitment. Friday now coordinates signals across them while each service remains responsible for its own work.
+  article_context:
+    show_related_reading: false
   services:
     - name: Jarvis
       slug: jarvis
@@ -32,6 +77,11 @@ building-my-ai-operating-system:
       url: /thinking/why-i-started-building-friday/
       sidebar_description: Attention layer coordinating signals across services.
       description: The ongoing second attempt, built around noticing what may deserve attention across bounded services without replacing them.
+  visual_section:
+    eyebrow: From the notes
+    title: A few views of the system.
+    description: Screenshots from August, March and Friday, collected as the interfaces changed across the series.
+    note: Interface views use public or fictional demonstration data. No private document content is shown.
   visuals:
     - episode: "02"
       service: August
