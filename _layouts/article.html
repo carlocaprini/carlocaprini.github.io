@@ -2,9 +2,18 @@
 layout: default
 # Layout for Thinking articles. Expects: title, permalink, intro (optional), topics (optional)
 ---
+{% assign sidebar_series = nil %}
+{% if page.series %}
+  {% assign sidebar_series = site.data.series[page.series] %}
+{% endif %}
+{% assign show_related_reading = true %}
+{% if sidebar_series and sidebar_series.article_context.show_related_reading == false %}
+  {% assign show_related_reading = false %}
+{% endif %}
+
 {% comment %}Related reading: influences sharing topics, ranked by overlap count then editorial weight, max 2.{% endcomment %}
 {% assign related_reading = "" | split: "" %}
-{% unless page.series %}
+{% if show_related_reading %}
 {% if page.topics and page.topics.size > 0 %}
 {% assign refs_by_title = site.influences | sort: "title" %}
 {% assign score_order = "10,9,8,7,6,5,4,3,2,1" | split: "," %}
@@ -50,7 +59,7 @@ layout: default
   {% endif %}
 {% endfor %}
 {% endif %}
-{% endunless %}
+{% endif %}
 
 {% comment %}Curated Questions containing this note. Questions are editorial paths, not inferred from topic overlap.{% endcomment %}
 {% assign article_questions = "" | split: "" %}
@@ -131,9 +140,9 @@ layout: default
     {% endif %}
   {% endfor %}
 {% endif %}
-{% assign sidebar_series = nil %}
+{% assign show_related_notes = page.show_related_notes %}
 {% if page.series %}
-  {% assign sidebar_series = site.data.series[page.series] %}
+  {% assign show_related_notes = false %}
 {% endif %}
 {% assign primary_topic = page.topics | first | default: "general" %}
 {% assign primary_topic_data = site.data.topics | where: "slug", primary_topic | first %}
@@ -207,6 +216,7 @@ layout: default
         </details>
         {% endif %}
         <div class="article-body">
+          {% if page.series %}{% include series-context.html %}{% endif %}
           {{ content }}
         </div>
         {% if series_previous or series_next %}
@@ -254,7 +264,7 @@ layout: default
           </div>
         </div>
       </div>
-      {% include article-context-sidebar.html page_title=page.title series=sidebar_series series_slug=page.series current_service=page.series_service questions=article_questions related_notes=related related_reading=related_reading show_related_notes=page.show_related_notes %}
+      {% include article-context-sidebar.html page_title=page.title series=sidebar_series series_slug=page.series current_service=page.series_service questions=article_questions related_notes=related related_reading=related_reading show_related_notes=show_related_notes %}
     </div>
   </section>
 </div>

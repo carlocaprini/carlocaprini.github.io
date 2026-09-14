@@ -35,7 +35,7 @@
     {
       "id": "explore",
       "path": "/explore/",
-      "description": "Curated Questions and topic entry points",
+      "description": "Curated Questions, editorial Series and topic entry points",
       "viewports": ["desktop", "mobile"]
     },
     {
@@ -64,7 +64,7 @@
     },
     {
       "id": "standard-article",
-      "path": "/thinking/waiting-as-product-decision/",
+      "path": "/thinking/shared-context-is-not-shared-understanding/",
       "description": "Representative standalone Thinking article",
       "viewports": ["desktop", "tablet", "mobile"]
     },
@@ -75,10 +75,22 @@
       "viewports": ["desktop", "tablet", "mobile"]
     },
     {
+      "id": "product-series-article",
+      "path": "/thinking/most-product-disagreements-come-from-missing-information/",
+      "description": "Representative Product Judgment episode with automatic Series context, Questions and Related Reading",
+      "viewports": ["desktop", "tablet", "mobile"]
+    },
+    {
+      "id": "product-series",
+      "path": "/series/product-judgment-in-practice/",
+      "description": "Product Judgment in Practice series landing and decision-loop sequence",
+      "viewports": ["desktop", "tablet", "mobile"]
+    },
+    {
       "id": "ai-series",
       "path": "/series/building-my-ai-operating-system/",
       "description": "Building My Own AI Operating System series landing",
-      "viewports": ["desktop", "mobile"]
+      "viewports": ["desktop", "tablet", "mobile"]
     }
   ]
 }

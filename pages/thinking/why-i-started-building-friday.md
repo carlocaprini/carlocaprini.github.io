@@ -28,8 +28,6 @@ Then I built [August](/thinking/i-built-august-because-copy-and-paste-was-not-co
 
 Friday is my second attempt at the original ambition. It began when those two useful services created a new problem between them.
 
-{% include series-context.html %}
-
 ## The problem was not asking
 
 August knew the state of my documents and reviews. March knew the publishing plan.

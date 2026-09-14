@@ -6,7 +6,7 @@
 - Influences live in `_influences/` and own external-source metadata, topics and any deliberately selected related Note.
 - Topics live in `_data/topics.yml`. Do not copy the allowed slug list into documentation or runtime code.
 - Questions live in `_data/questions.yml`. They are curated reading paths across Notes, Influences and Experience, not projections of topic tags. Their Topic metadata remains editorial context and is not exposed as additional navigation on Question surfaces.
-- Series metadata lives in `_data/series.yml`; episode identity remains on the relevant Notes.
+- Series metadata lives in `_data/series.yml`; episode identity and sequence remain on the relevant Notes. `pages/explore.md` owns the complete reader-facing Series order.
 - The three canonical Start Here Notes live in `_data/start_here.yml` and are shared by Home, Thinking and recovery surfaces.
 - Home editorial modules live in `_data/home.yml`.
 - The Work proposition lives in `pages/work.md`. It owns the recognizable situations, Review, Advisory, working principles and contact path; client proof must not be inferred or generated from it.
@@ -16,7 +16,7 @@
 
 Shared topics can rank related Notes and Influences. An Influence may select one internal Note explicitly through `related_note`. Question membership is always explicit in `_data/questions.yml`; topic overlap never adds an item to a Question automatically.
 
-Explore exposes curated Questions first and complete Topic views second. Stable Topic URLs use hashes on `/explore/`. `/knowledge/` remains only as a compatibility redirect.
+Explore exposes curated Questions first, deliberate editorial Series second and complete Topic views third. It is the canonical Series collection surface; individual Series pages live under `/series/series-slug/`, but there is no `/series/` index. Stable Topic URLs use hashes on `/explore/`; the `#series` section anchor is not Topic state. `/knowledge/` remains only as a compatibility redirect.
 
 Work is a first-class professional destination, but it does not redefine Thinking. Home may preview selected problem spaces and link to `/work/`; its terminology, boundaries and outcome language must remain consistent with the canonical proposition. Work must not fabricate engagement connections inside Questions or turn Notes into commercial entry points.
 
@@ -27,6 +27,7 @@ Some lists resemble derived data but are intentionally curated:
 - `pages/thinking.md` contains every published Note once in its `notes` list, in editorial order.
 - `_data/start_here.yml` defines the three shared Start Here selections.
 - `_data/home.yml` chooses and orders Home entry points and editorial modules.
+- `pages/explore.md` lists every Series once in canonical editorial order; Thinking uses that same complete order, while Home selects only one featured Series.
 - Question sections choose and order their Notes and Influences.
 
 Validators protect membership and references, but should not replace these choices with automatic chronological or taxonomic projections.

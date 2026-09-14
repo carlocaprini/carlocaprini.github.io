@@ -7,6 +7,22 @@ const seriesRoutes = [
   "/thinking/why-i-started-building-friday/"
 ];
 
+const allAiSeriesRoutes = [
+  ...seriesRoutes,
+  "/thinking/friday-connects-the-services-without-owning-their-work/",
+  "/thinking/i-need-my-ai-dashboard-to-leave-things-out/"
+];
+
+const productSeriesRoutes = [
+  "/thinking/the-transition-to-product-management-starts-before-the-title-changes/",
+  "/thinking/most-product-disagreements-come-from-missing-information/",
+  "/thinking/product-decisions-are-mostly-trade-offs/",
+  "/thinking/the-urgency-of-customer-requests/",
+  "/thinking/waiting-as-product-decision/",
+  "/thinking/temporary-solutions-become-permanent/",
+  "/thinking/managing-disagreements/"
+];
+
 for (const route of seriesRoutes) {
   test(`${route} explains its place in the series`, async ({ page }) => {
     await page.goto(route);
@@ -34,6 +50,80 @@ test("series navigation connects adjacent episodes", async ({ page }) => {
   );
 });
 
+test("series navigation exposes only valid directions at sequence boundaries", async ({ page }) => {
+  for (const routes of [productSeriesRoutes, allAiSeriesRoutes]) {
+    await page.goto(routes[0]);
+    await expect(page.getByRole("link", { name: /Previous episode/ })).toHaveCount(0);
+    await expect(page.getByRole("link", { name: /Next episode/ })).toHaveAttribute("href", routes[1]);
+
+    await page.goto(routes.at(-1));
+    await expect(page.getByRole("link", { name: /Previous episode/ })).toHaveAttribute("href", routes.at(-2));
+    await expect(page.getByRole("link", { name: /Next episode/ })).toHaveCount(0);
+  }
+});
+
+test("Product Judgment presents the decision loop and seven ordered episodes", async ({ page }) => {
+  await page.goto("/series/product-judgment-in-practice/");
+
+  await expect(page.getByRole("heading", { level: 1, name: "Product Judgment in Practice" })).toBeVisible();
+  await expect(page.getByText("How product decisions get made when information is incomplete and every option has a cost.", { exact: true })).toBeVisible();
+  await expect(page.locator(".series-overview-item h3")).toHaveText([
+    "Information",
+    "Trade-offs",
+    "Timing",
+    "Commitment",
+    "Alignment"
+  ]);
+  await expect(page.locator(".series-page-episodes > li > a")).toHaveCount(7);
+  expect(await page.locator(".series-page-episodes > li > a").evaluateAll(
+    (links) => links.map((link) => link.getAttribute("href"))
+  )).toEqual(productSeriesRoutes);
+  await expect(page.getByText("A few views of the system.", { exact: true })).toHaveCount(0);
+  await expect(page.locator(".series-visuals-section")).toHaveCount(0);
+  await expect(page.getByRole("link", { name: "Back to Explore" })).toHaveAttribute("href", "/explore/#series");
+});
+
+test("Product episodes keep reading context without generic notes or a system map", async ({ page }) => {
+  await page.goto(productSeriesRoutes[1]);
+
+  await expect(page.getByText("Product Judgment in Practice", { exact: true })).toBeVisible();
+  await expect(page.getByText("Episode 02", { exact: true })).toBeVisible();
+  await expect(page.getByRole("complementary", { name: "Series context" })).toHaveCount(1);
+  await expect(page.getByRole("complementary", { name: "Services in this series" })).toHaveCount(0);
+  await expect(page.locator("details.article-system-map-mobile")).toHaveCount(0);
+  await expect(page.getByRole("complementary", { name: "Related notes" })).toHaveCount(0);
+  await expect(page.getByRole("complementary", { name: "Related reading" })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Previous episode/ })).toHaveAttribute("href", productSeriesRoutes[0]);
+  await expect(page.getByRole("link", { name: /Next episode/ })).toHaveAttribute("href", productSeriesRoutes[2]);
+});
+
+test("Series structured data uses ordered episodes and Explore breadcrumbs", async ({ page }) => {
+  for (const [route, expectedName, expectedRoutes] of [
+    ["/series/product-judgment-in-practice/", "Product Judgment in Practice", productSeriesRoutes],
+    ["/series/building-my-ai-operating-system/", "Building My Own AI Operating System", allAiSeriesRoutes]
+  ]) {
+    await page.goto(route);
+    const data = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>
+      scripts.map((script) => JSON.parse(script.textContent))
+    );
+    const series = data.find((entry) => entry["@type"] === "CreativeWorkSeries");
+    const breadcrumbs = data.find((entry) => entry["@type"] === "BreadcrumbList");
+
+    expect(series.name).toBe(expectedName);
+    expect(series.numberOfItems).toBe(expectedRoutes.length);
+    expect(series.hasPart).toHaveLength(expectedRoutes.length);
+    expect(series.hasPart.map((episode) => episode.position)).toEqual(
+      Array.from({ length: expectedRoutes.length }, (_, index) => index + 1)
+    );
+    expect(series.hasPart.map((episode) => new URL(episode.url).pathname)).toEqual(expectedRoutes);
+    expect(breadcrumbs.itemListElement.map((item) => item.name)).toEqual([
+      "Home",
+      "Explore",
+      expectedName
+    ]);
+  }
+});
+
 test("series visuals expose episode progress and service identity", async ({ page }) => {
   await page.goto("/series/building-my-ai-operating-system/");
 
@@ -53,19 +143,22 @@ test("series visuals expose episode progress and service identity", async ({ pag
   ]);
 });
 
-test("featured series motion stops when reduced motion is requested", async ({ page }) => {
+test("AI episodes retain the System Map and suppress Related Reading", async ({ page }) => {
+  await page.goto(allAiSeriesRoutes[4]);
+
+  await expect(page.locator("aside.article-system-map")).toHaveCount(1);
+  await expect(page.locator("details.article-system-map-mobile")).toHaveCount(1);
+  await expect(page.getByRole("complementary", { name: "Related reading" })).toHaveCount(0);
+  await expect(page.getByRole("complementary", { name: "Related notes" })).toHaveCount(0);
+});
+
+test("Series sequence remains static when reduced motion is requested", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/thinking/");
+  await page.goto("/series/product-judgment-in-practice/");
 
-  const animationNames = await page.locator(".thinking-series-preview").evaluate((element) => ({
-    panel: getComputedStyle(element).animationName,
-    before: getComputedStyle(element, "::before").animationName,
-    after: getComputedStyle(element, "::after").animationName
-  }));
+  const animationNames = await page.locator(".series-overview-items").evaluate((element) =>
+    Array.from(element.children, (item) => getComputedStyle(item).animationName)
+  );
 
-  expect(animationNames).toEqual({
-    panel: "none",
-    before: "none",
-    after: "none"
-  });
+  expect(animationNames).toEqual(["none", "none", "none", "none", "none"]);
 });

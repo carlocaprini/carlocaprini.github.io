@@ -3,6 +3,9 @@ layout: default
 # Home page layout. Content from _data/home.yml
 ---
 {% assign h = site.data.home %}
+{% assign home_featured_series_slug = h.series.featured %}
+{% assign home_featured_series = site.data.series[home_featured_series_slug] %}
+{% assign home_featured_series_notes = site.pages | where: "series", home_featured_series_slug %}
 <div class="page home-page">
   <section class="hero">
     <div class="container hero-grid">
@@ -27,8 +30,6 @@ layout: default
   </section>
 
   <section id="selected-notes" class="section">
-    {% assign home_series = site.data.series[h.featured_series.slug] %}
-    {% assign home_series_notes = site.pages | where: "series", h.featured_series.slug | sort: "series_order" %}
     <div class="container home-start-section">
       <div class="home-start-here selected-notes-panel">
         <div>
@@ -116,21 +117,22 @@ layout: default
     </div>
   </section>
 
-  {% if home_series and home_series_notes.size > 0 %}
+  {% if home_featured_series and home_featured_series_notes.size > 0 %}
   <section id="featured-series" class="section home-series-section">
     <div class="container">
-      <div class="home-series-preview home-series-preview--wide" aria-labelledby="home-series-title">
+      <div class="home-series-preview home-series-preview--wide home-series-preview--{{ home_featured_series.topics | first }}" aria-labelledby="home-series-title">
         <div>
           <div class="home-series-heading-row">
             <span class="home-series-signal" aria-hidden="true"></span>
-            <div class="section-eyebrow">{{ h.featured_series.eyebrow }}</div>
+            <div class="section-eyebrow">Featured series</div>
           </div>
-          <h2 class="home-series-title" id="home-series-title">{{ home_series.title }}</h2>
-          <p class="home-series-description">{{ h.featured_series.description }}</p>
+          <h2 class="home-series-title" id="home-series-title">{{ home_featured_series.title }}</h2>
+          <p class="home-series-tagline">{{ home_featured_series.tagline }}</p>
+          <p class="home-series-description">{{ home_featured_series.listing_description }}</p>
         </div>
         <div class="home-series-action">
-          <span class="home-series-count">{{ home_series_notes.size }} episodes</span>
-          <a class="section-link" href="{{ home_series.url | relative_url }}" data-analytics-event="series_open" data-analytics-series-id="{{ h.featured_series.slug | escape }}" data-analytics-link-context="home_featured_series">{{ h.featured_series.action }} <span aria-hidden="true">→</span></a>
+          <span class="home-series-count">{{ home_featured_series_notes.size }} episodes</span>
+          <a class="section-link" href="{{ home_featured_series.url | relative_url }}" data-analytics-event="series_open" data-analytics-series-id="{{ home_featured_series_slug | escape }}" data-analytics-link-context="home_featured_series">Read the series <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>

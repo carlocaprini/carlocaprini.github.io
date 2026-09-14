@@ -7,6 +7,9 @@ summary: Much of product work is about helping smart people who see the problem 
 topics:
   - teams-and-collaboration
   - product-decisions
+series: product-judgment-in-practice
+series_order: 7
+series_context: "The series closes with the social side of judgment: helping people with different perspectives move toward a decision without pretending disagreement can be eliminated."
 intro:
   - People often describe product management as deciding what to build. In reality, the job often looks very different. Much of the time it's about helping smart people who see the problem differently find a way forward.
   - Disagreements are not an exception in product work. They are the norm.

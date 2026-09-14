@@ -8,6 +8,9 @@ meta_title: Product Decisions Are Trade-Offs, Not Perfect Solutions
 meta_description: Product teams rarely choose between a right and wrong solution. They decide which benefits, costs and consequences they are willing to accept.
 topics:
   - product-decisions
+series: product-judgment-in-practice
+series_order: 3
+series_context: "Once the context is visible, the decision becomes a choice about which costs and consequences the team is willing to accept."
 intro:
   - There are no perfect product decisions. Only trade-offs.
   - Product teams rarely face problems with a single obvious solution. Instead they face multiple options, each with different benefits, costs and consequences.

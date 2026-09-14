@@ -196,3 +196,50 @@ test("article signature preserves identity and actions across breakpoints", asyn
   expect(bounds.right).toBeLessThanOrEqual(bounds.viewportWidth - 16);
   expect(bounds.scrollWidth).toBe(bounds.viewportWidth);
 });
+
+test("multi-Series discovery and Product sequence adapt across breakpoints", async ({ page }, testInfo) => {
+  await page.goto("/series/product-judgment-in-practice/");
+  const sequence = page.locator(".series-overview-items");
+  await expect(sequence.locator(":scope > li")).toHaveCount(5);
+  const sequenceState = await sequence.evaluate((element) => ({
+    columns: getComputedStyle(element).gridTemplateColumns.split(" ").length,
+    width: element.getBoundingClientRect().width,
+    scrollWidth: document.documentElement.scrollWidth,
+    viewportWidth: document.documentElement.clientWidth
+  }));
+  expect(sequenceState.columns).toBe(testInfo.project.name === "desktop-chromium" ? 5 : 1);
+  expect(sequenceState.width).toBeGreaterThan(0);
+  expect(sequenceState.scrollWidth).toBe(sequenceState.viewportWidth);
+
+  await page.goto("/thinking/");
+  const thinkingColumns = await page.locator(".thinking-entry-grid").evaluate(
+    (element) => getComputedStyle(element).gridTemplateColumns.split(" ").length
+  );
+  expect(thinkingColumns).toBe(testInfo.project.name === "desktop-chromium" ? 2 : 1);
+  await expect(page.locator(".thinking-series-stack .thinking-series-card")).toHaveCount(2);
+  const seriesTitleSizes = await page.locator(".thinking-series-card-content > strong").evaluateAll((elements) =>
+    elements.map((element) => getComputedStyle(element).fontSize)
+  );
+  expect(new Set(seriesTitleSizes).size).toBe(1);
+  if (testInfo.project.name === "desktop-chromium") {
+    const entryWidths = await page.locator(".thinking-entry-grid > *").evaluateAll((elements) =>
+      elements.map((element) => element.getBoundingClientRect().width)
+    );
+    expect(Math.abs(entryWidths[0] - entryWidths[1])).toBeLessThanOrEqual(1);
+  }
+
+  await page.goto("/explore/#series");
+  await expect(page.locator("#series .series-discovery-meta > span")).toHaveText(["7 episodes", "6 episodes"]);
+  await expect(page.locator("#series")).toBeInViewport();
+
+  await page.goto("/");
+  await expect(page.locator(".home-series-preview")).toBeVisible();
+  await expect(page.locator(".home-series-preview")).toHaveCount(1);
+  const homeWidth = await page.locator(".home-series-preview").evaluate((element) => ({
+    right: element.getBoundingClientRect().right,
+    viewport: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth
+  }));
+  expect(homeWidth.right).toBeLessThanOrEqual(homeWidth.viewport - 16);
+  expect(homeWidth.scrollWidth).toBe(homeWidth.viewport);
+});

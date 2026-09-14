@@ -48,3 +48,18 @@ test("Work is a first-class destination with a current-page state", async ({ pag
     .getByRole("link", { name: "Work" }))
     .toHaveAttribute("aria-current", "page");
 });
+
+test("Series pages belong to Explore navigation", async ({ page }, testInfo) => {
+  await page.goto("/series/product-judgment-in-practice/");
+
+  const navigation = testInfo.project.name === "desktop-chromium"
+    ? page.getByRole("navigation", { name: "Primary navigation" })
+    : page.getByRole("navigation", { name: "Mobile navigation" });
+  if (testInfo.project.name !== "desktop-chromium") {
+    await page.locator("details.mobile-nav summary").click();
+  }
+
+  await expect(navigation.getByRole("link", { name: "Explore" })).toHaveAttribute("aria-current", "page");
+  await expect(navigation.getByRole("link", { name: "Thinking" })).not.toHaveAttribute("aria-current", "page");
+  await expect(navigation.getByRole("link", { name: "Series" })).toHaveCount(0);
+});

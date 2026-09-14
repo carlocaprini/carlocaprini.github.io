@@ -1,6 +1,6 @@
 ---
 layout: default
-# Layout for Thinking index. Expects: hero, notes, Start Here, recent notes and an optional featured series.
+# Layout for Thinking index. Expects: hero, notes, Start Here, Series and recent notes.
 ---
 <div class="page thinking-page">
   <section class="hero hero--compact">
@@ -32,10 +32,6 @@ layout: default
     <div class="container thinking-list-wrap">
       {% assign note_urls = page.notes | map: "url" %}
       {% assign sorted_notes = site.pages | where_exp: "item", "note_urls contains item.url" | sort: "date" | reverse %}
-      {% if page.featured_series and page.featured_series.slug %}
-        {% assign featured_series = site.data.series[page.featured_series.slug] %}
-        {% assign series_notes = site.pages | where: "series", page.featured_series.slug | sort: "series_order" %}
-      {% endif %}
       {% if page.ai_process %}
       <section class="thinking-ai-process" aria-labelledby="thinking-ai-process-title">
         <div class="thinking-ai-process-heading thinking-ai-process-part">
@@ -74,20 +70,31 @@ layout: default
         </ul>
       </div>
       {% endif %}
-      {% if featured_series and series_notes.size > 0 %}
-        <section class="thinking-series-preview" id="{{ page.featured_series.slug }}" aria-labelledby="thinking-series-title">
-          <div>
-            <div class="thinking-series-heading-row">
-              <span class="thinking-series-signal" aria-hidden="true"></span>
-              <div class="section-eyebrow">Featured series</div>
-            </div>
-            <h2 class="thinking-series-title" id="thinking-series-title">{{ featured_series.title }}</h2>
-            <p class="thinking-series-description">{{ featured_series.description }}</p>
-          </div>
-          <div class="thinking-series-preview-action">
-            <span class="thinking-series-count">{{ series_notes.size }} episodes</span>
-            <a class="section-link" href="{{ featured_series.url | relative_url }}" data-analytics-event="series_open" data-analytics-series-id="{{ page.featured_series.slug | escape }}" data-analytics-link-context="thinking_featured_series">Read the series <span aria-hidden="true">→</span></a>
-          </div>
+      {% if page.series and page.series.items %}
+        <section class="thinking-series-stack" aria-label="Editorial series">
+          <ol class="thinking-series-cards">
+            {% for series_slug in page.series.items %}
+              {% assign listed_series = site.data.series[series_slug] %}
+              {% assign listed_series_notes = site.pages | where: "series", series_slug %}
+              {% assign listed_series_primary_topic = listed_series.topics | first %}
+              {% assign primary_topic = site.data.topics | where: "slug", listed_series_primary_topic | first %}
+              <li class="thinking-series-card thinking-series-card--{{ listed_series_primary_topic }}">
+                <a class="thinking-series-card-link" href="{{ listed_series.url | relative_url }}" data-analytics-event="series_open" data-analytics-series-id="{{ series_slug | escape }}" data-analytics-link-context="thinking_series">
+                  <span class="thinking-series-card-index" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+                  <span class="thinking-series-card-content">
+                    {% if series_slug == page.series.featured %}<span class="thinking-series-card-label">Featured series</span>{% endif %}
+                    <strong>{{ listed_series.title }}</strong>
+                    <span class="thinking-series-card-description">{{ listed_series.listing_description }}</span>
+                    <span class="thinking-series-card-meta">
+                      <span>{{ listed_series_notes.size }} episodes</span>
+                      <span class="series-discovery-topic series-discovery-topic--{{ listed_series_primary_topic }}">{{ primary_topic.label }}</span>
+                    </span>
+                  </span>
+                  <span class="thinking-series-card-arrow" aria-hidden="true">→</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ol>
         </section>
       {% endif %}
       </div>

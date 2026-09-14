@@ -8,6 +8,9 @@ summary: Temporary solutions are often necessary, but once adopted they become p
 topics:
   - software-systems
   - product-decisions
+series: product-judgment-in-practice
+series_order: 6
+series_context: "When the team does commit, supposedly temporary choices show how short-term trade-offs can create long-term constraints."
 intro:
   - Temporary solutions are often necessary.
   - But once they are adopted, they rarely stay temporary.

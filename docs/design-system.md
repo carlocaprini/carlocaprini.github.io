@@ -459,9 +459,9 @@ Topic accents should map to the canonical accent colors. If more topics are adde
 
 The canonical public topic taxonomy is shared by Thinking notes and Influences:
 
-- Product decisions: indigo
+- Product decisions: amber
 - AI and automation: cyan
-- Software systems: sky
+- Software systems: indigo
 - Teams and collaboration: emerald
 
 Use no more than two topics per item. The first topic is the primary theme and determines the accent used by Influence cards.
@@ -515,8 +515,10 @@ Explore is the guided discovery layer connecting Thinking, Experience, selected 
 Keep:
 
 - one generic Explore hero
+- Questions, Series and Topics in that order, with Explore as the canonical Series discovery surface
 - explicit Explore entry points from Home, Thinking and Influences
 - three mature Questions presented as editorial paths, not dashboard tiles
+- compact numbered Series rows between Questions and Topics, using Topic color only as an orientation marker
 - one dedicated page per Question, with grouped notes, selected Influences, an Experience bridge and one continuation path
 - shared topic navigation below the curated Questions
 - a selected-topic explanation before its content
@@ -538,29 +540,33 @@ Avoid:
 
 ### Editorial Series
 
-A series receives a dedicated page once it contains enough published or publication-ready notes to form a useful reading path. Keep the series out of the global navigation; Thinking remains its primary entry point.
+A Series is a deliberate ordered progression through one argument or experiment. It differs from a Topic, which is stable taxonomy, and from a Question, which connects several kinds of material around a recurring problem. A Series receives a dedicated page once it contains enough published or publication-ready notes to form a useful reading path. Keep Series out of the global navigation; Explore owns collection discovery and is active on individual Series pages.
 
 Keep:
 
-- one compact series preview in Thinking with title, short description, episode count and a single link
+- one reusable numbered `series-discovery-list` primitive for compact Series rows on Explore
 
-- one calmer compact preview beside Start Here on Home when the series is an active editorial focus; stack it below Start Here when the available width is not sufficient
+- a compact pair of equally weighted Series panels beside an equally weighted Start Here column on Thinking, with canonical ordering, actual episode counts and primary Topic markers; featured state is generic configuration and adds only a small label
 
-- a contained warm-to-cool spectrum in the Thinking preview, with yellow and coral as campaign accents rather than new global topic colors
+- one dominant Featured Series surface on Home; complete Series discovery remains on Explore rather than being repeated on Home
 
-- slow ambient movement that gives the preview energy without moving its content, and a fully static treatment under `prefers-reduced-motion`
+- Series numbering, connectors, spacing and typography as the main visual grammar; existing Topic colors provide only the semantic accent
 
 - one stable `/series/series-slug/` page with a concise introduction, shared vocabulary and the complete ordered episode list
 
-- vocabulary that introduces only services and concepts already covered by available episodes
+- a generic `series-overview-items` sequence that can render Series-specific stages or existing AI services without naming the component after either case
 
 - every episode in the general Thinking list and Explore topics
 
 - series title and episode number in article heroes, linked back to the dedicated page
 
-- one calm context box inside each episode when readers need orientation after arriving directly on a note; it should contain the shared series framing, one episode-specific sentence and a single link to the dedicated series page
+- one calm context box inserted automatically by the Article layout; it contains the shared Series framing, one episode-specific sentence and a single link to the dedicated Series page
 
 - previous and next navigation only when an adjacent episode exists
+
+- optional Series visuals and AI service maps only when the canonical Series data provides them
+
+- Series-level Related Reading behavior, while generic Related Notes remain hidden for every Series episode
 
 Avoid:
 
@@ -568,11 +574,15 @@ Avoid:
 
 - adding Series to the global navigation
 
+- creating a `/series/` collection page or breadcrumb
+
 - exposing planned episode titles before their notes are available on the site
 
 - styling the in-article context box as another featured or promotional panel
 
 - turning the series page into a product landing page or roadmap
+
+- inventing Series-specific colors, fake services, generic icons or equal-weight promotional cards
 
 ### Article Layout
 

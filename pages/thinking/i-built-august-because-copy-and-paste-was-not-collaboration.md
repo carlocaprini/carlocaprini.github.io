@@ -27,8 +27,6 @@ After [I stopped trying to build Jarvis](/thinking/i-stopped-trying-to-build-jar
 
 I needed a way to keep working on a document with AI without rebuilding the context in every conversation.
 
-{% include series-context.html %}
-
 AI models were already useful. I could paste a draft into a conversation and ask for a different structure, a critical reading, a clearer paragraph, or questions I had not considered.
 
 The frustrating part was everything around the answer.
