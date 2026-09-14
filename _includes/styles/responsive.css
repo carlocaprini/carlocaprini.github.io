@@ -153,7 +153,6 @@
   .home-section-intro,
   .home-start-section .home-start-here,
   .home-series-featured,
-  .home-series-preview--wide,
   .home-experience-grid,
   .thinking-ai-process,
   .thinking-entry-grid {
@@ -877,8 +876,7 @@
     margin-bottom: 2.1rem;
   }
 
-  .thinking-page .thinking-start-here,
-  .thinking-page .thinking-series-preview {
+  .thinking-page .thinking-start-here {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
   }
@@ -942,18 +940,6 @@
   .selected-notes-panel::before,
   .selected-notes-panel::after {
     opacity: 0.38;
-  }
-
-  .thinking-series-preview {
-    padding: 1.75rem;
-  }
-
-  .home-series-preview {
-    padding: 1.75rem;
-  }
-
-  .home-series-preview--wide .home-series-action {
-    align-items: flex-start;
   }
 
   .home-series-featured {

@@ -61,4 +61,5 @@ test("Series pages belong to Explore navigation", async ({ page }, testInfo) => 
 
   await expect(navigation.getByRole("link", { name: "Explore" })).toHaveAttribute("aria-current", "page");
   await expect(navigation.getByRole("link", { name: "Thinking" })).not.toHaveAttribute("aria-current", "page");
+  await expect(navigation.getByRole("link", { name: "Series" })).toHaveCount(0);
 });

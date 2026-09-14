@@ -7,6 +7,12 @@ const seriesRoutes = [
   "/thinking/why-i-started-building-friday/"
 ];
 
+const allAiSeriesRoutes = [
+  ...seriesRoutes,
+  "/thinking/friday-connects-the-services-without-owning-their-work/",
+  "/thinking/i-need-my-ai-dashboard-to-leave-things-out/"
+];
+
 const productSeriesRoutes = [
   "/thinking/the-transition-to-product-management-starts-before-the-title-changes/",
   "/thinking/most-product-disagreements-come-from-missing-information/",
@@ -80,9 +86,9 @@ test("Product episodes keep reading context without generic notes or a system ma
 });
 
 test("Series structured data uses ordered episodes and Explore breadcrumbs", async ({ page }) => {
-  for (const [route, expectedName, expectedCount] of [
-    ["/series/product-judgment-in-practice/", "Product Judgment in Practice", 7],
-    ["/series/building-my-ai-operating-system/", "Building My Own AI Operating System", 6]
+  for (const [route, expectedName, expectedRoutes] of [
+    ["/series/product-judgment-in-practice/", "Product Judgment in Practice", productSeriesRoutes],
+    ["/series/building-my-ai-operating-system/", "Building My Own AI Operating System", allAiSeriesRoutes]
   ]) {
     await page.goto(route);
     const data = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>
@@ -92,10 +98,12 @@ test("Series structured data uses ordered episodes and Explore breadcrumbs", asy
     const breadcrumbs = data.find((entry) => entry["@type"] === "BreadcrumbList");
 
     expect(series.name).toBe(expectedName);
-    expect(series.hasPart).toHaveLength(expectedCount);
+    expect(series.numberOfItems).toBe(expectedRoutes.length);
+    expect(series.hasPart).toHaveLength(expectedRoutes.length);
     expect(series.hasPart.map((episode) => episode.position)).toEqual(
-      Array.from({ length: expectedCount }, (_, index) => index + 1)
+      Array.from({ length: expectedRoutes.length }, (_, index) => index + 1)
     );
+    expect(series.hasPart.map((episode) => new URL(episode.url).pathname)).toEqual(expectedRoutes);
     expect(breadcrumbs.itemListElement.map((item) => item.name)).toEqual([
       "Home",
       "Explore",
@@ -121,7 +129,15 @@ test("series visuals expose episode progress and service identity", async ({ pag
     "Friday",
     "Friday"
   ]);
+});
+
+test("AI episodes retain the System Map and suppress Related Reading", async ({ page }) => {
+  await page.goto(allAiSeriesRoutes[4]);
+
+  await expect(page.locator("aside.article-system-map")).toHaveCount(1);
+  await expect(page.locator("details.article-system-map-mobile")).toHaveCount(1);
   await expect(page.getByRole("complementary", { name: "Related reading" })).toHaveCount(0);
+  await expect(page.getByRole("complementary", { name: "Related notes" })).toHaveCount(0);
 });
 
 test("Series sequence remains static when reduced motion is requested", async ({ page }) => {

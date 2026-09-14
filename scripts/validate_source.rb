@@ -334,11 +334,15 @@ end
 series_urls = series_data.values.map { |series| series["url"] }.compact
 duplicate_series_urls = series_urls.group_by(&:itself).select { |_, values| values.size > 1 }.keys
 fail_check("_data/series.yml: duplicate Series URLs: #{duplicate_series_urls.join(', ')}") unless duplicate_series_urls.empty?
+fail_check("A /series/ index page must not exist") if permalink_records.key?("/series/")
 
 series_data.each do |slug, series|
   label = "_data/series.yml: #{slug}"
   %w[title short_title url tagline listing_description description context entry_context].each do |field|
     fail_check("_data/series.yml: #{slug} is missing #{field}") unless present?(series[field])
+  end
+  unless series["url"] == "/series/#{slug}/"
+    fail_check("#{label} URL must match its Series slug")
   end
 
   series_topics = series["topics"]

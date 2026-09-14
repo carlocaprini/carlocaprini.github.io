@@ -20,6 +20,7 @@
     "@type": "WebSite",
     "@id": "{{ website_id }}"
   },
+  "numberOfItems": {{ structured_series_notes.size }},
   "hasPart": [
     {% for note in structured_series_notes %}
     {

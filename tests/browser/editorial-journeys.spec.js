@@ -12,6 +12,8 @@ test("Explore exposes Questions, both Series and stable topic hashes", async ({ 
     "Building My Own AI Operating System"
   ]);
   await expect(series.locator(".series-discovery-meta > span")).toHaveText(["7 episodes", "6 episodes"]);
+  await expect(series.first().locator("h3 a")).toHaveAttribute("data-analytics-link-context", "explore_series");
+  await expect(series.first().locator("h3 a")).toHaveAttribute("data-analytics-series-id", "product-judgment-in-practice");
   await expect(page.locator('[data-explore-topic="ai-and-automation"]')).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator('[data-explore-topic-panel="ai-and-automation"]')).toBeVisible();
 
@@ -34,6 +36,7 @@ test("Thinking separates guided, recent and complete discovery", async ({ page }
     "Building My Own AI Operating System"
   ]);
   await expect(page.locator(".thinking-series-preview")).toHaveCount(0);
+  await expect(series.first().locator("h3 a")).toHaveAttribute("data-analytics-link-context", "thinking_series");
 });
 
 test("ruled collections stop before the next section divider", async ({ page }) => {
@@ -104,6 +107,8 @@ test("Home follows the discovery-first content order", async ({ page }) => {
   await expect(page.locator(".home-series-featured").getByText("7 episodes", { exact: true })).toBeVisible();
   await expect(page.locator(".home-series-secondary-row").getByRole("heading", { name: "Building My Own AI Operating System" })).toBeVisible();
   await expect(page.locator(".home-series-secondary-row").getByText("6 episodes", { exact: true })).toBeVisible();
+  await expect(page.locator(".home-series-featured .section-link")).toHaveAttribute("data-analytics-link-context", "home_featured_series");
+  await expect(page.locator(".home-series-secondary-row h3 a")).toHaveAttribute("data-analytics-link-context", "home_secondary_series");
 });
 
 test("Home Contact keeps LinkedIn primary and adds restrained profile identity", async ({ page }) => {

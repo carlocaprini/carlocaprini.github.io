@@ -5,8 +5,10 @@ const surfaces = [
   { name: "home-mobile", route: "/", viewport: { width: 390, height: 844 } },
   { name: "thinking-index", route: "/thinking/", viewport: { width: 1440, height: 900 } },
   { name: "explore", route: "/explore/", viewport: { width: 1440, height: 900 } },
-  { name: "thinking-article", route: "/thinking/waiting-as-product-decision/", viewport: { width: 1440, height: 900 } },
+  { name: "thinking-article", route: "/thinking/shared-context-is-not-shared-understanding/", viewport: { width: 1440, height: 900 } },
   { name: "series-article", route: "/thinking/friday-connects-the-services-without-owning-their-work/", viewport: { width: 1440, height: 900 } },
+  { name: "product-series", route: "/series/product-judgment-in-practice/", viewport: { width: 1440, height: 900 } },
+  { name: "product-series-article", route: "/thinking/most-product-disagreements-come-from-missing-information/", viewport: { width: 1440, height: 900 } },
   { name: "experience", route: "/experience/", viewport: { width: 1440, height: 900 } },
   { name: "work", route: "/work/", viewport: { width: 1440, height: 900 } }
 ];
