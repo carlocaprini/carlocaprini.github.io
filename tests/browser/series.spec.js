@@ -50,6 +50,18 @@ test("series navigation connects adjacent episodes", async ({ page }) => {
   );
 });
 
+test("series navigation exposes only valid directions at sequence boundaries", async ({ page }) => {
+  for (const routes of [productSeriesRoutes, allAiSeriesRoutes]) {
+    await page.goto(routes[0]);
+    await expect(page.getByRole("link", { name: /Previous episode/ })).toHaveCount(0);
+    await expect(page.getByRole("link", { name: /Next episode/ })).toHaveAttribute("href", routes[1]);
+
+    await page.goto(routes.at(-1));
+    await expect(page.getByRole("link", { name: /Previous episode/ })).toHaveAttribute("href", routes.at(-2));
+    await expect(page.getByRole("link", { name: /Next episode/ })).toHaveCount(0);
+  }
+});
+
 test("Product Judgment presents the decision loop and seven ordered episodes", async ({ page }) => {
   await page.goto("/series/product-judgment-in-practice/");
 

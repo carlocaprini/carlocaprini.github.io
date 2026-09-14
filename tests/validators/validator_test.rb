@@ -410,6 +410,20 @@ class ValidatorTest < Minitest::Test
     end
   end
 
+  def test_source_rejects_missing_series_article_context
+    assert_invalid_source(/product-judgment-in-practice must define article_context/) do |directory|
+      path = File.join(directory, "_data/series.yml")
+      replace!(path, "  article_context:\n    show_related_reading: true\n", "")
+    end
+  end
+
+  def test_source_rejects_invalid_series_related_reading_behavior
+    assert_invalid_source(/article_context.show_related_reading must be true or false/) do |directory|
+      path = File.join(directory, "_data/series.yml")
+      replace!(path, "    show_related_reading: false", "    show_related_reading: sometimes")
+    end
+  end
+
   def test_source_rejects_manual_series_context_include
     assert_invalid_source(/Series context is rendered by the article layout/) do |directory|
       path = File.join(directory, "pages/thinking/i-stopped-trying-to-build-jarvis.md")

@@ -35,7 +35,7 @@
     {
       "id": "explore",
       "path": "/explore/",
-      "description": "Curated Questions and topic entry points",
+      "description": "Curated Questions, editorial Series and topic entry points",
       "viewports": ["desktop", "mobile"]
     },
     {

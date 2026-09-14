@@ -35,7 +35,7 @@ layout: default
 
       {% assign overview_items = series_data.overview.items | default: series_data.services %}
       {% if overview_items and overview_items.size > 0 %}
-      <ol class="series-overview-items{% if series_data.overview.items %} series-overview-items--sequence{% endif %}">
+      <ol class="series-overview-items{% if series_data.overview.items %} series-overview-items--sequence{% endif %}" style="--series-overview-count: {{ overview_items.size }};">
         {% for item in overview_items %}
           <li class="series-overview-item">
             <span class="series-overview-item-number" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>

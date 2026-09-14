@@ -376,6 +376,15 @@ series_data.each do |slug, series|
     end
   end
 
+  article_context = series["article_context"]
+  unless article_context.is_a?(Hash)
+    fail_check("#{label} must define article_context")
+  end
+  show_related_reading = article_context.is_a?(Hash) ? article_context["show_related_reading"] : nil
+  unless show_related_reading == true || show_related_reading == false
+    fail_check("#{label} article_context.show_related_reading must be true or false")
+  end
+
   series_page_records_for_slug = series_pages_by_slug.fetch(slug, [])
   if series_page_records_for_slug.size == 1
     _, path, data = series_page_records_for_slug.first

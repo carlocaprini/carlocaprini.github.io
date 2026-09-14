@@ -792,10 +792,6 @@
   list-style: none;
 }
 
-.series-overview-items--sequence {
-  --series-overview-count: 5;
-}
-
 .series-overview-item {
   position: relative;
   display: grid;
