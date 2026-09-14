@@ -8,7 +8,7 @@ Each invariant has one canonical owner.
 
 Editorial ordering in `pages/thinking.md` is intentional source data: the complete `notes` list must contain every published note once. `_data/start_here.yml` separately owns exactly three valid, unique curated selections shared by Home, Thinking and missing-page recovery.
 
-Series validation treats `_data/series.yml` as the only registry. Every entry has one matching page, a canonical `/series/series-slug/` URL, generic overview and article-context data, valid ordered Topics, and a sequential set of episodes with per-note context. `pages/explore.md` owns the complete editorial Series order; Thinking must match it, Home must expose only the selected featured Series, and `/series/` itself must remain absent.
+Series validation treats `_data/series.yml` as the only registry. Every entry has one matching page, a canonical `/series/series-slug/` URL, generic overview and article-context data, valid ordered Topics, and a sequential set of episodes with per-note context. `pages/explore.md` owns the complete editorial Series order; Thinking must match it and identify its featured entry through generic configuration, Home must expose only the selected featured Series, and `/series/` itself must remain absent.
 
 ## Generated-output contracts
 

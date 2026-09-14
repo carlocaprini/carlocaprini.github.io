@@ -546,7 +546,7 @@ Keep:
 
 - one reusable numbered `series-discovery-list` primitive for compact Series rows on Explore
 
-- a compact pair of dedicated Series panels beside an equally weighted Start Here column on Thinking, with Product Judgment visually dominant, canonical ordering, actual episode counts and primary Topic markers
+- a compact pair of equally weighted Series panels beside an equally weighted Start Here column on Thinking, with canonical ordering, actual episode counts and primary Topic markers; featured state is generic configuration and adds only a small label
 
 - one dominant Featured Series surface on Home; complete Series discovery remains on Explore rather than being repeated on Home
 

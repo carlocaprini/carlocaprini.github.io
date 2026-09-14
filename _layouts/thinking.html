@@ -78,11 +78,11 @@ layout: default
               {% assign listed_series_notes = site.pages | where: "series", series_slug %}
               {% assign listed_series_primary_topic = listed_series.topics | first %}
               {% assign primary_topic = site.data.topics | where: "slug", listed_series_primary_topic | first %}
-              <li class="thinking-series-card thinking-series-card--{{ listed_series_primary_topic }}{% if series_slug == 'product-judgment-in-practice' %} thinking-series-card--featured{% endif %}">
+              <li class="thinking-series-card thinking-series-card--{{ listed_series_primary_topic }}">
                 <a class="thinking-series-card-link" href="{{ listed_series.url | relative_url }}" data-analytics-event="series_open" data-analytics-series-id="{{ series_slug | escape }}" data-analytics-link-context="thinking_series">
                   <span class="thinking-series-card-index" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
                   <span class="thinking-series-card-content">
-                    {% if series_slug == 'product-judgment-in-practice' %}<span class="thinking-series-card-label">Featured series</span>{% endif %}
+                    {% if series_slug == page.series.featured %}<span class="thinking-series-card-label">Featured series</span>{% endif %}
                     <strong>{{ listed_series.title }}</strong>
                     <span class="thinking-series-card-description">{{ listed_series.listing_description }}</span>
                     <span class="thinking-series-card-meta">

@@ -39,8 +39,19 @@ test("Thinking separates guided, recent and complete discovery", async ({ page }
     "Product Judgment in Practice",
     "Building My Own AI Operating System"
   ]);
-  await expect(series.first()).toHaveClass(/thinking-series-card--featured/);
   await expect(series.first().locator(".thinking-series-card-label")).toHaveText("Featured series");
+  await expect(series.locator(".thinking-series-card-label")).toHaveCount(1);
+  const seriesCardGeometry = await series.locator(".thinking-series-card-link").evaluateAll((links) =>
+    links.map((link) => {
+      const style = getComputedStyle(link);
+      return {
+        minHeight: style.minHeight,
+        padding: style.padding,
+        borderRadius: style.borderRadius
+      };
+    })
+  );
+  expect(new Set(seriesCardGeometry.map((style) => JSON.stringify(style))).size).toBe(1);
   await expect(series.first().locator(".thinking-series-card-link")).toHaveAttribute("data-analytics-link-context", "thinking_series");
   await expect(page.locator(".thinking-series-stack-header, .thinking-series-browse")).toHaveCount(0);
 });

@@ -963,8 +963,7 @@
     min-width: 0;
   }
 
-  .thinking-series-card-link,
-  .thinking-series-card--featured .thinking-series-card-link {
+  .thinking-series-card-link {
     grid-template-columns: 2rem minmax(0, 1fr);
     gap: 0.65rem;
     min-height: 0;

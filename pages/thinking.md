@@ -24,6 +24,7 @@ start_here:
   title: Start here
   description: Three notes on product decisions, AI-assisted development, and how teams interpret the same context.
 series:
+  featured: product-judgment-in-practice
   items:
     - product-judgment-in-practice
     - building-my-ai-operating-system

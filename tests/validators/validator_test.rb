@@ -445,6 +445,13 @@ class ValidatorTest < Minitest::Test
     end
   end
 
+  def test_source_rejects_unknown_thinking_featured_series
+    assert_invalid_source(/pages\/thinking.md: series.featured must reference a valid Series/) do |directory|
+      path = File.join(directory, "pages/thinking.md")
+      replace!(path, "  featured: product-judgment-in-practice", "  featured: missing-series")
+    end
+  end
+
   def test_source_rejects_wrong_home_featured_series
     assert_invalid_source(/Product Judgment must be the featured Series/) do |directory|
       path = File.join(directory, "_data/home.yml")

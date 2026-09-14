@@ -462,6 +462,13 @@ thinking_series_items = Array(thinking_data.dig("series", "items"))
 unless thinking_series_items == explore_series_items
   fail_check("pages/thinking.md: series.items must match Explore Series order")
 end
+thinking_featured_series = thinking_data.dig("series", "featured")
+unless series_data.key?(thinking_featured_series)
+  fail_check("pages/thinking.md: series.featured must reference a valid Series")
+end
+unless thinking_series_items.include?(thinking_featured_series)
+  fail_check("pages/thinking.md: series.featured must be included in series.items")
+end
 
 home_path = File.join(SOURCE_DIR, "_data/home.yml")
 home_data = read_yaml(home_path) || {}
