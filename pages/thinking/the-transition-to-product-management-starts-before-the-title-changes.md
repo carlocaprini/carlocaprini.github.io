@@ -11,6 +11,9 @@ meta_image_alt: Thinking by Carlo Caprini, notes on product decisions, AI, softw
 topics:
   - product-decisions
   - teams-and-collaboration
+series: product-judgment-in-practice
+series_order: 1
+series_context: "The series starts by defining product judgment as attention to the decisions that happen before implementation begins."
 intro:
   - Becoming a Product Manager rarely starts with the title.
   - The bigger shift often happens earlier, inside the work someone is already doing.

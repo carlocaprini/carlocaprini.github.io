@@ -9,6 +9,9 @@ meta_title: When Waiting Is the Right Product Decision | Carlo Caprini
 meta_description: Why product teams should sometimes delay or stop building when demand, evidence or timing does not justify further investment.
 topics:
   - product-decisions
+series: product-judgment-in-practice
+series_order: 5
+series_context: "Sometimes the best response to uncertainty is to delay commitment and let new information change the decision."
 intro:
   - Product teams are often rewarded for building and shipping new things. But building something is not always progress.
 

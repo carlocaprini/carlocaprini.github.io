@@ -9,6 +9,9 @@ meta_title: How to Evaluate Urgent Customer Requests in Product Management
 meta_description: How product teams can examine the source, impact and timing of an urgent customer request before treating it as a priority.
 topics:
   - product-decisions
+series: product-judgment-in-practice
+series_order: 4
+series_context: "Urgency tests that judgment by adding pressure before the importance of a request has actually been established."
 intro:
   - Urgency is often a signal of pressure, not priority.
   - In product work, urgency is often created before it is fully understood.
