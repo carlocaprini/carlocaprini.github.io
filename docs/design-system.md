@@ -544,11 +544,11 @@ A Series is a deliberate ordered progression through one argument or experiment.
 
 Keep:
 
-- one reusable numbered `series-discovery-list` primitive for compact Series rows across Explore and Thinking
+- one reusable numbered `series-discovery-list` primitive for compact Series rows on Explore
 
-- a compact Series stack beside Start Here on Thinking, with canonical ordering, actual episode counts and primary Topic markers
+- a compact pair of dedicated Series panels beside a narrower Start Here on Thinking, with Product Judgment visually dominant, canonical ordering, actual episode counts and primary Topic markers
 
-- one dominant Featured Series surface on Home and a quieter secondary Series row below it
+- one dominant Featured Series surface on Home; complete Series discovery remains on Explore rather than being repeated on Home
 
 - Series numbering, connectors, spacing and typography as the main visual grammar; existing Topic colors provide only the semantic accent
 

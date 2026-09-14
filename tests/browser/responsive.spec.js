@@ -216,16 +216,22 @@ test("multi-Series discovery and Product sequence adapt across breakpoints", asy
     (element) => getComputedStyle(element).gridTemplateColumns.split(" ").length
   );
   expect(thinkingColumns).toBe(testInfo.project.name === "desktop-chromium" ? 2 : 1);
-  await expect(page.locator(".thinking-series-stack .series-discovery-item")).toHaveCount(2);
+  await expect(page.locator(".thinking-series-stack .thinking-series-card")).toHaveCount(2);
+  if (testInfo.project.name === "desktop-chromium") {
+    const entryWidths = await page.locator(".thinking-entry-grid > *").evaluateAll((elements) =>
+      elements.map((element) => element.getBoundingClientRect().width)
+    );
+    expect(entryWidths[0]).toBeLessThan(entryWidths[1]);
+  }
 
   await page.goto("/explore/#series");
   await expect(page.locator("#series .series-discovery-meta > span")).toHaveText(["7 episodes", "6 episodes"]);
   await expect(page.locator("#series")).toBeInViewport();
 
   await page.goto("/");
-  await expect(page.locator(".home-series-featured")).toBeVisible();
-  await expect(page.locator(".home-series-secondary-row")).toBeVisible();
-  const homeWidth = await page.locator(".home-series-featured").evaluate((element) => ({
+  await expect(page.locator(".home-series-preview")).toBeVisible();
+  await expect(page.locator(".home-series-preview")).toHaveCount(1);
+  const homeWidth = await page.locator(".home-series-preview").evaluate((element) => ({
     right: element.getBoundingClientRect().right,
     viewport: document.documentElement.clientWidth,
     scrollWidth: document.documentElement.scrollWidth

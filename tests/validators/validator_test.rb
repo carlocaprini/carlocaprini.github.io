@@ -438,6 +438,13 @@ class ValidatorTest < Minitest::Test
     end
   end
 
+  def test_source_rejects_a_home_series_collection
+    assert_invalid_source(/series must expose only the featured Series/) do |directory|
+      path = File.join(directory, "_data/home.yml")
+      replace!(path, "  featured: product-judgment-in-practice", "  featured: product-judgment-in-practice\n  items:\n    - product-judgment-in-practice")
+    end
+  end
+
   def test_source_rejects_duplicate_series_page
     assert_invalid_source(/Series slugs must have exactly one page/) do |directory|
       source = File.join(directory, "pages/series/product-judgment-in-practice.md")

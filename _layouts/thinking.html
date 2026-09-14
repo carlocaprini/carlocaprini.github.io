@@ -76,20 +76,26 @@ layout: default
             <div class="section-eyebrow" id="thinking-series-title">Series</div>
             <p>{{ page.series.description }}</p>
           </div>
-          <ol class="series-discovery-list series-discovery-list--thinking">
+          <ol class="thinking-series-cards">
             {% for series_slug in page.series.items %}
               {% assign listed_series = site.data.series[series_slug] %}
               {% assign listed_series_notes = site.pages | where: "series", series_slug %}
               {% assign listed_series_primary_topic = listed_series.topics | first %}
               {% assign primary_topic = site.data.topics | where: "slug", listed_series_primary_topic | first %}
-              <li class="series-discovery-item series-discovery-item--{{ listed_series_primary_topic }}">
-                <span class="series-discovery-index" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
-                <div class="series-discovery-content">
-                  <h3><a href="{{ listed_series.url | relative_url }}" data-analytics-event="series_open" data-analytics-series-id="{{ series_slug | escape }}" data-analytics-link-context="thinking_series">{{ listed_series.title }}</a></h3>
-                  <p>{{ listed_series_notes.size }} episodes</p>
-                  <span class="series-discovery-topic series-discovery-topic--{{ listed_series_primary_topic }}">{{ primary_topic.label }}</span>
-                </div>
-                <a class="series-discovery-arrow" href="{{ listed_series.url | relative_url }}" aria-label="Open {{ listed_series.title }}" data-analytics-event="series_open" data-analytics-series-id="{{ series_slug | escape }}" data-analytics-link-context="thinking_series">→</a>
+              <li class="thinking-series-card thinking-series-card--{{ listed_series_primary_topic }}{% if series_slug == 'product-judgment-in-practice' %} thinking-series-card--featured{% endif %}">
+                <a class="thinking-series-card-link" href="{{ listed_series.url | relative_url }}" data-analytics-event="series_open" data-analytics-series-id="{{ series_slug | escape }}" data-analytics-link-context="thinking_series">
+                  <span class="thinking-series-card-index" aria-hidden="true">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+                  <span class="thinking-series-card-content">
+                    {% if series_slug == 'product-judgment-in-practice' %}<span class="thinking-series-card-label">Featured series</span>{% endif %}
+                    <strong>{{ listed_series.title }}</strong>
+                    <span class="thinking-series-card-description">{{ listed_series.listing_description }}</span>
+                    <span class="thinking-series-card-meta">
+                      <span>{{ listed_series_notes.size }} episodes</span>
+                      <span class="series-discovery-topic series-discovery-topic--{{ listed_series_primary_topic }}">{{ primary_topic.label }}</span>
+                    </span>
+                  </span>
+                  <span class="thinking-series-card-arrow" aria-hidden="true">→</span>
+                </a>
               </li>
             {% endfor %}
           </ol>

@@ -27,7 +27,7 @@ Some lists resemble derived data but are intentionally curated:
 - `pages/thinking.md` contains every published Note once in its `notes` list, in editorial order.
 - `_data/start_here.yml` defines the three shared Start Here selections.
 - `_data/home.yml` chooses and orders Home entry points and editorial modules.
-- `pages/explore.md` lists every Series once in canonical editorial order; Home and Thinking must use that same order.
+- `pages/explore.md` lists every Series once in canonical editorial order; Thinking uses that same complete order, while Home selects only one featured Series.
 - Question sections choose and order their Notes and Influences.
 
 Validators protect membership and references, but should not replace these choices with automatic chronological or taxonomic projections.

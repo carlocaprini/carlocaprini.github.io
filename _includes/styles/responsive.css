@@ -152,7 +152,7 @@
   .home-help-layout,
   .home-section-intro,
   .home-start-section .home-start-here,
-  .home-series-featured,
+  .home-series-preview--wide,
   .home-experience-grid,
   .thinking-ai-process,
   .thinking-entry-grid {
@@ -942,23 +942,14 @@
     opacity: 0.38;
   }
 
-  .home-series-featured {
+  .home-series-preview {
     gap: 1.35rem;
     padding: 1.5rem 1.2rem;
     border-radius: 22px;
   }
 
-  .home-series-featured .home-series-action {
+  .home-series-preview--wide .home-series-action {
     align-items: flex-start;
-  }
-
-  .home-series-secondary-row {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.8rem;
-  }
-
-  .home-series-secondary-meta {
-    justify-content: space-between;
   }
 
   .series-discovery-list--explore .series-discovery-item {
@@ -972,9 +963,18 @@
     min-width: 0;
   }
 
-  .series-discovery-list--thinking .series-discovery-item {
-    grid-template-columns: 2.15rem minmax(0, 1fr) auto;
-    gap: 0.55rem;
+  .thinking-series-card-link,
+  .thinking-series-card--featured .thinking-series-card-link {
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: 0.65rem;
+    min-height: 0;
+    padding: 1.2rem 1.05rem;
+    border-radius: 20px;
+  }
+
+  .thinking-series-card-arrow {
+    grid-column: 2;
+    justify-self: end;
   }
 
   .thinking-entry-grid .selected-notes-panel {

@@ -29,14 +29,15 @@ test("Thinking separates guided, recent and complete discovery", async ({ page }
   await expect(page.getByRole("heading", { name: "The latest notes." })).toBeVisible();
   await expect(page.locator("h2#all-notes")).toHaveText("All notes");
   await expect(page.locator(".thinking-recent-list > li")).toHaveCount(3);
-  const series = page.locator(".thinking-series-stack .series-discovery-item");
+  const series = page.locator(".thinking-series-stack .thinking-series-card");
   await expect(series).toHaveCount(2);
-  await expect(series.locator("h3")).toHaveText([
+  await expect(series.locator(".thinking-series-card-content > strong")).toHaveText([
     "Product Judgment in Practice",
     "Building My Own AI Operating System"
   ]);
-  await expect(page.locator(".thinking-series-preview")).toHaveCount(0);
-  await expect(series.first().locator("h3 a")).toHaveAttribute("data-analytics-link-context", "thinking_series");
+  await expect(series.first()).toHaveClass(/thinking-series-card--featured/);
+  await expect(series.first().locator(".thinking-series-card-label")).toHaveText("Featured series");
+  await expect(series.first().locator(".thinking-series-card-link")).toHaveAttribute("data-analytics-link-context", "thinking_series");
 });
 
 test("ruled collections stop before the next section divider", async ({ page }) => {
@@ -103,12 +104,12 @@ test("Home follows the discovery-first content order", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Problems I occasionally help teams work through." })).toBeVisible();
   await expect(page.getByRole("link", { name: "How I can help", exact: true })).toHaveCount(2);
   await expect(page.locator(".home-entry-grid").getByRole("link", { name: /Explore/ })).toHaveAttribute("href", "/explore/");
-  await expect(page.locator(".home-series-featured").getByRole("heading", { name: "Product Judgment in Practice" })).toBeVisible();
-  await expect(page.locator(".home-series-featured").getByText("7 episodes", { exact: true })).toBeVisible();
-  await expect(page.locator(".home-series-secondary-row").getByRole("heading", { name: "Building My Own AI Operating System" })).toBeVisible();
-  await expect(page.locator(".home-series-secondary-row").getByText("6 episodes", { exact: true })).toBeVisible();
-  await expect(page.locator(".home-series-featured .section-link")).toHaveAttribute("data-analytics-link-context", "home_featured_series");
-  await expect(page.locator(".home-series-secondary-row h3 a")).toHaveAttribute("data-analytics-link-context", "home_secondary_series");
+  const featuredSeries = page.locator(".home-series-preview");
+  await expect(featuredSeries).toHaveCount(1);
+  await expect(featuredSeries.getByRole("heading", { name: "Product Judgment in Practice" })).toBeVisible();
+  await expect(featuredSeries.getByText("7 episodes", { exact: true })).toBeVisible();
+  await expect(featuredSeries.getByRole("link", { name: /Read the series/ })).toHaveAttribute("data-analytics-link-context", "home_featured_series");
+  await expect(page.getByRole("heading", { name: "Building My Own AI Operating System" })).toHaveCount(0);
 });
 
 test("Home Contact keeps LinkedIn primary and adds restrained profile identity", async ({ page }) => {

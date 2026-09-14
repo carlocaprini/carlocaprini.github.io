@@ -456,19 +456,16 @@ end
 
 home_path = File.join(SOURCE_DIR, "_data/home.yml")
 home_data = read_yaml(home_path) || {}
-home_series_items = Array(home_data.dig("series", "items"))
-unless home_series_items == explore_series_items
-  fail_check("_data/home.yml: series.items must match Explore Series order")
+home_series_config = home_data["series"]
+unless home_series_config.is_a?(Hash) && home_series_config.keys == ["featured"]
+  fail_check("_data/home.yml: series must expose only the featured Series")
 end
 home_featured_series = home_data.dig("series", "featured")
-unless series_data.key?(home_featured_series) && home_series_items.include?(home_featured_series)
-  fail_check("_data/home.yml: series.featured must reference a Series in series.items")
+unless series_data.key?(home_featured_series)
+  fail_check("_data/home.yml: series.featured must reference a valid Series")
 end
 unless home_featured_series == "product-judgment-in-practice"
   fail_check("_data/home.yml: Product Judgment must be the featured Series")
-end
-unless home_data.dig("series", "browse", "url") == "/explore/#series"
-  fail_check("_data/home.yml: Series browse URL must point to /explore/#series")
 end
 
 home_question_slugs = Array(home_data.dig("questions", "items"))

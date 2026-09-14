@@ -33,12 +33,6 @@ selected_notes:
 
 series:
   featured: product-judgment-in-practice
-  items:
-    - product-judgment-in-practice
-    - building-my-ai-operating-system
-  browse:
-    label: See both series on Explore
-    url: /explore/#series
 
 questions:
   eyebrow: Questions I’m exploring
