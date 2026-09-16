@@ -57,6 +57,12 @@
       "viewports": ["desktop", "tablet", "mobile"]
     },
     {
+      "id": "industry-expertise",
+      "path": "/industry-expertise/",
+      "description": "Research-oriented profile for selected industry expertise conversations",
+      "viewports": ["desktop", "tablet", "mobile"]
+    },
+    {
       "id": "404",
       "path": "/404.html",
       "description": "Missing-page recovery with editorial and professional onward routes",

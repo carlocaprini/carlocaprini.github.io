@@ -188,6 +188,16 @@ test("Work explains recognizable problems and exactly two engagement models", as
   await expect(page.getByRole("heading", { name: "Experience across Product & Engineering." })).toBeVisible();
   await expect(page.locator(".work-evidence-signals > li")).toHaveCount(3);
   await expect(page.getByRole("link", { name: /See full experience/ })).toHaveAttribute("href", "/experience/");
+  await expect(page.getByRole("heading", { name: "Industry expertise for research and expert conversations." })).toBeVisible();
+  await expect(page.locator(".work-industry-areas > li")).toHaveCount(4);
+  await expect(page.getByRole("link", { name: /Explore industry expertise/ })).toHaveAttribute("href", "/industry-expertise/");
+  const workSectionOrder = await page.locator(".work-evidence-section, .work-industry-section, .work-next-section")
+    .evaluateAll((sections) => sections.map((section) => section.className));
+  expect(workSectionOrder).toEqual([
+    "section work-evidence-section",
+    "section work-industry-section",
+    "section work-next-section"
+  ]);
   await expect(page.getByRole("link", { name: /Start a conversation/ })).toHaveAttribute("href", /^https:\/\//);
 });
 
@@ -198,8 +208,40 @@ test("Experience leads with direct work and leaves credentials out of the public
   await expect(page.locator(".experience-evidence-card")).toHaveCount(4);
   await expect(page.getByText("Career context", { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: "How I can help", exact: true })).toHaveAttribute("href", "/work/");
+  await expect(page.getByRole("link", { name: /Explore industry expertise/ })).toHaveAttribute("href", "/industry-expertise/");
   await expect(page.getByRole("heading", { name: "Credentials and certifications" })).toHaveCount(0);
   await expect(page.locator("#credentials")).toHaveCount(0);
+});
+
+test("Industry Expertise is a bounded research profile grounded in direct experience", async ({ page }) => {
+  await page.goto("/industry-expertise/");
+
+  await expect(page).toHaveTitle("Software, API & Commerce Industry Expertise | Carlo Caprini");
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    "Industry expertise for research on composable commerce, APIs, developer platforms, AI agents, MCP and document workflows, grounded in direct Product and software experience."
+  );
+  await expect(page.getByRole("heading", { level: 1, name: "Product, platform and software experience for industry research." })).toBeVisible();
+  await expect(page.locator(".industry-expertise-area")).toHaveCount(4);
+  await expect(page.getByRole("heading", { name: "Commerce platforms & composable commerce" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "APIs & developer platforms" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "AI agents & software workflows" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Document APIs & workflow automation" })).toBeVisible();
+  await expect(page.locator(".industry-expertise-experience-list > li")).toHaveCount(3);
+  await expect(page.locator(".industry-expertise-format-list > li")).toHaveCount(6);
+  await expect(page.getByText("I do not disclose confidential, proprietary or non-public information relating to current or former employers, customers, partners or competitors, and I will decline topics that conflict with my professional obligations.", { exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: /See full experience/ })).toHaveAttribute("href", "/experience/");
+  await expect(page.getByRole("link", { name: /Contact me on LinkedIn/ })).toHaveAttribute("href", "https://www.linkedin.com/in/carlocaprini/");
+
+  const expertiseProfile = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>
+    scripts.map((script) => JSON.parse(script.textContent)).find((entry) =>
+      entry["@type"] === "ProfilePage" && entry.url.endsWith("/industry-expertise/")
+    )
+  );
+  expect(expertiseProfile.mainEntity["@id"]).toBe("https://carlocaprini.github.io/#person");
+  expect(expertiseProfile.mainEntity.knowsAbout).toContain("Composable commerce");
+  expect(expertiseProfile.mainEntity.knowsAbout).toContain("Model Context Protocol");
+  expect(expertiseProfile.mainEntity.knowsAbout).toContain("Document APIs");
 });
 
 test("question pages connect Thinking, Influences and Experience", async ({ page }) => {
