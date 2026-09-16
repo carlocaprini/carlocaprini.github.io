@@ -65,6 +65,8 @@ layout: default
       <div>
         <p class="section-description">{{ page.independent_work.body }}</p>
         <a class="section-link" href="{{ page.independent_work.action.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="experience_independent_work">{{ page.independent_work.action.label }} <span aria-hidden="true">→</span></a>
+        <p class="experience-independent-research">{{ page.independent_work.research_body }}</p>
+        <a class="section-link experience-independent-link--secondary" href="{{ page.independent_work.research_action.url | relative_url }}" data-analytics-event="industry_expertise_open" data-analytics-link-context="experience_industry_expertise" data-analytics-destination="{{ page.independent_work.research_action.url }}">{{ page.independent_work.research_action.label }} <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>

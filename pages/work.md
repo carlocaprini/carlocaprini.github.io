@@ -4,7 +4,7 @@ title: Work
 permalink: /work/
 meta_title: Product & Engineering Work | Carlo Caprini
 meta_description: Independent Product & Engineering reviews and advisory work for software teams facing difficult product, technical, delivery or AI decisions.
-last_modified_at: 2026-09-09
+last_modified_at: 2026-09-16
 hero:
   label: Work
   title: Working through difficult Product & Engineering problems.
@@ -94,6 +94,19 @@ experience:
   action:
     label: See full experience
     url: /experience/
+industry_research:
+  eyebrow: Industry research
+  title: Industry expertise for research and expert conversations.
+  body: I also participate in selected industry research, expert interviews and market studies where my direct experience with software products, platforms and developer-facing systems is relevant.
+  areas:
+    - Commerce platforms and composable commerce
+    - APIs and developer platforms
+    - AI agents and emerging software workflows
+    - Document APIs and workflow automation
+  note: These are focused research conversations rather than a separate consulting package. The scope depends on the topic and on whether my direct experience is relevant to the questions being explored.
+  action:
+    label: Explore industry expertise
+    url: /industry-expertise/
 next_steps:
   eyebrow: What happens next
   title: Start with the problem, not a package.

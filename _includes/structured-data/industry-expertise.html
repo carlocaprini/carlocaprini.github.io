@@ -1,0 +1,26 @@
+{% if page.url == "/industry-expertise/" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": "{{ page_url }}#profile",
+  "url": "{{ page_url }}",
+  "name": {{ page.meta_title | default: page.title | jsonify }},
+  "description": {{ page.meta_description | jsonify }},
+  "dateModified": {{ page.last_modified_at | date_to_xmlschema | jsonify }},
+  "mainEntity": {
+    "@type": "Person",
+    "@id": "{{ person_id }}",
+    "name": {{ person_name | jsonify }},
+    "jobTitle": {{ site.data.person.job_title | jsonify }},
+    "url": "{{ site_url }}/",
+    "worksFor": {
+      "@type": "Organization",
+      "name": {{ site.data.person.current_company | jsonify }}
+    },
+    "knowsAbout": {{ page.structured_knows_about | jsonify }},
+    "sameAs": {{ site.data.person.same_as | default: empty | jsonify }}
+  }
+}
+</script>
+{% endif %}

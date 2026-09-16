@@ -1,0 +1,105 @@
+---
+layout: default
+# Layout for the Industry Expertise landing page.
+---
+<div class="page industry-expertise-page">
+  <section class="hero hero--compact industry-expertise-hero">
+    <div class="container hero-grid hero-grid--single">
+      <div>
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          <span>{{ page.hero.label }}</span>
+        </div>
+        <h1 class="hero-title hero-title--compact">{{ page.hero.title }}</h1>
+        {% for paragraph in page.hero.paragraphs %}
+          <p class="hero-subtitle hero-subtitle--wide">{{ paragraph }}</p>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section industry-expertise-areas-section" aria-labelledby="industry-expertise-areas-title">
+    <div class="container">
+      <div class="industry-expertise-section-intro">
+        <div class="section-eyebrow">{{ page.areas.eyebrow }}</div>
+        <h2 class="section-title" id="industry-expertise-areas-title">{{ page.areas.title }}</h2>
+      </div>
+      <div class="industry-expertise-area-grid">
+        {% for area in page.areas.items %}
+          <article class="industry-expertise-area">
+            <span class="industry-expertise-area-marker" aria-hidden="true"></span>
+            <h3>{{ area.title }}</h3>
+            <p>{{ area.body }}</p>
+            <ul class="industry-expertise-topic-list" aria-label="Topics related to {{ area.title }}">
+              {% for topic in area.topics %}<li class="pill">{{ topic }}</li>{% endfor %}
+            </ul>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section industry-expertise-experience-section" aria-labelledby="industry-expertise-experience-title">
+    <div class="container industry-expertise-split">
+      <div>
+        <div class="section-eyebrow">{{ page.experience.eyebrow }}</div>
+        <h2 class="section-title" id="industry-expertise-experience-title">{{ page.experience.title }}</h2>
+        <a class="section-link" href="{{ page.experience.action.url | relative_url }}" data-analytics-event="experience_open" data-analytics-link-context="industry_expertise_experience" data-analytics-destination="{{ page.experience.action.url }}">{{ page.experience.action.label }} <span aria-hidden="true">→</span></a>
+      </div>
+      <ol class="industry-expertise-experience-list">
+        {% for item in page.experience.items %}
+          <li>
+            <div class="industry-expertise-experience-heading">
+              <div>
+                <span>{{ item.company }}</span>
+                <h3>{{ item.role }}</h3>
+              </div>
+              <span>{{ item.period }}</span>
+            </div>
+            <p>{{ item.description }}</p>
+          </li>
+        {% endfor %}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section industry-expertise-formats-section" aria-labelledby="industry-expertise-formats-title">
+    <div class="container industry-expertise-split">
+      <div>
+        <div class="section-eyebrow">{{ page.formats.eyebrow }}</div>
+        <h2 class="section-title" id="industry-expertise-formats-title">{{ page.formats.title }}</h2>
+        <p class="section-description">{{ page.formats.intro }}</p>
+      </div>
+      <ul class="industry-expertise-format-list">
+        {% for format in page.formats.items %}<li>{{ format }}</li>{% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section industry-expertise-boundaries-section" aria-labelledby="industry-expertise-boundaries-title">
+    <div class="container">
+      <div class="industry-expertise-boundaries-panel">
+        <div>
+          <div class="section-eyebrow">{{ page.boundaries.eyebrow }}</div>
+          <h2 class="section-title" id="industry-expertise-boundaries-title">{{ page.boundaries.title }}</h2>
+        </div>
+        <div>
+          {% for paragraph in page.boundaries.paragraphs %}<p>{{ paragraph }}</p>{% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section industry-expertise-contact-section" aria-labelledby="industry-expertise-contact-title">
+    <div class="container">
+      <div class="industry-expertise-contact-panel">
+        <div>
+          <div class="section-eyebrow">{{ page.contact.eyebrow }}</div>
+          <h2 class="section-title" id="industry-expertise-contact-title">{{ page.contact.title }}</h2>
+          <p>{{ page.contact.body }}</p>
+        </div>
+        <a class="button-primary" href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_open" data-analytics-contact-method="linkedin" data-analytics-link-context="industry_expertise_contact">{{ page.contact.action }} <span aria-hidden="true">→</span><span class="visually-hidden"> (opens in new tab)</span></a>
+      </div>
+    </div>
+  </section>
+</div>
