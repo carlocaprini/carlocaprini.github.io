@@ -433,7 +433,7 @@ fail_check("Aggregate service leaked into generated site") if File.exist?(site_p
 
 sitemap_result = SitemapValidation.validate(
   site_dir: SITE_DIR,
-  config_path: File.expand_path("../_config.yml", __dir__)
+  config_path: File.join(SOURCE_DIR, "_config.yml")
 )
 sitemap_result.errors.each { |error| fail_check(error) }
 sitemap_locs = sitemap_result.locations

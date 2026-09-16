@@ -7,7 +7,6 @@ require "uri"
 require "yaml"
 
 module SitemapValidation
-  SITE_URL = "https://carlocaprini.github.io"
   SITEMAP_PATH = "sitemap.xml"
   MAX_URLS = 50_000
   MAX_BYTES = 50 * 1024 * 1024
@@ -32,7 +31,9 @@ module SitemapValidation
     errors = []
     locations = []
     sitemap_path = File.join(site_dir, SITEMAP_PATH)
-    external_sitemap_url = read_external_sitemap_url(config_path, errors)
+    config = read_config(config_path, errors)
+    canonical_site_url = read_canonical_site_url(config, errors) if config
+    external_sitemap_url = read_external_sitemap_url(config, errors, canonical_site_url) if config
 
     unless File.file?(sitemap_path)
       errors << "Missing generated sitemap: #{sitemap_path}"
@@ -66,7 +67,7 @@ module SitemapValidation
     errors << "Duplicate URLs in sitemap.xml: #{duplicates.join(', ')}" unless duplicates.empty?
 
     locations.each do |location|
-      validate_location(location, errors, external_sitemap_url)
+      validate_location(location, errors, canonical_site_url, external_sitemap_url)
     end
 
     Result.new(
@@ -77,8 +78,33 @@ module SitemapValidation
     )
   end
 
-  def read_external_sitemap_url(config_path, errors)
-    config = YAML.safe_load(File.read(config_path), permitted_classes: [], aliases: true) || {}
+  def read_config(config_path, errors)
+    YAML.safe_load(File.read(config_path), permitted_classes: [], aliases: true) || {}
+  rescue Errno::ENOENT
+    errors << "Missing site configuration: #{config_path}"
+    nil
+  rescue Psych::SyntaxError => e
+    errors << "Invalid site configuration: #{e.message.lines.first&.strip}"
+    nil
+  end
+
+  def read_canonical_site_url(config, errors)
+    value = (config["production_url"] || config["url"]).to_s.strip.delete_suffix("/")
+    if value.empty?
+      errors << "_config.yml must define production_url or url"
+      return nil
+    end
+
+    uri = URI.parse(value)
+    valid = uri.is_a?(URI::HTTPS) && uri.host && uri.userinfo.nil? && ["", "/"].include?(uri.path) && uri.query.nil? && uri.fragment.nil?
+    errors << "production_url/url must define an absolute HTTPS website origin" unless valid
+    value if valid
+  rescue URI::InvalidURIError => e
+    errors << "Invalid production_url/url configuration: #{e.message.lines.first&.strip}"
+    nil
+  end
+
+  def read_external_sitemap_url(config, errors, canonical_site_url)
     value = config["external_sitemap_url"].to_s.strip
     if value.empty?
       errors << "_config.yml must define external_sitemap_url"
@@ -88,26 +114,25 @@ module SitemapValidation
     uri = URI.parse(value)
     valid = uri.is_a?(URI::HTTPS) && uri.host&.end_with?(".workers.dev") && uri.path == "/sitemap.xml" && uri.query.nil? && uri.fragment.nil?
     errors << "external_sitemap_url must be an HTTPS workers.dev /sitemap.xml URL" unless valid
-    errors << "external_sitemap_url must not use the canonical website origin" if uri.host == URI(SITE_URL).host
+    errors << "external_sitemap_url must not use the canonical website origin" if canonical_site_url && uri.host == URI(canonical_site_url).host
     value
-  rescue Errno::ENOENT
-    errors << "Missing site configuration: #{config_path}"
-    nil
-  rescue Psych::SyntaxError, URI::InvalidURIError => e
+  rescue URI::InvalidURIError => e
     errors << "Invalid external_sitemap_url configuration: #{e.message.lines.first&.strip}"
     nil
   end
 
-  def validate_location(location, errors, external_sitemap_url)
+  def validate_location(location, errors, canonical_site_url, external_sitemap_url)
     uri = URI.parse(location)
     unless uri.is_a?(URI::HTTPS) && uri.absolute?
       errors << "Sitemap URL must be absolute HTTPS: #{location}"
       return
     end
 
-    canonical_uri = URI(SITE_URL)
-    unless uri.scheme == canonical_uri.scheme && uri.host == canonical_uri.host && uri.port == canonical_uri.port
-      errors << "Non-canonical sitemap URL: #{location}"
+    if canonical_site_url
+      canonical_uri = URI(canonical_site_url)
+      unless uri.scheme == canonical_uri.scheme && uri.host == canonical_uri.host && uri.port == canonical_uri.port
+        errors << "Non-canonical sitemap URL: #{location}"
+      end
     end
 
     errors << "Sitemap URL must not include credentials, query, or fragment: #{location}" if uri.userinfo || uri.query || uri.fragment

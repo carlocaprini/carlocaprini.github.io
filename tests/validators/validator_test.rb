@@ -216,11 +216,14 @@ class ValidatorTest < Minitest::Test
     end
   end
 
-  def assert_valid_output
+  def assert_valid_output(source_dir: ROOT)
     Dir.mktmpdir("generated-validator-") do |directory|
       build_generated_fixture(directory)
       yield directory if block_given?
-      status, output = run_validator(SITE_VALIDATOR, { "SITE_OUTPUT_DIR" => directory })
+      status, output = run_validator(
+        SITE_VALIDATOR,
+        { "SITE_OUTPUT_DIR" => directory, "SITE_SOURCE_DIR" => source_dir }
+      )
       assert status.success?, output
     end
   end
@@ -505,6 +508,33 @@ class ValidatorTest < Minitest::Test
 
   def test_minimal_generated_fixture_is_valid
     assert_valid_output
+  end
+
+  def test_generated_validation_uses_the_selected_source_configuration
+    with_source_fixture do |source_directory|
+      config_path = File.join(source_directory, "_config.yml")
+      mutate_file!(config_path) do |source|
+        source.gsub("https://carlocaprini.github.io", "https://fixture.example.com")
+      end
+      replace!(
+        config_path,
+        "https://carlo-site-sitemap.carlo-site-aggregate-analytics.workers.dev/sitemap.xml",
+        "https://fixture-sitemap.example.workers.dev/sitemap.xml"
+      )
+
+      assert_valid_output(source_dir: source_directory) do |output_directory|
+        Dir.glob(File.join(output_directory, "**/*")).select { |path| File.file?(path) }.each do |path|
+          content = File.binread(path)
+          updated = content
+            .gsub("https://carlocaprini.github.io", "https://fixture.example.com")
+            .gsub(
+              "https://carlo-site-sitemap.carlo-site-aggregate-analytics.workers.dev/sitemap.xml",
+              "https://fixture-sitemap.example.workers.dev/sitemap.xml"
+            )
+          File.binwrite(path, updated) unless updated == content
+        end
+      end
+    end
   end
 
   def test_generated_feed_rejects_missing_thinking_note
