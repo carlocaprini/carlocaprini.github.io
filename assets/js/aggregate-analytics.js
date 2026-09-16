@@ -90,6 +90,8 @@
         return { type: "experience", id: "experience" };
       case "work_open":
         return { type: "work", id: "work" };
+      case "industry_expertise_open":
+        return { type: "industry_expertise", id: "industry_expertise" };
       case "work_section_view":
         return { type: "work_section", id: cleanIdentifier(parameters.work_section, 160) };
       case "contact_section_open":
