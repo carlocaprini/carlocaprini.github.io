@@ -156,6 +156,7 @@ class ValidatorTest < Minitest::Test
     pages = [
       { path: "/" },
       { path: "/explore/" },
+      { path: "/privacy/" },
       { path: "/thinking/" },
       {
         path: "/thinking/newer-note/",
@@ -167,6 +168,7 @@ class ValidatorTest < Minitest::Test
       }
     ]
     urls = pages.map { |page| page.fetch(:path) }
+    sitemap_urls = urls - ["/privacy/"]
     FileUtils.mkdir_p(File.join(directory, "assets/css"))
     FileUtils.mkdir_p(File.join(directory, "assets/js"))
     FileUtils.mkdir_p(File.join(directory, "assets"))
@@ -189,13 +191,13 @@ class ValidatorTest < Minitest::Test
       .sub("</head>", "<meta name=\"robots\" content=\"noindex, follow\">\n</head>")
     File.write(File.join(directory, "404.html"), not_found)
 
-    sitemap_entries = urls.map { |path| "  <url><loc>https://carlocaprini.github.io#{path}</loc></url>" }.join("\n")
+    sitemap_entries = sitemap_urls.map { |path| "  <url><loc>https://carlocaprini.github.io#{path}</loc></url>" }.join("\n")
     sitemap = "<?xml version=\"1.0\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n#{sitemap_entries}\n</urlset>\n"
     File.write(File.join(directory, "sitemap.xml"), sitemap)
     static_urls = ["/", "/explore/", "/thinking/"]
     static_entries = static_urls.map { |path| "  <url><loc>https://carlocaprini.github.io#{path}</loc></url>" }.join("\n")
     File.write(File.join(directory, "sitemap-static.xml"), "<?xml version=\"1.0\"?><urlset>\n#{static_entries}\n</urlset>\n")
-    File.write(File.join(directory, "sitemap.txt"), urls.map { |path| "https://carlocaprini.github.io#{path}" }.join("\n") + "\n")
+    File.write(File.join(directory, "sitemap.txt"), sitemap_urls.map { |path| "https://carlocaprini.github.io#{path}" }.join("\n") + "\n")
     File.write(File.join(directory, "robots.txt"), <<~TEXT)
       Sitemap: https://carlocaprini.github.io/sitemap.xml
       Sitemap: https://carlocaprini.github.io/sitemap.txt
@@ -339,6 +341,13 @@ class ValidatorTest < Minitest::Test
     assert_invalid_source(/404.html: robots must be noindex, follow/) do |directory|
       path = File.join(directory, "404.html")
       replace!(path, "robots: noindex, follow", "robots: index, follow")
+    end
+  end
+
+  def test_source_rejects_privacy_in_sitemap
+    assert_invalid_source(/pages\/privacy.md: sitemap must be false/) do |directory|
+      path = File.join(directory, "pages/privacy.md")
+      replace!(path, "sitemap: false", "sitemap: true")
     end
   end
 
@@ -750,6 +759,13 @@ class ValidatorTest < Minitest::Test
   def test_generated_output_rejects_inconsistent_sitemap
     assert_invalid_output(/Sitemap URL has no generated file/) do |directory|
       FileUtils.rm_rf(File.join(directory, "thinking"))
+    end
+  end
+
+  def test_generated_output_rejects_explicitly_excluded_canonical_in_sitemap
+    assert_invalid_output(/privacy\/index.html: sitemap-excluded canonical URL must not be listed in sitemap.xml/) do |directory|
+      path = File.join(directory, "sitemap.xml")
+      replace!(path, "</urlset>", "  <url><loc>https://carlocaprini.github.io/privacy/</loc></url>\n</urlset>")
     end
   end
 

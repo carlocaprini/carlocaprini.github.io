@@ -232,6 +232,10 @@ page_records.each do |path, (data, _)|
     end
   end
 
+  if data.key?("sitemap") && data["sitemap"] != true && data["sitemap"] != false
+    fail_check("#{relative_path(path)}: sitemap must be true or false")
+  end
+
   validate_local_asset(path, data["meta_image"], data["meta_image_alt"])
 
   motif_variant = data["article_topic_motif_variant"]
@@ -252,6 +256,10 @@ fail_check("404.html: layout must be not_found") unless not_found_data["layout"]
 fail_check("404.html: permalink must be /404.html") unless not_found_data["permalink"] == "/404.html"
 fail_check("404.html: robots must be noindex, follow") unless not_found_data["robots"] == "noindex, follow"
 fail_check("404.html: sitemap must be false") unless not_found_data["sitemap"] == false
+
+privacy_path = File.join(SOURCE_DIR, "pages/privacy.md")
+privacy_data = page_records.fetch(privacy_path).first
+fail_check("pages/privacy.md: sitemap must be false") unless privacy_data["sitemap"] == false
 
 questions.each do |question|
   expected_permalink = "/explore/#{question['slug']}/"
