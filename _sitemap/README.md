@@ -91,6 +91,8 @@ After deploying the ownership file:
 
 | Submission date | Endpoint | Status | Last read | Discovered pages |
 | --- | --- | --- | --- | --- |
-| YYYY-MM-DD | `https://carlo-site-sitemap.carlo-site-aggregate-analytics.workers.dev/sitemap.xml` | Pending | — | — |
+| 2026-09-16 | `https://carlo-site-sitemap.carlo-site-aggregate-analytics.workers.dev/sitemap.xml` | Success | 2026-09-16 | 32 |
+
+This successful read used the deployed sitemap before the privacy-page exclusion. The next production deployment is expected to contain 31 URLs; that count change is intentional and does not alter the delivery experiment.
 
 The product-level experiment succeeds only after Search Console reports `Success`, a valid Last read value, and more than zero discovered pages. Until then, retain all three advertised sitemap delivery paths and do not redirect or proxy between them.
