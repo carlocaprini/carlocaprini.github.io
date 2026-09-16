@@ -97,13 +97,12 @@ experience:
 industry_research:
   eyebrow: Industry research
   title: Industry expertise for research and expert conversations.
-  body: I also participate in selected industry research, expert interviews and market studies where my direct experience with software products, platforms and developer-facing systems is relevant.
+  body: I also participate in selected industry research, expert interviews and market studies related to software products, platforms and developer-facing systems I have worked on.
   areas:
     - Commerce platforms and composable commerce
     - APIs and developer platforms
     - AI agents and emerging software workflows
     - Document APIs and workflow automation
-  note: These are focused research conversations rather than a separate consulting package. The scope depends on the topic and on whether my direct experience is relevant to the questions being explored.
   action:
     label: Explore industry expertise
     url: /industry-expertise/

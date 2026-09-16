@@ -18,14 +18,14 @@ hero:
   label: Industry expertise
   title: Product, platform and software experience for industry research.
   paragraphs:
-    - I occasionally contribute to expert interviews, primary research and market studies where my direct experience with software products, developer platforms and technical product decisions can provide useful context.
-    - My background spans software engineering and Product, from startup products to global B2B platforms, with direct experience across APIs, developer ecosystems, composable commerce and emerging AI interaction models.
+    - I occasionally contribute to expert interviews, primary research and market studies about software products, developer platforms and technical product decisions I have worked on directly.
+    - I have worked in software engineering and product, from startup products to global B2B platforms. That work has included APIs, developer ecosystems, composable commerce and emerging AI interaction models.
 areas:
   eyebrow: Areas of expertise
   title: Topics I have worked on directly.
   items:
     - title: Commerce platforms & composable commerce
-      body: Experience with API-first and composable commerce platforms, including extensibility, integrations, developer experience and the product implications of building ecosystems around a commerce platform.
+      body: At commercetools, I worked on an API-first, composable commerce platform, including extensibility, integrations, developer experience and the product implications of building a platform ecosystem.
       topics:
         - Composable commerce
         - Headless commerce
@@ -35,7 +35,7 @@ areas:
         - Developer experience
         - Platform ecosystems
     - title: APIs & developer platforms
-      body: Product experience with developer-facing platforms where APIs, integrations and extensibility are themselves product surfaces and need to evolve without weakening what customers and partners already depend on.
+      body: I have worked on developer-facing platforms where APIs, integrations and extensibility are product surfaces. They need to evolve without weakening what customers and partners already depend on.
       topics:
         - API product strategy
         - Developer platforms
@@ -46,7 +46,7 @@ areas:
         - Platform evolution
         - API adoption
     - title: AI agents & software workflows
-      body: Practical work and experimentation around AI-assisted software development, agent-driven workflows and interfaces designed for both human and machine interaction, including Model Context Protocol (MCP).
+      body: My work and experiments cover AI-assisted software development, agent-driven workflows and interfaces for both people and software agents, including Model Context Protocol (MCP).
       topics:
         - AI agents
         - Model Context Protocol (MCP)
@@ -56,7 +56,7 @@ areas:
         - Human/agent boundaries
         - Reliability and review
     - title: Document APIs & workflow automation
-      body: Current product experience with APIs and integrations supporting document-related workflows and emerging AI interaction models.
+      body: My current work includes APIs and integrations for document workflows and emerging AI interaction models.
       topics:
         - Document APIs
         - Document workflows
@@ -85,7 +85,7 @@ experience:
 formats:
   eyebrow: Research formats
   title: Ways I can contribute.
-  intro: Availability is selective and depends on whether my direct experience fits the topic and questions being explored.
+  intro: I take on these conversations selectively, when my experience fits the topic and the questions being explored.
   items:
     - Expert interviews
     - Primary research
@@ -97,11 +97,11 @@ boundaries:
   eyebrow: Boundaries
   title: Useful context without crossing confidentiality lines.
   paragraphs:
-    - I can discuss general industry practices, publicly available information, historical market perspectives and professional experience that I am permitted to share.
+    - I can discuss general industry practices, public information, historical market context and professional experience I am permitted to share.
     - I do not disclose confidential, proprietary or non-public information relating to current or former employers, customers, partners or competitors, and I will decline topics that conflict with my professional obligations.
 contact:
   eyebrow: Contact
   title: Looking for perspective on one of these areas?
-  body: If you are conducting industry research and think my experience may be relevant, send me the topic, the questions you are exploring and the expected format of the conversation.
+  body: If you are conducting industry research, send me the topic, the questions you are exploring and the expected format. I will confirm whether my experience is relevant.
   action: Contact me on LinkedIn
 ---

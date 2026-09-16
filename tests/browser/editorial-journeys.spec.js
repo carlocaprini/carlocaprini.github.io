@@ -190,6 +190,7 @@ test("Work explains recognizable problems and exactly two engagement models", as
   await expect(page.getByRole("link", { name: /See full experience/ })).toHaveAttribute("href", "/experience/");
   await expect(page.getByRole("heading", { name: "Industry expertise for research and expert conversations." })).toBeVisible();
   await expect(page.locator(".work-industry-areas > li")).toHaveCount(4);
+  await expect(page.locator(".work-industry-note")).toHaveCount(0);
   await expect(page.getByRole("link", { name: /Explore industry expertise/ })).toHaveAttribute("href", "/industry-expertise/");
   const workSectionOrder = await page.locator(".work-evidence-section, .work-industry-section, .work-next-section")
     .evaluateAll((sections) => sections.map((section) => section.className));

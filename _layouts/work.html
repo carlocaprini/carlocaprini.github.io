@@ -171,7 +171,6 @@ layout: default
           <ul class="work-compact-list work-industry-areas">
             {% for area in page.industry_research.areas %}<li>{{ area }}</li>{% endfor %}
           </ul>
-          <p class="work-industry-note">{{ page.industry_research.note }}</p>
           <a class="section-link" href="{{ page.industry_research.action.url | relative_url }}" data-analytics-event="industry_expertise_open" data-analytics-link-context="work_industry_expertise" data-analytics-destination="{{ page.industry_research.action.url }}">{{ page.industry_research.action.label }} <span aria-hidden="true">→</span></a>
         </div>
       </div>

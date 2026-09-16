@@ -68,7 +68,7 @@ independent_work:
   action:
     label: How I can help
     url: /work/
-  research_body: I also contribute to selected industry research and expert conversations when my direct experience is relevant.
+  research_body: I also contribute to selected industry research and expert conversations related to products and platforms I have worked on.
   research_action:
     label: Explore industry expertise
     url: /industry-expertise/
