@@ -2,6 +2,7 @@
 layout: default
 title: Privacy
 permalink: /privacy/
+sitemap: false
 meta_title: Privacy and Analytics | Carlo Caprini
 meta_description: How this site uses aggregate measurement, optional analytics, cookies and external services.
 last_modified_at: 2026-08-17

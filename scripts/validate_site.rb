@@ -8,8 +8,11 @@ require "time"
 require "uri"
 require "yaml"
 
+require_relative "lib/validation"
+require_relative "validate_sitemap"
+
 SITE_DIR = ENV["SITE_OUTPUT_DIR"] ? File.expand_path(ENV.fetch("SITE_OUTPUT_DIR")) : File.expand_path("../_site", __dir__)
-SOURCE_DIR = File.expand_path("..", __dir__)
+SOURCE_DIR = ENV["SITE_SOURCE_DIR"] ? File.expand_path(ENV.fetch("SITE_SOURCE_DIR")) : File.expand_path("..", __dir__)
 SITE_CONFIG = YAML.safe_load(File.read(File.join(SOURCE_DIR, "_config.yml")), permitted_classes: [Date, Time], aliases: true)
 SITE_URL = (SITE_CONFIG["production_url"] || SITE_CONFIG.fetch("url")).delete_suffix("/")
 SITE_HOST = URI(SITE_URL).host
@@ -31,6 +34,25 @@ end
 
 def site_path(*parts)
   File.join(SITE_DIR, *parts)
+end
+
+def sitemap_excluded_canonicals
+  source_paths = [File.join(SOURCE_DIR, "index.md"), File.join(SOURCE_DIR, "404.html")] +
+    Dir.glob(File.join(SOURCE_DIR, "pages/**/*.md")).sort
+
+  source_paths.each_with_object(Set.new) do |path, exclusions|
+    data, = SiteValidation.read_front_matter(path, errors: @errors, root: SOURCE_DIR)
+    next unless data["sitemap"] == false
+
+    relative = SiteValidation.relative_path(path, SOURCE_DIR)
+    permalink = relative == "index.md" ? "/" : data["permalink"]
+    if permalink.to_s.empty?
+      fail_check("#{relative}: sitemap exclusion requires an explicit permalink")
+      next
+    end
+
+    exclusions << "#{SITE_URL}#{permalink}"
+  end
 end
 
 def relative_site_path(path)
@@ -399,6 +421,7 @@ forbidden_files = %w[
   package-lock.json
   playwright.config.js
   scripts
+  _sitemap
   visual-reference
 ]
 
@@ -408,44 +431,20 @@ end
 fail_check("Browser tests leaked into generated site") if File.exist?(site_path("tests"))
 fail_check("Aggregate service leaked into generated site") if File.exist?(site_path("_analytics"))
 
-sitemap_locs = []
-sitemap_xml = read_file(site_path("sitemap.xml"))
-if sitemap_xml
-  begin
-    document = REXML::Document.new(sitemap_xml)
-    REXML::XPath.each(document, "//*[local-name()='loc']") do |loc|
-      sitemap_locs << loc.text.to_s.strip
-    end
-  rescue REXML::ParseException => e
-    fail_check("Invalid sitemap.xml: #{e.message.lines.first&.strip}")
-  end
+sitemap_result = SitemapValidation.validate(
+  site_dir: SITE_DIR,
+  config_path: File.join(SOURCE_DIR, "_config.yml")
+)
+sitemap_result.errors.each { |error| fail_check(error) }
+sitemap_locs = sitemap_result.locations
+development_sitemap = false
 
-  fail_check("sitemap.xml does not contain URLs") if sitemap_locs.empty?
-  duplicates = sitemap_locs.group_by(&:itself).select { |_, values| values.size > 1 }.keys
-  fail_check("Duplicate URLs in sitemap.xml: #{duplicates.join(', ')}") unless duplicates.empty?
+sitemap_locs.each do |url|
+  path = normalize_local_path(url)
+  next if path.nil?
 
-  development_sitemap = sitemap_locs.any? do |url|
-    url.start_with?("http://0.0.0.0:", "http://localhost:", "http://127.0.0.1:")
-  end
-
-  if development_sitemap
-    fail_check("Generated site uses development sitemap URLs. Run `JEKYLL_ENV=production bundle exec jekyll build` before validating.")
-  end
-
-  sitemap_locs.each do |url|
-    next if development_sitemap
-
-    unless url.start_with?("#{SITE_URL}/")
-      fail_check("Non-canonical sitemap URL: #{url}")
-      next
-    end
-
-    path = normalize_local_path(url)
-    next if path.nil?
-
-    target = generated_file_for_path(path)
-    fail_check("Sitemap URL has no generated file: #{url}") unless File.file?(target)
-  end
+  target = generated_file_for_path(path)
+  fail_check("Sitemap URL has no generated file: #{url}") unless File.file?(target)
 end
 
 static_sitemap_urls = [
@@ -499,14 +498,17 @@ if robots
     match && match[1]
   end.compact
   canonical_sitemap = "#{SITE_URL}/sitemap.xml"
-  unless sitemap_declarations == [canonical_sitemap]
-    fail_check("robots.txt must declare only the canonical sitemap.xml")
+  text_sitemap = "#{SITE_URL}/sitemap.txt"
+  expected_sitemaps = [canonical_sitemap, text_sitemap, sitemap_result.external_sitemap_url]
+  unless sitemap_declarations == expected_sitemaps
+    fail_check("robots.txt must declare the canonical, text, and external sitemap URLs in order")
   end
 end
 
 feed = read_file(site_path("feed.xml"))
 
 canonical_urls = []
+sitemap_exclusions = sitemap_excluded_canonicals
 html_files = Dir.glob(site_path("**/*.html")).sort
 fail_check("No generated HTML files found") if html_files.empty?
 
@@ -562,9 +564,12 @@ html_files.each do |file|
     canonical = canonical_match[1]
     canonical_urls << canonical unless legacy_redirect
     fail_check("#{relative}: non-canonical canonical URL #{canonical}") unless canonical.start_with?("#{SITE_URL}/")
-    if noindex && !legacy_redirect && sitemap_locs.include?(canonical)
+    explicitly_excluded = sitemap_exclusions.include?(canonical)
+    if explicitly_excluded && sitemap_locs.include?(canonical)
+      fail_check("#{relative}: sitemap-excluded canonical URL must not be listed in sitemap.xml")
+    elsif noindex && !legacy_redirect && sitemap_locs.include?(canonical)
       fail_check("#{relative}: noindex canonical URL must not be listed in sitemap.xml")
-    elsif !noindex && !(legacy_redirect || sitemap_locs.empty? || sitemap_locs.include?(canonical) || defined?(development_sitemap) && development_sitemap)
+    elsif !noindex && !(legacy_redirect || explicitly_excluded || sitemap_locs.empty? || sitemap_locs.include?(canonical) || defined?(development_sitemap) && development_sitemap)
       fail_check("#{relative}: canonical URL not listed in sitemap.xml: #{canonical}")
     end
   else

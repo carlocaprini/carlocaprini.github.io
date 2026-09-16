@@ -156,6 +156,7 @@ class ValidatorTest < Minitest::Test
     pages = [
       { path: "/" },
       { path: "/explore/" },
+      { path: "/privacy/" },
       { path: "/thinking/" },
       {
         path: "/thinking/newer-note/",
@@ -167,6 +168,7 @@ class ValidatorTest < Minitest::Test
       }
     ]
     urls = pages.map { |page| page.fetch(:path) }
+    sitemap_urls = urls - ["/privacy/"]
     FileUtils.mkdir_p(File.join(directory, "assets/css"))
     FileUtils.mkdir_p(File.join(directory, "assets/js"))
     FileUtils.mkdir_p(File.join(directory, "assets"))
@@ -189,15 +191,17 @@ class ValidatorTest < Minitest::Test
       .sub("</head>", "<meta name=\"robots\" content=\"noindex, follow\">\n</head>")
     File.write(File.join(directory, "404.html"), not_found)
 
-    sitemap_entries = urls.map { |path| "  <url><loc>https://carlocaprini.github.io#{path}</loc></url>" }.join("\n")
+    sitemap_entries = sitemap_urls.map { |path| "  <url><loc>https://carlocaprini.github.io#{path}</loc></url>" }.join("\n")
     sitemap = "<?xml version=\"1.0\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n#{sitemap_entries}\n</urlset>\n"
     File.write(File.join(directory, "sitemap.xml"), sitemap)
     static_urls = ["/", "/explore/", "/thinking/"]
     static_entries = static_urls.map { |path| "  <url><loc>https://carlocaprini.github.io#{path}</loc></url>" }.join("\n")
     File.write(File.join(directory, "sitemap-static.xml"), "<?xml version=\"1.0\"?><urlset>\n#{static_entries}\n</urlset>\n")
-    File.write(File.join(directory, "sitemap.txt"), urls.map { |path| "https://carlocaprini.github.io#{path}" }.join("\n") + "\n")
+    File.write(File.join(directory, "sitemap.txt"), sitemap_urls.map { |path| "https://carlocaprini.github.io#{path}" }.join("\n") + "\n")
     File.write(File.join(directory, "robots.txt"), <<~TEXT)
       Sitemap: https://carlocaprini.github.io/sitemap.xml
+      Sitemap: https://carlocaprini.github.io/sitemap.txt
+      Sitemap: https://carlo-site-sitemap.carlo-site-aggregate-analytics.workers.dev/sitemap.xml
     TEXT
     File.write(File.join(directory, "feed.xml"), valid_feed_xml)
   end
@@ -212,11 +216,14 @@ class ValidatorTest < Minitest::Test
     end
   end
 
-  def assert_valid_output
+  def assert_valid_output(source_dir: ROOT)
     Dir.mktmpdir("generated-validator-") do |directory|
       build_generated_fixture(directory)
       yield directory if block_given?
-      status, output = run_validator(SITE_VALIDATOR, { "SITE_OUTPUT_DIR" => directory })
+      status, output = run_validator(
+        SITE_VALIDATOR,
+        { "SITE_OUTPUT_DIR" => directory, "SITE_SOURCE_DIR" => source_dir }
+      )
       assert status.success?, output
     end
   end
@@ -337,6 +344,13 @@ class ValidatorTest < Minitest::Test
     assert_invalid_source(/404.html: robots must be noindex, follow/) do |directory|
       path = File.join(directory, "404.html")
       replace!(path, "robots: noindex, follow", "robots: index, follow")
+    end
+  end
+
+  def test_source_rejects_privacy_in_sitemap
+    assert_invalid_source(/pages\/privacy.md: sitemap must be false/) do |directory|
+      path = File.join(directory, "pages/privacy.md")
+      replace!(path, "sitemap: false", "sitemap: true")
     end
   end
 
@@ -494,6 +508,33 @@ class ValidatorTest < Minitest::Test
 
   def test_minimal_generated_fixture_is_valid
     assert_valid_output
+  end
+
+  def test_generated_validation_uses_the_selected_source_configuration
+    with_source_fixture do |source_directory|
+      config_path = File.join(source_directory, "_config.yml")
+      mutate_file!(config_path) do |source|
+        source.gsub("https://carlocaprini.github.io", "https://fixture.example.com")
+      end
+      replace!(
+        config_path,
+        "https://carlo-site-sitemap.carlo-site-aggregate-analytics.workers.dev/sitemap.xml",
+        "https://fixture-sitemap.example.workers.dev/sitemap.xml"
+      )
+
+      assert_valid_output(source_dir: source_directory) do |output_directory|
+        Dir.glob(File.join(output_directory, "**/*")).select { |path| File.file?(path) }.each do |path|
+          content = File.binread(path)
+          updated = content
+            .gsub("https://carlocaprini.github.io", "https://fixture.example.com")
+            .gsub(
+              "https://carlo-site-sitemap.carlo-site-aggregate-analytics.workers.dev/sitemap.xml",
+              "https://fixture-sitemap.example.workers.dev/sitemap.xml"
+            )
+          File.binwrite(path, updated) unless updated == content
+        end
+      end
+    end
   end
 
   def test_generated_feed_rejects_missing_thinking_note
@@ -751,10 +792,38 @@ class ValidatorTest < Minitest::Test
     end
   end
 
-  def test_generated_output_rejects_redundant_sitemap_declarations
-    assert_invalid_output(/must declare only the canonical sitemap.xml/) do |directory|
+  def test_generated_output_rejects_explicitly_excluded_canonical_in_sitemap
+    assert_invalid_output(/privacy\/index.html: sitemap-excluded canonical URL must not be listed in sitemap.xml/) do |directory|
+      path = File.join(directory, "sitemap.xml")
+      replace!(path, "</urlset>", "  <url><loc>https://carlocaprini.github.io/privacy/</loc></url>\n</urlset>")
+    end
+  end
+
+  def test_generated_output_rejects_unexpected_sitemap_declarations
+    assert_invalid_output(/must declare the canonical, text, and external sitemap URLs in order/) do |directory|
       path = File.join(directory, "robots.txt")
-      File.open(path, "a") { |file| file.puts("Sitemap: https://carlocaprini.github.io/sitemap.txt") }
+      File.open(path, "a") { |file| file.puts("Sitemap: https://example.com/sitemap.xml") }
+    end
+  end
+
+  def test_generated_output_rejects_http_sitemap_urls
+    assert_invalid_output(/Sitemap URL must be absolute HTTPS/) do |directory|
+      path = File.join(directory, "sitemap.xml")
+      replace!(path, "https://carlocaprini.github.io/thinking/", "http://carlocaprini.github.io/thinking/")
+    end
+  end
+
+  def test_generated_output_rejects_worker_host_as_canonical_url
+    assert_invalid_output(/Worker hostname must not appear in sitemap URLs/) do |directory|
+      path = File.join(directory, "sitemap.xml")
+      replace!(path, "https://carlocaprini.github.io/thinking/", "https://carlo-site-sitemap.example.workers.dev/thinking/")
+    end
+  end
+
+  def test_generated_output_rejects_build_paths_in_sitemap
+    assert_invalid_output(/Build or test path must not appear in sitemap.xml/) do |directory|
+      path = File.join(directory, "sitemap.xml")
+      replace!(path, "https://carlocaprini.github.io/thinking/", "https://carlocaprini.github.io/tests/")
     end
   end
 

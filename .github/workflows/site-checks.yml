@@ -103,6 +103,39 @@ jobs:
       - name: Validate Docker Compose
         run: bin/check infrastructure
 
+  sitemap-worker:
+    name: Sitemap Worker
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
+    needs: validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Download generated site
+        uses: actions/download-artifact@v8
+        with:
+          name: generated-site-${{ github.sha }}
+          path: _site
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install Worker dependencies
+        run: npm ci
+
+      - name: Validate and test static sitemap delivery
+        run: bin/check sitemap
+
   browser-chromium:
     name: Chromium
     if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
@@ -239,6 +272,7 @@ jobs:
       - validate
       - analytics
       - infrastructure
+      - sitemap-worker
       - browser-chromium
       - browser-webkit
       - visual
@@ -256,3 +290,41 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+  deploy-sitemap:
+    name: Deploy Sitemap Worker
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    needs:
+      - deploy
+      - sitemap-worker
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Download generated site
+        uses: actions/download-artifact@v8
+        with:
+          name: generated-site-${{ github.sha }}
+          path: _site
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+
+      - name: Install Worker dependencies
+        run: npm ci
+
+      - name: Revalidate, package, and deploy static sitemap
+        run: npm run sitemap:deploy
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

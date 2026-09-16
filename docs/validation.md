@@ -12,7 +12,9 @@ Series validation treats `_data/series.yml` as the only registry. Every entry ha
 
 ## Generated-output contracts
 
-`scripts/validate_site.rb` answers whether `_site` is structurally deployable. It owns required and forbidden output—including the root `404.html`—sitemap/feed/robots consistency, canonical and social metadata, internal links and fragments, local assets, landmarks, image attributes and parseable JSON-LD.
+`scripts/validate_site.rb` answers whether `_site` is structurally deployable. It owns required and forbidden output—including the root `404.html`—sitemap/feed/robots consistency, canonical and social metadata, internal links and fragments, local assets, landmarks, image attributes and parseable JSON-LD. Every indexable canonical must appear in the sitemap unless its canonical source explicitly sets `sitemap: false`; explicitly excluded pages must remain absent from both generated sitemap formats.
+
+`scripts/validate_sitemap.rb` owns the generated canonical sitemap's protocol limits, XML parsing, URL uniqueness, HTTPS and production-origin rules, forbidden build paths, and the separation between page URLs and the external Worker hostname. `validate_site.rb` reuses that result when checking sitemap-to-page and robots relationships; it does not discover sitemap URLs independently.
 
 Explore topic hashes are a deliberate cross-layer case: they encode application state rather than an HTML anchor. The generated validator accepts one only when the rendered Explore page exposes the same value through `data-explore-topic`; arbitrary missing fragments still fail.
 
