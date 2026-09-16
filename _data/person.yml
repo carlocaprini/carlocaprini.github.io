@@ -1,19 +1,19 @@
 # Site-wide profile (used in nav, footer, meta, article signatures).
 # Jekyll exposes this as site.data.person — all keys are available in Liquid.
 name: "Carlo Caprini"
-role: "Product leadership"
+role: "Product management"
 job_title: "Senior Product Manager"
 current_company: "PandaDoc"
 location: "Italy"
 career_start_year: 2013
-description: "Product leader focused on platform strategy, APIs, developer ecosystems, AI-enabled product capabilities, distributed systems, and product decision making."
-article_signature_role: "Product Leadership & Strategy"
+description: "Senior Product Manager focused on platform strategy, APIs, developer ecosystems, AI-enabled product capabilities, distributed systems, and product decision making."
+article_signature_role: "Senior Product Manager"
 article_signature_portrait: "/assets/carlo-caprini-profile.png"
 article_signature_description: "I write about product decisions, software systems and how teams work."
 article_signature_follow_note: "I share new notes there when they're published."
 linkedin: "https://www.linkedin.com/in/carlocaprini/"
 linkedin_handle: "carlocaprini"
-contact_identity_tagline: "Product leader working across software, platforms and AI."
+contact_identity_tagline: "Product manager working across software, platforms and AI."
 same_as:
   - "https://www.linkedin.com/in/carlocaprini/"
   - "https://github.com/carlocaprini"

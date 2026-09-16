@@ -142,7 +142,7 @@ test("Home Contact keeps LinkedIn primary and adds restrained profile identity",
     await expect(contact.getByText(copy, { exact: true })).toBeVisible();
   }
 
-  await expect(contact.getByText("Product leader working across software, platforms and AI.", { exact: true })).toBeVisible();
+  await expect(contact.getByText("Product manager working across software, platforms and AI.", { exact: true })).toBeVisible();
   await expect(contact.getByText("I work at the intersection of product, systems and teams.", { exact: true })).toHaveCount(0);
   await expect(contact.locator(".contact-portrait")).toHaveAttribute("src", "/assets/carlo-caprini-profile.png");
   await expect(contact.locator(".contact-portrait")).toHaveAttribute("alt", "");
@@ -307,7 +307,7 @@ test("notes end with a consistent author signature and professional paths", asyn
 
   const signature = page.locator(".article-signature");
   await expect(signature.getByText("Carlo Caprini", { exact: true })).toBeVisible();
-  await expect(signature.getByText("Product Leadership & Strategy", { exact: true })).toBeVisible();
+  await expect(signature.getByText("Senior Product Manager", { exact: true })).toBeVisible();
   await expect(signature.locator(".article-signature-portrait")).toHaveAttribute(
     "src",
     "/assets/carlo-caprini-profile.png"
