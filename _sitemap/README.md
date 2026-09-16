@@ -4,9 +4,9 @@
 
 Jekyll and `jekyll-sitemap` remain the only sitemap generator. A production build writes the canonical artifact to `_site/sitemap.xml`; the external delivery flow validates that file, generates a JavaScript module containing its exact bytes, and bundles that module into the dedicated `carlo-site-sitemap` Cloudflare Worker.
 
-The public website remains on GitHub Pages at `https://carlocaprini.github.io`. The Worker serves only the sitemap and has no route for ordinary pages. It never proxies GitHub Pages, GitHub APIs, raw repository content, or another sitemap endpoint at runtime. The definitive external endpoint is the `external_sitemap_url` value in `_config.yml`; that value is rendered into `robots.txt` and validated before packaging.
+The public website remains on GitHub Pages at `https://carlocaprini.github.io`. The Worker serves only the sitemap and the static Google Search Console ownership file; it has no route for ordinary pages. It never proxies GitHub Pages, GitHub APIs, raw repository content, or another sitemap endpoint at runtime. The definitive external endpoint is the `external_sitemap_url` value in `_config.yml`; that value is rendered into `robots.txt` and validated before packaging.
 
-The generated module under `worker/generated/` is ignored by Git. It is recreated from `_site/sitemap.xml` for every check and deployment, preventing a second manually maintained URL-discovery implementation.
+The generated modules under `worker/generated/` are ignored by Git. They are recreated from `_site/sitemap.xml` and the committed file under `worker/verification/` for every check and deployment. Packaging validates the ownership filename and token, strips only a trailing editor newline, and serves the exact verification line supplied by Google. This prevents a second manually maintained URL-discovery implementation while keeping the ownership proof stable for Google's periodic reverification.
 
 ## Local validation and development
 
@@ -27,6 +27,7 @@ In another terminal, exercise only the local endpoint:
 
 ```bash
 curl -i http://127.0.0.1:8788/sitemap.xml
+curl -i http://127.0.0.1:8788/googlec7e995389ae6b3dd.html
 curl -i http://127.0.0.1:8788/foo
 ```
 
@@ -74,20 +75,22 @@ The account must already have its `workers.dev` subdomain enabled. The existing 
 
 Keep the account on Workers Free for this experiment. Cloudflare currently documents 100,000 Worker requests per day and 10 ms CPU per invocation on Free; exceeding the daily request limit fails requests instead of creating usage charges. The Worker performs only URL matching and returns an in-bundle string, so it needs no paid capability. If the account is deliberately moved to Workers Paid, that account-level choice can enable billable overages, but it is not required by this implementation. Recheck the official [Workers pricing](https://developers.cloudflare.com/workers/platform/pricing/) and [limits](https://developers.cloudflare.com/workers/platform/limits/) before changing the runtime architecture.
 
-## Search Console diagnostic experiment
+## Search Console ownership and diagnostic experiment
 
-After the first successful production deployment:
+Google Search Console scopes sitemap submission to a property. Because the sitemap is hosted on `workers.dev`, the same Google account must own both URL-prefix properties before Google can accept URLs from the GitHub Pages property in a sitemap submitted under the Worker property.
+
+After deploying the ownership file:
 
 1. Confirm the Worker name and `workers.dev` URL from the successful Wrangler/GitHub Actions deployment output and the `external_sitemap_url` value in `_config.yml`. Do not crawl the public website as part of this confirmation.
-2. Copy the external sitemap URL.
-3. Open Google Search Console manually.
-4. Select the existing verified property for `https://carlocaprini.github.io/`.
-5. Submit the full external sitemap URL.
+2. In Search Console, open the URL-prefix property `https://carlo-site-sitemap.carlo-site-aggregate-analytics.workers.dev/`.
+3. Choose the HTML-file verification method and verify `https://carlo-site-sitemap.carlo-site-aggregate-analytics.workers.dev/googlec7e995389ae6b3dd.html`. Keep this file deployed: Google checks ownership periodically.
+4. Confirm that the same Google account still owns the existing URL-prefix property `https://carlocaprini.github.io/`.
+5. While the Worker property is selected, open **Sitemaps** and submit `sitemap.xml`. Do not submit the external URL from the GitHub Pages property: Search Console rejects a sitemap host outside that property's prefix before ownership of the sitemap host is established.
 6. Keep the existing GitHub-hosted `/sitemap.xml` submitted during the experiment. `robots.txt` also retains `/sitemap.txt` as an additional diagnostic endpoint.
 7. Record the submission date, status, Last read value, and discovered-page count below or in the private operational record.
 
 | Submission date | Endpoint | Status | Last read | Discovered pages |
 | --- | --- | --- | --- | --- |
-| YYYY-MM-DD | external sitemap URL | Pending | — | — |
+| YYYY-MM-DD | `https://carlo-site-sitemap.carlo-site-aggregate-analytics.workers.dev/sitemap.xml` | Pending | — | — |
 
 The product-level experiment succeeds only after Search Console reports `Success`, a valid Last read value, and more than zero discovered pages. Until then, retain all three advertised sitemap delivery paths and do not redirect or proxy between them.
