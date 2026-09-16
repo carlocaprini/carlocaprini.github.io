@@ -508,6 +508,10 @@ test("Industry Expertise paths and contact intent expose their source context", 
 
   await page.goto("/industry-expertise/");
   await expect(page.locator("body")).toHaveAttribute("data-analytics-page-type", "industry_expertise");
+  const consentPanel = page.getByRole("complementary", { name: "Help me understand how the site is used" });
+  if (await consentPanel.isVisible()) {
+    await consentPanel.getByRole("button", { name: "No thanks" }).click();
+  }
 
   const experienceLink = page.locator('[data-analytics-event="experience_open"][data-analytics-link-context="industry_expertise_experience"]');
   await experienceLink.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
