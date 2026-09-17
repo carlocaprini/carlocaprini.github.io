@@ -57,7 +57,6 @@
         <div class="container nav">
           <div class="nav-left">
             <a href="{{ '/' | relative_url }}#top" class="brand">{{ site.data.person.name | default: site.title }}</a>
-            <span class="tagline">{{ site.data.person.role }}</span>
           </div>
           <nav class="nav-right" aria-label="Primary navigation">
             <a href="{{ '/' | relative_url }}" {% if is_home %}class="is-active" aria-current="page"{% endif %}>Home</a>

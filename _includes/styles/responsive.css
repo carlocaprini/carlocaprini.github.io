@@ -1104,10 +1104,6 @@
     --page-gutter: 1rem;
   }
 
-  .tagline {
-    display: none;
-  }
-
   .hero-actions {
     display: grid;
     grid-template-columns: minmax(0, 1fr);

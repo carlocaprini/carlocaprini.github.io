@@ -6,6 +6,9 @@ test("primary navigation exposes the current section", async ({ page }, testInfo
   const primaryNavigation = page.getByRole("navigation", { name: "Primary navigation" });
   const mobileMenu = page.locator("details.mobile-nav");
 
+  await expect(page.locator(".site-header .brand")).toHaveText("Carlo Caprini");
+  await expect(page.locator(".site-header .tagline")).toHaveCount(0);
+
   if (testInfo.project.name === "desktop-chromium") {
     await expect(primaryNavigation).toBeVisible();
     await expect(primaryNavigation.getByRole("link", { name: "Thinking" })).toHaveAttribute(
