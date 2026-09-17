@@ -346,9 +346,10 @@ fail_check("A /series/ index page must not exist") if permalink_records.key?("/s
 
 series_data.each do |slug, series|
   label = "_data/series.yml: #{slug}"
-  %w[title short_title url tagline listing_description description context entry_context].each do |field|
+  %w[title short_title url meta_image meta_image_alt tagline listing_description description context entry_context].each do |field|
     fail_check("_data/series.yml: #{slug} is missing #{field}") unless present?(series[field])
   end
+  validate_local_asset(series_path, series["meta_image"], series["meta_image_alt"])
   unless series["url"] == "/series/#{slug}/"
     fail_check("#{label} URL must match its Series slug")
   end

@@ -415,6 +415,20 @@ class ValidatorTest < Minitest::Test
     end
   end
 
+  def test_source_rejects_missing_series_social_image
+    assert_invalid_source(/product-judgment-in-practice is missing meta_image/) do |directory|
+      path = File.join(directory, "_data/series.yml")
+      replace!(path, "  meta_image: /assets/og-product-judgment-series-v1.png\n", "")
+    end
+  end
+
+  def test_source_rejects_missing_series_social_image_asset
+    assert_invalid_source(/missing meta image \/assets\/missing-series-image.png/) do |directory|
+      path = File.join(directory, "_data/series.yml")
+      replace!(path, "/assets/og-product-judgment-series-v1.png", "/assets/missing-series-image.png")
+    end
+  end
+
   def test_source_rejects_missing_series_overview_structure
     assert_invalid_source(/product-judgment-in-practice must define overview.items or services/) do |directory|
       path = File.join(directory, "_data/series.yml")

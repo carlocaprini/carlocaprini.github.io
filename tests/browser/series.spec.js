@@ -23,6 +23,19 @@ const productSeriesRoutes = [
   "/thinking/managing-disagreements/"
 ];
 
+const productionOrigin = "https://carlocaprini.github.io";
+const productSeriesImage = `${productionOrigin}/assets/og-product-judgment-series-v1.png`;
+const productSeriesImageAlt = "Product Judgment in Practice by Carlo Caprini, a series about information, trade-offs, timing, commitment and alignment in product decisions.";
+const aiSeriesImage = `${productionOrigin}/assets/og-ai-operating-system-series-v1.png`;
+const aiSeriesImageAlt = "Building My Own AI Operating System by Carlo Caprini, illustrated as colorful connected services converging into one system.";
+
+async function expectSocialImage(page, image, alt) {
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", image);
+  await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute("content", alt);
+  await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute("content", image);
+  await expect(page.locator('meta[name="twitter:image:alt"]')).toHaveAttribute("content", alt);
+}
+
 for (const route of seriesRoutes) {
   test(`${route} explains its place in the series`, async ({ page }) => {
     await page.goto(route);
@@ -83,6 +96,35 @@ test("Product Judgment presents the decision loop and seven ordered episodes", a
   await expect(page.getByRole("link", { name: "Back to Explore" })).toHaveAttribute("href", "/explore/#series");
 });
 
+test("Product Judgment landing page and episodes inherit the canonical social image", async ({ page }) => {
+  for (const route of ["/series/product-judgment-in-practice/", ...productSeriesRoutes]) {
+    await page.goto(route);
+    await expectSocialImage(page, productSeriesImage, productSeriesImageAlt);
+  }
+
+  const structuredData = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>
+    scripts.map((script) => JSON.parse(script.textContent))
+  );
+  expect(structuredData.find((entry) => entry["@type"] === "BlogPosting").image).toBe(productSeriesImage);
+});
+
+test("AI series landing page and episodes retain their canonical social image", async ({ page }) => {
+  for (const route of ["/series/building-my-ai-operating-system/", allAiSeriesRoutes[0]]) {
+    await page.goto(route);
+    await expectSocialImage(page, aiSeriesImage, aiSeriesImageAlt);
+  }
+});
+
+test("page-level social metadata still overrides ordinary page defaults", async ({ page }) => {
+  await page.goto("/thinking/stop-asking-people-for-information-the-system-already-has/");
+
+  await expectSocialImage(
+    page,
+    `${productionOrigin}/assets/og-thinking-v2.png`,
+    "Thinking by Carlo Caprini, notes on product decisions, AI, software systems and teams."
+  );
+});
+
 test("Product episodes keep reading context without generic notes or a system map", async ({ page }) => {
   await page.goto(productSeriesRoutes[1]);
 
@@ -98,9 +140,9 @@ test("Product episodes keep reading context without generic notes or a system ma
 });
 
 test("Series structured data uses ordered episodes and Explore breadcrumbs", async ({ page }) => {
-  for (const [route, expectedName, expectedRoutes] of [
-    ["/series/product-judgment-in-practice/", "Product Judgment in Practice", productSeriesRoutes],
-    ["/series/building-my-ai-operating-system/", "Building My Own AI Operating System", allAiSeriesRoutes]
+  for (const [route, expectedName, expectedRoutes, expectedImage] of [
+    ["/series/product-judgment-in-practice/", "Product Judgment in Practice", productSeriesRoutes, productSeriesImage],
+    ["/series/building-my-ai-operating-system/", "Building My Own AI Operating System", allAiSeriesRoutes, aiSeriesImage]
   ]) {
     await page.goto(route);
     const data = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>
@@ -110,6 +152,7 @@ test("Series structured data uses ordered episodes and Explore breadcrumbs", asy
     const breadcrumbs = data.find((entry) => entry["@type"] === "BreadcrumbList");
 
     expect(series.name).toBe(expectedName);
+    expect(series.image).toBe(expectedImage);
     expect(series.numberOfItems).toBe(expectedRoutes.length);
     expect(series.hasPart).toHaveLength(expectedRoutes.length);
     expect(series.hasPart.map((episode) => episode.position)).toEqual(
