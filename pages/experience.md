@@ -2,7 +2,7 @@
 layout: experience
 title: Experience
 permalink: /experience/
-meta_title: Product Leadership and Engineering Experience | Carlo Caprini
+meta_title: Product Management and Engineering Experience | Carlo Caprini
 meta_description: The Product & Engineering experience behind Carlo Caprini's work on product decisions, API platforms, AI adoption and software systems.
 last_modified_at: 2026-09-09
 hero:
@@ -94,7 +94,7 @@ career_context:
       role: Product Manager
       summary: Product direction during company growth, through its acquisition by Thread Solutions.
       tags:
-        - Product leadership
+        - Product management
         - Startup growth
         - Execution
     - period: 2013 – 2017

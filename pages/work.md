@@ -88,7 +88,7 @@ experience:
   title: Experience across Product & Engineering.
   body: I started in software engineering and have spent more than a decade working across product management, APIs, platforms and developer-facing software.
   signals:
-    - From software engineering to Product leadership
+    - From software engineering to Product management
     - B2B platforms and APIs
     - Startup and global product organisations
   action:
