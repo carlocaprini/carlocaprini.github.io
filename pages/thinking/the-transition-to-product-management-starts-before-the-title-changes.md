@@ -6,8 +6,6 @@ last_modified_at: 2026-07-15
 permalink: /thinking/the-transition-to-product-management-starts-before-the-title-changes/
 summary: The transition into Product Management often begins before the role changes, when attention shifts from implementation alone to problems, trade-offs, communication, and product judgment.
 meta_description: Product Management transitions often begin before the title changes, as attention shifts from implementation to problems, trade-offs and product judgment.
-meta_image: /assets/og-thinking-v2.png
-meta_image_alt: Thinking by Carlo Caprini, notes on product decisions, AI, software systems and teams.
 topics:
   - product-decisions
   - teams-and-collaboration
