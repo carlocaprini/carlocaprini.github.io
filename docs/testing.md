@@ -78,6 +78,8 @@ The tests use fixed viewports, deny analytics consent, wait for the repository-o
 
 `visual-reference/` is navigable, full-page design documentation for humans and repository-aware agents. It is committed and deliberately regenerated, but it is not a second merge gate. `bin/check visual-docs` verifies the manifest, viewport relationships, required files, supported image encoding and dimensions without building Jekyll or launching a browser. It does not claim that committed images match the latest rendering.
 
+The separate `Visual documentation` GitHub Actions workflow exposes the same structural check through `workflow_dispatch`. It is manual, has no pull-request trigger and is not a deployment dependency. Its purpose is to detect verifier or documentation-structure rot on demand without restoring documentation freshness to the merge gate.
+
 Use `npm run visual-reference:generate` when an intentional change materially alters a documented surface. `npm run visual-reference:compare` is an opt-in same-machine diagnostic that renders every configured page and performs a strict byte comparison; it is not part of `bin/check all` or pull-request CI.
 
 ### Article Topic motif reference
