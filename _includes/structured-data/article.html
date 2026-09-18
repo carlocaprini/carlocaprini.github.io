@@ -1,7 +1,7 @@
 {% if page.layout == "article" %}
 {% assign article_description = page.meta_description | default: page.summary | default: site.description %}
 {% assign article_keywords = page.topics | default: empty %}
-{% assign article_image_path = page.meta_image | default: "/assets/og-thinking-v2.png" %}
+{% assign article_image_path = page_image_path | default: "/assets/og-thinking-v2.png" %}
 {% assign structured_article_questions = "" | split: "" %}
 {% for question in site.data.questions.questions %}
   {% assign question_contains_article = false %}

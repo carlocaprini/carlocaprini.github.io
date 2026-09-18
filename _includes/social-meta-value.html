@@ -1,0 +1,7 @@
+{%- assign social_series_slug = page.series | default: page.series_slug -%}
+{%- assign social_series = site.data.series[social_series_slug] -%}
+{%- if include.field == "image_alt" -%}
+  {{- page.meta_image_alt | default: social_series.meta_image_alt | default: include.fallback -}}
+{%- else -%}
+  {{- page.meta_image | default: social_series.meta_image | default: include.fallback -}}
+{%- endif -%}

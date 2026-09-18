@@ -9,6 +9,8 @@ require_relative "lib/validation"
 SOURCE_DIR = ENV["SITE_SOURCE_DIR"] ? File.expand_path(ENV.fetch("SITE_SOURCE_DIR")) : File.expand_path("..", __dir__)
 
 @errors = []
+PNG_SIGNATURE = "\x89PNG\r\n\x1a\n".b
+SERIES_SOCIAL_IMAGE_DIMENSIONS = [1200, 627].freeze
 
 def fail_check(message)
   @errors << message
@@ -59,6 +61,26 @@ def validate_local_asset(path, value, alt)
   asset = File.join(SOURCE_DIR, value.delete_prefix("/"))
   fail_check("#{relative_path(path)}: missing meta image #{value}") unless File.file?(asset)
   fail_check("#{relative_path(path)}: meta_image_alt is required with meta_image") unless present?(alt)
+end
+
+def validate_series_social_image_dimensions(path, value)
+  return unless present?(value) && value.start_with?("/")
+
+  asset = File.join(SOURCE_DIR, value.delete_prefix("/"))
+  return unless File.file?(asset)
+
+  header = File.binread(asset, 24)
+  unless header.byteslice(0, 8) == PNG_SIGNATURE && header.byteslice(12, 4) == "IHDR"
+    fail_check("#{relative_path(path)}: Series meta image #{value} must be a PNG with verifiable dimensions")
+    return
+  end
+
+  dimensions = header.byteslice(16, 8).unpack("NN")
+  return if dimensions == SERIES_SOCIAL_IMAGE_DIMENSIONS
+
+  fail_check(
+    "#{relative_path(path)}: Series meta image #{value} must be 1200x627, found #{dimensions.join('x')}"
+  )
 end
 
 def validate_markdown_list_spacing(path, body)
@@ -346,9 +368,11 @@ fail_check("A /series/ index page must not exist") if permalink_records.key?("/s
 
 series_data.each do |slug, series|
   label = "_data/series.yml: #{slug}"
-  %w[title short_title url tagline listing_description description context entry_context].each do |field|
+  %w[title short_title url meta_image meta_image_alt tagline listing_description description context entry_context].each do |field|
     fail_check("_data/series.yml: #{slug} is missing #{field}") unless present?(series[field])
   end
+  validate_local_asset(series_path, series["meta_image"], series["meta_image_alt"])
+  validate_series_social_image_dimensions(series_path, series["meta_image"])
   unless series["url"] == "/series/#{slug}/"
     fail_check("#{label} URL must match its Series slug")
   end

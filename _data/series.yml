@@ -2,6 +2,8 @@ product-judgment-in-practice:
   title: Product Judgment in Practice
   short_title: Product judgment
   url: /series/product-judgment-in-practice/
+  meta_image: /assets/og-product-judgment-series-v1.png
+  meta_image_alt: Product Judgment in Practice by Carlo Caprini, a series about information, trade-offs, timing, commitment and alignment in product decisions.
   tagline: How product decisions get made when information is incomplete and every option has a cost.
   listing_description: Evidence, trade-offs, urgency, timing and disagreement before implementation begins.
   description: >
@@ -36,6 +38,8 @@ building-my-ai-operating-system:
   title: Building My Own AI Operating System
   short_title: AI Operating System
   url: /series/building-my-ai-operating-system/
+  meta_image: /assets/og-ai-operating-system-series-v1.png
+  meta_image_alt: Building My Own AI Operating System by Carlo Caprini, illustrated as colorful connected services converging into one system.
   tagline: From one general assistant to smaller services with clearer jobs, boundaries and ownership.
   listing_description: A first-person series about moving from one general assistant to smaller AI-first services with explicit jobs, boundaries and ownership.
   description: My notes from building a personal AI-first operating system, starting with the failed attempt to make one general assistant useful.

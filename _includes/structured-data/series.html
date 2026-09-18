@@ -10,6 +10,7 @@
   "url": "{{ page_url }}",
   "name": {{ structured_series.title | jsonify }},
   "description": {{ page.meta_description | default: structured_series.description | jsonify }},
+  "image": {{ page_image | jsonify }},
   "inLanguage": "en",
   "creator": {
     "@type": "Person",
