@@ -33,9 +33,16 @@ async function stabilizeScreenshot(page) {
   await page.evaluate(async () => {
     await document.fonts?.ready;
   });
-  await page.locator("img:visible").evaluateAll((images) =>
-    Promise.all(images.map((image) => image.decode().catch(() => undefined)))
-  );
+  await page.evaluate(() => {
+    const visibleImages = [...document.images].filter((image) => {
+      const bounds = image.getBoundingClientRect();
+      const style = getComputedStyle(image);
+      return style.display !== "none" && style.visibility !== "hidden" &&
+        bounds.bottom > 0 && bounds.right > 0 &&
+        bounds.top < window.innerHeight && bounds.left < window.innerWidth;
+    });
+    return Promise.all(visibleImages.map((image) => image.decode().catch(() => undefined)));
+  });
 }
 
 for (const surface of surfaces) {
