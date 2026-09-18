@@ -20,9 +20,6 @@ test.beforeEach(async ({ page }) => {
       updatedAt: Date.now()
     }));
   });
-  await page.route("https://fonts.googleapis.com/**", (route) =>
-    route.fulfill({ status: 200, contentType: "text/css", body: "" })
-  );
 });
 
 async function stabilizeScreenshot(page) {
@@ -33,6 +30,7 @@ async function stabilizeScreenshot(page) {
   await page.evaluate(async () => {
     await document.fonts?.ready;
   });
+  expect(await page.evaluate(() => document.fonts.check('16px "Inter"'))).toBe(true);
   await page.evaluate(() => {
     const visibleImages = [...document.images].filter((image) => {
       const bounds = image.getBoundingClientRect();

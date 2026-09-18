@@ -406,6 +406,7 @@ required_files = %w[
   sitemap.txt
   feed.xml
   assets/css/main.css
+  assets/fonts/inter-latin-variable.woff2
   assets/js/analytics-contract.generated.js
   assets/js/analytics.js
   assets/js/aggregate-analytics.js
@@ -414,6 +415,11 @@ required_files = %w[
 
 required_files.each do |file|
   fail_check("Missing generated file: #{file}") unless File.file?(site_path(file))
+end
+
+inter_font_path = site_path("assets/fonts/inter-latin-variable.woff2")
+if File.file?(inter_font_path) && File.binread(inter_font_path, 4) != "wOF2"
+  fail_check("assets/fonts/inter-latin-variable.woff2 must be a valid WOFF2 file")
 end
 
 forbidden_files = %w[
@@ -532,6 +538,7 @@ html_files.each do |file|
   fail_check("#{relative}: main landmark must expose id=top") unless html.match?(%r{<main\b[^>]*\bid=["']top["']}i)
   fail_check("#{relative}: duplicate ids: #{duplicate_ids.join(', ')}") unless duplicate_ids.empty?
   fail_check("#{relative}: missing skip link") unless html.match?(%r{<a\s+class=["']skip-link["']\s+href=["']#top["']}i)
+  fail_check("#{relative}: external font delivery is forbidden") if html.match?(%r{fonts\.(?:googleapis|gstatic)\.com}i)
   fail_check("#{relative}: missing Open Graph title") unless html.match?(%r{<meta\s+property=["']og:title["']}i)
   fail_check("#{relative}: missing Open Graph description") unless html.match?(%r{<meta\s+property=["']og:description["']}i)
   fail_check("#{relative}: missing Open Graph type") unless meta_content(html, "property", "og:type")

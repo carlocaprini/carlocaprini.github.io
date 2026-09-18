@@ -94,11 +94,12 @@ async function captureVariant(browser, manifest, variant, outputRoot) {
           updatedAt: 4102444800000
         }));
       });
-      await page.route("https://fonts.googleapis.com/**", (route) =>
-        route.fulfill({ status: 200, contentType: "text/css", body: "" })
-      );
       const response = await page.goto(new URL(topic.path, baseURL).toString(), { waitUntil: "networkidle" });
       if (!response?.ok()) throw new Error(`${capture.id} returned ${response?.status() || "no response"}`);
+      await page.evaluate(async () => document.fonts?.ready);
+      if (!await page.evaluate(() => document.fonts.check('16px "Inter"'))) {
+        throw new Error(`${capture.id} did not load the repository-owned Inter font`);
+      }
       await page.addStyleTag({
         content: `*, *::before, *::after { animation: none !important; transition: none !important; }${capture.grayscale ? ".article-topic-hero { filter: grayscale(1) !important; }" : ""}`
       });

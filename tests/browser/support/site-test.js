@@ -12,9 +12,6 @@ base.beforeEach(async ({ page }) => {
     if (message.type() === "error") errors.push(`console: ${message.text()}`);
   });
 
-  await page.route("https://fonts.googleapis.com/**", (route) =>
-    route.fulfill({ status: 200, contentType: "text/css", body: "" })
-  );
 });
 
 base.afterEach(async ({ page }) => {

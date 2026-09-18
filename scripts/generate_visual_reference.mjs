@@ -97,10 +97,6 @@ async function capture(manifest, outputRoot) {
             updatedAt: Date.now()
           }));
         });
-        await page.route("https://fonts.googleapis.com/**", (route) =>
-          route.fulfill({ status: 200, contentType: "text/css", body: "" })
-        );
-
         const response = await page.goto(new URL(surface.path, baseURL).toString(), { waitUntil: "domcontentloaded" });
         if (!response || !response.ok()) {
           throw new Error(`${surface.id} (${surface.path}) returned ${response?.status() || "no response"}`);
@@ -112,6 +108,10 @@ async function capture(manifest, outputRoot) {
           for (const image of images) image.loading = "eager";
         });
         await page.waitForLoadState("networkidle");
+        await page.evaluate(async () => document.fonts?.ready);
+        if (!await page.evaluate(() => document.fonts.check('16px "Inter"'))) {
+          throw new Error(`${surface.id} did not load the repository-owned Inter font`);
+        }
         await page.locator("img").evaluateAll((images) =>
           Promise.all(images.map((image) => image.decode().catch(() => undefined)))
         );

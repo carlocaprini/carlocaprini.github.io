@@ -199,10 +199,12 @@ class ValidatorTest < Minitest::Test
     urls = pages.map { |page| page.fetch(:path) }
     sitemap_urls = urls - ["/privacy/"]
     FileUtils.mkdir_p(File.join(directory, "assets/css"))
+    FileUtils.mkdir_p(File.join(directory, "assets/fonts"))
     FileUtils.mkdir_p(File.join(directory, "assets/js"))
     FileUtils.mkdir_p(File.join(directory, "assets"))
     File.write(File.join(directory, "assets/test.webp"), "fixture")
     File.write(File.join(directory, "assets/css/main.css"), "body { color: white; }\n")
+    File.binwrite(File.join(directory, "assets/fonts/inter-latin-variable.woff2"), "wOF2fixture")
     %w[analytics-contract.generated.js analytics.js aggregate-analytics.js consent.js].each do |name|
       File.write(File.join(directory, "assets/js", name), "// fixture\n")
     end
@@ -908,6 +910,25 @@ class ValidatorTest < Minitest::Test
     assert_invalid_output(/must load exactly one canonical site stylesheet/) do |directory|
       path = File.join(directory, "index.html")
       replace!(path, "</head>", "<link rel=\"stylesheet\" href=\"/assets/css/extra.css\">\n</head>")
+    end
+  end
+
+  def test_generated_output_requires_the_local_inter_font
+    assert_invalid_output(/Missing generated file: assets\/fonts\/inter-latin-variable\.woff2/) do |directory|
+      FileUtils.rm(File.join(directory, "assets/fonts/inter-latin-variable.woff2"))
+    end
+  end
+
+  def test_generated_output_rejects_external_font_delivery
+    assert_invalid_output(/external font delivery is forbidden/) do |directory|
+      path = File.join(directory, "index.html")
+      replace!(path, "</head>", '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter">' + "\n</head>")
+    end
+  end
+
+  def test_generated_output_rejects_an_invalid_local_inter_font
+    assert_invalid_output(/must be a valid WOFF2 file/) do |directory|
+      File.write(File.join(directory, "assets/fonts/inter-latin-variable.woff2"), "not a font")
     end
   end
 end

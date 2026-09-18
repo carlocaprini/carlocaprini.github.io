@@ -6,7 +6,7 @@ Jekyll source lives in collections, `pages/`, `_data/`, `_layouts/` and `_includ
 
 GitHub Actions builds the production site once. Source and generated validators run around that build, then the exact `_site` artifact is shared with independent Chromium, WebKit, visual-regression and Sitemap Worker jobs. Deployment can run only after every blocking category succeeds.
 
-The production page loads a single site stylesheet and small unbundled browser scripts. Canonical CSS rules live in the stable domain files under `_includes/styles/`; `assets/css/main.css` is a small Jekyll composition entry point. `_includes` prevents source modules from leaking as separately served assets. There is no client application framework, CSS runtime import or new asset bundler.
+The production page loads a single site stylesheet, one repository-owned variable Inter WOFF2 asset and small unbundled browser scripts. Canonical CSS rules live in the stable domain files under `_includes/styles/`; `assets/css/main.css` is a small Jekyll composition entry point. `_includes` prevents source modules from leaking as separately served assets. The site has no runtime font-provider dependency, client application framework, CSS runtime import or new asset bundler.
 
 Large Liquid responsibilities are extracted only when they form a stable semantic unit. The Article context rail has an explicit include interface. Structured data keeps one entry point from the document head and delegates to schema-oriented partials under `_includes/structured-data/`. Home, Thinking, Explore and Work remain readable layouts because their single-use sections are already locally grouped; splitting every section would add indirection without independent ownership.
 

@@ -13,7 +13,7 @@ JEKYLL_ENV=production bundle exec jekyll build --strict_front_matter
 npm run visual-reference:generate
 ```
 
-The generator uses the pinned Playwright Chromium version, denies analytics consent, avoids external font requests, disables animation and captures lossless full-page WebP files. It fails when a configured route does not return a successful response.
+The generator uses the pinned Playwright Chromium version, denies analytics consent, waits for the repository-owned Inter font, disables animation and captures lossless full-page WebP files. It fails when a configured route does not return a successful response.
 
 Structural integrity can be checked without a site build or browser:
 
