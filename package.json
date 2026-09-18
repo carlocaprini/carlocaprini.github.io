@@ -25,11 +25,13 @@
     "test:browser:webkit": "playwright test --project=webkit-desktop --project=webkit-mobile",
     "test:browser:visual": "playwright test --project=visual-chromium",
     "test:browser:all": "playwright test",
+    "test:visual-docs": "node --test tests/visual-docs/*.test.js",
     "visual-reference:generate": "node scripts/generate_visual_reference.mjs",
-    "visual-reference:check": "node scripts/generate_visual_reference.mjs --check",
+    "visual-reference:verify": "node scripts/verify_visual_reference.mjs",
+    "visual-reference:compare": "node scripts/generate_visual_reference.mjs --compare",
     "topic-motif-reference:generate": "node scripts/generate_topic_motif_reference.mjs",
-    "topic-motif-reference:check": "node scripts/generate_topic_motif_reference.mjs --check",
-    "topic-motif-reference:check-source": "node --test tests/topic-motif-source/*.test.js && node scripts/generate_topic_motif_reference.mjs --source-check"
+    "topic-motif-reference:verify": "node scripts/verify_topic_motif_reference.mjs",
+    "topic-motif-reference:compare": "node scripts/generate_topic_motif_reference.mjs --compare"
   },
   "engines": {
     "node": ">=24"

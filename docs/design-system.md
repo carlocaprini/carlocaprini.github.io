@@ -222,7 +222,7 @@ Non-topic card groups default to neutral structural surfaces. Use composition, s
 
 ## Typography
 
-The site uses Inter and should keep an editorial, product-like scale.
+The site uses the repository-owned variable Inter font in `assets/fonts/`. Serving the typeface with the site keeps production rendering, local previews and screenshot regression on the same font files without a runtime font-provider dependency. The typography should keep an editorial, product-like scale.
 
 ### Type Scale
 

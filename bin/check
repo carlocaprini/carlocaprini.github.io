@@ -19,10 +19,8 @@ Commands:
   browser                Chromium desktop/mobile/tablet suite
   webkit                 Focused WebKit smoke suite
   visual-regression      Playwright visual-regression suite
-  visual-reference       Versioned Visual Reference freshness
-  topic-motif-reference  Balanced/Spatial article motif reference freshness
-  topic-motif-source     Platform-neutral article motif reference source freshness
-  visual                 Visual regression and all Visual Reference freshness
+  visual-docs            Structural integrity of committed visual documentation
+  visual                 Alias for visual-regression
   all                    Closest practical local equivalent of the merge gate
 EOF
 }
@@ -56,14 +54,10 @@ check_infrastructure() { docker compose config >/dev/null; }
 check_browser() { npm run test:browser; }
 check_webkit() { npm run test:browser:webkit; }
 check_visual_regression() { npm run test:browser:visual; }
-check_visual_reference() { npm run visual-reference:check; }
-check_topic_motif_reference() { npm run topic-motif-reference:check; }
-check_topic_motif_source() { npm run topic-motif-reference:check-source; }
-
-check_visual() {
-  check_visual_regression
-  check_visual_reference
-  check_topic_motif_reference
+check_visual_docs() {
+  npm run test:visual-docs
+  npm run visual-reference:verify
+  npm run topic-motif-reference:verify
 }
 
 check_all() {
@@ -75,7 +69,7 @@ check_all() {
   check_infrastructure
   check_browser
   check_webkit
-  check_visual
+  check_visual_regression
 }
 
 case "${1:-}" in
@@ -88,10 +82,8 @@ case "${1:-}" in
   browser) check_browser ;;
   webkit) check_webkit ;;
   visual-regression) check_visual_regression ;;
-  visual-reference) check_visual_reference ;;
-  topic-motif-reference) check_topic_motif_reference ;;
-  topic-motif-source) check_topic_motif_source ;;
-  visual) check_visual ;;
+  visual-docs) check_visual_docs ;;
+  visual) check_visual_regression ;;
   all) check_all ;;
   -h|--help|help) usage ;;
   *) usage >&2; exit 2 ;;

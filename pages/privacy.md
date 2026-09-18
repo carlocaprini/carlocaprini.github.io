@@ -5,7 +5,7 @@ permalink: /privacy/
 sitemap: false
 meta_title: Privacy and Analytics | Carlo Caprini
 meta_description: How this site uses aggregate measurement, optional analytics, cookies and external services.
-last_modified_at: 2026-08-17
+last_modified_at: 2026-09-18
 ---
 <div class="page privacy-page">
   <section class="hero hero--compact">
@@ -42,7 +42,7 @@ last_modified_at: 2026-08-17
       <p>The consent choice itself is stored for up to six months in the browser’s local storage under <code>site_analytics_consent</code>. It is necessary to remember whether analytics should remain enabled or disabled and is not used for tracking.</p>
 
       <h2>External services</h2>
-      <p>The site is hosted on GitHub Pages. GitHub may process technical request data required to deliver and protect the service. Cloudflare provides the aggregate measurement endpoint and database. The site also loads the Inter typeface from Google Fonts. External links, including LinkedIn and selected readings, are governed by the privacy practices of their respective providers.</p>
+      <p>The site is hosted on GitHub Pages. GitHub may process technical request data required to deliver and protect the service. Cloudflare provides the aggregate measurement endpoint and database. The Inter typeface is served directly with the site. External links, including LinkedIn and selected readings, are governed by the privacy practices of their respective providers.</p>
       <p>For more information, see the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub Privacy Statement</a>, <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">Cloudflare Privacy Policy</a> and <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.</p>
 
       <h2>Your choices</h2>

@@ -25,7 +25,8 @@ bin/check generated
 bin/check sitemap
 bin/check analytics
 bin/check browser
-bin/check visual
+bin/check visual-regression
+bin/check visual-docs
 bin/check all
 ```
 

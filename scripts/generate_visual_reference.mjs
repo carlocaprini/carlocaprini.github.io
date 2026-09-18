@@ -5,15 +5,19 @@ import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { verifyVisualReference } from "./lib/visual_documentation_verifiers.mjs";
 
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const manifestPath = resolve(repositoryRoot, "visual-reference/manifest.json");
 const committedOutput = resolve(repositoryRoot, "visual-reference");
 const baseURL = process.env.SITE_BASE_URL || "http://127.0.0.1:4005";
-const checkMode = process.argv.includes("--check");
+const compareMode = process.argv.includes("--compare");
 const explicitOutputIndex = process.argv.indexOf("--output");
 const explicitOutput = explicitOutputIndex >= 0 ? process.argv[explicitOutputIndex + 1] : null;
 
+if (process.argv.includes("--check")) {
+  throw new Error("--check was replaced by the explicit --compare mode");
+}
 if (explicitOutputIndex >= 0 && !explicitOutput) {
   throw new Error("--output requires a directory");
 }
@@ -93,10 +97,6 @@ async function capture(manifest, outputRoot) {
             updatedAt: Date.now()
           }));
         });
-        await page.route("https://fonts.googleapis.com/**", (route) =>
-          route.fulfill({ status: 200, contentType: "text/css", body: "" })
-        );
-
         const response = await page.goto(new URL(surface.path, baseURL).toString(), { waitUntil: "domcontentloaded" });
         if (!response || !response.ok()) {
           throw new Error(`${surface.id} (${surface.path}) returned ${response?.status() || "no response"}`);
@@ -108,6 +108,10 @@ async function capture(manifest, outputRoot) {
           for (const image of images) image.loading = "eager";
         });
         await page.waitForLoadState("networkidle");
+        await page.evaluate(async () => document.fonts?.ready);
+        if (!await page.evaluate(() => document.fonts.check('16px "Inter"'))) {
+          throw new Error(`${surface.id} did not load the repository-owned Inter font`);
+        }
         await page.locator("img").evaluateAll((images) =>
           Promise.all(images.map((image) => image.decode().catch(() => undefined)))
         );
@@ -155,18 +159,19 @@ const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
 assertManifest(manifest);
 
 let temporaryRoot = null;
-const outputRoot = checkMode
+const outputRoot = compareMode
   ? await mkdtemp(join(tmpdir(), "site-visual-reference-"))
   : resolve(repositoryRoot, explicitOutput || "visual-reference");
-if (checkMode) temporaryRoot = outputRoot;
+if (compareMode) temporaryRoot = outputRoot;
 
 const server = await ensureServer();
 try {
   await capture(manifest, outputRoot);
-  if (checkMode) await compareReferences(manifest, outputRoot);
+  await verifyVisualReference({ manifestPath, referenceRoot: outputRoot });
+  if (compareMode) await compareReferences(manifest, outputRoot);
 } finally {
   if (server) server.kill("SIGTERM");
   if (temporaryRoot) await rm(temporaryRoot, { recursive: true, force: true });
 }
 
-process.stdout.write(checkMode ? "Visual Reference is current.\n" : `Visual Reference written to ${outputRoot}\n`);
+process.stdout.write(compareMode ? "Visual Reference matches a fresh local rendering.\n" : `Visual Reference written to ${outputRoot}\n`);

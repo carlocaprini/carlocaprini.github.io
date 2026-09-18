@@ -1,20 +1,23 @@
 import { chromium } from "@playwright/test";
-import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { spawn, spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
-import { sourceFingerprint } from "./lib/topic_motif_source_fingerprint.mjs";
+import { verifyTopicMotifReference } from "./lib/visual_documentation_verifiers.mjs";
 
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const referenceRoot = resolve(repositoryRoot, "visual-reference/article-topic-motifs");
 const manifestPath = resolve(referenceRoot, "manifest.json");
-const checkMode = process.argv.includes("--check");
-const sourceCheckMode = process.argv.includes("--source-check");
+const compareMode = process.argv.includes("--compare");
 const variants = ["balanced", "spatial"];
 const buildRoots = Object.fromEntries(
   variants.map((variant) => [variant, resolve(repositoryRoot, `_site-topic-motif-${variant}`)])
 );
+
+if (process.argv.includes("--check") || process.argv.includes("--source-check")) {
+  throw new Error("Legacy freshness modes were removed; use --compare for an explicit rendered comparison");
+}
 
 function run(command, args, environment = {}) {
   return new Promise((resolveRun, rejectRun) => {
@@ -91,11 +94,12 @@ async function captureVariant(browser, manifest, variant, outputRoot) {
           updatedAt: 4102444800000
         }));
       });
-      await page.route("https://fonts.googleapis.com/**", (route) =>
-        route.fulfill({ status: 200, contentType: "text/css", body: "" })
-      );
       const response = await page.goto(new URL(topic.path, baseURL).toString(), { waitUntil: "networkidle" });
       if (!response?.ok()) throw new Error(`${capture.id} returned ${response?.status() || "no response"}`);
+      await page.evaluate(async () => document.fonts?.ready);
+      if (!await page.evaluate(() => document.fonts.check('16px "Inter"'))) {
+        throw new Error(`${capture.id} did not load the repository-owned Inter font`);
+      }
       await page.addStyleTag({
         content: `*, *::before, *::after { animation: none !important; transition: none !important; }${capture.grayscale ? ".article-topic-hero { filter: grayscale(1) !important; }" : ""}`
       });
@@ -153,40 +157,25 @@ async function compare(manifest, generatedRoot) {
   if (stale.length) throw new Error(`Article topic motif references are stale or incomplete:\n- ${stale.join("\n- ")}`);
 }
 
-let manifest = JSON.parse(await readFile(manifestPath, "utf8"));
+const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
 if (manifest.version !== 1 || !manifest.captures?.length) throw new Error("Unsupported article topic motif manifest");
-const currentFingerprint = await sourceFingerprint(manifest, repositoryRoot);
 
-if (sourceCheckMode) {
-  if (manifest.sourceFingerprint !== currentFingerprint) {
-    throw new Error("Article topic motif references are stale because a visual source changed. Regenerate the motif references and commit the updated manifest/assets.");
-  }
-  process.stdout.write("Article topic motif reference sources are current.\n");
-} else {
-  if (checkMode && manifest.sourceFingerprint !== currentFingerprint) {
-    throw new Error("Article topic motif references are stale because a visual source changed. Regenerate the motif references and commit the updated manifest/assets.");
-  }
-  if (!checkMode && manifest.sourceFingerprint !== currentFingerprint) {
-    manifest = { ...manifest, sourceFingerprint: currentFingerprint };
-    await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
-  }
+const temporaryOutput = compareMode ? await mkdtemp(join(tmpdir(), "topic-motif-reference-")) : null;
+const outputRoot = temporaryOutput || referenceRoot;
 
-  const temporaryOutput = checkMode ? await mkdtemp(join(tmpdir(), "topic-motif-reference-")) : null;
-  const outputRoot = temporaryOutput || referenceRoot;
-
+try {
+  for (const variant of variants) await buildVariant(variant);
+  const browser = await chromium.launch();
   try {
-    for (const variant of variants) await buildVariant(variant);
-    const browser = await chromium.launch();
-    try {
-      for (const variant of variants) await captureVariant(browser, manifest, variant, outputRoot);
-    } finally {
-      await browser.close();
-    }
-    if (checkMode) await compare(manifest, outputRoot);
+    for (const variant of variants) await captureVariant(browser, manifest, variant, outputRoot);
   } finally {
-    await Promise.all(variants.map((variant) => rm(buildRoots[variant], { recursive: true, force: true })));
-    if (temporaryOutput) await rm(temporaryOutput, { recursive: true, force: true });
+    await browser.close();
   }
-
-  process.stdout.write(checkMode ? "Article topic motif references are current.\n" : `Article topic motif references written to ${referenceRoot}\n`);
+  await verifyTopicMotifReference({ manifestPath, referenceRoot: outputRoot });
+  if (compareMode) await compare(manifest, outputRoot);
+} finally {
+  await Promise.all(variants.map((variant) => rm(buildRoots[variant], { recursive: true, force: true })));
+  if (temporaryOutput) await rm(temporaryOutput, { recursive: true, force: true });
 }
+
+process.stdout.write(compareMode ? "Article topic motif references match a fresh local rendering.\n" : `Article topic motif references written to ${referenceRoot}\n`);

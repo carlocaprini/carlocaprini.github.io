@@ -6,7 +6,7 @@ Jekyll source lives in collections, `pages/`, `_data/`, `_layouts/` and `_includ
 
 GitHub Actions builds the production site once. Source and generated validators run around that build, then the exact `_site` artifact is shared with independent Chromium, WebKit, visual-regression and Sitemap Worker jobs. Deployment can run only after every blocking category succeeds.
 
-The production page loads a single site stylesheet and small unbundled browser scripts. Canonical CSS rules live in the stable domain files under `_includes/styles/`; `assets/css/main.css` is a small Jekyll composition entry point. `_includes` prevents source modules from leaking as separately served assets. There is no client application framework, CSS runtime import or new asset bundler.
+The production page loads a single site stylesheet, one repository-owned variable Inter WOFF2 asset and small unbundled browser scripts. Canonical CSS rules live in the stable domain files under `_includes/styles/`; `assets/css/main.css` is a small Jekyll composition entry point. `_includes` prevents source modules from leaking as separately served assets. The site has no runtime font-provider dependency, client application framework, CSS runtime import or new asset bundler.
 
 Large Liquid responsibilities are extracted only when they form a stable semantic unit. The Article context rail has an explicit include interface. Structured data keeps one entry point from the document head and delegates to schema-oriented partials under `_includes/structured-data/`. Home, Thinking, Explore and Work remain readable layouts because their single-use sections are already locally grouped; splitting every section would add indirection without independent ownership.
 
@@ -29,7 +29,7 @@ Cross-system measurement configuration and review templates live under `_analyti
 
 ## Visual protection
 
-Playwright covers Chromium behavior, a focused WebKit smoke path and curated visual-regression fixtures. `visual-reference/` is separate, versioned full-page documentation generated deterministically from representative routes. Article Topic motifs add dedicated Balanced/Spatial, responsive and grayscale references; the local visual gate compares rendered pixels, while CI checks their platform-neutral source fingerprint. Visual references are updated only when a rendered change is intentional and reviewed.
+Playwright covers Chromium behavior, a focused WebKit smoke path and curated visual-regression fixtures. The real screenshot-regression suite is a blocking deployment gate. `visual-reference/` is separate, versioned full-page documentation generated deliberately from representative routes; Article Topic motifs add dedicated Balanced/Spatial, responsive and grayscale reference material. Lightweight structural checks validate both documentation collections without rendering them. Exact documentation rendering comparisons are explicit local diagnostics, not merge gates, and no source fingerprint is used as a proxy for rendered change. Visual references are updated only when a rendered change is intentional and reviewed.
 
 ## Sitemap controls
 
