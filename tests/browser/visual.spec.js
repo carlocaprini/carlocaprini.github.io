@@ -25,11 +25,24 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
+async function stabilizeScreenshot(page) {
+  await expect(page.locator("main#top")).toBeVisible();
+  await page.addStyleTag({
+    content: "*, *::before, *::after { animation: none !important; caret-color: transparent !important; transition: none !important; }"
+  });
+  await page.evaluate(async () => {
+    await document.fonts?.ready;
+  });
+  await page.locator("img:visible").evaluateAll((images) =>
+    Promise.all(images.map((image) => image.decode().catch(() => undefined)))
+  );
+}
+
 for (const surface of surfaces) {
   test(`${surface.name} matches its visual baseline`, async ({ page }) => {
     await page.setViewportSize(surface.viewport);
     await page.goto(surface.route, { waitUntil: "networkidle" });
-    await expect(page.locator("main#top")).toBeVisible();
+    await stabilizeScreenshot(page);
     await expect(page).toHaveScreenshot(`${surface.name}.webp`, { fullPage: false, timeout: 20_000 });
   });
 }
@@ -40,5 +53,6 @@ test("consent panel matches its visual baseline", async ({ page }) => {
   await page.getByRole("button", { name: "Cookie settings" }).click();
   await expect(page.getByRole("complementary", { name: "Help me understand how the site is used" }))
     .toBeVisible();
+  await stabilizeScreenshot(page);
   await expect(page).toHaveScreenshot("consent-panel.webp", { fullPage: false, timeout: 20_000 });
 });
