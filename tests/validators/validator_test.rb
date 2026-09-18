@@ -1,11 +1,20 @@
 # frozen_string_literal: true
 
 require "fileutils"
-require "liquid"
 require "minitest/autorun"
 require "open3"
 require "rbconfig"
 require "tmpdir"
+
+begin
+  require "liquid"
+rescue LoadError
+  liquid_gem_path = IO.popen(%w[bundle show liquid], &:read).strip
+  raise "Unable to locate the bundled Liquid gem" if liquid_gem_path.empty?
+
+  $LOAD_PATH.unshift(File.join(liquid_gem_path, "lib"))
+  require "liquid"
+end
 
 class ValidatorTest < Minitest::Test
   ROOT = File.expand_path("../..", __dir__)
