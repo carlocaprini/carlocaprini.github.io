@@ -54,6 +54,27 @@
   line-height: 1.75;
 }
 
+.industry-expertise-area-basis {
+  margin-top: 1.1rem;
+  padding-top: 0.95rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.industry-expertise-area-basis > span {
+  color: var(--accent-cyan);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.industry-expertise-area-basis p {
+  margin-top: 0.35rem;
+  color: var(--color-text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
 .industry-expertise-topic-list {
   display: flex;
   flex-wrap: wrap;
@@ -66,6 +87,19 @@
 .industry-expertise-topic-list .pill {
   color: var(--color-text-secondary);
   background: rgba(2, 6, 23, 0.28);
+}
+
+.industry-expertise-area-link {
+  display: inline-flex;
+  gap: 0.35rem;
+  margin-top: 1rem;
+  color: var(--accent-cyan);
+  font-size: 0.82rem;
+  text-decoration: none;
+}
+
+.industry-expertise-area-link:hover {
+  color: #67e8f9;
 }
 
 .industry-expertise-split {

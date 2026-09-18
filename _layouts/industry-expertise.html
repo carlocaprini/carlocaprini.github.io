@@ -30,9 +30,16 @@ layout: default
             <span class="industry-expertise-area-marker" aria-hidden="true"></span>
             <h3>{{ area.title }}</h3>
             <p>{{ area.body }}</p>
+            <div class="industry-expertise-area-basis">
+              <span>{{ area.basis.label }}</span>
+              <p>{{ area.basis.body }}</p>
+            </div>
             <ul class="industry-expertise-topic-list" aria-label="Topics related to {{ area.title }}">
               {% for topic in area.topics %}<li class="pill">{{ topic }}</li>{% endfor %}
             </ul>
+            {% if area.related_work %}
+              <a class="industry-expertise-area-link" href="{{ area.related_work.url | relative_url }}" data-analytics-event="series_open" data-analytics-series-id="{{ area.related_work.series_id }}" data-analytics-link-context="industry_expertise_related_work">{{ area.related_work.label }} <span aria-hidden="true">→</span></a>
+            {% endif %}
           </article>
         {% endfor %}
       </div>

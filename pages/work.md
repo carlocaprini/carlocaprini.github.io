@@ -95,16 +95,16 @@ experience:
     label: See full experience
     url: /experience/
 industry_research:
-  eyebrow: Industry research
-  title: Industry expertise for research and expert conversations.
-  body: I also participate in selected industry research, expert interviews and market studies related to software products, platforms and developer-facing systems I have worked on.
+  eyebrow: Selected research conversations
+  title: Expert interviews and industry research.
+  body: I occasionally contribute to selected expert interviews, primary research and market studies when my experience with software products, platforms and developer-facing systems is relevant.
   areas:
-    - Commerce platforms and composable commerce
     - APIs and developer platforms
-    - AI agents and emerging software workflows
-    - Document APIs and workflow automation
+    - Commerce platforms and composable commerce
+    - Current document APIs and workflow automation
+    - Applied research on AI agents and software workflows
   action:
-    label: Explore industry expertise
+    label: See research topics and boundaries
     url: /industry-expertise/
 next_steps:
   eyebrow: What happens next

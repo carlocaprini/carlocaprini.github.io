@@ -525,6 +525,18 @@ test("Industry Expertise paths and contact intent expose their source context", 
     }
   });
 
+  const relatedWorkLink = page.locator('[data-analytics-event="series_open"][data-analytics-link-context="industry_expertise_related_work"]');
+  await relatedWorkLink.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+  await relatedWorkLink.click();
+  expect(await page.evaluate(() => window.__analyticsEvents.at(-1))).toMatchObject({
+    name: "series_open",
+    parameters: {
+      series_id: "building-my-ai-operating-system",
+      link_context: "industry_expertise_related_work",
+      page_type: "industry_expertise"
+    }
+  });
+
   const contactLink = page.locator('[data-analytics-event="contact_open"][data-analytics-link-context="industry_expertise_contact"]');
   await contactLink.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
   await contactLink.click();

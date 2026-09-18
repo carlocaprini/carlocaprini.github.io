@@ -52,7 +52,7 @@ test("Work is a first-class destination with a current-page state", async ({ pag
     .toHaveAttribute("aria-current", "page");
 });
 
-test("Industry Expertise remains contextual rather than primary navigation", async ({ page }, testInfo) => {
+test("Industry research remains contextual rather than primary navigation", async ({ page }, testInfo) => {
   await page.goto("/industry-expertise/");
 
   const primaryNavigation = page.getByRole("navigation", { name: "Primary navigation" });
@@ -64,7 +64,7 @@ test("Industry Expertise remains contextual rather than primary navigation", asy
   if (testInfo.project.name !== "desktop-chromium") await mobileMenu.locator("summary").click();
 
   await expect(navigation.getByRole("link")).toHaveCount(7);
-  await expect(navigation.getByRole("link", { name: "Industry Expertise" })).toHaveCount(0);
+  await expect(navigation.locator('a[href="/industry-expertise/"]')).toHaveCount(0);
   await expect(navigation.locator('a[aria-current="page"]')).toHaveCount(0);
 });
 

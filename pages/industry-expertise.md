@@ -1,68 +1,69 @@
 ---
 layout: industry-expertise
-title: Industry Expertise
+title: Expert Interviews and Industry Research
 permalink: /industry-expertise/
 meta_title: Software, API & Commerce Industry Expertise | Carlo Caprini
-meta_description: Industry expertise for research on composable commerce, APIs, developer platforms, AI agents, MCP and document workflows, grounded in direct Product and software experience.
-last_modified_at: 2026-09-16
-structured_knows_about:
-  - Composable commerce
-  - API platforms
-  - Developer platforms
-  - Developer experience
-  - AI agents
-  - Model Context Protocol
-  - Document APIs
-  - Workflow automation
+meta_description: Selected expert interviews and industry research on software platforms, APIs, composable commerce and applied AI workflows, grounded in product management and software engineering experience.
+last_modified_at: 2026-09-18
 hero:
-  label: Industry expertise
+  label: Expert interviews and industry research
   title: Product, platform and software experience for industry research.
   paragraphs:
-    - I occasionally contribute to expert interviews, primary research and market studies about software products, developer platforms and technical product decisions I have worked on directly.
-    - I have worked in software engineering and product, from startup products to global B2B platforms. That work has included APIs, developer ecosystems, composable commerce and emerging AI interaction models.
+    - I occasionally contribute to expert interviews, primary research, market studies and product or technology research when my experience is relevant to the questions being explored.
+    - I am a Senior Product Manager with a software engineering background. My professional experience covers APIs, developer platforms, extensibility, integrations and composable commerce. My current work and applied experiments also inform narrower conversations about document workflows and emerging AI interaction models.
 areas:
-  eyebrow: Areas of expertise
-  title: Topics I have worked on directly.
+  eyebrow: Relevant areas
+  title: Topics I can discuss and where the perspective comes from.
   items:
-    - title: Commerce platforms & composable commerce
-      body: At commercetools, I worked on an API-first, composable commerce platform, including extensibility, integrations, developer experience and the product implications of building a platform ecosystem.
-      topics:
-        - Composable commerce
-        - Headless commerce
-        - API-first commerce
-        - Platform extensibility
-        - Integrations
-        - Developer experience
-        - Platform ecosystems
     - title: APIs & developer platforms
-      body: I have worked on developer-facing platforms where APIs, integrations and extensibility are product surfaces. They need to evolve without weakening what customers and partners already depend on.
+      body: Across product roles at commercetools and PandaDoc, I have worked on developer-facing platforms where APIs, integrations and extensibility are product surfaces. Earlier software engineering work also shapes how I assess adoption, compatibility and platform evolution.
+      basis:
+        label: Professional experience
+        body: Product management roles from 2022 to present, supported by earlier software engineering experience.
       topics:
         - API product strategy
         - Developer platforms
         - Developer experience
         - Extensibility
         - Integrations
-        - Developer tooling
         - Platform evolution
-        - API adoption
-    - title: AI agents & software workflows
-      body: My work and experiments cover AI-assisted software development, agent-driven workflows and interfaces for both people and software agents, including Model Context Protocol (MCP).
+    - title: Commerce platforms & composable commerce
+      body: At commercetools, I worked on an API-first, composable commerce platform, including extensibility, integrations, developer experience and the product implications of building a platform ecosystem.
+      basis:
+        label: Professional experience
+        body: Senior Product Manager at commercetools, 2022–2026.
       topics:
-        - AI agents
-        - Model Context Protocol (MCP)
-        - Agent-driven workflows
-        - AI-assisted development
-        - Agent-first interfaces
-        - Human/agent boundaries
-        - Reliability and review
+        - Composable commerce
+        - Headless commerce
+        - API-first commerce
+        - Platform extensibility
+        - Platform ecosystems
     - title: Document APIs & workflow automation
-      body: My current work includes APIs and integrations for document workflows and emerging AI interaction models.
+      body: My current work includes APIs and integrations for document workflows and emerging AI interaction models. I can discuss the public product context and transferable principles, not confidential strategy, customers, metrics or roadmap.
+      basis:
+        label: Current professional experience
+        body: Senior Product Manager at PandaDoc; public product context only.
       topics:
         - Document APIs
         - Document workflows
         - API integrations
         - Workflow automation
-        - Developer-facing document capabilities
+    - title: AI agents & software workflows
+      body: My current work and applied experiments cover AI-assisted software development, agent-driven workflows and interfaces for people and software agents, including Model Context Protocol (MCP). The focus is product interfaces, APIs, professional workflows, reliability and human/agent boundaries.
+      basis:
+        label: Applied research and experiments
+        body: Current product work and applied experiments documented in Thinking.
+      topics:
+        - AI agents
+        - Model Context Protocol (MCP)
+        - Agent-driven workflows
+        - AI-assisted development
+        - Human/agent boundaries
+        - Reliability and review
+      related_work:
+        label: See related notes and experiments
+        url: /series/building-my-ai-operating-system/
+        series_id: building-my-ai-operating-system
 experience:
   eyebrow: Relevant experience
   title: Experience behind these perspectives.
@@ -97,11 +98,11 @@ boundaries:
   eyebrow: Boundaries
   title: Useful context without crossing confidentiality lines.
   paragraphs:
-    - I can discuss general industry practices, public information, historical market context and professional experience I am permitted to share.
-    - I do not disclose confidential, proprietary or non-public information relating to current or former employers, customers, partners or competitors, and I will decline topics that conflict with my professional obligations.
+    - I can discuss public information, general industry practices, historical market context, professional experience I am permitted to share and transferable observations about product and software work.
+    - I do not discuss confidential, proprietary or non-public information about current or former employers, customers, partners or competitors. I decline topics that conflict with my professional obligations.
 contact:
   eyebrow: Contact
   title: Looking for perspective on one of these areas?
-  body: If you are conducting industry research, send me the topic, the questions you are exploring and the expected format. I will confirm whether my experience is relevant.
+  body: If you are conducting industry research, send me the topic, the questions you are exploring, the expected format, the organization or research context when appropriate, and the likely timing. I will confirm whether my experience is relevant.
   action: Contact me on LinkedIn
 ---
