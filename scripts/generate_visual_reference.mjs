@@ -5,15 +5,19 @@ import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { verifyVisualReference } from "./lib/visual_documentation_verifiers.mjs";
 
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const manifestPath = resolve(repositoryRoot, "visual-reference/manifest.json");
 const committedOutput = resolve(repositoryRoot, "visual-reference");
 const baseURL = process.env.SITE_BASE_URL || "http://127.0.0.1:4005";
-const checkMode = process.argv.includes("--check");
+const compareMode = process.argv.includes("--compare");
 const explicitOutputIndex = process.argv.indexOf("--output");
 const explicitOutput = explicitOutputIndex >= 0 ? process.argv[explicitOutputIndex + 1] : null;
 
+if (process.argv.includes("--check")) {
+  throw new Error("--check was replaced by the explicit --compare mode");
+}
 if (explicitOutputIndex >= 0 && !explicitOutput) {
   throw new Error("--output requires a directory");
 }
@@ -155,18 +159,19 @@ const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
 assertManifest(manifest);
 
 let temporaryRoot = null;
-const outputRoot = checkMode
+const outputRoot = compareMode
   ? await mkdtemp(join(tmpdir(), "site-visual-reference-"))
   : resolve(repositoryRoot, explicitOutput || "visual-reference");
-if (checkMode) temporaryRoot = outputRoot;
+if (compareMode) temporaryRoot = outputRoot;
 
 const server = await ensureServer();
 try {
   await capture(manifest, outputRoot);
-  if (checkMode) await compareReferences(manifest, outputRoot);
+  await verifyVisualReference({ manifestPath, referenceRoot: outputRoot });
+  if (compareMode) await compareReferences(manifest, outputRoot);
 } finally {
   if (server) server.kill("SIGTERM");
   if (temporaryRoot) await rm(temporaryRoot, { recursive: true, force: true });
 }
 
-process.stdout.write(checkMode ? "Visual Reference is current.\n" : `Visual Reference written to ${outputRoot}\n`);
+process.stdout.write(compareMode ? "Visual Reference matches a fresh local rendering.\n" : `Visual Reference written to ${outputRoot}\n`);
