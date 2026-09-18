@@ -51,6 +51,11 @@ Routes, descriptions and viewport membership live only in [`manifest.json`](mani
 - [Desktop](explore/desktop.webp)
 - [Mobile](explore/mobile.webp)
 
+### Question detail — representative Question path
+
+- [Desktop](question-detail/desktop.webp)
+- [Mobile](question-detail/mobile.webp)
+
 ### Experience — evidence and career context
 
 - [Desktop](experience/desktop.webp)
@@ -80,9 +85,22 @@ Routes, descriptions and viewport membership live only in [`manifest.json`](mani
 - [Portrait tablet](ai-series-article/tablet.webp)
 - [Mobile](ai-series-article/mobile.webp)
 
+### Product-series article — representative Product Judgment episode
+
+- [Desktop](product-series-article/desktop.webp)
+- [Portrait tablet](product-series-article/tablet.webp)
+- [Mobile](product-series-article/mobile.webp)
+
+### Product series — decision-loop series landing
+
+- [Desktop](product-series/desktop.webp)
+- [Portrait tablet](product-series/tablet.webp)
+- [Mobile](product-series/mobile.webp)
+
 ### AI series — series landing
 
 - [Desktop](ai-series/desktop.webp)
+- [Portrait tablet](ai-series/tablet.webp)
 - [Mobile](ai-series/mobile.webp)
 
 ## Maintenance
