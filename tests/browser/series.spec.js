@@ -115,16 +115,6 @@ test("AI series landing page and episodes retain their canonical social image", 
   }
 });
 
-test("page-level social metadata still overrides ordinary page defaults", async ({ page }) => {
-  await page.goto("/thinking/stop-asking-people-for-information-the-system-already-has/");
-
-  await expectSocialImage(
-    page,
-    `${productionOrigin}/assets/og-thinking-v2.png`,
-    "Thinking by Carlo Caprini, notes on product decisions, AI, software systems and teams."
-  );
-});
-
 test("Product episodes keep reading context without generic notes or a system map", async ({ page }) => {
   await page.goto(productSeriesRoutes[1]);
 

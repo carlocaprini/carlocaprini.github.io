@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "fileutils"
+require "liquid"
 require "minitest/autorun"
 require "open3"
 require "rbconfig"
@@ -10,6 +11,7 @@ class ValidatorTest < Minitest::Test
   ROOT = File.expand_path("../..", __dir__)
   SOURCE_VALIDATOR = File.join(ROOT, "scripts/validate_source.rb")
   SITE_VALIDATOR = File.join(ROOT, "scripts/validate_site.rb")
+  SOCIAL_META_RESOLVER = File.join(ROOT, "_includes/social-meta-value.html")
   SOURCE_ENTRIES = %w[
     .github
     _analytics
@@ -71,6 +73,24 @@ class ValidatorTest < Minitest::Test
 
   def influence_path(directory)
     File.join(directory, "_influences/ai-coding-is-not-the-same-as-software-engineering-and-it-matters.md")
+  end
+
+  def resolve_social_meta(field:, page:, fallback:)
+    template = Liquid::Template.parse(File.read(SOCIAL_META_RESOLVER))
+    template.render(
+      "page" => page,
+      "site" => {
+        "data" => {
+          "series" => {
+            "product-judgment-in-practice" => {
+              "meta_image" => "/assets/series-default.png",
+              "meta_image_alt" => "Series default"
+            }
+          }
+        }
+      },
+      "include" => { "field" => field, "fallback" => fallback }
+    ).strip
   end
 
   def generated_destination(directory, path)
@@ -427,6 +447,33 @@ class ValidatorTest < Minitest::Test
       path = File.join(directory, "_data/series.yml")
       replace!(path, "/assets/og-product-judgment-series-v1.png", "/assets/missing-series-image.png")
     end
+  end
+
+  def test_source_rejects_wrong_series_social_image_dimensions
+    assert_invalid_source(/must be 1200x627, found 1199x627/) do |directory|
+      path = File.join(directory, "assets/og-product-judgment-series-v1.png")
+      image = File.binread(path)
+      image[16, 4] = [1199].pack("N")
+      File.binwrite(path, image)
+    end
+  end
+
+  def test_social_metadata_resolver_prefers_page_over_series
+    page = {
+      "series" => "product-judgment-in-practice",
+      "meta_image" => "/assets/page-override.png",
+      "meta_image_alt" => "Page override"
+    }
+
+    assert_equal "/assets/page-override.png", resolve_social_meta(field: "image", page: page, fallback: "/assets/fallback.png")
+    assert_equal "Page override", resolve_social_meta(field: "image_alt", page: page, fallback: "Fallback")
+  end
+
+  def test_social_metadata_resolver_inherits_series_before_fallback
+    page = { "series" => "product-judgment-in-practice" }
+
+    assert_equal "/assets/series-default.png", resolve_social_meta(field: "image", page: page, fallback: "/assets/fallback.png")
+    assert_equal "Series default", resolve_social_meta(field: "image_alt", page: page, fallback: "Fallback")
   end
 
   def test_source_rejects_missing_series_overview_structure
