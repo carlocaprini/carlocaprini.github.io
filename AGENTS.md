@@ -21,8 +21,8 @@ Do not edit `_site/`. Do not edit either `analytics-contract.generated.js`; rege
 - Question reference or curated ordering: edit `_data/questions.yml`, `_data/home.yml` or `pages/thinking.md`; run `bin/check source` and `bin/check generated`.
 - Analytics semantics: edit `contracts/analytics.json`, regenerate, then run `bin/check analytics`; use `bin/check analytics-integration` before completion.
 - Sitemap delivery: build with `bin/check generated`, then run `bin/check sitemap`; never hand-edit or commit the generated Worker sitemap module.
-- Layout/include/CSS: reuse the existing design system; edit the owning `_layouts`/`_includes` file and `_includes/styles/<domain>.css`, then run `bin/check generated`, `bin/check browser` and `bin/check visual`.
-- Visual Reference: build first, run `npm run visual-reference:generate`, inspect every changed image, then `bin/check visual-reference`.
+- Layout/include/CSS: reuse the existing design system; edit the owning `_layouts`/`_includes` file and `_includes/styles/<domain>.css`, then run `bin/check generated`, `bin/check browser` and `bin/check visual-regression`.
+- Visual Reference: it is deliberate design documentation, not a merge gate. When a change materially affects a documented surface, build first, run the relevant `npm run visual-reference:generate` or `npm run topic-motif-reference:generate` command, inspect every changed image, then run `bin/check visual-docs`.
 - CI/scripts: run the affected `bin/check` command and `bin/check all` before completion when local prerequisites are available.
 
 Browser contracts are organized by behavior under `tests/browser/`: `routes`, `navigation`, `editorial-journeys`, `responsive`, `accessibility`, `analytics`/`privacy-analytics`, and `series`. WebKit smoke and visual regression remain deliberately isolated. Put a new assertion with the behavior it protects; do not recreate a catch-all spec.

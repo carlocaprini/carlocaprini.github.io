@@ -29,7 +29,7 @@ Cross-system measurement configuration and review templates live under `_analyti
 
 ## Visual protection
 
-Playwright covers Chromium behavior, a focused WebKit smoke path and curated visual-regression fixtures. `visual-reference/` is separate, versioned full-page documentation generated deterministically from representative routes. Article Topic motifs add dedicated Balanced/Spatial, responsive and grayscale references; the local visual gate compares rendered pixels, while CI checks their platform-neutral source fingerprint. Visual references are updated only when a rendered change is intentional and reviewed.
+Playwright covers Chromium behavior, a focused WebKit smoke path and curated visual-regression fixtures. The real screenshot-regression suite is a blocking deployment gate. `visual-reference/` is separate, versioned full-page documentation generated deliberately from representative routes; Article Topic motifs add dedicated Balanced/Spatial, responsive and grayscale reference material. Lightweight structural checks validate both documentation collections without rendering them. Exact documentation rendering comparisons are explicit local diagnostics, not merge gates, and no source fingerprint is used as a proxy for rendered change. Visual references are updated only when a rendered change is intentional and reviewed.
 
 ## Sitemap controls
 
