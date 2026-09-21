@@ -1,6 +1,9 @@
 questions:
   - slug: product-decisions
     title: How do teams make better decisions?
+    hero:
+      title_prefix: "How do teams make "
+      title_highlight: "better decisions?"
     short_title: Better product decisions
     description: How information, trade-offs and timing shape product decisions when several directions look reasonable.
     synthesis:
@@ -47,6 +50,9 @@ questions:
 
   - slug: shared-understanding
     title: How do people build shared understanding?
+    hero:
+      title_prefix: "How do people build "
+      title_highlight: "shared understanding?"
     short_title: Shared understanding
     description: How teams interpret context, surface disagreement and work across Product & Engineering boundaries.
     synthesis:
@@ -88,6 +94,9 @@ questions:
 
   - slug: ai-and-work
     title: What changes when AI becomes part of the work?
+    hero:
+      title_prefix: "What changes when "
+      title_highlight: "AI becomes part of the work?"
     short_title: AI as part of the work
     description: What AI changes about contribution, ownership and system design when it becomes part of everyday work.
     synthesis:

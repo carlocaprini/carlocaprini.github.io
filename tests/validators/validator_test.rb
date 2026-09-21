@@ -418,6 +418,13 @@ class ValidatorTest < Minitest::Test
     end
   end
 
+  def test_source_rejects_question_hero_title_that_diverges_from_canonical_title
+    assert_invalid_source(/hero title must match its canonical title/) do |directory|
+      path = File.join(directory, "_data/questions.yml")
+      replace!(path, 'title_highlight: "better decisions?"', 'title_highlight: "different decisions?"')
+    end
+  end
+
   def test_source_rejects_question_entry_point_outside_sections
     assert_invalid_source(/entry_point note must appear exactly once in its sections/) do |directory|
       path = File.join(directory, "_data/questions.yml")

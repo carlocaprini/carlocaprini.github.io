@@ -515,6 +515,7 @@ Explore is the guided discovery layer connecting Thinking, Experience, selected 
 Keep:
 
 - one generic Explore hero
+- the shared hero-title highlight treatment on Explore and every Question page, using the indigo-to-cyan brand gradient to emphasize the phrase that names the page's central idea; this is presentational emphasis, not Topic color
 - Questions, Series and Topics in that order, with Explore as the canonical Series discovery surface
 - explicit Explore entry points from Home, Thinking and Influences
 - three mature Questions presented as editorial paths, not dashboard tiles
@@ -543,6 +544,7 @@ Avoid:
 - mixed Knowledge and Explore terminology
 - dashboard metrics
 - graph-like decoration without navigational value
+- Topic-specific hero-title colors on Explore or Question pages; the shared brand highlight must not imply taxonomy
 - repeating the recommended Note again inside the grouped Question path
 - creating a Question-specific panel or gradient instead of reusing the canonical `selected-notes-panel`, or adding a Topic-colored background or oversized CTA
 - adding a separate generic reading CTA when the recommended Note title already names and links to the destination

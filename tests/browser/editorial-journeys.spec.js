@@ -3,6 +3,7 @@ import { expect, test } from "./support/site-test.js";
 test("Explore exposes Questions, both Series and stable topic hashes", async ({ page }) => {
   await page.goto("/explore/#ai-and-automation");
 
+  await expect(page.locator(".hero-title .highlight")).toHaveText("ideas");
   await expect(page.getByRole("heading", { name: "Three paths through the ideas." })).toBeVisible();
   await expect(page.getByRole("link", { name: /How do teams make better decisions/ })).toBeVisible();
   await expect(page.locator(".question-path-entry")).toHaveText([
@@ -247,16 +248,19 @@ test("question pages connect Thinking, Influences and Experience", async ({ page
 
 test("every Question exposes its canonical entry point once", async ({ page }) => {
   const entryPoints = [
-    ["product-decisions", "Most product disagreements come from missing information", "/thinking/most-product-disagreements-come-from-missing-information/"],
-    ["shared-understanding", "Shared context is not shared understanding", "/thinking/shared-context-is-not-shared-understanding/"],
-    ["ai-and-work", "AI accelerates contribution, not mastery", "/thinking/ai-accelerates-contribution-not-mastery/"]
+    ["product-decisions", "How do teams make better decisions?", "better decisions?", "Most product disagreements come from missing information", "/thinking/most-product-disagreements-come-from-missing-information/"],
+    ["shared-understanding", "How do people build shared understanding?", "shared understanding?", "Shared context is not shared understanding", "/thinking/shared-context-is-not-shared-understanding/"],
+    ["ai-and-work", "What changes when AI becomes part of the work?", "AI becomes part of the work?", "AI accelerates contribution, not mastery", "/thinking/ai-accelerates-contribution-not-mastery/"]
   ];
 
-  for (const [question, title, href] of entryPoints) {
+  for (const [question, questionTitle, questionHighlight, entryTitle, href] of entryPoints) {
     await page.goto(`/explore/${question}/`);
+    const heroTitle = page.locator(".question-page .hero-title");
+    await expect(heroTitle).toHaveText(questionTitle);
+    await expect(heroTitle.locator(".highlight")).toHaveText(questionHighlight);
     const entryPoint = page.locator(".question-entry-point");
-    await expect(entryPoint.getByRole("heading", { name: title })).toBeVisible();
-    await expect(entryPoint.getByRole("link", { name: title, exact: true })).toHaveAttribute("href", href);
+    await expect(entryPoint.getByRole("heading", { name: entryTitle })).toBeVisible();
+    await expect(entryPoint.getByRole("link", { name: entryTitle, exact: true })).toHaveAttribute("href", href);
     await expect(page.locator(`a[href="${href}"]`)).toHaveCount(1);
   }
 });

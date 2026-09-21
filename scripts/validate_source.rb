@@ -179,6 +179,14 @@ questions.each_with_index do |question, index|
     fail_check("#{label} is missing #{field}") unless present?(question[field])
   end
 
+  %w[title_prefix title_highlight].each do |field|
+    fail_check("#{label} hero is missing #{field}") unless present?(question.dig("hero", field))
+  end
+  hero_title = "#{question.dig('hero', 'title_prefix')}#{question.dig('hero', 'title_highlight')}"
+  unless hero_title == question["title"]
+    fail_check("#{label} hero title must match its canonical title")
+  end
+
   synthesis = Array(question["synthesis"])
   unless synthesis.length == 2 && synthesis.all? { |paragraph| present?(paragraph) }
     fail_check("#{label} must define two synthesis paragraphs")

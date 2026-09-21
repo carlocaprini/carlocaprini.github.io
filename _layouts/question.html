@@ -12,7 +12,9 @@ layout: default
           <span class="hero-label-dot"></span>
           <span>Question</span>
         </div>
-        <h1 class="hero-title hero-title--compact">{{ question.title }}</h1>
+        <h1 class="hero-title hero-title--compact">
+          {{ question.hero.title_prefix }}<span class="highlight">{{ question.hero.title_highlight }}</span>
+        </h1>
         <p class="hero-subtitle hero-subtitle--wide">{{ question.description }}</p>
         {% if question.synthesis %}
         <div class="question-synthesis">
