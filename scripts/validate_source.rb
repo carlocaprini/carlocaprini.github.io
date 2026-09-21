@@ -202,9 +202,19 @@ questions.each_with_index do |question, index|
   end
 
   section_note_urls = sections.flat_map { |section| Array(section["notes"]) }
-  unknown_featured_notes = Array(question["featured_notes"]) - section_note_urls
-  unless unknown_featured_notes.empty?
-    fail_check("#{label} has featured notes outside its sections: #{unknown_featured_notes.join(', ')}")
+  entry_point = question["entry_point"]
+  unless entry_point.is_a?(Hash)
+    fail_check("#{label} must define an entry_point")
+    entry_point = {}
+  end
+
+  %w[note reason].each do |field|
+    fail_check("#{label} entry_point is missing #{field}") unless present?(entry_point[field])
+  end
+
+  entry_note = entry_point["note"]
+  if present?(entry_note) && section_note_urls.count(entry_note) != 1
+    fail_check("#{label} entry_point note must appear exactly once in its sections: #{entry_note}")
   end
 
   Array(question["influences"]).each_with_index do |influence, influence_index|
@@ -319,9 +329,9 @@ note_records.each do |path, (data, body)|
 end
 
 questions.each do |question|
-  question_note_urls = Array(question["featured_notes"]) +
+  question_note_urls = [question.dig("entry_point", "note")] +
     Array(question["sections"]).flat_map { |section| Array(section["notes"]) }
-  unknown_note_urls = question_note_urls.uniq.reject { |url| note_by_permalink.key?(url) }
+  unknown_note_urls = question_note_urls.compact.uniq.reject { |url| note_by_permalink.key?(url) }
   unless unknown_note_urls.empty?
     fail_check("_data/questions.yml: #{question['slug']} references unknown notes: #{unknown_note_urls.join(', ')}")
   end

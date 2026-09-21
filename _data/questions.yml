@@ -11,9 +11,9 @@ questions:
     topics:
       - product-decisions
       - teams-and-collaboration
-    featured_notes:
-      - /thinking/waiting-as-product-decision/
-      - /thinking/product-decisions-are-mostly-trade-offs/
+    entry_point:
+      note: /thinking/most-product-disagreements-come-from-missing-information/
+      reason: Start here because better decisions begin by separating genuine disagreement from missing information, assumptions and different interpretations of the problem.
     sections:
       - title: Start with the information
         description: Many apparent disagreements are really gaps in what people know, assume or value.
@@ -57,9 +57,9 @@ questions:
     topics:
       - teams-and-collaboration
       - product-decisions
-    featured_notes:
-      - /thinking/shared-context-is-not-shared-understanding/
-      - /thinking/most-product-disagreements-come-from-missing-information/
+    entry_point:
+      note: /thinking/shared-context-is-not-shared-understanding/
+      reason: Start here because access to the same information is only the beginning; teams still need to compare interpretations, priorities and risks.
     sections:
       - title: Context still needs interpretation
         description: Shared documents and tools help, but understanding depends on what people notice and how they interpret it.
@@ -98,10 +98,9 @@ questions:
     topics:
       - ai-and-automation
       - software-systems
-    featured_notes:
-      - /thinking/ai-accelerates-contribution-not-mastery/
-      - /thinking/designing-for-unattended-development/
-      - /thinking/i-stopped-trying-to-build-jarvis/
+    entry_point:
+      note: /thinking/ai-accelerates-contribution-not-mastery/
+      reason: Start here because AI can help people contribute sooner without giving them the context or judgment needed to understand and review the work deeply.
     sections:
       - title: Contribution is not understanding
         description: AI can help someone contribute sooner without giving them a deep model of the system or the work.

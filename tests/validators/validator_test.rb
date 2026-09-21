@@ -411,6 +411,32 @@ class ValidatorTest < Minitest::Test
     end
   end
 
+  def test_source_rejects_missing_question_entry_point_reason
+    assert_invalid_source(/entry_point is missing reason/) do |directory|
+      path = File.join(directory, "_data/questions.yml")
+      replace!(path, /^      reason: Start here because better decisions.*\n/, "")
+    end
+  end
+
+  def test_source_rejects_question_entry_point_outside_sections
+    assert_invalid_source(/entry_point note must appear exactly once in its sections/) do |directory|
+      path = File.join(directory, "_data/questions.yml")
+      replace!(path, "note: /thinking/most-product-disagreements-come-from-missing-information/", "note: /thinking/ai-accelerates-contribution-not-mastery/")
+    end
+  end
+
+  def test_source_rejects_duplicate_question_entry_point_note
+    assert_invalid_source(/entry_point note must appear exactly once in its sections/) do |directory|
+      path = File.join(directory, "_data/questions.yml")
+      mutate_file!(path) do |source|
+        source.sub(
+          "          - /thinking/managing-disagreements/\n",
+          "          - /thinking/managing-disagreements/\n          - /thinking/most-product-disagreements-come-from-missing-information/\n"
+        )
+      end
+    end
+  end
+
   def test_source_rejects_question_influence_reference
     assert_invalid_source(/references unknown influences/) do |directory|
       path = File.join(directory, "_data/questions.yml")
