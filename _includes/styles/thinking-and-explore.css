@@ -534,7 +534,7 @@ a.content-topic-link:hover {
 .question-entry-point {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  gap: 0;
+  gap: 2.5rem;
   align-items: start;
 }
 
@@ -556,8 +556,7 @@ a.content-topic-link:hover {
 }
 
 .question-entry-content {
-  padding-left: 2.5rem;
-  border-left: 1px solid var(--brand-accent-border);
+  padding-right: 4.5rem;
 }
 
 .question-entry-content p {

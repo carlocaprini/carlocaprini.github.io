@@ -257,11 +257,15 @@
   }
 
   .question-entry-content {
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
+    margin-top: 0;
+    padding-top: 0;
+    padding-right: 0;
     padding-left: 0;
-    border-top: 1px solid var(--brand-accent-border);
-    border-left: 0;
+    border: 0;
+  }
+
+  .question-entry-point {
+    gap: 1.5rem;
   }
 
   .question-continue {
@@ -990,6 +994,10 @@
   }
 
   .home-start-section .selected-notes-panel {
+    width: 100%;
+  }
+
+  .question-entry-section .selected-notes-panel {
     width: 100%;
   }
 
