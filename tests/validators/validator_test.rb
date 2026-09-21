@@ -414,7 +414,7 @@ class ValidatorTest < Minitest::Test
   def test_source_rejects_missing_question_entry_point_reason
     assert_invalid_source(/entry_point is missing reason/) do |directory|
       path = File.join(directory, "_data/questions.yml")
-      replace!(path, /^      reason: Start here because better decisions.*\n/, "")
+      replace!(path, /^      reason: Better decisions.*\n/, "")
     end
   end
 

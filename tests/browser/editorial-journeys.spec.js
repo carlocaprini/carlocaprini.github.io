@@ -6,9 +6,9 @@ test("Explore exposes Questions, both Series and stable topic hashes", async ({ 
   await expect(page.getByRole("heading", { name: "Three paths through the ideas." })).toBeVisible();
   await expect(page.getByRole("link", { name: /How do teams make better decisions/ })).toBeVisible();
   await expect(page.locator(".question-path-entry")).toHaveText([
-    "Recommended start · Most product disagreements come from missing information",
-    "Recommended start · Shared context is not shared understanding",
-    "Recommended start · AI accelerates contribution, not mastery"
+    "Start here · Most product disagreements come from missing information",
+    "Start here · Shared context is not shared understanding",
+    "Start here · AI accelerates contribution, not mastery"
   ]);
   await expect(page.locator(".question-path-item a a")).toHaveCount(0);
   const series = page.locator("#series .series-discovery-item");
@@ -35,6 +35,9 @@ test("Explore exposes Questions, both Series and stable topic hashes", async ({ 
 test("Thinking separates guided, recent and complete discovery", async ({ page }) => {
   await page.goto("/thinking/");
 
+  const startHere = page.locator(".thinking-start-here");
+  await expect(startHere.getByText("Start here", { exact: true })).toBeVisible();
+  await expect(startHere.getByRole("heading", { name: "Selected notes" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Follow a question through the notes." })).toBeVisible();
   await expect(page.getByRole("heading", { name: "The latest notes." })).toBeVisible();
   await expect(page.locator("h2#all-notes")).toHaveText("All notes");
@@ -111,6 +114,9 @@ test("Recent Thinking uses internal separators and padded content", async ({ pag
 test("Home follows the discovery-first content order", async ({ page }) => {
   await page.goto("/");
 
+  const startHere = page.locator(".home-start-here");
+  await expect(startHere.getByText("Start here", { exact: true })).toBeVisible();
+  await expect(startHere.getByRole("heading", { name: "Selected notes" })).toBeVisible();
   const sectionIds = await page.locator(".home-page > section[id]").evaluateAll((sections) =>
     sections.map((section) => section.id)
   );
@@ -200,9 +206,9 @@ test("question pages connect Thinking, Influences and Experience", async ({ page
 
   await expect(page.locator(".question-synthesis > p")).toHaveCount(2);
   const entryPoint = page.locator(".question-entry-point");
-  await expect(entryPoint.getByText("Recommended starting point", { exact: true })).toBeVisible();
+  await expect(entryPoint.getByText("Start here", { exact: true })).toBeVisible();
   await expect(entryPoint.getByRole("heading", { name: "Most product disagreements come from missing information" })).toBeVisible();
-  await expect(entryPoint.getByText("Start here because better decisions begin by separating genuine disagreement from missing information, assumptions and different interpretations of the problem.", { exact: true })).toBeVisible();
+  await expect(entryPoint.getByText("Better decisions begin by separating genuine disagreement from missing information, assumptions and different interpretations of the problem.", { exact: true })).toBeVisible();
   await expect(entryPoint).toHaveCSS("background-image", "none");
   await expect(entryPoint).toHaveCSS("border-radius", "0px");
   await expect(entryPoint.locator(".content-topic-list a")).toHaveCount(0);

@@ -50,10 +50,11 @@ layout: default
       {% endif %}
       <div class="thinking-entry-grid">
       {% if page.start_here and site.data.start_here.notes %}
-      <div class="thinking-start-here selected-notes-panel selected-notes-panel--compact">
+      <section class="thinking-start-here selected-notes-panel selected-notes-panel--compact" aria-labelledby="thinking-start-here-title">
         <div class="section-header">
           <div>
-            <div class="section-eyebrow">{{ page.start_here.title }}</div>
+            <div class="section-eyebrow">{{ page.start_here.eyebrow }}</div>
+            <h2 class="section-title" id="thinking-start-here-title">{{ page.start_here.title }}</h2>
           </div>
           <p class="section-description">{{ page.start_here.description }}</p>
         </div>
@@ -68,7 +69,7 @@ layout: default
             {% endif %}
           {% endfor %}
         </ul>
-      </div>
+      </section>
       {% endif %}
       {% if page.series and page.series.items %}
         <section class="thinking-series-stack" aria-label="Editorial series">
