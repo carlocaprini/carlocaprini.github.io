@@ -491,7 +491,7 @@ a.content-topic-link:hover {
 
 .question-path-entry-label {
   color: var(--brand-accent);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -534,20 +534,21 @@ a.content-topic-link:hover {
 .question-entry-point {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  gap: 2.5rem;
+  gap: 0;
   align-items: start;
-  padding: 1.8rem 0;
-  border-top: 1px solid var(--color-line);
-  border-bottom: 1px solid var(--color-line);
-  background: linear-gradient(90deg, var(--brand-accent-soft), transparent 68%);
 }
 
 .question-entry-heading h2 {
   max-width: 30rem;
   margin: 0.55rem 0 0;
   color: var(--color-text);
-  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  font-size: clamp(1.2rem, 1.8vw, 1.45rem);
   line-height: 1.25;
+}
+
+.question-entry-content {
+  padding-left: 2.5rem;
+  border-left: 1px solid var(--brand-accent-border);
 }
 
 .question-entry-content p {
@@ -562,19 +563,9 @@ a.content-topic-link:hover {
   margin-top: 0.85rem;
 }
 
-.question-entry-link {
-  display: inline-flex;
-  gap: 0.35rem;
+.question-entry-content .question-entry-link {
   margin-top: 1rem;
-  color: var(--brand-accent);
-  font-size: 0.86rem;
   font-weight: 600;
-  text-decoration: none;
-}
-
-.question-entry-link:hover {
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
 }
 
 .question-note-groups {

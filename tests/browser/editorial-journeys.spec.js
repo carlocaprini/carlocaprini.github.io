@@ -203,7 +203,11 @@ test("question pages connect Thinking, Influences and Experience", async ({ page
   await expect(entryPoint.getByText("Recommended starting point", { exact: true })).toBeVisible();
   await expect(entryPoint.getByRole("heading", { name: "Most product disagreements come from missing information" })).toBeVisible();
   await expect(entryPoint.getByText("Start here because better decisions begin by separating genuine disagreement from missing information, assumptions and different interpretations of the problem.", { exact: true })).toBeVisible();
+  await expect(entryPoint).toHaveCSS("background-image", "none");
+  await expect(entryPoint).toHaveCSS("border-radius", "0px");
+  await expect(entryPoint.locator(".content-topic-list a")).toHaveCount(0);
   const entryLink = entryPoint.getByRole("link", { name: "Read this note: Most product disagreements come from missing information" });
+  await expect(entryLink).toHaveClass(/section-link/);
   await expect(entryLink).toHaveAttribute("href", "/thinking/most-product-disagreements-come-from-missing-information/");
   await expect(entryLink).toHaveAttribute("data-analytics-link-context", "question_entry_point");
   await expect(page.locator('a[href="/thinking/most-product-disagreements-come-from-missing-information/"]')).toHaveCount(1);

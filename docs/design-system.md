@@ -1,7 +1,7 @@
 # Site Design System
 
 Date: 2026-07-14
-Last updated: 2026-08-25
+Last updated: 2026-09-21
 Status: Reference for future site changes
 
 ## Implementation ownership
@@ -518,6 +518,10 @@ Keep:
 - Questions, Series and Topics in that order, with Explore as the canonical Series discovery surface
 - explicit Explore entry points from Home, Thinking and Influences
 - three mature Questions presented as editorial paths, not dashboard tiles
+- one explicit recommended Note per Question: Explore names it as compact supporting text inside the existing Question link, while the Question page presents its title, editorial rationale and one reading CTA before the grouped path
+- the recommended Note presented as an editorial split on the page surface, with a vertical rule on desktop and a horizontal rule on smaller screens; it is not a card, featured panel or second hero
+- a recommended-Note title one restrained step above the standard section-title scale, because it names the content to read rather than another page section; it must remain clearly below hero scale
+- the recommended Note's Topic chips as static metadata on the Question page; they identify the Note rather than the Question and remain non-interactive so they do not introduce a competing navigation choice
 - compact numbered Series rows between Questions and Topics, using Topic color only as an orientation marker
 - one dedicated page per Question, with grouped notes, selected Influences, an Experience bridge and one continuation path
 - shared topic navigation below the curated Questions
@@ -535,6 +539,8 @@ Avoid:
 - mixed Knowledge and Explore terminology
 - dashboard metrics
 - graph-like decoration without navigational value
+- repeating the recommended Note again inside the grouped Question path
+- giving the recommended Note a separate panel, gradient, Topic-colored background or oversized CTA
 - chronological emphasis
 - search controls until the content volume justifies them
 
