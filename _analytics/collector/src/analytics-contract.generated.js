@@ -18,6 +18,7 @@ export const ANALYTICS_CONTRACT = Object.freeze({
       ],
       "note_open": [
         "note_id",
+        "question_id",
         "destination"
       ],
       "question_open": [

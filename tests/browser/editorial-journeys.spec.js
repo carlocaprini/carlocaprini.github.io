@@ -5,6 +5,12 @@ test("Explore exposes Questions, both Series and stable topic hashes", async ({ 
 
   await expect(page.getByRole("heading", { name: "Three paths through the ideas." })).toBeVisible();
   await expect(page.getByRole("link", { name: /How do teams make better decisions/ })).toBeVisible();
+  await expect(page.locator(".question-path-entry")).toHaveText([
+    "Recommended start · Most product disagreements come from missing information",
+    "Recommended start · Shared context is not shared understanding",
+    "Recommended start · AI accelerates contribution, not mastery"
+  ]);
+  await expect(page.locator(".question-path-item a a")).toHaveCount(0);
   const series = page.locator("#series .series-discovery-item");
   await expect(series).toHaveCount(2);
   await expect(series.locator("h3")).toHaveText([
@@ -193,6 +199,14 @@ test("question pages connect Thinking, Influences and Experience", async ({ page
   await page.goto("/explore/product-decisions/");
 
   await expect(page.locator(".question-synthesis > p")).toHaveCount(2);
+  const entryPoint = page.locator(".question-entry-point");
+  await expect(entryPoint.getByText("Recommended starting point", { exact: true })).toBeVisible();
+  await expect(entryPoint.getByRole("heading", { name: "Most product disagreements come from missing information" })).toBeVisible();
+  await expect(entryPoint.getByText("Start here because better decisions begin by separating genuine disagreement from missing information, assumptions and different interpretations of the problem.", { exact: true })).toBeVisible();
+  const entryLink = entryPoint.getByRole("link", { name: "Read this note: Most product disagreements come from missing information" });
+  await expect(entryLink).toHaveAttribute("href", "/thinking/most-product-disagreements-come-from-missing-information/");
+  await expect(entryLink).toHaveAttribute("data-analytics-link-context", "question_entry_point");
+  await expect(page.locator('a[href="/thinking/most-product-disagreements-come-from-missing-information/"]')).toHaveCount(1);
   await expect(page.getByRole("heading", { name: "Notes that develop the question." })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Ideas that sharpen the question." })).toBeVisible();
   await expect(page.getByRole("link", { name: /See the experience behind this question/ })).toHaveAttribute(
@@ -216,6 +230,22 @@ test("question pages connect Thinking, Influences and Experience", async ({ page
     color: getComputedStyle(element).color
   }));
   expect(hoverStyle).toEqual(restingStyle);
+});
+
+test("every Question exposes its canonical entry point once", async ({ page }) => {
+  const entryPoints = [
+    ["product-decisions", "Most product disagreements come from missing information", "/thinking/most-product-disagreements-come-from-missing-information/"],
+    ["shared-understanding", "Shared context is not shared understanding", "/thinking/shared-context-is-not-shared-understanding/"],
+    ["ai-and-work", "AI accelerates contribution, not mastery", "/thinking/ai-accelerates-contribution-not-mastery/"]
+  ];
+
+  for (const [question, title, href] of entryPoints) {
+    await page.goto(`/explore/${question}/`);
+    const entryPoint = page.locator(".question-entry-point");
+    await expect(entryPoint.getByRole("heading", { name: title })).toBeVisible();
+    await expect(entryPoint.getByRole("link", { name: `Read this note: ${title}` })).toHaveAttribute("href", href);
+    await expect(page.locator(`a[href="${href}"]`)).toHaveCount(1);
+  }
 });
 
 test("notes expose curated Questions without promoting topics to sidebar navigation", async ({ page }) => {

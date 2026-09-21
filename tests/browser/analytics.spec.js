@@ -274,6 +274,26 @@ test("Curated Note links emit their discovery context", async ({ page }) => {
   expect(event.parameters.note_id).toBeTruthy();
 });
 
+test("Question entry points emit their guided discovery context", async ({ page }) => {
+  await captureAnalytics(page);
+  await page.goto("/explore/product-decisions/");
+
+  const link = page.locator('[data-analytics-link-context="question_entry_point"]');
+  await link.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+  await link.click();
+
+  const event = await page.evaluate(() => window.__analyticsEvents.at(-1));
+  expect(event).toMatchObject({
+    name: "note_open",
+    parameters: {
+      note_id: "/thinking/most-product-disagreements-come-from-missing-information/",
+      question_id: "product-decisions",
+      link_context: "question_entry_point",
+      page_type: "question"
+    }
+  });
+});
+
 test("404 recovery links distinguish every onward route", async ({ page }) => {
   await captureAnalytics(page);
   await page.goto("/404.html");

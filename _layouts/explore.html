@@ -35,12 +35,14 @@ layout: default
 
       <ol class="question-path-list">
         {% for question in site.data.questions.questions %}
+          {% assign entry_note = site.pages | where: "url", question.entry_point.note | first %}
           <li class="question-path-item question-path-item--{{ question.slug }}">
             <a href="{{ '/explore/' | append: question.slug | append: '/' | relative_url }}" data-analytics-event="question_open" data-analytics-question-id="{{ question.slug | escape }}" data-analytics-link-context="explore_questions">
               <span class="question-path-index" aria-hidden="true">0{{ forloop.index }}</span>
               <span class="question-path-content">
                 <strong>{{ question.title }}</strong>
-                <span>{{ question.description }}</span>
+                <span class="question-path-description">{{ question.description }}</span>
+                <span class="question-path-entry"><span class="question-path-entry-label">Recommended start</span><span aria-hidden="true"> · </span>{{ entry_note.title }}</span>
               </span>
               <span class="question-path-arrow" aria-hidden="true">→</span>
             </a>

@@ -5,7 +5,7 @@
     "byEvent": {
       "content_view": [],
       "collection_open": ["collection", "destination"],
-      "note_open": ["note_id", "destination"],
+      "note_open": ["note_id", "question_id", "destination"],
       "question_open": ["question_id", "destination"],
       "series_open": ["series_id", "destination"],
       "series_episode_open": ["series_id", "episode_number", "note_id", "direction", "destination"],

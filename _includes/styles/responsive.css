@@ -143,6 +143,7 @@
   .series-visuals-header,
   .explore-intro,
   .explore-topic-header,
+  .question-entry-point,
   .question-section-header,
   .contact-grid {
     grid-template-columns: minmax(0, 1fr);
