@@ -143,6 +143,7 @@
   .series-visuals-header,
   .explore-intro,
   .explore-topic-header,
+  .question-entry-point,
   .question-section-header,
   .contact-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -253,6 +254,18 @@
   .question-note-group,
   .question-bridge-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .question-entry-content {
+    margin-top: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-left: 0;
+    border: 0;
+  }
+
+  .question-entry-point {
+    gap: 1.5rem;
   }
 
   .question-continue {
@@ -981,6 +994,10 @@
   }
 
   .home-start-section .selected-notes-panel {
+    width: 100%;
+  }
+
+  .question-entry-section .selected-notes-panel {
     width: 100%;
   }
 

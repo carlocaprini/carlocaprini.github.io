@@ -6,7 +6,7 @@ meta_title: Product Decisions, AI and Software Systems | Carlo Caprini
 meta_description: Notes on product decisions, AI, software systems and collaboration, with guided paths through recurring questions.
 meta_image: /assets/og-thinking-v2.png
 meta_image_alt: Thinking by Carlo Caprini, notes on product decisions, AI, software systems and teams.
-last_modified_at: 2026-09-14
+last_modified_at: 2026-09-21
 hero:
   label: Thinking
   title_prefix: "Notes on "
@@ -21,7 +21,8 @@ ai_process:
     - I have never been short of ideas, opinions, or things I wanted to try. What I often lacked was the time to develop, test, and connect them.
     - AI is changing that. I use it as a research, thinking, and building partner. Sometimes it helps me challenge an argument; sometimes it helps me turn an idea into something I can actually test and make part of how I work. What appears here always reflects my experience, judgment, and final editorial decisions.
 start_here:
-  title: Start here
+  eyebrow: Start here
+  title: Selected notes
   description: Three notes on product decisions, AI-assisted development, and how teams interpret the same context.
 series:
   featured: product-judgment-in-practice

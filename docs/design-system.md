@@ -1,7 +1,7 @@
 # Site Design System
 
 Date: 2026-07-14
-Last updated: 2026-08-25
+Last updated: 2026-09-21
 Status: Reference for future site changes
 
 ## Implementation ownership
@@ -515,9 +515,18 @@ Explore is the guided discovery layer connecting Thinking, Experience, selected 
 Keep:
 
 - one generic Explore hero
+- the shared hero-title highlight treatment on Explore and every Question page, using the indigo-to-cyan brand gradient to emphasize the phrase that names the page's central idea; this is presentational emphasis, not Topic color
 - Questions, Series and Topics in that order, with Explore as the canonical Series discovery surface
 - explicit Explore entry points from Home, Thinking and Influences
 - three mature Questions presented as editorial paths, not dashboard tiles
+- `Start here` as the canonical label for editorial starting points: Home and Thinking pair it with `Selected notes`, while Explore pairs it with the single Note recommended for that Question
+- one explicit recommended Note per Question: Explore names it as compact supporting text inside the existing Question link, while the Question page presents its linked title and editorial rationale before the grouped path
+- contextual selection without false equivalence: Home and Thinking reuse the canonical global Start Here list, while each Question owns the one Note that best begins its specific path
+- one shared `selected-notes-panel` surface for every full `Start here` section: Home and Thinking contain the global three-Note selection, while a Question contains its single contextual recommendation
+- the Question recommendation composed as a restrained two-column split inside that shared surface on desktop and a single reading flow on smaller screens; do not add an internal divider or treat it as a second hero
+- a recommended-Note title one restrained step above the standard section-title scale, because it names the content to read rather than another page section; it must remain clearly below hero scale
+- the recommended Note title as the sole reading action, matching the title-link convention used by Home, Thinking and other Note lists; rationale and Topic metadata remain non-interactive
+- the recommended Note's Topic chips as static metadata on the Question page; they identify the Note rather than the Question and remain non-interactive so they do not introduce a competing navigation choice
 - compact numbered Series rows between Questions and Topics, using Topic color only as an orientation marker
 - one dedicated page per Question, with grouped notes, selected Influences, an Experience bridge and one continuation path
 - shared topic navigation below the curated Questions
@@ -535,6 +544,11 @@ Avoid:
 - mixed Knowledge and Explore terminology
 - dashboard metrics
 - graph-like decoration without navigational value
+- Topic-specific hero-title colors on Explore or Question pages; the shared brand highlight must not imply taxonomy
+- repeating the recommended Note again inside the grouped Question path
+- creating a Question-specific panel or gradient instead of reusing the canonical `selected-notes-panel`, or adding a Topic-colored background or oversized CTA
+- adding a separate generic reading CTA when the recommended Note title already names and links to the destination
+- introducing synonyms such as `Recommended start` or `Recommended starting point` for the same editorial gesture
 - chronological emphasis
 - search controls until the content volume justifies them
 

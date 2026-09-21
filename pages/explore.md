@@ -4,7 +4,7 @@ title: Explore
 permalink: /explore/
 meta_title: Explore Product, AI and Software Ideas | Carlo Caprini
 meta_description: Curated questions, editorial series and topic-based paths connecting Carlo Caprini's notes, experience and external readings on product decisions, software and AI.
-last_modified_at: 2026-09-14
+last_modified_at: 2026-09-21
 hero:
   label: Explore
   title_prefix: "Explore the "

@@ -1,6 +1,9 @@
 questions:
   - slug: product-decisions
     title: How do teams make better decisions?
+    hero:
+      title_prefix: "How do teams make "
+      title_highlight: "better decisions?"
     short_title: Better product decisions
     description: How information, trade-offs and timing shape product decisions when several directions look reasonable.
     synthesis:
@@ -11,9 +14,9 @@ questions:
     topics:
       - product-decisions
       - teams-and-collaboration
-    featured_notes:
-      - /thinking/waiting-as-product-decision/
-      - /thinking/product-decisions-are-mostly-trade-offs/
+    entry_point:
+      note: /thinking/most-product-disagreements-come-from-missing-information/
+      reason: Better decisions begin by separating genuine disagreement from missing information, assumptions and different interpretations of the problem.
     sections:
       - title: Start with the information
         description: Many apparent disagreements are really gaps in what people know, assume or value.
@@ -47,6 +50,9 @@ questions:
 
   - slug: shared-understanding
     title: How do people build shared understanding?
+    hero:
+      title_prefix: "How do people build "
+      title_highlight: "shared understanding?"
     short_title: Shared understanding
     description: How teams interpret context, surface disagreement and work across Product & Engineering boundaries.
     synthesis:
@@ -57,9 +63,9 @@ questions:
     topics:
       - teams-and-collaboration
       - product-decisions
-    featured_notes:
-      - /thinking/shared-context-is-not-shared-understanding/
-      - /thinking/most-product-disagreements-come-from-missing-information/
+    entry_point:
+      note: /thinking/shared-context-is-not-shared-understanding/
+      reason: Access to the same information is only the beginning; teams still need to compare interpretations, priorities and risks.
     sections:
       - title: Context still needs interpretation
         description: Shared documents and tools help, but understanding depends on what people notice and how they interpret it.
@@ -88,6 +94,9 @@ questions:
 
   - slug: ai-and-work
     title: What changes when AI becomes part of the work?
+    hero:
+      title_prefix: "What changes when "
+      title_highlight: "AI becomes part of the work?"
     short_title: AI as part of the work
     description: What AI changes about contribution, ownership and system design when it becomes part of everyday work.
     synthesis:
@@ -98,10 +107,9 @@ questions:
     topics:
       - ai-and-automation
       - software-systems
-    featured_notes:
-      - /thinking/ai-accelerates-contribution-not-mastery/
-      - /thinking/designing-for-unattended-development/
-      - /thinking/i-stopped-trying-to-build-jarvis/
+    entry_point:
+      note: /thinking/ai-accelerates-contribution-not-mastery/
+      reason: AI can help people contribute sooner without giving them the context or judgment needed to understand and review the work deeply.
     sections:
       - title: Contribution is not understanding
         description: AI can help someone contribute sooner without giving them a deep model of the system or the work.

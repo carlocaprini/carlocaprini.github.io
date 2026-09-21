@@ -3,6 +3,7 @@ layout: default
 ---
 {% assign question = site.data.questions.questions | where: "slug", page.question_slug | first %}
 {% assign related_question = site.data.questions.questions | where: "slug", question.related_question | first %}
+{% assign entry_note = site.pages | where: "url", question.entry_point.note | first %}
 <div class="page question-page">
   <section class="hero hero--compact">
     <div class="container hero-grid hero-grid--single">
@@ -11,7 +12,9 @@ layout: default
           <span class="hero-label-dot"></span>
           <span>Question</span>
         </div>
-        <h1 class="hero-title hero-title--compact">{{ question.title }}</h1>
+        <h1 class="hero-title hero-title--compact">
+          {{ question.hero.title_prefix }}<span class="highlight">{{ question.hero.title_highlight }}</span>
+        </h1>
         <p class="hero-subtitle hero-subtitle--wide">{{ question.description }}</p>
         {% if question.synthesis %}
         <div class="question-synthesis">
@@ -24,6 +27,25 @@ layout: default
           <a href="{{ '/explore/' | relative_url }}" class="button-ghost">Back to Explore</a>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="section question-entry-section" aria-labelledby="question-entry-title">
+    <div class="container explore-wrap">
+      <article class="question-entry-point selected-notes-panel selected-notes-panel--compact">
+        <div class="question-entry-heading">
+          <div class="section-eyebrow">Start here</div>
+          <h2 id="question-entry-title">
+            <a class="question-entry-title-link" href="{{ entry_note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ entry_note.url | escape }}" data-analytics-question-id="{{ question.slug | escape }}" data-analytics-link-context="question_entry_point">{{ entry_note.title }}</a>
+          </h2>
+        </div>
+        <div class="question-entry-content">
+          <p>{{ question.entry_point.reason }}</p>
+          <span class="content-topic-list" aria-label="Topics">
+            {% include content-topic-items.html topics=entry_note.topics %}
+          </span>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -50,7 +72,7 @@ layout: default
             <ul class="selected-notes-list">
               {% for note_url in group.notes %}
                 {% assign note = site.pages | where: "url", note_url | first %}
-                {% if note %}
+                {% if note and note_url != question.entry_point.note %}
                   <li>
                     <a href="{{ note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ note.url | escape }}" data-analytics-question-id="{{ question.slug | escape }}" data-analytics-link-context="question_notes">{{ note.title }}</a>
                     <span class="selected-note-summary">{{ note.summary }}</span>

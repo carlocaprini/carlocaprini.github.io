@@ -409,6 +409,7 @@ a.content-topic-link:hover {
 .explore-questions-section,
 .explore-series-section,
 .explore-topics-section,
+.question-entry-section,
 .question-notes-section,
 .question-evidence-section,
 .question-bridge-section {
@@ -475,11 +476,25 @@ a.content-topic-link:hover {
   font-weight: 600;
 }
 
-.question-path-content > span {
+.question-path-content > span:not(.question-path-entry) {
   max-width: 42rem;
   color: var(--color-text-muted);
   font-size: 0.9rem;
   line-height: 1.7;
+}
+
+.question-path-entry {
+  color: var(--color-text-secondary);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.question-path-entry-label {
+  color: var(--brand-accent);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .question-path-arrow {
@@ -514,6 +529,46 @@ a.content-topic-link:hover {
 
 .question-synthesis p + p {
   margin-top: 0.9rem;
+}
+
+.question-entry-point {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.question-entry-heading h2 {
+  max-width: 30rem;
+  margin: 0.55rem 0 0;
+  color: var(--color-text);
+  font-size: clamp(1.2rem, 1.8vw, 1.45rem);
+  line-height: 1.25;
+}
+
+.question-entry-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.question-entry-title-link:hover {
+  color: #a5b4fc;
+}
+
+.question-entry-content {
+  padding-right: 4.5rem;
+}
+
+.question-entry-content p {
+  max-width: 38rem;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.94rem;
+  line-height: 1.75;
+}
+
+.question-entry-content .content-topic-list {
+  margin-top: 0.85rem;
 }
 
 .question-note-groups {

@@ -21,6 +21,7 @@
         ],
         "note_open": [
           "note_id",
+          "question_id",
           "destination"
         ],
         "question_open": [
