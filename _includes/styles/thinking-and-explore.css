@@ -546,6 +546,15 @@ a.content-topic-link:hover {
   line-height: 1.25;
 }
 
+.question-entry-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.question-entry-title-link:hover {
+  color: #a5b4fc;
+}
+
 .question-entry-content {
   padding-left: 2.5rem;
   border-left: 1px solid var(--brand-accent-border);
@@ -561,11 +570,6 @@ a.content-topic-link:hover {
 
 .question-entry-content .content-topic-list {
   margin-top: 0.85rem;
-}
-
-.question-entry-content .question-entry-link {
-  margin-top: 1rem;
-  font-weight: 600;
 }
 
 .question-note-groups {

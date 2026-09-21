@@ -212,10 +212,11 @@ test("question pages connect Thinking, Influences and Experience", async ({ page
   await expect(entryPoint).toHaveCSS("background-image", "none");
   await expect(entryPoint).toHaveCSS("border-radius", "0px");
   await expect(entryPoint.locator(".content-topic-list a")).toHaveCount(0);
-  const entryLink = entryPoint.getByRole("link", { name: "Read this note: Most product disagreements come from missing information" });
-  await expect(entryLink).toHaveClass(/section-link/);
+  const entryLink = entryPoint.getByRole("link", { name: "Most product disagreements come from missing information", exact: true });
+  await expect(entryLink).toHaveClass(/question-entry-title-link/);
   await expect(entryLink).toHaveAttribute("href", "/thinking/most-product-disagreements-come-from-missing-information/");
   await expect(entryLink).toHaveAttribute("data-analytics-link-context", "question_entry_point");
+  await expect(entryPoint.getByText("Read this note", { exact: true })).toHaveCount(0);
   await expect(page.locator('a[href="/thinking/most-product-disagreements-come-from-missing-information/"]')).toHaveCount(1);
   await expect(page.getByRole("heading", { name: "Notes that develop the question." })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Ideas that sharpen the question." })).toBeVisible();
@@ -253,7 +254,7 @@ test("every Question exposes its canonical entry point once", async ({ page }) =
     await page.goto(`/explore/${question}/`);
     const entryPoint = page.locator(".question-entry-point");
     await expect(entryPoint.getByRole("heading", { name: title })).toBeVisible();
-    await expect(entryPoint.getByRole("link", { name: `Read this note: ${title}` })).toHaveAttribute("href", href);
+    await expect(entryPoint.getByRole("link", { name: title, exact: true })).toHaveAttribute("href", href);
     await expect(page.locator(`a[href="${href}"]`)).toHaveCount(1);
   }
 });

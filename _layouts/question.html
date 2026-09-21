@@ -33,14 +33,15 @@ layout: default
       <article class="question-entry-point">
         <div class="question-entry-heading">
           <div class="section-eyebrow">Start here</div>
-          <h2 id="question-entry-title">{{ entry_note.title }}</h2>
+          <h2 id="question-entry-title">
+            <a class="question-entry-title-link" href="{{ entry_note.url | relative_url }}" data-analytics-event="note_open" data-analytics-note-id="{{ entry_note.url | escape }}" data-analytics-question-id="{{ question.slug | escape }}" data-analytics-link-context="question_entry_point">{{ entry_note.title }}</a>
+          </h2>
         </div>
         <div class="question-entry-content">
           <p>{{ question.entry_point.reason }}</p>
           <span class="content-topic-list" aria-label="Topics">
             {% include content-topic-items.html topics=entry_note.topics %}
           </span>
-          <a class="section-link question-entry-link" href="{{ entry_note.url | relative_url }}" aria-label="Read this note: {{ entry_note.title | escape }}" data-analytics-event="note_open" data-analytics-note-id="{{ entry_note.url | escape }}" data-analytics-question-id="{{ question.slug | escape }}" data-analytics-link-context="question_entry_point">Read this note <span aria-hidden="true">→</span></a>
         </div>
       </article>
     </div>
