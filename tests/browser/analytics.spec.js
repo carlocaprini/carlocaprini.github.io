@@ -326,7 +326,7 @@ test("404 recovery links distinguish every onward route", async ({ page }) => {
       { question_id: "ai-and-work", link_context: "not_found_questions" }
     ],
     [
-      page.getByRole("link", { name: "Explore the questions I’m working on" }),
+      page.getByRole("link", { name: "Explore all paths" }),
       "collection_open",
       { collection: "explore", link_context: "not_found_explore" }
     ],
