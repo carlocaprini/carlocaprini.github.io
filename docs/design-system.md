@@ -354,7 +354,7 @@ Do not reuse timeline styling for non-chronological content.
 - sticky dark translucent header
 - compact brand pill
 - nav links with underline on hover/active
-- order: Home, Thinking, Explore, Work, Experience, Influences, Contact
+- order: Home, Explore, Thinking, Work, Experience, Influences, Contact
 - switch to a compact, clearly labelled menu on smaller screens while preserving every top-level destination in the expanded panel
 - keep the mobile menu operable without JavaScript and close it after a destination is selected when JavaScript is available
 - use a visible keyboard focus state across navigation and other interactive controls

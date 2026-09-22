@@ -7,7 +7,7 @@ hero:
     - "This site brings together the ideas I develop, the experience behind them and the problems I occasionally help other software teams work through."
   actions:
     primary:
-      label: Explore the thinking
+      label: Explore the ideas
       url: /explore/
     secondary:
       label: How I can help
