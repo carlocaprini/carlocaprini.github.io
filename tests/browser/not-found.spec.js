@@ -46,7 +46,7 @@ test("custom 404 output preserves the site shell and focused recovery hierarchy"
   await expect(page.locator(".not-found-message > .hero-subtitle")).toHaveCount(2);
   await expect(page.getByRole("link", { name: "Back to home" })).toHaveAttribute("href", "/");
   await expect(page.getByRole("link", { name: "Go to Thinking" })).toHaveAttribute("href", "/thinking/");
-  await expect(page.getByRole("link", { name: "Explore the questions I’m working on" })).toHaveAttribute("href", "/explore/");
+  await expect(page.getByRole("link", { name: "Explore all paths" })).toHaveAttribute("href", "/explore/");
   await expect(page.getByRole("link", { name: "How I can help" })).toHaveAttribute("href", "/work/");
   await expect(page.locator(".not-found-work #not-found-work-title")).toHaveClass(/\bsection-title\b/);
 
@@ -104,7 +104,7 @@ test("recovery remains usable without the decorative motif", async ({ page }) =>
   await expect(page.getByRole("link", { name: "Go to Thinking" })).toBeVisible();
   await expect(page.locator(".not-found-notes > li")).toHaveCount(3);
   await expect(page.locator(".not-found-questions .question-path-item")).toHaveCount(3);
-  await expect(page.getByRole("link", { name: "Explore the questions I’m working on" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Explore all paths" })).toBeVisible();
   await expect(page.getByRole("link", { name: "How I can help" })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth))
     .toBe(await page.evaluate(() => document.documentElement.clientWidth));

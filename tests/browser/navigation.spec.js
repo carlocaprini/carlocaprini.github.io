@@ -5,12 +5,14 @@ test("primary navigation exposes the current section", async ({ page }, testInfo
 
   const primaryNavigation = page.getByRole("navigation", { name: "Primary navigation" });
   const mobileMenu = page.locator("details.mobile-nav");
+  const expectedOrder = ["Home", "Explore", "Thinking", "Work", "Experience", "Influences", "Contact"];
 
   await expect(page.locator(".site-header .brand")).toHaveText("Carlo Caprini");
   await expect(page.locator(".site-header .tagline")).toHaveCount(0);
 
   if (testInfo.project.name === "desktop-chromium") {
     await expect(primaryNavigation).toBeVisible();
+    expect(await primaryNavigation.getByRole("link").allTextContents()).toEqual(expectedOrder);
     await expect(primaryNavigation.getByRole("link", { name: "Thinking" })).toHaveAttribute(
       "aria-current",
       "page"
@@ -22,8 +24,10 @@ test("primary navigation exposes the current section", async ({ page }, testInfo
   await expect(primaryNavigation).toBeHidden();
   await expect(mobileMenu.getByText("Menu", { exact: true })).toBeVisible();
   await mobileMenu.getByText("Menu", { exact: true }).click();
-  await expect(page.getByRole("navigation", { name: "Mobile navigation" })).toBeVisible();
-  await page.getByRole("navigation", { name: "Mobile navigation" })
+  const mobileNavigation = page.getByRole("navigation", { name: "Mobile navigation" });
+  await expect(mobileNavigation).toBeVisible();
+  expect(await mobileNavigation.getByRole("link").allTextContents()).toEqual(expectedOrder);
+  await mobileNavigation
     .getByRole("link", { name: "Experience" })
     .click();
   await expect(page).toHaveURL(/\/experience\/$/);

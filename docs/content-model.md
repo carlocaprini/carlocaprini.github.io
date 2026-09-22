@@ -20,6 +20,16 @@ Explore exposes curated Questions first, deliberate editorial Series second and 
 
 Work is a first-class professional destination, but it does not redefine Thinking. Home may preview selected problem spaces and link to `/work/`; its terminology, boundaries and outcome language must remain consistent with the canonical proposition. Work must not fabricate engagement connections inside Questions or turn Notes into commercial entry points.
 
+## Public vocabulary
+
+- **Thinking** is the collection of Carlo's Notes. A **Note** is one published internal piece.
+- **Explore** is the discovery surface that connects Questions, Series and Topics. Use “ideas” for a general entry point into Explore; use “questions” or “paths” only after that narrower concept is established by the surrounding content.
+- A **Question** is a curated path across Notes, professional Experience and Influences. A **Series** is an ordered sequence of Notes. A **Topic** is the broad taxonomy shared by Notes and Influences.
+- **Influences** is the named collection. A **reading** is one external item; “external ideas”, “arguments” and “research” describe what those readings contribute rather than alternate collection names.
+- **Experience** is Carlo's professional context. Prefer “professional experience” when copy points to that site section; reserve generic “experience” for personal knowledge or a specific lived example.
+- **Work** is the independent Product & Engineering proposition. Do not use “Work” or “the work” as a generic label for the editorial corpus, professional Experience or Notes.
+- **Start here** identifies a recommended first Note or a small curated set of Notes. It does not name a separate collection.
+
 ## Intentional editorial ordering
 
 Some lists resemble derived data but are intentionally curated:

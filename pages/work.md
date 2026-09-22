@@ -4,7 +4,7 @@ title: Work
 permalink: /work/
 meta_title: Product & Engineering Work | Carlo Caprini
 meta_description: Independent Product & Engineering reviews and advisory work for software teams facing difficult product, technical, delivery or AI decisions.
-last_modified_at: 2026-09-09
+last_modified_at: 2026-09-22
 hero:
   label: Work
   title: Working through difficult Product & Engineering problems.
@@ -88,7 +88,7 @@ experience:
   title: Experience across Product & Engineering.
   body: I started in software engineering and have spent more than a decade working across product management, APIs, platforms and developer-facing software.
   signals:
-    - From software engineering to Product management
+    - From software engineering to product management
     - B2B platforms and APIs
     - Startup and global product organisations
   action:
