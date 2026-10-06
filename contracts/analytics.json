@@ -102,7 +102,7 @@
     "consent"
   ],
   "campaign": {
-    "sources": ["linkedin", "github", "medium", "newsletter", "manual", "qr"],
+    "sources": ["linkedin", "github", "medium", "newsletter", "email_signature", "manual", "qr"],
     "mediums": ["social", "comment", "profile", "referral", "email", "direct", "offline"],
     "editorialCampaigns": [
       "thinking",
@@ -119,7 +119,7 @@
       "premium_subscription",
       "monthly_updates"
     ],
-    "fixedContent": ["comment", "featured", "about", "website_button", "profile_readme", "article", "shared_link", "qr"],
+    "fixedContent": ["comment", "featured", "about", "website_button", "website_link", "profile_readme", "article", "shared_link", "qr"],
     "publicationContentPattern": "^[a-z0-9]+(?:_[a-z0-9]+)*_(?:text_post|single_image|carousel)$",
     "combinations": [
       {
@@ -163,6 +163,12 @@
         "medium": "email",
         "campaigns": ["monthly_updates"],
         "content": ["article"]
+      },
+      {
+        "source": "email_signature",
+        "medium": "email",
+        "campaigns": ["profile"],
+        "content": ["website_link"]
       },
       {
         "source": "manual",

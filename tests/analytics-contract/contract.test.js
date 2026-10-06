@@ -47,6 +47,7 @@ const validCampaigns = [
   ["github", "profile", "profile", "profile_readme"],
   ["medium", "referral", "experience", "article"],
   ["newsletter", "email", "monthly_updates", "article"],
+  ["email_signature", "email", "profile", "website_link"],
   ["manual", "direct", "building_my_ai_operating_system", "shared_link"],
   ["qr", "offline", "explore", "qr"]
 ];
@@ -72,6 +73,8 @@ const invalidCampaigns = [
   ["github", "profile", "thinking", "profile_readme"],
   ["medium", "social", "thinking", "article"],
   ["newsletter", "email", "thinking", "article"],
+  ["email_signature", "email", "profile", "article"],
+  ["newsletter", "email", "profile", "website_link"],
   ["manual", "direct", "thinking", "person_123"],
   ["qr", "offline", "monthly_updates", "qr"],
   ["google", "social", "thinking", "note_single_image"]
