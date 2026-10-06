@@ -197,6 +197,24 @@ test("accepts GitHub profile README attribution without broadening profile combi
   assert.equal(validateCampaignPayload({ ...payload, utm_medium: "social" }), null);
 });
 
+test("accepts email-signature attribution without broadening email combinations", async () => {
+  const DB = new FakeDatabase();
+  const payload = validCampaignPayload({
+    landing_type: "home",
+    landing_id: "/",
+    utm_source: "email_signature",
+    utm_medium: "email",
+    utm_campaign: "profile",
+    utm_content: "website_link"
+  });
+  const result = await handleRequest(request(payload), { DB, ALLOWED_ORIGIN: origin }, new Date("2026-10-06T08:00:00Z"));
+
+  assert.equal(result.status, 204);
+  assert.deepEqual(DB.calls[0].values.slice(-4), ["email_signature", "email", "profile", "website_link"]);
+  assert.equal(validateCampaignPayload({ ...payload, utm_content: "article" }), null);
+  assert.equal(validateCampaignPayload({ ...payload, utm_source: "newsletter" }), null);
+});
+
 test("rejects partial, unknown and inconsistent UTM combinations", () => {
   const invalid = [
     validCampaignPayload({ utm_content: undefined }),
