@@ -10,7 +10,7 @@ layout: default
           <span class="hero-label-dot"></span>
           <span>{{ page.hero.label }}</span>
         </div>
-        <h1 class="hero-title hero-title--compact">{{ page.hero.title }}</h1>
+        <h1 class="hero-title hero-title--compact">{{ page.hero.title_prefix }}<span class="highlight">{{ page.hero.title_highlight }}</span>{{ page.hero.title_suffix }}</h1>
         {% for paragraph in page.hero.paragraphs %}
           <p class="hero-subtitle hero-subtitle--wide">{{ paragraph }}</p>
         {% endfor %}
@@ -59,19 +59,6 @@ layout: default
     </div>
   </section>
 
-  <section class="section industry-expertise-formats-section" aria-labelledby="industry-expertise-formats-title">
-    <div class="container industry-expertise-split">
-      <div>
-        <div class="section-eyebrow">{{ page.formats.eyebrow }}</div>
-        <h2 class="section-title" id="industry-expertise-formats-title">{{ page.formats.title }}</h2>
-        <p class="section-description">{{ page.formats.intro }}</p>
-      </div>
-      <ul class="industry-expertise-format-list">
-        {% for format in page.formats.items %}<li>{{ format }}</li>{% endfor %}
-      </ul>
-    </div>
-  </section>
-
   <section class="section industry-expertise-boundaries-section" aria-labelledby="industry-expertise-boundaries-title">
     <div class="container">
       <div class="industry-expertise-boundaries-panel">
@@ -83,6 +70,19 @@ layout: default
           {% for paragraph in page.boundaries.paragraphs %}<p>{{ paragraph }}</p>{% endfor %}
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="section industry-expertise-formats-section" aria-labelledby="industry-expertise-formats-title">
+    <div class="container industry-expertise-split">
+      <div>
+        <div class="section-eyebrow">{{ page.formats.eyebrow }}</div>
+        <h2 class="section-title" id="industry-expertise-formats-title">{{ page.formats.title }}</h2>
+        <p class="section-description">{{ page.formats.intro }}</p>
+      </div>
+      <ul class="industry-expertise-format-list">
+        {% for format in page.formats.items %}<li>{{ format }}</li>{% endfor %}
+      </ul>
     </div>
   </section>
 

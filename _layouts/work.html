@@ -9,7 +9,7 @@ layout: default
           <span class="hero-label-dot"></span>
           <span>{{ page.hero.label }}</span>
         </div>
-        <h1 class="hero-title hero-title--compact">{{ page.hero.title }}</h1>
+        <h1 class="hero-title hero-title--compact">{{ page.hero.title_prefix }}<span class="highlight">{{ page.hero.title_highlight }}</span>{{ page.hero.title_suffix }}</h1>
         {% for paragraph in page.hero.paragraphs %}
           <p class="hero-subtitle hero-subtitle--wide">{{ paragraph }}</p>
         {% endfor %}

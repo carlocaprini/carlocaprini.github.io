@@ -7,7 +7,9 @@ meta_description: Selected expert interviews and industry research on software p
 last_modified_at: 2026-10-07
 hero:
   label: Expert interviews and industry research
-  title: Product, platform and software experience for industry research.
+  title_prefix: "Product, platform and software experience for "
+  title_highlight: industry research
+  title_suffix: "."
   paragraphs:
     - I occasionally contribute to expert interviews, primary research, market studies and product or technology research when my experience is relevant to the questions being explored.
     - I am a Senior Product Manager with a software engineering background. My professional experience covers APIs, developer platforms, extensibility, integrations and composable commerce. My current work and applied experiments also inform narrower conversations about document workflows and emerging AI interaction models.
@@ -71,6 +73,12 @@ experience:
   action:
     label: Explore professional experience
     url: /experience/
+boundaries:
+  eyebrow: Boundaries
+  title: Useful context without crossing confidentiality lines.
+  paragraphs:
+    - I can discuss public information, general industry practices, historical market context, professional experience I am permitted to share and transferable observations about product and software work.
+    - I do not discuss confidential, proprietary or non-public information about current or former employers, customers, partners or competitors. I decline topics that conflict with my professional obligations.
 formats:
   eyebrow: Research formats
   title: Ways I can contribute.
@@ -82,12 +90,6 @@ formats:
     - Product and technology research
     - Surveys
     - Selected advisory conversations
-boundaries:
-  eyebrow: Boundaries
-  title: Useful context without crossing confidentiality lines.
-  paragraphs:
-    - I can discuss public information, general industry practices, historical market context, professional experience I am permitted to share and transferable observations about product and software work.
-    - I do not discuss confidential, proprietary or non-public information about current or former employers, customers, partners or competitors. I decline topics that conflict with my professional obligations.
 contact:
   eyebrow: Contact
   title: Looking for perspective on one of these areas?

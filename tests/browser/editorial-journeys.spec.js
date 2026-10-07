@@ -170,6 +170,8 @@ test("Home Contact keeps LinkedIn primary and adds restrained profile identity",
 test("Work explains recognizable problems and exactly two engagement models", async ({ page }) => {
   await page.goto("/work/");
 
+  await expect(page.getByRole("heading", { level: 1, name: "Working through difficult Product & Engineering problems." })).toBeVisible();
+  await expect(page.locator(".work-hero .hero-title .highlight")).toHaveText("Product & Engineering");
   await expect(page.getByRole("heading", { name: "When the problem crosses boundaries." })).toBeVisible();
   await expect(page.locator(".work-situation-list > li")).toHaveCount(6);
   await expect(page.locator(".work-engagement")).toHaveCount(2);
@@ -212,6 +214,20 @@ test("Experience leads with direct work and leaves credentials out of the public
   await expect(page.getByText("Career context", { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: "How I can help", exact: true })).toHaveAttribute("href", "/work/");
   await expect(page.getByRole("link", { name: /See research topics and boundaries/ })).toHaveAttribute("href", "/industry-expertise/");
+  const independentOptionStyles = await page.locator(".experience-independent-option").evaluateAll((options) =>
+    options.map((option) => {
+      const paragraphStyle = getComputedStyle(option.querySelector(".section-description"));
+      const linkStyle = getComputedStyle(option.querySelector(".section-link"));
+      return {
+        paragraphFontSize: paragraphStyle.fontSize,
+        paragraphLineHeight: paragraphStyle.lineHeight,
+        linkColor: linkStyle.color,
+        linkFontSize: linkStyle.fontSize
+      };
+    })
+  );
+  expect(independentOptionStyles).toHaveLength(2);
+  expect(independentOptionStyles[1]).toEqual(independentOptionStyles[0]);
   await expect(page.getByRole("heading", { name: "Credentials and certifications" })).toHaveCount(0);
   await expect(page.locator("#credentials")).toHaveCount(0);
 });
@@ -226,6 +242,7 @@ test("Expert interviews and industry research distinguish professional experienc
   );
   await expect(page.getByText("Expert interviews and industry research", { exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { level: 1, name: "Product, platform and software experience for industry research." })).toBeVisible();
+  await expect(page.locator(".industry-expertise-hero .hero-title .highlight")).toHaveText("industry research");
   await expect(page.locator(".industry-expertise-area")).toHaveCount(4);
   await expect(page.locator(".industry-expertise-area h3")).toHaveText([
     "APIs & developer platforms",
@@ -248,6 +265,14 @@ test("Expert interviews and industry research distinguish professional experienc
   await expect(page.getByText("I do not discuss confidential, proprietary or non-public information about current or former employers, customers, partners or competitors. I decline topics that conflict with my professional obligations.", { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: /Explore professional experience/ })).toHaveAttribute("href", "/experience/");
   await expect(page.getByRole("link", { name: /Contact me on LinkedIn/ })).toHaveAttribute("href", "https://www.linkedin.com/in/carlocaprini/");
+  const sectionOrder = await page.locator(".industry-expertise-experience-section, .industry-expertise-boundaries-section, .industry-expertise-formats-section, .industry-expertise-contact-section")
+    .evaluateAll((sections) => sections.map((section) => section.className));
+  expect(sectionOrder).toEqual([
+    "section industry-expertise-experience-section",
+    "section industry-expertise-boundaries-section",
+    "section industry-expertise-formats-section",
+    "section industry-expertise-contact-section"
+  ]);
 
   const expertiseProfile = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>
     scripts.map((script) => JSON.parse(script.textContent)).find((entry) =>

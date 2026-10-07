@@ -7,7 +7,9 @@ meta_description: Independent Product & Engineering reviews and advisory work fo
 last_modified_at: 2026-09-22
 hero:
   label: Work
-  title: Working through difficult Product & Engineering problems.
+  title_prefix: "Working through difficult "
+  title_highlight: "Product & Engineering"
+  title_suffix: " problems."
   paragraphs:
     - I occasionally work with software teams when a product, technical or organisational problem has become difficult to reason about from inside the system.
     - The aim is to understand the problem, make the trade-offs visible and leave the team with something useful to act on.
