@@ -38,7 +38,7 @@
 
 ## Professional intent
 
-### Experience and Work exploration
+### Experience, Work and Industry Expertise exploration
 
 ### Review and Advisory exploration
 

@@ -4,7 +4,7 @@ title: Experience
 permalink: /experience/
 meta_title: Product Management and Engineering Experience | Carlo Caprini
 meta_description: The Product & Engineering experience behind Carlo Caprini's work on product decisions, API platforms, AI adoption and software systems.
-last_modified_at: 2026-09-16
+last_modified_at: 2026-10-07
 hero:
   label: Experience
   title_prefix: "Experience behind "

@@ -9,7 +9,7 @@ The evidence model remains deliberately separated:
 | Discovery | Are people encountering the work? | LinkedIn and Search Console |
 | Arrival | What brings people to the site? | Aggregate campaign landings and GA4 acquisition |
 | Depth | Do visitors explore beyond the initial destination? | Aggregate semantic paths and GA4 engagement |
-| Professional intent | Do visitors explore Experience, Work or contact paths? | Aggregate semantic events and GA4 |
+| Professional intent | Do visitors explore Experience, Work, Industry Expertise or contact paths? | Aggregate semantic events and GA4 |
 | Professional outcome | Did the work influence a useful conversation or collaboration? | Private manual outcome record |
 
 These stages are evidence layers, not one visitor-level funnel. The aggregate collector has no users or sessions, GA4 represents only consenting traffic and professional outcomes must never be connected to analytics identity.
