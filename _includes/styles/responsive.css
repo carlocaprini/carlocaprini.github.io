@@ -163,7 +163,6 @@
   .work-section-intro,
   .work-engagement-details,
   .work-contact-panel,
-  .work-industry-panel,
   .industry-expertise-area-grid,
   .industry-expertise-split,
   .industry-expertise-boundaries-panel,
@@ -815,8 +814,7 @@
   }
 
   .industry-expertise-boundaries-panel,
-  .industry-expertise-contact-panel,
-  .work-industry-panel {
+  .industry-expertise-contact-panel {
     gap: 1.35rem;
     padding: 1.2rem 1.05rem;
   }

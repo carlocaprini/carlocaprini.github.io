@@ -100,11 +100,6 @@ industry_research:
   eyebrow: Selected research conversations
   title: Expert interviews and industry research.
   body: I occasionally contribute to selected expert interviews, primary research and market studies when my experience with software products, platforms and developer-facing systems is relevant.
-  areas:
-    - APIs and developer platforms
-    - Commerce platforms and composable commerce
-    - Current document APIs and workflow automation
-    - Applied research on AI agents and software workflows
   action:
     label: See research topics and boundaries
     url: /industry-expertise/

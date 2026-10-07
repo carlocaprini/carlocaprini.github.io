@@ -148,7 +148,7 @@ test("Work keeps its recognition and evidence layers readable across breakpoints
 
   if (testInfo.project.name !== "desktop-chromium") {
     const viewportWidth = page.viewportSize().width;
-    const surfaces = page.locator(".work-engagement, .work-boundary-note, .work-industry-panel, .work-contact-panel");
+    const surfaces = page.locator(".work-engagement, .work-boundary-note, .work-contact-panel");
     const boxes = await surfaces.evaluateAll((elements) => elements.map((element) => {
       const box = element.getBoundingClientRect();
       return { left: box.left, right: box.right };

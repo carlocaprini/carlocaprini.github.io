@@ -193,8 +193,8 @@ test("Work explains recognizable problems and exactly two engagement models", as
   await expect(page.locator(".work-evidence-signals > li")).toHaveCount(3);
   await expect(page.getByRole("link", { name: /See full experience/ })).toHaveAttribute("href", "/experience/");
   await expect(page.getByRole("heading", { name: "Expert interviews and industry research." })).toBeVisible();
-  await expect(page.locator(".work-industry-areas > li")).toHaveCount(4);
-  await expect(page.locator(".work-industry-note")).toHaveCount(0);
+  await expect(page.locator(".work-industry-section").getByRole("list")).toHaveCount(0);
+  await expect(page.getByText("I occasionally contribute to selected expert interviews, primary research and market studies when my experience with software products, platforms and developer-facing systems is relevant.", { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: /See research topics and boundaries/ })).toHaveAttribute("href", "/industry-expertise/");
   const workSectionOrder = await page.locator(".work-evidence-section, .work-industry-section, .work-next-section")
     .evaluateAll((sections) => sections.map((section) => section.className));

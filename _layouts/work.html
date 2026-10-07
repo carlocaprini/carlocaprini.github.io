@@ -160,19 +160,14 @@ layout: default
   </section>
 
   <section class="section work-industry-section">
-    <div class="container">
-      <div class="work-industry-panel work-reveal" data-work-reveal>
-        <div>
-          <div class="section-eyebrow">{{ page.industry_research.eyebrow }}</div>
-          <h2 class="section-title">{{ page.industry_research.title }}</h2>
-          <p class="work-industry-body">{{ page.industry_research.body }}</p>
-        </div>
-        <div>
-          <ul class="work-compact-list work-industry-areas">
-            {% for area in page.industry_research.areas %}<li>{{ area }}</li>{% endfor %}
-          </ul>
-          <a class="section-link" href="{{ page.industry_research.action.url | relative_url }}" data-analytics-event="industry_expertise_open" data-analytics-link-context="work_industry_expertise" data-analytics-destination="{{ page.industry_research.action.url }}">{{ page.industry_research.action.label }} <span aria-hidden="true">→</span></a>
-        </div>
+    <div class="container work-section-intro work-reveal" data-work-reveal>
+      <div>
+        <div class="section-eyebrow">{{ page.industry_research.eyebrow }}</div>
+        <h2 class="section-title">{{ page.industry_research.title }}</h2>
+      </div>
+      <div class="work-industry-copy">
+        <p class="section-description">{{ page.industry_research.body }}</p>
+        <a class="section-link" href="{{ page.industry_research.action.url | relative_url }}" data-analytics-event="industry_expertise_open" data-analytics-link-context="work_industry_expertise" data-analytics-destination="{{ page.industry_research.action.url }}">{{ page.industry_research.action.label }} <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
