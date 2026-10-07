@@ -118,6 +118,8 @@
 }
 
 .industry-expertise-format-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   margin: 0;
   padding: 0;
   list-style: none;
@@ -147,11 +149,6 @@
 
 .industry-expertise-formats-section .section-description {
   margin-top: 0.8rem;
-}
-
-.industry-expertise-format-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .industry-expertise-format-list li {
