@@ -561,6 +561,39 @@ questions.each do |question|
   end
 end
 
+selected_work_path = File.join(SOURCE_DIR, "pages/selected-work.md")
+selected_work_data = page_records.fetch(selected_work_path).first
+fail_check("pages/selected-work.md: layout must be selected-work") unless selected_work_data["layout"] == "selected-work"
+fail_check("pages/selected-work.md: permalink must be /work/selected/") unless selected_work_data["permalink"] == "/work/selected/"
+fail_check("pages/selected-work.md: work_section must be true") unless selected_work_data["work_section"] == true
+
+selected_work_cases = Array(selected_work_data["cases"])
+fail_check("pages/selected-work.md: must define at least one case") if selected_work_cases.empty?
+selected_work_ids = selected_work_cases.map { |work_case| work_case["id"] }.compact
+duplicate_selected_work_ids = selected_work_ids.group_by(&:itself).select { |_, values| values.size > 1 }.keys
+unless duplicate_selected_work_ids.empty?
+  fail_check("pages/selected-work.md: duplicate case ids: #{duplicate_selected_work_ids.join(', ')}")
+end
+
+selected_work_cases.each_with_index do |work_case, index|
+  %w[id index engagement title summary situation examined clearer changed unchanged outcome].each do |field|
+    unless present?(work_case[field])
+      fail_check("pages/selected-work.md: case #{index + 1} is missing #{field}")
+    end
+  end
+end
+
+work_path = File.join(SOURCE_DIR, "pages/work.md")
+work_data = page_records.fetch(work_path).first
+unless work_data.dig("selected_work", "action", "url") == selected_work_data["permalink"]
+  fail_check("pages/work.md: selected_work action must point to /work/selected/")
+end
+
+experience_data = page_records.fetch(experience_path).first
+unless experience_data.dig("independent_work", "selected_work_action", "url") == selected_work_data["permalink"]
+  fail_check("pages/experience.md: selected_work_action must point to /work/selected/")
+end
+
 influence_paths = Dir.glob(File.join(SOURCE_DIR, "_influences/*.md")).sort
 influence_slugs = influence_paths.map { |path| File.basename(path, ".md") }
 influence_paths.each do |path|

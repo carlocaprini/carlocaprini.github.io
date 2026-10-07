@@ -1,7 +1,7 @@
 # Site Design System
 
 Date: 2026-07-14
-Last updated: 2026-09-21
+Last updated: 2026-10-07
 Status: Reference for future site changes
 
 ## Implementation ownership
@@ -495,6 +495,7 @@ Keep:
 - present Review scope and outcome as an editorial split rather than nested cards
 - explicit technical evidence balanced with product and organisational context
 - one compact credibility bridge grounded in established Experience, presented as an editorial split rather than a CV or proof card
+- one restrained Selected work bridge after the engagement models and working principles; it points to applied evidence without reproducing case narratives on Work
 - a low-pressure contact panel using the standard primary button
 - ruled lists with internal dividers only and no duplicate closing boundary
 
@@ -506,7 +507,28 @@ Avoid:
 - separate cards for every possible capability
 - turning Work into a new brand or making it visually louder than Thinking
 
-On smaller screens, collapse two-column recognition and evidence structures to one column. Reduce panel padding without removing the standard page gutter, and preserve the reading order: relevance, Review, Advisory, principles, experience, next step and contact.
+On smaller screens, collapse two-column recognition and evidence structures to one column. Reduce panel padding without removing the standard page gutter, and preserve the reading order: relevance, Review, Advisory, principles, Selected work, experience, next step and contact.
+
+### Selected work
+
+Selected work provides permission-safe evidence for the independent Product & Engineering proposition. It belongs under Work, stays out of the top-level navigation and uses anonymous cases by default.
+
+Keep:
+
+- one page containing a small number of substantial cases rather than a growing grid of promotional tiles
+- the standard compact hero and cool brand highlight used by other professional pages
+- one consistent case anatomy: situation, evidence examined, what became clearer, what changed, what deliberately did not change and outcome
+- an editorial split between the main evidence and a narrower outcome-and-boundaries column
+- direct, observable claims; distinguish delivered assessment, adopted change and unvalidated follow-up
+- restrained links back to Work and Experience after the cases
+
+Avoid:
+
+- client names, logos or identifying context without explicit permission
+- invented metrics, implied production validation or results inferred from recommendations
+- testimonials, before-and-after theatre or a separate consultancy visual brand
+- duplicating full case narratives on Work, Experience, Home or Explore
+- presenting an assessment as remediation, certification or ownership of the client's decisions
 
 ### Explore
 

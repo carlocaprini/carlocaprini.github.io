@@ -499,6 +499,18 @@ test("Work discovery and meaningful section views expose their context", async (
       page_type: "work"
     }
   });
+
+  const selectedWorkLink = page.locator('[data-analytics-event="work_open"][data-analytics-link-context="work_selected_work"]');
+  await selectedWorkLink.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+  await selectedWorkLink.click();
+  expect(await page.evaluate(() => window.__analyticsEvents.at(-1))).toMatchObject({
+    name: "work_open",
+    parameters: {
+      destination: "/work/selected/",
+      link_context: "work_selected_work",
+      page_type: "work"
+    }
+  });
 });
 
 test("Industry Expertise paths and contact intent expose their source context", async ({ page }) => {

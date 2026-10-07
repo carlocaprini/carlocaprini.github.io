@@ -10,6 +10,7 @@
 - The three canonical Start Here Notes live in `_data/start_here.yml` and are shared by Home, Thinking and recovery surfaces.
 - Home editorial modules live in `_data/home.yml`.
 - The Work proposition lives in `pages/work.md`. It owns the recognizable situations, Review, Advisory, working principles and contact path; client proof must not be inferred or generated from it.
+- Applied-work evidence lives in `pages/selected-work.md`. It owns the anonymised cases at `/work/selected/`; each case must separate situation, examined evidence, clarified judgment, observed change, deliberate non-change and outcome. Work and Experience may link to this page, but must not duplicate its case narratives.
 - Home’s `Where I can help` module lives in `_data/home.yml`. It is a selective preview of the problem spaces described by Work, not a second service catalogue or a source of independent engagement definitions.
 
 ## Relationships
@@ -28,6 +29,7 @@ Work is a first-class professional destination, but it does not redefine Thinkin
 - **Influences** is the named collection. A **reading** is one external item; “external ideas”, “arguments” and “research” describe what those readings contribute rather than alternate collection names.
 - **Experience** is Carlo's professional context. Prefer “professional experience” when copy points to that site section; reserve generic “experience” for personal knowledge or a specific lived example.
 - **Work** is the independent Product & Engineering proposition. Do not use “Work” or “the work” as a generic label for the editorial corpus, professional Experience or Notes.
+- **Selected work** is evidence from completed independent engagements. It is not a service catalogue: cases remain anonymous by default, describe only directly supported outcomes and state what was outside the engagement.
 - **Start here** identifies a recommended first Note or a small curated set of Notes. It does not name a separate collection.
 
 ## Intentional editorial ordering

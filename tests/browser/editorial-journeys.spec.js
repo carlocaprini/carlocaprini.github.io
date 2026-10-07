@@ -189,6 +189,8 @@ test("Work explains recognizable problems and exactly two engagement models", as
     "Review the system, not the team"
   ]);
   await expect(page.getByRole("heading", { name: "Review the system, not the team" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "What this looks like in practice." })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Read selected work/ })).toHaveAttribute("href", "/work/selected/");
   await expect(page.getByRole("heading", { name: "Experience across Product & Engineering." })).toBeVisible();
   await expect(page.locator(".work-evidence-signals > li")).toHaveCount(3);
   await expect(page.getByRole("link", { name: /See full experience/ })).toHaveAttribute("href", "/experience/");
@@ -213,6 +215,7 @@ test("Experience leads with direct work and leaves credentials out of the public
   await expect(page.locator(".experience-evidence-card")).toHaveCount(4);
   await expect(page.getByText("Career context", { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: "How I can help", exact: true })).toHaveAttribute("href", "/work/");
+  await expect(page.getByRole("link", { name: "Read selected work", exact: true })).toHaveAttribute("href", "/work/selected/");
   await expect(page.getByRole("link", { name: /See research topics and boundaries/ })).toHaveAttribute("href", "/industry-expertise/");
   const independentOptionStyles = await page.locator(".experience-independent-option").evaluateAll((options) =>
     options.map((option) => {
@@ -230,6 +233,20 @@ test("Experience leads with direct work and leaves credentials out of the public
   expect(independentOptionStyles[1]).toEqual(independentOptionStyles[0]);
   await expect(page.getByRole("heading", { name: "Credentials and certifications" })).toHaveCount(0);
   await expect(page.locator("#credentials")).toHaveCount(0);
+});
+
+test("Selected work presents anonymised evidence with explicit outcomes and boundaries", async ({ page }) => {
+  await page.goto("/work/selected/");
+
+  await expect(page.getByRole("heading", { level: 1, name: "Applied work, with the boundaries made visible." })).toBeVisible();
+  await expect(page.locator(".selected-work-case")).toHaveCount(2);
+  await expect(page.getByRole("heading", { name: "Turning a broad release concern into a decision-ready review." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Making testing and AI-assisted development more deliberate." })).toBeVisible();
+  await expect(page.getByText("What deliberately did not change", { exact: true })).toHaveCount(2);
+  await expect(page.getByText("Outcome", { exact: true })).toHaveCount(2);
+  await expect(page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link", { name: "Work" })).toHaveAttribute("aria-current", "page");
+  await expect(page.getByRole("link", { name: /How I can help/ })).toHaveAttribute("href", "/work/");
+  await expect(page.getByRole("link", { name: /See professional experience/ })).toHaveAttribute("href", "/experience/");
 });
 
 test("Expert interviews and industry research distinguish professional experience from applied experiments", async ({ page }) => {

@@ -465,6 +465,13 @@ class ValidatorTest < Minitest::Test
     end
   end
 
+  def test_source_rejects_incomplete_selected_work_case
+    assert_invalid_source(/pages\/selected-work\.md: case 1 is missing outcome/) do |directory|
+      path = File.join(directory, "pages/selected-work.md")
+      replace!(path, "    outcome: The team received a decision-ready evidence base for release planning rather than an undifferentiated list of issues.\n", "")
+    end
+  end
+
   def test_source_rejects_invalid_series_order
     assert_invalid_source(/series_order values must be sequential/) do |directory|
       path = File.join(directory, "pages/thinking/i-stopped-trying-to-build-jarvis.md")
