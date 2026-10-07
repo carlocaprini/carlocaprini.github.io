@@ -68,6 +68,9 @@ independent_work:
   action:
     label: How I can help
     url: /work/
+  selected_work_action:
+    label: Read selected work
+    url: /work/selected/
   research_body: I also contribute to selected expert interviews and industry research when my experience with the product or platform being studied is relevant.
   research_action:
     label: See research topics and boundaries

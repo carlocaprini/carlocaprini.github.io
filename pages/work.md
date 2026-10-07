@@ -85,6 +85,13 @@ principles:
       body: Depending on the problem, this can include repositories, tests, CI/CD configuration, technical documentation, architecture decisions and conversations with the people closest to the system.
     - title: Review the system, not the team
       body: The purpose is to understand the system, not to grade the people who built it. Existing decisions should be considered in the context and constraints that produced them.
+selected_work:
+  eyebrow: Selected work
+  title: What this looks like in practice.
+  body: Two anonymised examples show how repository evidence, trade-offs and deliberate non-decisions shaped a Review and an Advisory engagement.
+  action:
+    label: Read selected work
+    url: /work/selected/
 experience:
   eyebrow: Experience behind this work
   title: Experience across Product & Engineering.
