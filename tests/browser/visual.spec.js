@@ -10,6 +10,7 @@ const surfaces = [
   { name: "product-series", route: "/series/product-judgment-in-practice/", viewport: { width: 1440, height: 900 } },
   { name: "product-series-article", route: "/thinking/most-product-disagreements-come-from-missing-information/", viewport: { width: 1440, height: 900 } },
   { name: "experience", route: "/experience/", viewport: { width: 1440, height: 900 } },
+  { name: "industry-expertise", route: "/industry-expertise/", viewport: { width: 1440, height: 900 } },
   { name: "work", route: "/work/", viewport: { width: 1440, height: 900 } }
 ];
 

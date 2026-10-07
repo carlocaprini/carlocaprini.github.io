@@ -62,9 +62,15 @@ layout: default
         <div class="section-eyebrow">{{ page.independent_work.eyebrow }}</div>
         <h2 class="section-title">{{ page.independent_work.title }}</h2>
       </div>
-      <div>
-        <p class="section-description">{{ page.independent_work.body }}</p>
-        <a class="section-link" href="{{ page.independent_work.action.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="experience_independent_work">{{ page.independent_work.action.label }} <span aria-hidden="true">→</span></a>
+      <div class="experience-independent-options">
+        <div class="experience-independent-option">
+          <p class="section-description">{{ page.independent_work.body }}</p>
+          <a class="section-link" href="{{ page.independent_work.action.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="experience_independent_work">{{ page.independent_work.action.label }} <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="experience-independent-option">
+          <p class="section-description">{{ page.independent_work.research_body }}</p>
+          <a class="section-link" href="{{ page.independent_work.research_action.url | relative_url }}" data-analytics-event="industry_expertise_open" data-analytics-link-context="experience_industry_expertise" data-analytics-destination="{{ page.independent_work.research_action.url }}">{{ page.independent_work.research_action.label }} <span aria-hidden="true">→</span></a>
+        </div>
       </div>
     </div>
   </section>

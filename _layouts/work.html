@@ -9,7 +9,7 @@ layout: default
           <span class="hero-label-dot"></span>
           <span>{{ page.hero.label }}</span>
         </div>
-        <h1 class="hero-title hero-title--compact">{{ page.hero.title }}</h1>
+        <h1 class="hero-title hero-title--compact">{{ page.hero.title_prefix }}<span class="highlight">{{ page.hero.title_highlight }}</span>{{ page.hero.title_suffix }}</h1>
         {% for paragraph in page.hero.paragraphs %}
           <p class="hero-subtitle hero-subtitle--wide">{{ paragraph }}</p>
         {% endfor %}
@@ -155,6 +155,19 @@ layout: default
           {% for signal in page.experience.signals %}<li>{{ signal }}</li>{% endfor %}
         </ul>
         <a class="section-link" href="{{ page.experience.action.url | relative_url }}" data-analytics-event="experience_open" data-analytics-link-context="work_experience">{{ page.experience.action.label }} <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section work-industry-section">
+    <div class="container work-section-intro work-reveal" data-work-reveal>
+      <div>
+        <div class="section-eyebrow">{{ page.industry_research.eyebrow }}</div>
+        <h2 class="section-title">{{ page.industry_research.title }}</h2>
+      </div>
+      <div class="work-industry-copy">
+        <p class="section-description">{{ page.industry_research.body }}</p>
+        <a class="section-link" href="{{ page.industry_research.action.url | relative_url }}" data-analytics-event="industry_expertise_open" data-analytics-link-context="work_industry_expertise" data-analytics-destination="{{ page.industry_research.action.url }}">{{ page.industry_research.action.label }} <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>

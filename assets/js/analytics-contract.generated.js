@@ -53,6 +53,9 @@
         "work_open": [
           "destination"
         ],
+        "industry_expertise_open": [
+          "destination"
+        ],
         "work_section_view": [
           "work_section"
         ],
@@ -91,6 +94,7 @@
         "reading_open",
         "experience_open",
         "work_open",
+        "industry_expertise_open",
         "work_section_view",
         "contact_section_open",
         "contact_open",
@@ -108,6 +112,7 @@
         "reading_open",
         "experience_open",
         "work_open",
+        "industry_expertise_open",
         "work_section_view",
         "contact_section_open",
         "contact_open",
@@ -127,6 +132,7 @@
       "explore",
       "experience",
       "work",
+      "industry_expertise",
       "influences",
       "note",
       "question",
@@ -141,6 +147,7 @@
       "explore",
       "experience",
       "work",
+      "industry_expertise",
       "influences",
       "note",
       "question",

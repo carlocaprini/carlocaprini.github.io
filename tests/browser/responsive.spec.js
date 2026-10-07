@@ -161,6 +161,33 @@ test("Work keeps its recognition and evidence layers readable across breakpoints
   }
 });
 
+test("Industry Expertise preserves hierarchy and fit across breakpoints", async ({ page }, testInfo) => {
+  await page.goto("/industry-expertise/");
+
+  const state = await page.locator(".industry-expertise-page").evaluate((element) => {
+    const areaGrid = element.querySelector(".industry-expertise-area-grid");
+    const split = element.querySelector(".industry-expertise-experience-section .industry-expertise-split");
+    const contact = element.querySelector(".industry-expertise-contact-panel");
+    const contactBox = contact.getBoundingClientRect();
+    return {
+      areaColumns: getComputedStyle(areaGrid).gridTemplateColumns.split(" ").length,
+      splitColumns: getComputedStyle(split).gridTemplateColumns.split(" ").length,
+      contactLeft: contactBox.left,
+      contactRight: contactBox.right,
+      scrollWidth: document.documentElement.scrollWidth,
+      viewportWidth: document.documentElement.clientWidth
+    };
+  });
+
+  const expectedColumns = testInfo.project.name === "desktop-chromium" ? 2 : 1;
+  expect(state.areaColumns).toBe(expectedColumns);
+  expect(state.splitColumns).toBe(expectedColumns);
+  expect(state.contactLeft).toBeGreaterThanOrEqual(16);
+  expect(state.contactRight).toBeLessThanOrEqual(state.viewportWidth - 16);
+  expect(state.scrollWidth).toBe(state.viewportWidth);
+  await expect(page.getByRole("link", { name: /Contact me on LinkedIn/ })).toBeVisible();
+});
+
 test("article signature preserves identity and actions across breakpoints", async ({ page }, testInfo) => {
   await page.goto("/thinking/waiting-as-product-decision/");
 

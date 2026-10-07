@@ -170,6 +170,8 @@ test("Home Contact keeps LinkedIn primary and adds restrained profile identity",
 test("Work explains recognizable problems and exactly two engagement models", async ({ page }) => {
   await page.goto("/work/");
 
+  await expect(page.getByRole("heading", { level: 1, name: "Working through difficult Product & Engineering problems." })).toBeVisible();
+  await expect(page.locator(".work-hero .hero-title .highlight")).toHaveText("Product & Engineering");
   await expect(page.getByRole("heading", { name: "When the problem crosses boundaries." })).toBeVisible();
   await expect(page.locator(".work-situation-list > li")).toHaveCount(6);
   await expect(page.locator(".work-engagement")).toHaveCount(2);
@@ -190,6 +192,17 @@ test("Work explains recognizable problems and exactly two engagement models", as
   await expect(page.getByRole("heading", { name: "Experience across Product & Engineering." })).toBeVisible();
   await expect(page.locator(".work-evidence-signals > li")).toHaveCount(3);
   await expect(page.getByRole("link", { name: /See full experience/ })).toHaveAttribute("href", "/experience/");
+  await expect(page.getByRole("heading", { name: "Expert interviews and industry research." })).toBeVisible();
+  await expect(page.locator(".work-industry-section").getByRole("list")).toHaveCount(0);
+  await expect(page.getByText("I occasionally contribute to selected expert interviews, primary research and market studies when my experience with software products, platforms and developer-facing systems is relevant.", { exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: /See research topics and boundaries/ })).toHaveAttribute("href", "/industry-expertise/");
+  const workSectionOrder = await page.locator(".work-evidence-section, .work-industry-section, .work-next-section")
+    .evaluateAll((sections) => sections.map((section) => section.className));
+  expect(workSectionOrder).toEqual([
+    "section work-evidence-section",
+    "section work-industry-section",
+    "section work-next-section"
+  ]);
   await expect(page.getByRole("link", { name: /Start a conversation/ })).toHaveAttribute("href", /^https:\/\//);
 });
 
@@ -200,8 +213,76 @@ test("Experience leads with direct work and leaves credentials out of the public
   await expect(page.locator(".experience-evidence-card")).toHaveCount(4);
   await expect(page.getByText("Career context", { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: "How I can help", exact: true })).toHaveAttribute("href", "/work/");
+  await expect(page.getByRole("link", { name: /See research topics and boundaries/ })).toHaveAttribute("href", "/industry-expertise/");
+  const independentOptionStyles = await page.locator(".experience-independent-option").evaluateAll((options) =>
+    options.map((option) => {
+      const paragraphStyle = getComputedStyle(option.querySelector(".section-description"));
+      const linkStyle = getComputedStyle(option.querySelector(".section-link"));
+      return {
+        paragraphFontSize: paragraphStyle.fontSize,
+        paragraphLineHeight: paragraphStyle.lineHeight,
+        linkColor: linkStyle.color,
+        linkFontSize: linkStyle.fontSize
+      };
+    })
+  );
+  expect(independentOptionStyles).toHaveLength(2);
+  expect(independentOptionStyles[1]).toEqual(independentOptionStyles[0]);
   await expect(page.getByRole("heading", { name: "Credentials and certifications" })).toHaveCount(0);
   await expect(page.locator("#credentials")).toHaveCount(0);
+});
+
+test("Expert interviews and industry research distinguish professional experience from applied experiments", async ({ page }) => {
+  await page.goto("/industry-expertise/");
+
+  await expect(page).toHaveTitle("Software, API & Commerce Industry Expertise | Carlo Caprini");
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    "Selected expert interviews and industry research on software platforms, APIs, composable commerce and applied AI workflows, grounded in product management and software engineering experience."
+  );
+  await expect(page.getByText("Expert interviews and industry research", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Product, platform and software experience for industry research." })).toBeVisible();
+  await expect(page.locator(".industry-expertise-hero .hero-title .highlight")).toHaveText("industry research");
+  await expect(page.locator(".industry-expertise-area")).toHaveCount(4);
+  await expect(page.locator(".industry-expertise-area h3")).toHaveText([
+    "APIs & developer platforms",
+    "Commerce platforms & composable commerce",
+    "Document APIs & workflow automation",
+    "AI agents & software workflows"
+  ]);
+  await expect(page.locator(".industry-expertise-area-basis > span")).toHaveText([
+    "Professional experience",
+    "Professional experience",
+    "Current professional experience",
+    "Applied research and experiments"
+  ]);
+  await expect(page.getByText("My current work and applied experiments cover AI-assisted software development, agent-driven workflows and interfaces for people and software agents, including Model Context Protocol (MCP). The focus is product interfaces, APIs, professional workflows, reliability and human/agent boundaries.", { exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: /See related notes and experiments/ })).toHaveAttribute("href", "/series/building-my-ai-operating-system/");
+  await expect(page.locator(".industry-expertise-experience-section").getByRole("list")).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "The broader professional context." })).toBeVisible();
+  await expect(page.locator(".industry-expertise-format-list > li")).toHaveCount(6);
+  await expect(page.getByText("I can discuss public information, general industry practices, historical market context, professional experience I am permitted to share and transferable observations about product and software work.", { exact: true })).toBeVisible();
+  await expect(page.getByText("I do not discuss confidential, proprietary or non-public information about current or former employers, customers, partners or competitors. I decline topics that conflict with my professional obligations.", { exact: true })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Explore professional experience/ })).toHaveAttribute("href", "/experience/");
+  await expect(page.getByRole("link", { name: /Contact me on LinkedIn/ })).toHaveAttribute("href", "https://www.linkedin.com/in/carlocaprini/");
+  const sectionOrder = await page.locator(".industry-expertise-experience-section, .industry-expertise-boundaries-section, .industry-expertise-formats-section, .industry-expertise-contact-section")
+    .evaluateAll((sections) => sections.map((section) => section.className));
+  expect(sectionOrder).toEqual([
+    "section industry-expertise-experience-section",
+    "section industry-expertise-boundaries-section",
+    "section industry-expertise-formats-section",
+    "section industry-expertise-contact-section"
+  ]);
+
+  const expertiseProfile = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>
+    scripts.map((script) => JSON.parse(script.textContent)).find((entry) =>
+      entry["@type"] === "ProfilePage" && entry.url.endsWith("/industry-expertise/")
+    )
+  );
+  expect(expertiseProfile.mainEntity["@id"]).toBe("https://carlocaprini.github.io/#person");
+  expect(expertiseProfile.mainEntity.jobTitle).toBe("Senior Product Manager");
+  expect(expertiseProfile.mainEntity.description).toContain("Senior Product Manager");
+  expect(expertiseProfile.mainEntity).not.toHaveProperty("knowsAbout");
 });
 
 test("question pages connect Thinking, Influences and Experience", async ({ page }) => {

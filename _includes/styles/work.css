@@ -31,12 +31,14 @@
 }
 
 .work-evidence-section,
+.work-industry-section,
 .work-next-section {
   position: relative;
   padding-top: 3.4rem;
 }
 
 .work-evidence-section::before,
+.work-industry-section::before,
 .work-next-section::before {
   position: absolute;
   top: 0;
@@ -57,6 +59,7 @@
 
 .work-principles-section,
 .work-evidence-section,
+.work-industry-section,
 .work-next-section {
   margin-bottom: 3.8rem;
 }
@@ -254,6 +257,14 @@
 
 .work-evidence-signals {
   margin-bottom: 1.2rem;
+}
+
+.work-industry-copy .section-description {
+  margin: 0;
+}
+
+.work-industry-copy .section-link {
+  margin-top: 1rem;
 }
 
 .work-outcome {

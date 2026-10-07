@@ -38,7 +38,7 @@ In **Admin → Data display → Events**, generate a new event from the existing
 | Condition 2 | `link_context` equals `work_contact` |
 | Copy parameters from source event | Yes |
 
-Mark `work_contact_open` as the only site-navigation-related **Key Event**. Keep `work_open`, `work_section_view`, `experience_open` and ordinary `contact_open` as exploratory events, not Key Events.
+Mark `work_contact_open` as the only site-navigation-related **Key Event**. Keep `work_open`, `work_section_view`, `experience_open`, `industry_expertise_open` and ordinary `contact_open` as exploratory events, not Key Events.
 
 The generated event is forward-looking and does not rewrite historical data. Verify one consented production test after configuration, then annotate that test in the next monthly review so it is not mistaken for external intent.
 
@@ -51,7 +51,7 @@ Use separate tabs rather than one artificial funnel:
 1. **Acquisition** — Landing page + query string, Session source / medium; Sessions, Engaged sessions and Average engagement time.
 2. **Content** — Page path and screen class, Page type, Page ID and Page topic; Views, Sessions, Engaged sessions and Average engagement time.
 3. **Depth** — Event name, Link context, Social platform and the relevant target dimension; Event count. Include `social_profile_open` here as relationship exploration rather than contact intent.
-4. **Professional intent** — Event name, Work section, Link context and Contact method; Event count and Key events. Filter event name to `experience_open`, `work_open`, `work_section_view`, `contact_section_open`, `contact_open` and `work_contact_open`.
+4. **Professional intent** — Event name, Work section, Link context and Contact method; Event count and Key events. Filter event name to `experience_open`, `work_open`, `industry_expertise_open`, `work_section_view`, `contact_section_open`, `contact_open` and `work_contact_open`.
 5. **Audience diagnostics** — Device category and Country; Active users and Sessions. Use city only to investigate an anomaly.
 
 Export each tab for the exact month. Do not blend GA4 users or sessions with aggregate D1 counters.

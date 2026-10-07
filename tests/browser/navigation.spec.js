@@ -56,6 +56,22 @@ test("Work is a first-class destination with a current-page state", async ({ pag
     .toHaveAttribute("aria-current", "page");
 });
 
+test("Industry research remains contextual rather than primary navigation", async ({ page }, testInfo) => {
+  await page.goto("/industry-expertise/");
+
+  const primaryNavigation = page.getByRole("navigation", { name: "Primary navigation" });
+  const mobileMenu = page.locator("details.mobile-nav");
+  const navigation = testInfo.project.name === "desktop-chromium"
+    ? primaryNavigation
+    : page.getByRole("navigation", { name: "Mobile navigation" });
+
+  if (testInfo.project.name !== "desktop-chromium") await mobileMenu.locator("summary").click();
+
+  await expect(navigation.getByRole("link")).toHaveCount(7);
+  await expect(navigation.locator('a[href="/industry-expertise/"]')).toHaveCount(0);
+  await expect(navigation.locator('a[aria-current="page"]')).toHaveCount(0);
+});
+
 test("Series pages belong to Explore navigation", async ({ page }, testInfo) => {
   await page.goto("/series/product-judgment-in-practice/");
 

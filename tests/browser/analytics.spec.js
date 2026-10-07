@@ -116,6 +116,12 @@ test("Aggregate measurement maps semantic events without personal fields", async
       page_id: "/",
       link_context: "home_selected_work"
     }),
+    industryExpertise: window.siteAggregateAnalytics.buildEvent("industry_expertise_open", {
+      page_type: "work",
+      page_id: "/work/",
+      destination: "/industry-expertise/",
+      link_context: "work_industry_expertise"
+    }),
     workSection: window.siteAggregateAnalytics.buildEvent("work_section_view", {
       page_type: "work",
       page_id: "/work/",
@@ -195,6 +201,15 @@ test("Aggregate measurement maps semantic events without personal fields", async
     target_type: "work",
     target_id: "work",
     link_context: "home_selected_work"
+  });
+  expect(mapped.industryExpertise).toEqual({
+    version: 1,
+    event_name: "industry_expertise_open",
+    source_type: "work",
+    source_id: "/work/",
+    target_type: "industry_expertise",
+    target_id: "industry_expertise",
+    link_context: "work_industry_expertise"
   });
   expect(mapped.workSection).toEqual({
     version: 1,
@@ -482,6 +497,66 @@ test("Work discovery and meaningful section views expose their context", async (
     parameters: {
       link_context: "work_experience",
       page_type: "work"
+    }
+  });
+});
+
+test("Industry Expertise paths and contact intent expose their source context", async ({ page }) => {
+  await captureAnalytics(page);
+  await page.goto("/work/");
+
+  const expertiseLink = page.locator('[data-analytics-event="industry_expertise_open"][data-analytics-link-context="work_industry_expertise"]');
+  await expertiseLink.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+  await expertiseLink.click();
+  expect(await page.evaluate(() => window.__analyticsEvents.at(-1))).toMatchObject({
+    name: "industry_expertise_open",
+    parameters: {
+      destination: "/industry-expertise/",
+      link_context: "work_industry_expertise",
+      page_type: "work"
+    }
+  });
+
+  await page.goto("/industry-expertise/");
+  await expect(page.locator("body")).toHaveAttribute("data-analytics-page-type", "industry_expertise");
+  const consentPanel = page.getByRole("complementary", { name: "Help me understand how the site is used" });
+  if (await consentPanel.isVisible()) {
+    await consentPanel.getByRole("button", { name: "No thanks" }).click();
+  }
+
+  const experienceLink = page.locator('[data-analytics-event="experience_open"][data-analytics-link-context="industry_expertise_experience"]');
+  await experienceLink.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+  await experienceLink.click();
+  expect(await page.evaluate(() => window.__analyticsEvents.at(-1))).toMatchObject({
+    name: "experience_open",
+    parameters: {
+      destination: "/experience/",
+      link_context: "industry_expertise_experience",
+      page_type: "industry_expertise"
+    }
+  });
+
+  const relatedWorkLink = page.locator('[data-analytics-event="series_open"][data-analytics-link-context="industry_expertise_related_work"]');
+  await relatedWorkLink.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+  await relatedWorkLink.click();
+  expect(await page.evaluate(() => window.__analyticsEvents.at(-1))).toMatchObject({
+    name: "series_open",
+    parameters: {
+      series_id: "building-my-ai-operating-system",
+      link_context: "industry_expertise_related_work",
+      page_type: "industry_expertise"
+    }
+  });
+
+  const contactLink = page.locator('[data-analytics-event="contact_open"][data-analytics-link-context="industry_expertise_contact"]');
+  await contactLink.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+  await contactLink.click();
+  expect(await page.evaluate(() => window.__analyticsEvents.at(-1))).toMatchObject({
+    name: "contact_open",
+    parameters: {
+      contact_method: "linkedin",
+      link_context: "industry_expertise_contact",
+      page_type: "industry_expertise"
     }
   });
 });
