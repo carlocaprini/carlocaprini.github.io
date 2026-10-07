@@ -51,22 +51,11 @@ layout: default
       <div>
         <div class="section-eyebrow">{{ page.experience.eyebrow }}</div>
         <h2 class="section-title" id="industry-expertise-experience-title">{{ page.experience.title }}</h2>
+      </div>
+      <div>
+        <p class="section-description">{{ page.experience.body }}</p>
         <a class="section-link" href="{{ page.experience.action.url | relative_url }}" data-analytics-event="experience_open" data-analytics-link-context="industry_expertise_experience" data-analytics-destination="{{ page.experience.action.url }}">{{ page.experience.action.label }} <span aria-hidden="true">→</span></a>
       </div>
-      <ol class="industry-expertise-experience-list">
-        {% for item in page.experience.items %}
-          <li>
-            <div class="industry-expertise-experience-heading">
-              <div>
-                <span>{{ item.company }}</span>
-                <h3>{{ item.role }}</h3>
-              </div>
-              <span>{{ item.period }}</span>
-            </div>
-            <p>{{ item.description }}</p>
-          </li>
-        {% endfor %}
-      </ol>
     </div>
   </section>
 

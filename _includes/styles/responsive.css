@@ -806,15 +806,6 @@
     gap: 1.7rem;
   }
 
-  .industry-expertise-experience-heading {
-    display: block;
-  }
-
-  .industry-expertise-experience-heading > span {
-    display: block;
-    margin-top: 0.35rem;
-  }
-
   .industry-expertise-format-list {
     grid-template-columns: minmax(0, 1fr);
   }

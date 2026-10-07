@@ -241,11 +241,12 @@ test("Expert interviews and industry research distinguish professional experienc
   ]);
   await expect(page.getByText("My current work and applied experiments cover AI-assisted software development, agent-driven workflows and interfaces for people and software agents, including Model Context Protocol (MCP). The focus is product interfaces, APIs, professional workflows, reliability and human/agent boundaries.", { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: /See related notes and experiments/ })).toHaveAttribute("href", "/series/building-my-ai-operating-system/");
-  await expect(page.locator(".industry-expertise-experience-list > li")).toHaveCount(3);
+  await expect(page.locator(".industry-expertise-experience-section").getByRole("list")).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "The broader professional context." })).toBeVisible();
   await expect(page.locator(".industry-expertise-format-list > li")).toHaveCount(6);
   await expect(page.getByText("I can discuss public information, general industry practices, historical market context, professional experience I am permitted to share and transferable observations about product and software work.", { exact: true })).toBeVisible();
   await expect(page.getByText("I do not discuss confidential, proprietary or non-public information about current or former employers, customers, partners or competitors. I decline topics that conflict with my professional obligations.", { exact: true })).toBeVisible();
-  await expect(page.getByRole("link", { name: /See full experience/ })).toHaveAttribute("href", "/experience/");
+  await expect(page.getByRole("link", { name: /Explore professional experience/ })).toHaveAttribute("href", "/experience/");
   await expect(page.getByRole("link", { name: /Contact me on LinkedIn/ })).toHaveAttribute("href", "https://www.linkedin.com/in/carlocaprini/");
 
   const expertiseProfile = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>

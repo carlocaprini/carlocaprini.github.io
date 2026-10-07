@@ -4,7 +4,7 @@ title: Expert Interviews and Industry Research
 permalink: /industry-expertise/
 meta_title: Software, API & Commerce Industry Expertise | Carlo Caprini
 meta_description: Selected expert interviews and industry research on software platforms, APIs, composable commerce and applied AI workflows, grounded in product management and software engineering experience.
-last_modified_at: 2026-09-18
+last_modified_at: 2026-10-07
 hero:
   label: Expert interviews and industry research
   title: Product, platform and software experience for industry research.
@@ -65,23 +65,11 @@ areas:
         url: /series/building-my-ai-operating-system/
         series_id: building-my-ai-operating-system
 experience:
-  eyebrow: Relevant experience
-  title: Experience behind these perspectives.
-  items:
-    - company: PandaDoc
-      role: Senior Product Manager
-      period: 2026 – present
-      description: API platform, integrations, developer ecosystem and emerging AI interaction models.
-    - company: commercetools
-      role: Senior Product Manager
-      period: 2022 – 2026
-      description: Developer-facing platform capabilities across APIs, extensibility, integrations, observability, developer tooling and composable commerce.
-    - company: U-Hopper
-      role: Product Manager / Software Engineer
-      period: 2013 – 2022
-      description: Product direction and software engineering across B2B software, web applications and distributed systems in a startup environment.
+  eyebrow: Professional context
+  title: The broader professional context.
+  body: Experience covers the roles, problems and transitions behind the perspectives outlined here.
   action:
-    label: See full experience
+    label: Explore professional experience
     url: /experience/
 formats:
   eyebrow: Research formats

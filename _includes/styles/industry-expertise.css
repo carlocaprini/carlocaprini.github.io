@@ -117,60 +117,10 @@
   margin-top: 1rem;
 }
 
-.industry-expertise-experience-list,
 .industry-expertise-format-list {
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-.industry-expertise-experience-list > li {
-  padding: 1.2rem 0;
-  border-bottom: 1px solid var(--color-line);
-}
-
-.industry-expertise-experience-list > li:first-child {
-  padding-top: 0;
-}
-
-.industry-expertise-experience-list > li:last-child {
-  padding-bottom: 0;
-  border-bottom: 0;
-}
-
-.industry-expertise-experience-heading {
-  display: flex;
-  gap: 1rem;
-  align-items: baseline;
-  justify-content: space-between;
-}
-
-.industry-expertise-experience-heading > div > span {
-  color: var(--accent-cyan);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.industry-expertise-experience-heading > span {
-  flex: 0 0 auto;
-  color: var(--color-text-muted);
-  font-size: 0.76rem;
-}
-
-.industry-expertise-experience-heading h3 {
-  margin: 0.3rem 0 0;
-  color: var(--color-text);
-  font-size: 1rem;
-  font-weight: 570;
-}
-
-.industry-expertise-experience-list p {
-  margin: 0.65rem 0 0;
-  color: var(--color-text-muted);
-  font-size: 0.9rem;
-  line-height: 1.7;
 }
 
 .industry-expertise-formats-section,
