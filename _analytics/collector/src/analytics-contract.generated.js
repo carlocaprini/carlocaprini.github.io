@@ -169,6 +169,7 @@ export const ANALYTICS_CONTRACT = Object.freeze({
       "github",
       "medium",
       "newsletter",
+      "email_signature",
       "manual",
       "qr"
     ],
@@ -201,6 +202,7 @@ export const ANALYTICS_CONTRACT = Object.freeze({
       "featured",
       "about",
       "website_button",
+      "website_link",
       "profile_readme",
       "article",
       "shared_link",
@@ -269,6 +271,16 @@ export const ANALYTICS_CONTRACT = Object.freeze({
         ],
         "content": [
           "article"
+        ]
+      },
+      {
+        "source": "email_signature",
+        "medium": "email",
+        "campaigns": [
+          "profile"
+        ],
+        "content": [
+          "website_link"
         ]
       },
       {

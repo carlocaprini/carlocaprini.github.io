@@ -43,16 +43,19 @@ The table below explains the canonical combinations for humans. Runtime acceptan
 | GitHub profile README | `github` | `profile` | `profile` | `profile_readme` |
 | Medium article | `medium` | `referral` | Editorial initiative | `article` |
 | Newsletter | `newsletter` | `email` | `monthly_updates` | `article` |
+| Email signature | `email_signature` | `email` | `profile` | `website_link` |
 | Manual sharing | `manual` | `direct` | Editorial initiative | `shared_link` |
 | QR code | `qr` | `offline` | Editorial initiative | `qr` |
 
-Allowed editorial initiatives are `thinking`, `building_my_ai_operating_system`, `experience` and `explore`. The profile and newsletter scenarios use the dedicated campaign values `profile` and `monthly_updates`.
+Allowed editorial initiatives are `thinking`, `building_my_ai_operating_system`, `experience` and `explore`. Profile surfaces, including the email signature, use `profile`; newsletters use the dedicated `monthly_updates` campaign.
 
 The Premium website-button combination requires all four UTM parameters, like every other scenario. It reuses the `profile` medium while distinguishing the subscription campaign and the specific website button. Featured/About remain on the `profile` campaign; these content values are not interchangeable with `website_button`. GitHub profile README links use one shared `profile_readme` value: the landing path already distinguishes which site destination was opened, without multiplying campaign labels. No schema migration is needed. These counters measure attributed landing events, not platform-side clicks or unique people. Deploy the updated collector contract as well as the site before using a new combination in production. GA4 attribution remains consent-dependent; ordinary local previews remain excluded.
 
 Website-button URL: `https://carlocaprini.github.io/?utm_source=linkedin&utm_medium=profile&utm_campaign=premium_subscription&utm_content=website_button`.
 
 GitHub profile README parameters: `utm_source=github&utm_medium=profile&utm_campaign=profile&utm_content=profile_readme`.
+
+Email-signature parameters: `utm_source=email_signature&utm_medium=email&utm_campaign=profile&utm_content=website_link`.
 
 For LinkedIn posts, `<format>` is one of `text_post`, `single_image` or `carousel`. For example:
 

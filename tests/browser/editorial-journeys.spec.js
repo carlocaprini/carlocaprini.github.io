@@ -115,6 +115,8 @@ test("Recent Thinking uses internal separators and padded content", async ({ pag
 test("Home follows the discovery-first content order", async ({ page }) => {
   await page.goto("/");
 
+  await expect(page.locator(".hero-actions").getByRole("link", { name: "Explore the ideas", exact: true }))
+    .toHaveAttribute("href", "/explore/");
   const startHere = page.locator(".home-start-here");
   await expect(startHere.getByText("Start here", { exact: true })).toBeVisible();
   await expect(startHere.getByRole("heading", { name: "Selected notes" })).toBeVisible();
