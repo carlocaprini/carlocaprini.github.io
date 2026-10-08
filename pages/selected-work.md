@@ -4,43 +4,41 @@ title: Selected work
 permalink: /work/selected/
 work_section: true
 meta_title: Selected Product & Engineering Work | Carlo Caprini
-meta_description: Two anonymised examples of Product & Engineering work, showing the objectives, collaboration, value created and boundaries preserved.
-last_modified_at: 2026-10-07
+meta_description: Two anonymised examples of Product & Engineering work, showing the goal, collaboration, outcome and boundaries of each engagement.
+last_modified_at: 2026-10-08
 hero:
   label: Selected work
-  title_prefix: "Applied work, with the "
-  title_highlight: "boundaries made visible"
-  title_suffix: "."
+  title_prefix: "Applied work, with "
+  title_highlight: "outcomes and boundaries"
+  title_suffix: " made clear."
   paragraphs:
-    - These anonymised examples show how I work through Product & Engineering problems when the useful outcome is clearer judgment, not simply more activity.
-    - Names, sectors, systems and other identifying details have been removed. What remains is the objective, how we worked together, the value produced and the limits of the evidence.
+    - These anonymised examples show how I work with software teams on Product & Engineering problems. Each case focuses on the goal, the collaboration, what changed and the outcome.
+    - Names, sectors, systems and other identifying details have been removed. The cases describe only what the available evidence supports and make the boundaries explicit.
 cases:
   - id: release-readiness-review
     index: "01"
     engagement: Product & Engineering Review
-    title: Turning a broad release concern into a decision-ready review.
-    summary: An anonymised, repository-based assessment helping a software company decide what needed attention before relying on a product more broadly.
-    situation: The objective was to replace a broad question — “is this ready?” — with a shared basis for decisions. Product behaviour, technical foundations, delivery confidence and unresolved ownership questions needed to be considered together.
-    examined: I worked primarily from the repository and available documentation, tracing claims back to evidence and organising findings around the decisions they affected. Focused conversations supplied missing context while leaving priorities and risk acceptance with the client.
-    clearer: We separated conditions that needed attention before relying on a capability from risks the client could consciously accept, improvements that could wait and questions requiring a different owner or specialist judgment.
-    changed: The collaboration produced a structured review pack, a prioritised action model and a guided walkthrough. Follow-up analysis made the evidence more complete and reusable without turning every finding into mandatory work.
-    unchanged: Assessment remained separate from remediation. I did not change the product, verify production behaviour, certify specialist concerns or take ownership of product, release or risk decisions.
-    outcome: The client gained a traceable way to decide what to address first, what could wait and what required separate validation — rather than receiving an undifferentiated list of issues.
+    title: Turning a broad release concern into clear priorities.
+    summary: A software company needed to decide what to address before relying on a product more broadly.
+    goal: Replace the broad question “is this ready?” with concrete decisions about product behaviour, technical foundations, delivery confidence and ownership.
+    collaboration: I reviewed the repository and available documentation, linked each finding to evidence and used focused conversations to fill important gaps. Together, we separated immediate concerns from accepted risks, later improvements and questions needing specialist input. Priorities remained the client’s decision.
+    changed: The team received a structured review, prioritised actions and a guided walkthrough. Follow-up analysis made the evidence easier to reuse without treating every finding as mandatory work.
+    boundaries: The work was an assessment, not remediation or certification. I did not change the product, verify production behaviour or take ownership of product, release or risk decisions.
+    outcome: The client had a clear basis for deciding what to address first, what could wait and what needed separate validation.
   - id: deliberate-quality-automation
     index: "02"
     engagement: Product & Engineering Advisory
-    title: Making testing and AI-assisted development more deliberate.
-    summary: An anonymised advisory collaboration helping a software team turn broad interest in quality and AI into bounded, practical experiments.
-    situation: The objective was to improve confidence in day-to-day delivery and reduce recurring manual friction without introducing automation the team could not yet trust, explain or own.
-    examined: Across recurring working sessions, we combined workflow analysis, small prototypes, team demonstrations and follow-up decisions. We considered where faster feedback, assisted review, access to operational information and clearer repository guardrails could support real work.
-    clearer: Useful automation needed a concrete job, limited authority and observable evidence. Reliable checks could protect delivery, while AI-generated feedback and operational tools needed to remain advisory until the team had calibrated them through use.
-    changed: A fast testing layer moved into regular use. Separate AI-assisted prototypes produced relevant review feedback and answered operational questions in demonstrations. The team selected nearer-term quality priorities and deliberately deferred options likely to create more noise than value.
-    unchanged: The prototypes did not become authoritative, and the work did not establish broad or measured organisational adoption. Implementation, rollout and release ownership remained with the client.
-    outcome: The collaboration turned a broad interest in AI into a sequence of testable uses and explicit decisions about what should protect delivery, what could assist people and what was not yet worth automating.
+    title: Improving delivery confidence with testing and bounded AI experiments.
+    summary: A software team wanted to improve delivery confidence and explore AI without introducing automation it could not yet trust or own.
+    goal: Reduce recurring manual friction, improve feedback during development and identify practical uses for AI with clear limits.
+    collaboration: Across recurring working sessions, we reviewed workflows, built small prototypes, demonstrated them with the team and decided what to pursue next. We looked at testing, assisted review, access to system information and clearer checks and rules in the repository.
+    changed: A fast testing layer moved into regular use. AI-assisted prototypes produced useful review feedback and answered operational questions in demonstrations. The team selected nearer-term quality priorities and deferred options likely to create more noise than value.
+    boundaries: The AI prototypes remained advisory, and the work did not establish broad or measured adoption. Implementation, rollout and release ownership remained with the client.
+    outcome: "The team turned a broad interest in AI into a practical sequence: what should protect delivery, where AI could assist people and what was not yet worth automating."
 continuation:
   eyebrow: Continue
-  title: The cases are evidence, not a service catalogue.
-  body: Work explains where this kind of engagement tends to be useful. Experience provides the longer professional context behind it.
+  title: Two examples, not a service catalogue.
+  body: Work explains where this kind of collaboration can be useful. Experience provides the longer professional context behind it.
   actions:
     - label: How I can help
       url: /work/

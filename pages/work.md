@@ -88,7 +88,7 @@ principles:
 selected_work:
   eyebrow: Selected work
   title: What this looks like in practice.
-  body: Two anonymised examples show how repository evidence, trade-offs and deliberate non-decisions shaped a Review and an Advisory engagement.
+  body: Two anonymised examples show the goal, collaboration, outcome and boundaries of a Review and an Advisory engagement.
   action:
     label: Read selected work
     url: /work/selected/

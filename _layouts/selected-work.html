@@ -36,16 +36,12 @@ layout: default
           <div class="selected-work-case-body">
             <div class="selected-work-case-evidence">
               <section>
-                <h3>Situation</h3>
-                <p>{{ case.situation }}</p>
+                <h3>Goal</h3>
+                <p>{{ case.goal }}</p>
               </section>
               <section>
-                <h3>What I examined</h3>
-                <p>{{ case.examined }}</p>
-              </section>
-              <section>
-                <h3>What became clearer</h3>
-                <p>{{ case.clearer }}</p>
+                <h3>How we worked</h3>
+                <p>{{ case.collaboration }}</p>
               </section>
               <section>
                 <h3>What changed</h3>
@@ -54,12 +50,12 @@ layout: default
             </div>
             <aside class="selected-work-case-boundaries" aria-label="Outcome and boundaries">
               <section>
-                <h3 class="section-eyebrow">What deliberately did not change</h3>
-                <p>{{ case.unchanged }}</p>
-              </section>
-              <section>
                 <h3 class="section-eyebrow">Outcome</h3>
                 <p>{{ case.outcome }}</p>
+              </section>
+              <section>
+                <h3 class="section-eyebrow">Boundaries</h3>
+                <p>{{ case.boundaries }}</p>
               </section>
             </aside>
           </div>
@@ -78,7 +74,11 @@ layout: default
         <p class="section-description">{{ page.continuation.body }}</p>
         <div class="selected-work-continuation-links">
           {% for action in page.continuation.actions %}
-            <a class="section-link" href="{{ action.url | relative_url }}" data-analytics-event="{{ action.event }}" data-analytics-link-context="{{ action.context }}" data-analytics-destination="{{ action.url }}">{{ action.label }} <span aria-hidden="true">→</span></a>
+            {% if action.event == "experience_open" %}
+              <a class="section-link" href="{{ action.url | relative_url }}" data-analytics-event="experience_open" data-analytics-link-context="{{ action.context }}" data-analytics-destination="{{ action.url }}">{{ action.label }} <span aria-hidden="true">→</span></a>
+            {% else %}
+              <a class="section-link" href="{{ action.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="{{ action.context }}" data-analytics-destination="{{ action.url }}">{{ action.label }} <span aria-hidden="true">→</span></a>
+            {% endif %}
           {% endfor %}
         </div>
       </div>
