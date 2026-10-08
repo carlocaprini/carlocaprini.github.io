@@ -56,4 +56,5 @@ notes:
   - url: /thinking/the-urgency-of-customer-requests/
   - url: /thinking/temporary-solutions-become-permanent/
   - url: /thinking/better-output-makes-shallow-review-more-dangerous/
+  - url: /thinking/an-api-is-not-an-agent-interface/
 ---
