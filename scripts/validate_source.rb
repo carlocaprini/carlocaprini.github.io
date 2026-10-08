@@ -576,7 +576,7 @@ unless duplicate_selected_work_ids.empty?
 end
 
 selected_work_cases.each_with_index do |work_case, index|
-  %w[id index engagement title summary situation examined clearer changed unchanged outcome].each do |field|
+  %w[id index engagement title summary goal collaboration changed outcome boundaries].each do |field|
     unless present?(work_case[field])
       fail_check("pages/selected-work.md: case #{index + 1} is missing #{field}")
     end

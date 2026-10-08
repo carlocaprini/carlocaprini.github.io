@@ -238,13 +238,15 @@ test("Experience leads with direct work and leaves credentials out of the public
 test("Selected work presents anonymised evidence with explicit outcomes and boundaries", async ({ page }) => {
   await page.goto("/work/selected/");
 
-  await expect(page.getByRole("heading", { level: 1, name: "Applied work, with the boundaries made visible." })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Applied work, with outcomes and boundaries made clear." })).toBeVisible();
   await expect(page.locator(".selected-work-case")).toHaveCount(2);
-  await expect(page.getByRole("heading", { name: "Turning a broad release concern into a decision-ready review." })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Making testing and AI-assisted development more deliberate." })).toBeVisible();
-  await expect(page.getByText("What deliberately did not change", { exact: true })).toHaveCount(2);
+  await expect(page.getByRole("heading", { name: "Turning a broad release concern into clear priorities." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Improving delivery confidence with testing and bounded AI experiments." })).toBeVisible();
+  await expect(page.getByText("Goal", { exact: true })).toHaveCount(2);
+  await expect(page.getByText("How we worked", { exact: true })).toHaveCount(2);
   await expect(page.getByText("Outcome", { exact: true })).toHaveCount(2);
-  await expect(page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link", { name: "Work" })).toHaveAttribute("aria-current", "page");
+  await expect(page.getByText("Boundaries", { exact: true })).toHaveCount(2);
+  await expect(page.locator('a[href="/work/"][aria-current="page"]').first()).toBeAttached();
   await expect(page.getByRole("link", { name: /How I can help/ })).toHaveAttribute("href", "/work/");
   await expect(page.getByRole("link", { name: /See professional experience/ })).toHaveAttribute("href", "/experience/");
 });

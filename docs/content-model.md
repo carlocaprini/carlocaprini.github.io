@@ -10,7 +10,7 @@
 - The three canonical Start Here Notes live in `_data/start_here.yml` and are shared by Home, Thinking and recovery surfaces.
 - Home editorial modules live in `_data/home.yml`.
 - The Work proposition lives in `pages/work.md`. It owns the recognizable situations, Review, Advisory, working principles and contact path; client proof must not be inferred or generated from it.
-- Applied-work evidence lives in `pages/selected-work.md`. It owns the anonymised cases at `/work/selected/`; each case must separate situation, examined evidence, clarified judgment, observed change, deliberate non-change and outcome. Work and Experience may link to this page, but must not duplicate its case narratives.
+- Applied-work evidence lives in `pages/selected-work.md`. It owns the anonymised cases at `/work/selected/`; each case must state the goal, show how the collaboration worked, distinguish observed change from outcome and make the engagement boundaries explicit. Work and Experience may link to this page, but must not duplicate its case narratives.
 - Home’s `Where I can help` module lives in `_data/home.yml`. It is a selective preview of the problem spaces described by Work, not a second service catalogue or a source of independent engagement definitions.
 
 ## Relationships

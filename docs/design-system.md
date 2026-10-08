@@ -517,7 +517,7 @@ Keep:
 
 - one page containing a small number of substantial cases rather than a growing grid of promotional tiles
 - the standard compact hero and cool brand highlight used by other professional pages
-- one consistent case anatomy: situation, evidence examined, what became clearer, what changed, what deliberately did not change and outcome
+- one consistent, plain-language case anatomy: goal, how we worked, what changed, outcome and boundaries
 - an editorial split between the main evidence and a narrower outcome-and-boundaries column
 - direct, observable claims; distinguish delivered assessment, adopted change and unvalidated follow-up
 - restrained links back to Work and Experience after the cases
