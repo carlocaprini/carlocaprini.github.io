@@ -42,6 +42,8 @@ questions:
         context: A concrete example of treating a paved road as a compelling default while using repeated exceptions as evidence for platform product decisions.
       - slug: boundaries-between-product-and-engineering
         context: A closer look at how Product & Engineering responsibilities meet around decisions.
+      - slug: the-ai-productivity-paradox
+        context: A challenge to treating faster implementation as evidence that a product idea deserves commitment.
     experience:
       title: Product direction under startup constraints
       url: /experience/#product-direction
@@ -124,6 +126,7 @@ questions:
           - /thinking/i-built-august-because-copy-and-paste-was-not-collaboration/
           - /thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/
           - /thinking/adding-mcp-doesnt-make-a-product-agent-first/
+          - /thinking/an-api-is-not-an-agent-interface/
           - /thinking/designing-for-unattended-development/
       - title: Coordinate attention without taking control
         description: Orchestration becomes useful when it helps a person see what needs attention while leaving authority with them.
