@@ -434,7 +434,7 @@
   margin-bottom: 0.75rem;
 }
 
-.selected-work-case-boundaries section:last-child p {
+.selected-work-case-boundaries section:first-child p {
   color: var(--color-text-secondary);
   font-weight: 520;
 }
