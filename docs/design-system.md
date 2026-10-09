@@ -1,7 +1,7 @@
 # Site Design System
 
 Date: 2026-07-14
-Last updated: 2026-10-07
+Last updated: 2026-10-09
 Status: Reference for future site changes
 
 ## Implementation ownership
@@ -494,9 +494,9 @@ Keep:
 - calm grouped surfaces for the engagement models, with the Review output more prominent than activity lists
 - present Review scope and outcome as an editorial split rather than nested cards
 - explicit technical evidence balanced with product and organisational context
-- one compact credibility bridge grounded in established Experience, presented as a quiet context band rather than a CV or proof card
+- working principles as an unordered ruled list; they are independent principles, not an ordered connected step flow
 - one contextual Case study link inside each engagement model, so evidence is available where its relationship is clearest
-- one lightweight Case studies link after the working principles; it points to the complete evidence index without becoming another full page section
+- one compact evidence section using the standard two-column introduction and two ruled rows: Case studies and Experience
 - one low-pressure contact panel that combines the next-step explanation and standard primary button
 - ruled lists with internal dividers only and no duplicate closing boundary
 
@@ -510,7 +510,7 @@ Avoid:
 - separate next-step and contact sections that repeat the same conversion message
 - turning Work into a new brand or making it visually louder than Thinking
 
-On smaller screens, collapse two-column recognition and evidence structures to one column. Reduce panel padding without removing the standard page gutter, and preserve the reading order: relevance, Review, Advisory, compact principles, Case studies link, experience context and contact.
+On smaller screens, collapse two-column recognition and evidence structures to one column. Reduce panel padding without removing the standard page gutter, and preserve the reading order: relevance, Review, Advisory, compact principles, Case studies, Experience and contact.
 
 ### Case studies
 

@@ -179,10 +179,10 @@ test("Work explains recognizable problems and exactly two engagement models", as
   await expect(page.getByRole("heading", { name: "Work through the changes together." })).toBeVisible();
   await expect(page.getByText("Illustrative example", { exact: true })).toHaveCount(0);
   await expect(page.locator(".work-engagement--advisory").getByText("Outcome", { exact: true })).toHaveCount(0);
-  const principleFlow = page.locator("ol.work-principles-list");
-  await expect(principleFlow).toHaveCount(1);
-  await expect(principleFlow.locator(":scope > li")).toHaveCount(3);
-  await expect(principleFlow.locator(":scope > li h3")).toHaveText([
+  const principleList = page.locator("ul.work-principles-list");
+  await expect(principleList).toHaveCount(1);
+  await expect(principleList.locator(":scope > li")).toHaveCount(3);
+  await expect(principleList.locator(":scope > li h3")).toHaveText([
     "Understand the system before recommending changes",
     "Work from evidence, not only opinions",
     "Review the system, not the team"
@@ -190,6 +190,8 @@ test("Work explains recognizable problems and exactly two engagement models", as
   await expect(page.getByRole("heading", { name: "Review the system, not the team" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Read the Review case study" })).toHaveAttribute("href", "/work/case-studies/release-readiness-review/");
   await expect(page.getByRole("link", { name: "Read the Advisory case study" })).toHaveAttribute("href", "/work/case-studies/deliberate-quality-automation/");
+  await expect(page.getByRole("heading", { name: "Examples and professional context." })).toBeVisible();
+  await expect(page.locator(".work-evidence-links > li")).toHaveCount(2);
   await expect(page.getByRole("link", { name: /Browse all case studies/ })).toHaveAttribute("href", "/work/case-studies/");
   await expect(page.getByRole("heading", { name: "Experience across Product & Engineering." })).toBeVisible();
   await expect(page.getByRole("link", { name: /See full experience/ })).toHaveAttribute("href", "/experience/");

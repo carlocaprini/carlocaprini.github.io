@@ -14,18 +14,6 @@
   max-width: 35rem;
 }
 
-.work-section-intro--flow {
-  display: block;
-}
-
-.work-section-intro--flow > div {
-  max-width: 38rem;
-}
-
-.work-section-intro--flow .section-description {
-  margin-top: 0.75rem;
-}
-
 .work-principles-section {
   padding-top: 0.8rem;
   margin-bottom: 3.2rem;
@@ -217,14 +205,6 @@
   background: var(--structural-accent);
 }
 
-.work-evidence-copy {
-  max-width: 46rem;
-  margin: 1rem 0 0;
-  color: var(--color-text-muted);
-  font-size: 0.92rem;
-  line-height: 1.75;
-}
-
 .work-outcome {
   padding-left: 2rem;
   border-left: 1px solid var(--structural-accent-border);
@@ -244,89 +224,82 @@
 }
 
 .work-principles-list {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin: 0;
   padding: 0;
-  border-top: 1px solid var(--color-line);
-  border-bottom: 1px solid var(--color-line);
   list-style: none;
 }
 
 .work-principles-list > li {
   display: grid;
-  grid-template-columns: 1.8rem minmax(0, 1fr);
-  gap: 0.8rem;
-  padding: 1.45rem 1.35rem 1.55rem 0;
+  grid-template-columns: 0.75rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.3rem 0;
 }
 
 .work-principles-list > li + li {
-  padding-left: 1.35rem;
-  border-left: 1px solid var(--color-line);
+  border-top: 1px solid var(--color-line);
 }
 
-.work-principle-index {
-  padding-top: 0.12rem;
-  color: var(--accent-cyan);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
+.work-principle-marker {
+  width: 0.45rem;
+  height: 0.45rem;
+  margin-top: 0.45rem;
+  border-radius: 999px;
+  background: var(--structural-accent);
 }
 
 .work-principles-list h3 {
   margin: 0 0 0.45rem;
   color: var(--color-text-primary);
-  font-size: 0.96rem;
+  font-size: 1rem;
   font-weight: 580;
   line-height: 1.45;
 }
 
-.work-principles-list p,
-.work-case-studies-link p {
+.work-principles-list p {
   margin: 0;
   color: var(--color-text-muted);
-  font-size: 0.88rem;
-  line-height: 1.65;
+  font-size: 0.92rem;
+  line-height: 1.75;
 }
 
-.work-case-studies-link {
+.work-evidence-links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.work-evidence-links > li {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: minmax(12rem, 0.7fr) minmax(0, 1.3fr) auto;
   gap: 1.5rem;
-  align-items: center;
-  margin-top: 1.5rem;
-  padding: 1.1rem 0;
+  align-items: baseline;
+  padding: 1.3rem 0;
 }
 
-.work-case-studies-link .section-eyebrow {
+.work-evidence-links > li + li {
+  border-top: 1px solid var(--color-line);
+}
+
+.work-evidence-links h3,
+.work-evidence-links p {
   margin: 0;
 }
 
-.work-case-studies-link p {
-  max-width: 44rem;
+.work-evidence-links h3 {
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  font-weight: 580;
+  line-height: 1.45;
 }
 
-.work-case-studies-link .section-link {
-  white-space: nowrap;
+.work-evidence-links p {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
 }
 
-.work-context-band {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 2.5rem;
-  align-items: end;
-  padding-top: 2.4rem;
-  padding-bottom: 2.4rem;
-  border-top: 1px solid var(--color-line);
-  border-bottom: 1px solid var(--color-line);
-}
-
-.work-context-band .section-title {
-  margin-top: 0.55rem;
-}
-
-.work-context-band > .section-link {
-  margin-bottom: 0.2rem;
+.work-evidence-links .section-link {
   white-space: nowrap;
 }
 
@@ -643,39 +616,6 @@
   transition-delay: 175ms;
 }
 
-.work-page--motion-observed .step-flow__node,
-.work-page--motion-observed .step-flow__content {
-  opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 220ms ease-out, transform 220ms ease-out;
-}
-
-.work-page--motion-observed .step-flow__marker::after {
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 460ms ease-out 80ms;
-}
-
-.work-page--motion-observed .step-flow.is-visible .step-flow__node,
-.work-page--motion-observed .step-flow.is-visible .step-flow__content {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.work-page--motion-observed .step-flow.is-visible .step-flow__marker::after {
-  transform: scaleX(1);
-}
-
-.work-page--motion-observed .step-flow.is-visible > li:nth-child(2) .step-flow__node,
-.work-page--motion-observed .step-flow.is-visible > li:nth-child(2) .step-flow__content {
-  transition-delay: 70ms;
-}
-
-.work-page--motion-observed .step-flow.is-visible > li:nth-child(3) .step-flow__node,
-.work-page--motion-observed .step-flow.is-visible > li:nth-child(3) .step-flow__content {
-  transition-delay: 140ms;
-}
-
 @keyframes work-engagement-signal {
   0% {
     opacity: 0;
@@ -698,10 +638,7 @@
   .work-page--motion-observed .work-engagement,
   .work-page--motion-observed .work-outcome,
   .work-page--motion-observed .work-engagement--review.is-visible .work-outcome,
-  .work-page--motion-observed .work-situation-list .work-item-index,
-  .work-page--motion-observed .step-flow__node,
-  .work-page--motion-observed .step-flow__content,
-  .work-page--motion-observed .step-flow__marker::after {
+  .work-page--motion-observed .work-situation-list .work-item-index {
     opacity: 1;
     transform: none;
     transition: none;

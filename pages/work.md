@@ -91,18 +91,21 @@ principles:
     - title: Review the system, not the team
       body: The purpose is to understand the system, not to grade the people who built it. Existing decisions should be considered in the context and constraints that produced them.
 case_studies:
-  eyebrow: Case studies
+  title: Case studies
   body: Two anonymised examples show the goal, collaboration, outcome and boundaries of a Review and an Advisory engagement.
   action:
     label: Browse all case studies
     url: /work/case-studies/
 experience:
-  eyebrow: Experience behind this work
   title: Experience across Product & Engineering.
   body: I started in software engineering and have spent more than a decade working across product management, APIs, platforms and developer-facing software.
   action:
     label: See full experience
     url: /experience/
+evidence:
+  eyebrow: Evidence behind the work
+  title: Examples and professional context.
+  body: Read completed collaborations or see the Product & Engineering experience behind this work.
 contact:
   eyebrow: Start a conversation
   title: Start with the problem, not a package.
