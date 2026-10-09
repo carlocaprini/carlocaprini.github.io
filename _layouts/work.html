@@ -19,7 +19,7 @@ layout: default
 
   <section class="section work-situations-section">
     <div class="container">
-      <div class="section-header work-reveal" data-work-reveal>
+      <div class="work-section-intro work-reveal" data-work-reveal>
         <div>
           <div class="section-eyebrow">{{ page.useful_when.eyebrow }}</div>
           <h2 class="section-title">{{ page.useful_when.title }}</h2>
@@ -120,48 +120,40 @@ layout: default
 
   <section class="section work-principles-section">
     <div class="container">
-        <div class="work-section-intro work-reveal" data-work-reveal>
+        <div class="work-section-intro work-section-intro--flow work-reveal" data-work-reveal>
           <div>
             <div class="section-eyebrow">{{ page.principles.eyebrow }}</div>
             <h2 class="section-title">{{ page.principles.title }}</h2>
+            <p class="section-description">{{ page.principles.intro }}</p>
           </div>
-          <p class="section-description">{{ page.principles.intro }}</p>
         </div>
-        <ul class="work-principles-list work-reveal" data-work-reveal>
+        <ol class="work-principles-list work-reveal" data-work-reveal>
           {% for item in page.principles.items %}
             <li>
-              <span class="work-principle-marker" aria-hidden="true"></span>
+              <span class="work-principle-index" aria-hidden="true">0{{ forloop.index }}</span>
               <div>
                 <h3>{{ item.title }}</h3>
                 <p>{{ item.body }}</p>
               </div>
             </li>
           {% endfor %}
-        </ul>
+        </ol>
+        <div class="work-case-studies-link work-reveal" data-work-reveal>
+          <div class="section-eyebrow">{{ page.case_studies.eyebrow }}</div>
+          <p>{{ page.case_studies.body }}</p>
+          <a class="section-link" href="{{ page.case_studies.action.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="work_case_studies" data-analytics-destination="{{ page.case_studies.action.url }}">{{ page.case_studies.action.label }} <span aria-hidden="true">→</span></a>
+        </div>
       </div>
   </section>
 
   <section class="section work-evidence-section">
-    <div class="container">
-      <div class="work-section-intro work-reveal" data-work-reveal>
-        <div>
-          <div class="section-eyebrow">{{ page.evidence.eyebrow }}</div>
-          <h2 class="section-title">{{ page.evidence.title }}</h2>
-        </div>
-        <p class="section-description">{{ page.evidence.body }}</p>
+    <div class="container work-context-band work-reveal" data-work-reveal>
+      <div>
+        <div class="section-eyebrow">{{ page.experience.eyebrow }}</div>
+        <h2 class="section-title">{{ page.experience.title }}</h2>
+        <p class="work-evidence-copy">{{ page.experience.body }}</p>
       </div>
-      <ul class="work-evidence-links work-reveal" data-work-reveal>
-        <li>
-          <h3>{{ page.case_studies.title }}</h3>
-          <p>{{ page.case_studies.body }}</p>
-          <a class="section-link" href="{{ page.case_studies.action.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="work_case_studies" data-analytics-destination="{{ page.case_studies.action.url }}">{{ page.case_studies.action.label }} <span aria-hidden="true">→</span></a>
-        </li>
-        <li>
-          <h3>{{ page.experience.title }}</h3>
-          <p>{{ page.experience.body }}</p>
-          <a class="section-link" href="{{ page.experience.action.url | relative_url }}" data-analytics-event="experience_open" data-analytics-link-context="work_experience">{{ page.experience.action.label }} <span aria-hidden="true">→</span></a>
-        </li>
-      </ul>
+      <a class="section-link" href="{{ page.experience.action.url | relative_url }}" data-analytics-event="experience_open" data-analytics-link-context="work_experience">{{ page.experience.action.label }} <span aria-hidden="true">→</span></a>
     </div>
   </section>
 
