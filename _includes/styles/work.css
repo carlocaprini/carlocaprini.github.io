@@ -28,43 +28,11 @@
 
 .work-principles-section {
   padding-top: 0.8rem;
+  margin-bottom: 3.2rem;
 }
 
-.work-case-studies-section,
-.work-evidence-section,
-.work-industry-section,
-.work-next-section {
-  position: relative;
-  padding-top: 3.4rem;
-}
-
-.work-case-studies-section::before,
-.work-evidence-section::before,
-.work-industry-section::before,
-.work-next-section::before {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: calc(100% - 3rem);
-  max-width: 720px;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(148, 163, 184, 0.28),
-    transparent
-  );
-  content: "";
-  pointer-events: none;
-  transform: translateX(-50%);
-}
-
-.work-principles-section,
-.work-case-studies-section,
-.work-evidence-section,
-.work-industry-section,
-.work-next-section {
-  margin-bottom: 3.8rem;
+.work-evidence-section {
+  margin-bottom: 3.2rem;
 }
 
 .work-situation-list {
@@ -112,7 +80,6 @@
 }
 
 .work-situation-list p,
-.work-next-copy p,
 .work-contact-panel p {
   margin: 0;
   color: var(--color-text-muted);
@@ -251,31 +218,11 @@
 }
 
 .work-evidence-copy {
-  max-width: 34rem;
+  max-width: 46rem;
   margin: 1rem 0 0;
   color: var(--color-text-muted);
   font-size: 0.92rem;
   line-height: 1.75;
-}
-
-.work-evidence-signals {
-  margin-bottom: 1.2rem;
-}
-
-.work-case-studies-section .section-description {
-  margin: 0;
-}
-
-.work-case-studies-section .section-link {
-  margin-top: 1rem;
-}
-
-.work-industry-copy .section-description {
-  margin: 0;
-}
-
-.work-industry-copy .section-link {
-  margin-top: 1rem;
 }
 
 .work-outcome {
@@ -296,8 +243,91 @@
   margin-top: 1.25rem;
 }
 
-.work-next-copy p + p {
-  margin-top: 0.85rem;
+.work-principles-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+  list-style: none;
+}
+
+.work-principles-list > li {
+  display: grid;
+  grid-template-columns: 1.8rem minmax(0, 1fr);
+  gap: 0.8rem;
+  padding: 1.45rem 1.35rem 1.55rem 0;
+}
+
+.work-principles-list > li + li {
+  padding-left: 1.35rem;
+  border-left: 1px solid var(--color-line);
+}
+
+.work-principle-index {
+  padding-top: 0.12rem;
+  color: var(--accent-cyan);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.work-principles-list h3 {
+  margin: 0 0 0.45rem;
+  color: var(--color-text-primary);
+  font-size: 0.96rem;
+  font-weight: 580;
+  line-height: 1.45;
+}
+
+.work-principles-list p,
+.work-case-studies-link p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.work-case-studies-link {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 1.5rem;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding: 1.1rem 0;
+}
+
+.work-case-studies-link .section-eyebrow {
+  margin: 0;
+}
+
+.work-case-studies-link p {
+  max-width: 44rem;
+}
+
+.work-case-studies-link .section-link {
+  white-space: nowrap;
+}
+
+.work-context-band {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2.5rem;
+  align-items: end;
+  padding-top: 2.4rem;
+  padding-bottom: 2.4rem;
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.work-context-band .section-title {
+  margin-top: 0.55rem;
+}
+
+.work-context-band > .section-link {
+  margin-bottom: 0.2rem;
+  white-space: nowrap;
 }
 
 .work-contact-panel {
@@ -313,11 +343,6 @@
 
 .work-contact-panel .section-title {
   margin: 0.55rem 0 0.75rem;
-}
-
-.work-contact-intro {
-  color: var(--color-text-secondary) !important;
-  font-weight: 560;
 }
 
 .work-contact-location {
