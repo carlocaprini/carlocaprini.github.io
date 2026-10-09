@@ -4,7 +4,7 @@ title: Work
 permalink: /work/
 meta_title: Product & Engineering Work | Carlo Caprini
 meta_description: Independent Product & Engineering reviews and advisory work for software teams facing difficult product, technical, delivery or AI decisions.
-last_modified_at: 2026-10-07
+last_modified_at: 2026-10-09
 hero:
   label: Work
   title_prefix: "Working through difficult "
@@ -55,6 +55,9 @@ review:
     - Risks and opportunities
     - Recommended actions
     - Final walkthrough
+  case_study:
+    label: Read the Review case study
+    url: /work/case-studies/release-readiness-review/
 advisory:
   eyebrow: Product & Engineering Advisory
   title: Work through the changes together.
@@ -74,6 +77,9 @@ advisory:
     - Helping prioritize Review findings into incremental changes
     - Revisiting a release or testing strategy before investing in a broad rewrite
     - Evaluating whether an AI-assisted workflow should be automated, constrained or left alone
+  case_study:
+    label: Read the Advisory case study
+    url: /work/case-studies/deliberate-quality-automation/
 principles:
   eyebrow: How I work
   title: Three principles for working through the problem.
@@ -85,13 +91,13 @@ principles:
       body: Depending on the problem, this can include repositories, tests, CI/CD configuration, technical documentation, architecture decisions and conversations with the people closest to the system.
     - title: Review the system, not the team
       body: The purpose is to understand the system, not to grade the people who built it. Existing decisions should be considered in the context and constraints that produced them.
-selected_work:
-  eyebrow: Selected work
-  title: What this looks like in practice.
+case_studies:
+  eyebrow: Case studies
+  title: Two examples of the work in practice.
   body: Two anonymised examples show the goal, collaboration, outcome and boundaries of a Review and an Advisory engagement.
   action:
-    label: Read selected work
-    url: /work/selected/
+    label: View all case studies
+    url: /work/case-studies/
 experience:
   eyebrow: Experience behind this work
   title: Experience across Product & Engineering.

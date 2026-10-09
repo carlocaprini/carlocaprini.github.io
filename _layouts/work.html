@@ -85,6 +85,7 @@ layout: default
             <ul class="work-output-list">
               {% for item in page.review.possible_outputs %}<li>{{ item }}</li>{% endfor %}
             </ul>
+            <a class="section-link work-engagement-case-link" href="{{ page.review.case_study.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="work_review_case_study" data-analytics-destination="{{ page.review.case_study.url }}">{{ page.review.case_study.label }} <span aria-hidden="true">→</span></a>
           </section>
         </div>
       </article>
@@ -111,6 +112,7 @@ layout: default
             <ul class="work-compact-list">
               {% for item in page.advisory.situations %}<li>{{ item }}</li>{% endfor %}
             </ul>
+            <a class="section-link work-engagement-case-link" href="{{ page.advisory.case_study.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="work_advisory_case_study" data-analytics-destination="{{ page.advisory.case_study.url }}">{{ page.advisory.case_study.label }} <span aria-hidden="true">→</span></a>
           </section>
         </div>
       </article>
@@ -143,15 +145,15 @@ layout: default
     </div>
   </section>
 
-  <section class="section work-selected-section">
+  <section class="section work-case-studies-section">
     <div class="container work-section-intro work-reveal" data-work-reveal>
       <div>
-        <div class="section-eyebrow">{{ page.selected_work.eyebrow }}</div>
-        <h2 class="section-title">{{ page.selected_work.title }}</h2>
+        <div class="section-eyebrow">{{ page.case_studies.eyebrow }}</div>
+        <h2 class="section-title">{{ page.case_studies.title }}</h2>
       </div>
       <div>
-        <p class="section-description">{{ page.selected_work.body }}</p>
-        <a class="section-link" href="{{ page.selected_work.action.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="work_selected_work" data-analytics-destination="{{ page.selected_work.action.url }}">{{ page.selected_work.action.label }} <span aria-hidden="true">→</span></a>
+        <p class="section-description">{{ page.case_studies.body }}</p>
+        <a class="section-link" href="{{ page.case_studies.action.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="work_case_studies" data-analytics-destination="{{ page.case_studies.action.url }}">{{ page.case_studies.action.label }} <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>

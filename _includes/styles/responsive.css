@@ -163,8 +163,8 @@
   .work-section-intro,
   .work-engagement-details,
   .work-contact-panel,
-  .selected-work-case-body,
-  .selected-work-continuation-inner,
+  .case-study-body,
+  .case-study-continuation-inner,
   .industry-expertise-area-grid,
   .industry-expertise-split,
   .industry-expertise-boundaries-panel,
@@ -192,12 +192,11 @@
     border-left: 0;
   }
 
-  .selected-work-case-body {
+  .case-study-body {
     gap: 2rem;
-    margin-left: 4.75rem;
   }
 
-  .selected-work-case-boundaries {
+  .case-study-outcome {
     padding-top: 2rem;
     padding-left: 0;
     border-top: 1px solid var(--structural-accent-border);
@@ -803,52 +802,48 @@
     white-space: normal;
   }
 
-  .selected-work-case {
+  .case-studies-index-section,
+  .case-study-detail {
     padding-top: 3rem;
     padding-bottom: 3.4rem;
   }
 
-  .selected-work-case + .selected-work-case > .container {
-    padding-top: 3.2rem;
-  }
-
-  .selected-work-case-header {
+  .case-studies-index > li {
     grid-template-columns: 2rem minmax(0, 1fr);
     gap: 0.75rem;
+    padding: 2.6rem 0;
   }
 
-  .selected-work-case-marker {
+  .case-study-marker {
     gap: 0.55rem;
   }
 
-  .selected-work-case-header h2 {
+  .case-study-index-copy h2 {
     font-size: 1.35rem;
   }
 
-  .selected-work-case-header p {
+  .case-study-index-copy p {
     font-size: 0.94rem;
   }
 
-  .selected-work-case-body {
+  .case-study-body {
     gap: 1.6rem;
-    margin-top: 2rem;
-    margin-left: 2.75rem;
   }
 
-  .selected-work-case-boundaries {
+  .case-study-outcome {
     padding-top: 1.6rem;
   }
 
-  .selected-work-continuation {
+  .case-study-continuation {
     padding-top: 2.6rem;
   }
 
-  .selected-work-continuation-inner {
+  .case-study-continuation-inner {
     gap: 1rem;
     padding-top: 2.8rem;
   }
 
-  .selected-work-continuation-links,
+  .case-study-continuation-links,
   .experience-independent-links {
     align-items: flex-start;
     flex-direction: column;

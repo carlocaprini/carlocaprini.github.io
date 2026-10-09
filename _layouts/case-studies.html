@@ -1,0 +1,52 @@
+---
+layout: default
+---
+<div class="page case-studies-page">
+  <section class="hero hero--compact case-studies-hero">
+    <div class="container hero-grid hero-grid--single">
+      <div>
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          <span>{{ page.hero.label }}</span>
+        </div>
+        <h1 class="hero-title hero-title--compact">{{ page.hero.title_prefix }}<span class="highlight">{{ page.hero.title_highlight }}</span>{{ page.hero.title_suffix }}</h1>
+        {% for paragraph in page.hero.paragraphs %}
+          <p class="hero-subtitle hero-subtitle--wide">{{ paragraph }}</p>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section case-studies-index-section">
+    <div class="container">
+      <ol class="case-studies-index">
+        {% for case in site.data.case_studies.items %}
+          <li>
+            <span class="case-study-marker" aria-hidden="true">
+              <span>{{ case.index }}</span>
+              <span class="case-study-node"></span>
+            </span>
+            <div class="case-study-index-copy">
+              <div class="section-eyebrow">{{ case.engagement }}</div>
+              <h2><a href="{{ case.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_studies_index" data-analytics-destination="{{ case.url }}">{{ case.title }}</a></h2>
+              <p>{{ case.tagline }}</p>
+            </div>
+          </li>
+        {% endfor %}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section case-study-continuation">
+    <div class="container case-study-continuation-inner">
+      <div>
+        <div class="section-eyebrow">{{ page.continuation.eyebrow }}</div>
+        <h2 class="section-title">{{ page.continuation.title }}</h2>
+      </div>
+      <div>
+        <p class="section-description">{{ page.continuation.body }}</p>
+        <a class="section-link" href="{{ page.continuation.action.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_studies_work" data-analytics-destination="{{ page.continuation.action.url }}">{{ page.continuation.action.label }} <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+</div>

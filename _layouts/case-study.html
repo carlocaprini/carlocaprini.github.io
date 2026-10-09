@@ -1,0 +1,79 @@
+---
+layout: default
+---
+{% assign case_study = site.data.case_studies.items | where: "id", page.case_study_id | first %}
+<div class="page case-study-page">
+  <section class="hero hero--compact case-study-hero">
+    <div class="container hero-grid hero-grid--single">
+      <div>
+        <a class="section-link case-study-back-link" href="{{ '/work/case-studies/' | relative_url }}">← All case studies</a>
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          <span>{{ case_study.engagement }}</span>
+        </div>
+        <h1 class="hero-title hero-title--compact">{{ case_study.title }}</h1>
+        <p class="hero-subtitle hero-subtitle--wide">{{ case_study.tagline }}</p>
+      </div>
+    </div>
+  </section>
+
+  <article class="section case-study-detail">
+    <div class="container">
+      <div class="case-study-body">
+        <div class="case-study-evidence">
+          <section>
+            <h2>Goal</h2>
+            <p>{{ case_study.goal }}</p>
+          </section>
+          <section>
+            <h2>How we worked</h2>
+            <p>{{ case_study.collaboration }}</p>
+          </section>
+          <section>
+            <h2>What changed</h2>
+            <p>{{ case_study.changed }}</p>
+          </section>
+        </div>
+        <aside class="case-study-outcome" aria-label="Outcome and boundaries">
+          <section>
+            <h2 class="section-eyebrow">Outcome</h2>
+            <p>{{ case_study.outcome }}</p>
+          </section>
+          <section>
+            <h2 class="section-eyebrow">Boundaries</h2>
+            <p>{{ case_study.boundaries }}</p>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </article>
+
+  <section class="section case-study-continuation">
+    <div class="container case-study-continuation-inner">
+      <div>
+        <div class="section-eyebrow">Continue</div>
+        <h2 class="section-title">A case study, not a service catalogue.</h2>
+      </div>
+      <div>
+        <p class="section-description">This example shows one collaboration. Work explains where this kind of engagement can be useful.</p>
+        <div class="case-study-continuation-links">
+          <a class="section-link" href="{{ '/work/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_work" data-analytics-destination="/work/">How I can help <span aria-hidden="true">→</span></a>
+          <a class="section-link" href="{{ '/work/case-studies/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_index" data-analytics-destination="/work/case-studies/">All case studies <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section work-contact-section">
+    <div class="container">
+      <div class="work-contact-panel">
+        <div>
+          <div class="section-eyebrow">{{ site.data.case_studies.contact.eyebrow }}</div>
+          <h2 class="section-title">{{ site.data.case_studies.contact.title }}</h2>
+          <p>{{ site.data.case_studies.contact.body }}</p>
+        </div>
+        <a class="button-primary" href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_open" data-analytics-contact-method="linkedin" data-analytics-link-context="case_study_contact">{{ site.data.case_studies.contact.action }} <span aria-hidden="true">→</span><span class="visually-hidden"> (opens in new tab)</span></a>
+      </div>
+    </div>
+  </section>
+</div>
