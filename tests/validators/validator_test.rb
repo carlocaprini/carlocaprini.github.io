@@ -465,9 +465,9 @@ class ValidatorTest < Minitest::Test
     end
   end
 
-  def test_source_rejects_incomplete_selected_work_case
-    assert_invalid_source(/pages\/selected-work\.md: case 1 is missing outcome/) do |directory|
-      path = File.join(directory, "pages/selected-work.md")
+  def test_source_rejects_incomplete_case_study
+    assert_invalid_source(/_data\/case_studies\.yml: case study 1 is missing outcome/) do |directory|
+      path = File.join(directory, "_data/case_studies.yml")
       replace!(path, "    outcome: The client had a clear basis for deciding what to address first, what could wait and what needed separate validation.\n", "")
     end
   end

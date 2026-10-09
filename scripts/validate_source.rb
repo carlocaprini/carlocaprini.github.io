@@ -561,37 +561,61 @@ questions.each do |question|
   end
 end
 
-selected_work_path = File.join(SOURCE_DIR, "pages/selected-work.md")
-selected_work_data = page_records.fetch(selected_work_path).first
-fail_check("pages/selected-work.md: layout must be selected-work") unless selected_work_data["layout"] == "selected-work"
-fail_check("pages/selected-work.md: permalink must be /work/selected/") unless selected_work_data["permalink"] == "/work/selected/"
-fail_check("pages/selected-work.md: work_section must be true") unless selected_work_data["work_section"] == true
+case_studies_path = File.join(SOURCE_DIR, "pages/case-studies.md")
+case_studies_page = page_records.fetch(case_studies_path).first
+fail_check("pages/case-studies.md: layout must be case-studies") unless case_studies_page["layout"] == "case-studies"
+fail_check("pages/case-studies.md: permalink must be /work/case-studies/") unless case_studies_page["permalink"] == "/work/case-studies/"
+fail_check("pages/case-studies.md: work_section must be true") unless case_studies_page["work_section"] == true
 
-selected_work_cases = Array(selected_work_data["cases"])
-fail_check("pages/selected-work.md: must define at least one case") if selected_work_cases.empty?
-selected_work_ids = selected_work_cases.map { |work_case| work_case["id"] }.compact
-duplicate_selected_work_ids = selected_work_ids.group_by(&:itself).select { |_, values| values.size > 1 }.keys
-unless duplicate_selected_work_ids.empty?
-  fail_check("pages/selected-work.md: duplicate case ids: #{duplicate_selected_work_ids.join(', ')}")
+case_studies_data = read_yaml(File.join(SOURCE_DIR, "_data/case_studies.yml")) || {}
+case_studies = Array(case_studies_data["items"])
+fail_check("_data/case_studies.yml: must define at least one case study") if case_studies.empty?
+case_study_ids = case_studies.map { |case_study| case_study["id"] }.compact
+duplicate_case_study_ids = case_study_ids.group_by(&:itself).select { |_, values| values.size > 1 }.keys
+unless duplicate_case_study_ids.empty?
+  fail_check("_data/case_studies.yml: duplicate case study ids: #{duplicate_case_study_ids.join(', ')}")
 end
+case_study_by_id = case_studies.to_h { |case_study| [case_study["id"], case_study] }
 
-selected_work_cases.each_with_index do |work_case, index|
-  %w[id index engagement title summary goal collaboration changed outcome boundaries].each do |field|
-    unless present?(work_case[field])
-      fail_check("pages/selected-work.md: case #{index + 1} is missing #{field}")
+case_studies.each_with_index do |case_study, index|
+  %w[id index url engagement title tagline goal collaboration changed outcome boundaries].each do |field|
+    unless present?(case_study[field])
+      fail_check("_data/case_studies.yml: case study #{index + 1} is missing #{field}")
     end
   end
+
+  detail_path = File.join(SOURCE_DIR, "pages/case-studies/#{case_study['id']}.md")
+  unless page_records.key?(detail_path)
+    fail_check("_data/case_studies.yml: #{case_study['id']} is missing its detail page")
+    next
+  end
+
+  detail_page = page_records.fetch(detail_path).first
+  fail_check("#{relative_path(detail_path)}: layout must be case-study") unless detail_page["layout"] == "case-study"
+  unless detail_page["case_study_id"] == case_study["id"]
+    fail_check("#{relative_path(detail_path)}: case_study_id must match #{case_study['id']}")
+  end
+  unless detail_page["permalink"] == case_study["url"]
+    fail_check("#{relative_path(detail_path)}: permalink must match #{case_study['url']}")
+  end
+  fail_check("#{relative_path(detail_path)}: work_section must be true") unless detail_page["work_section"] == true
 end
 
 work_path = File.join(SOURCE_DIR, "pages/work.md")
 work_data = page_records.fetch(work_path).first
-unless work_data.dig("selected_work", "action", "url") == selected_work_data["permalink"]
-  fail_check("pages/work.md: selected_work action must point to /work/selected/")
+unless work_data.dig("case_studies", "action", "url") == case_studies_page["permalink"]
+  fail_check("pages/work.md: case_studies action must point to /work/case-studies/")
+end
+unless work_data.dig("review", "case_study", "url") == case_study_by_id.dig("release-readiness-review", "url")
+  fail_check("pages/work.md: Review must link to its case study")
+end
+unless work_data.dig("advisory", "case_study", "url") == case_study_by_id.dig("deliberate-quality-automation", "url")
+  fail_check("pages/work.md: Advisory must link to its case study")
 end
 
 experience_data = page_records.fetch(experience_path).first
-unless experience_data.dig("independent_work", "selected_work_action", "url") == selected_work_data["permalink"]
-  fail_check("pages/experience.md: selected_work_action must point to /work/selected/")
+unless experience_data.dig("independent_work", "case_studies_action", "url") == case_studies_page["permalink"]
+  fail_check("pages/experience.md: case_studies_action must point to /work/case-studies/")
 end
 
 influence_paths = Dir.glob(File.join(SOURCE_DIR, "_influences/*.md")).sort

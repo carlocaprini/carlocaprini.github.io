@@ -10,7 +10,7 @@ The production page loads a single site stylesheet, one repository-owned variabl
 
 Large Liquid responsibilities are extracted only when they form a stable semantic unit. The Article context rail has an explicit include interface. Structured data keeps one entry point from the document head and delegates to schema-oriented partials under `_includes/structured-data/`. Home, Thinking, Explore and Work remain readable layouts because their single-use sections are already locally grouped; splitting every section would add indirection without independent ownership.
 
-Work and Selected work are separate professional surfaces with one visual owner. `pages/work.md` defines the proposition; `pages/selected-work.md` defines a small set of anonymous, evidence-led engagement cases. `_includes/styles/work.css` owns both, while the dedicated Selected work layout keeps its richer case anatomy out of the Work proposition and Experience page.
+Work and Case studies are separate professional surfaces with one visual owner. `pages/work.md` defines the proposition; `_data/case_studies.yml` owns a small set of anonymous, evidence-led engagement cases; `pages/case-studies.md` and `pages/case-studies/*.md` expose their index and dedicated detail routes. `_includes/styles/work.css` owns the shared presentation, while the dedicated Case studies layouts keep the richer case anatomy out of the Work proposition and Experience page.
 
 ## Analytics boundary
 

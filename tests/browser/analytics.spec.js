@@ -500,14 +500,14 @@ test("Work discovery and meaningful section views expose their context", async (
     }
   });
 
-  const selectedWorkLink = page.locator('[data-analytics-event="work_open"][data-analytics-link-context="work_selected_work"]');
-  await selectedWorkLink.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
-  await selectedWorkLink.click();
+  const caseStudiesLink = page.locator('[data-analytics-event="work_open"][data-analytics-link-context="work_case_studies"]');
+  await caseStudiesLink.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
+  await caseStudiesLink.click();
   expect(await page.evaluate(() => window.__analyticsEvents.at(-1))).toMatchObject({
     name: "work_open",
     parameters: {
-      destination: "/work/selected/",
-      link_context: "work_selected_work",
+      destination: "/work/case-studies/",
+      link_context: "work_case_studies",
       page_type: "work"
     }
   });

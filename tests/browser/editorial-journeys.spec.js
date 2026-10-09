@@ -189,8 +189,10 @@ test("Work explains recognizable problems and exactly two engagement models", as
     "Review the system, not the team"
   ]);
   await expect(page.getByRole("heading", { name: "Review the system, not the team" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "What this looks like in practice." })).toBeVisible();
-  await expect(page.getByRole("link", { name: /Read selected work/ })).toHaveAttribute("href", "/work/selected/");
+  await expect(page.getByRole("link", { name: "Read the Review case study" })).toHaveAttribute("href", "/work/case-studies/release-readiness-review/");
+  await expect(page.getByRole("link", { name: "Read the Advisory case study" })).toHaveAttribute("href", "/work/case-studies/deliberate-quality-automation/");
+  await expect(page.getByRole("heading", { name: "Two examples of the work in practice." })).toBeVisible();
+  await expect(page.getByRole("link", { name: /View all case studies/ })).toHaveAttribute("href", "/work/case-studies/");
   await expect(page.getByRole("heading", { name: "Experience across Product & Engineering." })).toBeVisible();
   await expect(page.locator(".work-evidence-signals > li")).toHaveCount(3);
   await expect(page.getByRole("link", { name: /See full experience/ })).toHaveAttribute("href", "/experience/");
@@ -215,7 +217,7 @@ test("Experience leads with direct work and leaves credentials out of the public
   await expect(page.locator(".experience-evidence-card")).toHaveCount(4);
   await expect(page.getByText("Career context", { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: "How I can help", exact: true })).toHaveAttribute("href", "/work/");
-  await expect(page.getByRole("link", { name: "Read selected work", exact: true })).toHaveAttribute("href", "/work/selected/");
+  await expect(page.getByRole("link", { name: "Read the case studies", exact: true })).toHaveAttribute("href", "/work/case-studies/");
   await expect(page.getByRole("link", { name: /See research topics and boundaries/ })).toHaveAttribute("href", "/industry-expertise/");
   const independentOptionStyles = await page.locator(".experience-independent-option").evaluateAll((options) =>
     options.map((option) => {
@@ -235,20 +237,27 @@ test("Experience leads with direct work and leaves credentials out of the public
   await expect(page.locator("#credentials")).toHaveCount(0);
 });
 
-test("Selected work presents anonymised evidence with explicit outcomes and boundaries", async ({ page }) => {
-  await page.goto("/work/selected/");
+test("Case studies provide a concise index and dedicated evidence pages", async ({ page }) => {
+  await page.goto("/work/case-studies/");
 
-  await expect(page.getByRole("heading", { level: 1, name: "Applied work, with outcomes and boundaries made clear." })).toBeVisible();
-  await expect(page.locator(".selected-work-case")).toHaveCount(2);
-  await expect(page.getByRole("heading", { name: "Turning a broad release concern into clear priorities." })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Improving delivery confidence with testing and bounded AI experiments." })).toBeVisible();
-  await expect(page.getByText("Goal", { exact: true })).toHaveCount(2);
-  await expect(page.getByText("How we worked", { exact: true })).toHaveCount(2);
-  await expect(page.getByText("Outcome", { exact: true })).toHaveCount(2);
-  await expect(page.getByText("Boundaries", { exact: true })).toHaveCount(2);
+  await expect(page.getByRole("heading", { level: 1, name: "Product & Engineering work, made concrete." })).toBeVisible();
+  await expect(page.locator(".case-studies-index > li")).toHaveCount(2);
+  await expect(page.getByRole("link", { name: "Turning a broad release concern into clear priorities." })).toHaveAttribute("href", "/work/case-studies/release-readiness-review/");
+  await expect(page.getByRole("link", { name: "Improving delivery confidence with testing and bounded AI experiments." })).toHaveAttribute("href", "/work/case-studies/deliberate-quality-automation/");
   await expect(page.locator('a[href="/work/"][aria-current="page"]').first()).toBeAttached();
-  await expect(page.getByRole("link", { name: /How I can help/ })).toHaveAttribute("href", "/work/");
-  await expect(page.getByRole("link", { name: /See professional experience/ })).toHaveAttribute("href", "/experience/");
+
+  await page.goto("/work/case-studies/release-readiness-review/");
+  await expect(page.getByRole("heading", { level: 1, name: "Turning a broad release concern into clear priorities." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Goal", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "How we worked", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "What changed", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Outcome", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Boundaries", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "A case study, not a service catalogue." })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Start a conversation/ })).toHaveAttribute("href", /^https:\/\//);
+
+  await page.goto("/work/case-studies/deliberate-quality-automation/");
+  await expect(page.getByRole("heading", { level: 1, name: "Improving delivery confidence with testing and bounded AI experiments." })).toBeVisible();
 });
 
 test("Expert interviews and industry research distinguish professional experience from applied experiments", async ({ page }) => {
