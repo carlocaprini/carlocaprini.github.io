@@ -117,10 +117,10 @@ test("Aggregate measurement maps semantic events without personal fields", async
       link_context: "home_selected_work"
     }),
     industryExpertise: window.siteAggregateAnalytics.buildEvent("industry_expertise_open", {
-      page_type: "work",
-      page_id: "/work/",
+      page_type: "experience",
+      page_id: "/experience/",
       destination: "/industry-expertise/",
-      link_context: "work_industry_expertise"
+      link_context: "experience_industry_expertise"
     }),
     workSection: window.siteAggregateAnalytics.buildEvent("work_section_view", {
       page_type: "work",
@@ -205,11 +205,11 @@ test("Aggregate measurement maps semantic events without personal fields", async
   expect(mapped.industryExpertise).toEqual({
     version: 1,
     event_name: "industry_expertise_open",
-    source_type: "work",
-    source_id: "/work/",
+    source_type: "experience",
+    source_id: "/experience/",
     target_type: "industry_expertise",
     target_id: "industry_expertise",
-    link_context: "work_industry_expertise"
+    link_context: "experience_industry_expertise"
   });
   expect(mapped.workSection).toEqual({
     version: 1,
@@ -515,17 +515,17 @@ test("Work discovery and meaningful section views expose their context", async (
 
 test("Industry Expertise paths and contact intent expose their source context", async ({ page }) => {
   await captureAnalytics(page);
-  await page.goto("/work/");
+  await page.goto("/experience/");
 
-  const expertiseLink = page.locator('[data-analytics-event="industry_expertise_open"][data-analytics-link-context="work_industry_expertise"]');
+  const expertiseLink = page.locator('[data-analytics-event="industry_expertise_open"][data-analytics-link-context="experience_industry_expertise"]');
   await expertiseLink.evaluate((element) => element.addEventListener("click", (event) => event.preventDefault()));
   await expertiseLink.click();
   expect(await page.evaluate(() => window.__analyticsEvents.at(-1))).toMatchObject({
     name: "industry_expertise_open",
     parameters: {
       destination: "/industry-expertise/",
-      link_context: "work_industry_expertise",
-      page_type: "work"
+      link_context: "experience_industry_expertise",
+      page_type: "experience"
     }
   });
 

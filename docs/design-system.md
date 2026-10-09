@@ -494,10 +494,10 @@ Keep:
 - calm grouped surfaces for the engagement models, with the Review output more prominent than activity lists
 - present Review scope and outcome as an editorial split rather than nested cards
 - explicit technical evidence balanced with product and organisational context
-- one compact credibility bridge grounded in established Experience, presented as an editorial split rather than a CV or proof card
+- one compact credibility bridge grounded in established Experience, presented as a quiet context band rather than a CV or proof card
 - one contextual Case study link inside each engagement model, so evidence is available where its relationship is clearest
-- one restrained Case studies bridge after the engagement models and working principles; it points to the complete evidence index without reproducing case narratives on Work
-- a low-pressure contact panel using the standard primary button
+- one lightweight Case studies link after the working principles; it points to the complete evidence index without becoming another full page section
+- one low-pressure contact panel that combines the next-step explanation and standard primary button
 - ruled lists with internal dividers only and no duplicate closing boundary
 
 Avoid:
@@ -506,9 +506,11 @@ Avoid:
 - logos, testimonials, metrics, pricing and generic consultancy claims
 - scorecards, maturity ratings or visual language that grades a team
 - separate cards for every possible capability
+- repeating Industry Expertise on Work when Experience already provides its contextual entry point
+- separate next-step and contact sections that repeat the same conversion message
 - turning Work into a new brand or making it visually louder than Thinking
 
-On smaller screens, collapse two-column recognition and evidence structures to one column. Reduce panel padding without removing the standard page gutter, and preserve the reading order: relevance, Review, Advisory, principles, Case studies, experience, next step and contact.
+On smaller screens, collapse two-column recognition and evidence structures to one column. Reduce panel padding without removing the standard page gutter, and preserve the reading order: relevance, Review, Advisory, compact principles, Case studies link, experience context and contact.
 
 ### Case studies
 
