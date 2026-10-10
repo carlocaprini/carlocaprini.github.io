@@ -13,6 +13,9 @@ layout: default
         {% for paragraph in page.hero.paragraphs %}
           <p class="hero-subtitle hero-subtitle--wide">{{ paragraph }}</p>
         {% endfor %}
+        <div class="hero-actions hero-actions--compact">
+          <a class="button-primary" href="{{ '/work/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_studies_hero_work" data-analytics-destination="/work/">How I can help</a>
+        </div>
       </div>
     </div>
   </section>

@@ -522,6 +522,7 @@ Case studies provide permission-safe evidence for the independent Product & Engi
 Keep:
 
 - one restrained index containing the case title and tagline rather than a grid of promotional tiles
+- one primary hero action from the Case studies index to Work, using the shared compact Hero Actions pattern
 - one non-numbered structural marker per case; do not imply order or progression between independent cases
 - one dedicated page per case, with a consistent, plain-language anatomy: goal, how we worked, what changed, outcome and boundaries
 - the standard compact hero and cool brand highlight used by other professional pages
