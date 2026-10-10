@@ -10,7 +10,7 @@ The visual rules below are implemented in `_includes/styles/`, grouped by stable
 
 Shared tokens, navigation, hero and section primitives belong in `foundations.css`. Reuse them before adding a domain variant. Page-specific rules belong with Home, Work, Article, Thinking/Explore, Influences/Topics, Series/featured content, Experience/Contact/Privacy, or missing-page recovery. Breakpoint overrides remain centralized in `responsive.css` so responsive precedence stays inspectable.
 
-This document defines the visual language for the site. It is based on the current direction across Home, Thinking, Explore, Work, Experience, Influences and individual notes.
+This document defines the visual language for the site. It is based on the current direction across Home, Thinking, Explore, Work, Case studies, Industry Expertise, Experience, Influences and individual notes.
 
 ## Design Intent
 

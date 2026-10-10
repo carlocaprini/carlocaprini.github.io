@@ -93,6 +93,6 @@ After deploying the ownership file:
 | --- | --- | --- | --- | --- |
 | 2026-09-16 | `https://carlo-site-sitemap.carlo-site-aggregate-analytics.workers.dev/sitemap.xml` | Success | 2026-09-16 | 32 |
 
-This successful read used the deployed sitemap before the privacy-page exclusion. The next production deployment is expected to contain 31 URLs; that count change is intentional and does not alter the delivery experiment.
+This successful read is a historical observation from the deployed sitemap before the privacy-page exclusion and later public-route additions. Current URL counts are derived from the production Jekyll artifact rather than maintained in this document; new indexable pages, including Case studies, flow into the externally hosted sitemap through the same packaging and deployment path.
 
 The product-level experiment succeeds only after Search Console reports `Success`, a valid Last read value, and more than zero discovered pages. Until then, retain all three advertised sitemap delivery paths and do not redirect or proxy between them.

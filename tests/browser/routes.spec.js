@@ -8,8 +8,13 @@ const publicRoutes = sitemapText
   .filter(Boolean)
   .map((url) => new URL(url).pathname);
 
-test("Industry Expertise is part of the public indexable route set", async ({ page }) => {
-  expect(publicRoutes).toContain("/industry-expertise/");
+test("Professional evidence pages are part of the public indexable route set", async ({ page }) => {
+  expect(publicRoutes).toEqual(expect.arrayContaining([
+    "/industry-expertise/",
+    "/work/case-studies/",
+    "/work/case-studies/release-readiness-review/",
+    "/work/case-studies/deliberate-quality-automation/"
+  ]));
 
   await page.goto("/industry-expertise/");
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "index, follow");

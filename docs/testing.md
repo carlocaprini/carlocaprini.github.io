@@ -55,7 +55,7 @@ Chromium behavioral specs are named by domain:
 
 - `routes.spec.js` owns sitemap-derived public-route integrity and overflow.
 - `navigation.spec.js` owns primary/mobile navigation and legacy-route behavior.
-- `editorial-journeys.spec.js` owns Home, Thinking, Explore, Questions, Influences and the Work proposition.
+- `editorial-journeys.spec.js` owns Home, Thinking, Explore, Questions, Influences, the Work proposition and Case studies journeys.
 - `responsive.spec.js` owns breakpoint-dependent interaction and visibility.
 - `accessibility.spec.js` owns focused keyboard/focus basics; it is not a complete accessibility audit.
 - `analytics.spec.js` and `privacy-analytics.spec.js` own browser instrumentation, consent and local-safety behavior.
