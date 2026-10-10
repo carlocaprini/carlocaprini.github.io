@@ -26,6 +26,10 @@
   margin-top: 0.75rem;
 }
 
+.work-section-intro--flush {
+  margin-bottom: 0;
+}
+
 .work-principles-section {
   padding-top: 0.8rem;
   margin-bottom: 3.2rem;
@@ -389,10 +393,6 @@
   line-height: 1.7;
 }
 
-.case-study-hero .hero-label {
-  margin-bottom: 1.2rem;
-}
-
 .case-study-body {
   display: grid;
   grid-template-columns: minmax(0, 1.55fr) minmax(15rem, 0.8fr);
@@ -448,10 +448,6 @@
   padding-bottom: 4.8rem;
 }
 
-.case-study-continuation-inner {
-  margin-bottom: 0;
-}
-
 .case-study-continuation .section-title {
   margin-top: 0.55rem;
 }
@@ -460,10 +456,7 @@
   margin: 0;
 }
 
-.case-study-continuation-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem 1.4rem;
+.case-study-continuation .section-link {
   margin-top: 1rem;
 }
 
@@ -592,39 +585,6 @@
   transition-delay: 175ms;
 }
 
-.work-page--motion-observed .step-flow__node,
-.work-page--motion-observed .step-flow__content {
-  opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 220ms ease-out, transform 220ms ease-out;
-}
-
-.work-page--motion-observed .step-flow__marker::after {
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 460ms ease-out 80ms;
-}
-
-.work-page--motion-observed .step-flow.is-visible .step-flow__node,
-.work-page--motion-observed .step-flow.is-visible .step-flow__content {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.work-page--motion-observed .step-flow.is-visible .step-flow__marker::after {
-  transform: scaleX(1);
-}
-
-.work-page--motion-observed .step-flow.is-visible > li:nth-child(2) .step-flow__node,
-.work-page--motion-observed .step-flow.is-visible > li:nth-child(2) .step-flow__content {
-  transition-delay: 70ms;
-}
-
-.work-page--motion-observed .step-flow.is-visible > li:nth-child(3) .step-flow__node,
-.work-page--motion-observed .step-flow.is-visible > li:nth-child(3) .step-flow__content {
-  transition-delay: 140ms;
-}
-
 @keyframes work-engagement-signal {
   0% {
     opacity: 0;
@@ -647,10 +607,7 @@
   .work-page--motion-observed .work-engagement,
   .work-page--motion-observed .work-outcome,
   .work-page--motion-observed .work-engagement--review.is-visible .work-outcome,
-  .work-page--motion-observed .work-situation-list .work-item-index,
-  .work-page--motion-observed .step-flow__node,
-  .work-page--motion-observed .step-flow__content,
-  .work-page--motion-observed .step-flow__marker::after {
+  .work-page--motion-observed .work-situation-list .work-item-index {
     opacity: 1;
     transform: none;
     transition: none;

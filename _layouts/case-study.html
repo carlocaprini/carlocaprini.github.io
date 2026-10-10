@@ -13,8 +13,8 @@ layout: default
         <h1 class="hero-title hero-title--compact">{{ case_study.title_prefix }}<span class="highlight">{{ case_study.title_highlight }}</span>{{ case_study.title_suffix }}</h1>
         <p class="hero-subtitle hero-subtitle--wide">{{ case_study.tagline }}</p>
         <div class="hero-actions hero-actions--compact">
-          <a class="button-primary" href="{{ '/work/case-studies/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_hero_index" data-analytics-destination="/work/case-studies/">All case studies</a>
-          <a class="button-ghost" href="{{ '/work/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_hero_work" data-analytics-destination="/work/">Work</a>
+          <a class="button-primary" href="{{ '/work/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_hero_work" data-analytics-destination="/work/">How I can help</a>
+          <a class="button-ghost" href="{{ '/work/case-studies/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_hero_index" data-analytics-destination="/work/case-studies/">All case studies</a>
         </div>
       </div>
     </div>
@@ -52,16 +52,14 @@ layout: default
   </article>
 
   <section class="section case-study-continuation">
-    <div class="container work-section-intro case-study-continuation-inner">
+    <div class="container work-section-intro work-section-intro--flush">
       <div>
         <div class="section-eyebrow">Continue</div>
         <h2 class="section-title">A case study, not a service catalogue.</h2>
       </div>
       <div>
         <p class="section-description">This example shows one collaboration. Work explains where this kind of engagement can be useful.</p>
-        <div class="case-study-continuation-links">
-          <a class="section-link" href="{{ '/work/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_work" data-analytics-destination="/work/">How I can help <span aria-hidden="true">→</span></a>
-        </div>
+        <a class="section-link" href="{{ '/work/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_work" data-analytics-destination="/work/">How I can help <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>

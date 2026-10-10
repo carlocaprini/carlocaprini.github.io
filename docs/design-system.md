@@ -270,6 +270,8 @@ Pattern:
 
 This pattern works well in Experience and should be reused for Home entry points and future sections.
 
+When the intro is the only content inside its section, use the flush variant to remove the otherwise useful trailing margin rather than adding a page-specific spacing override.
+
 ### Editorial Split
 
 Use when two parts belong to the same argument but need a clear hierarchy, such as scope and outcome, premise and judgment, or evidence and continuation.
@@ -497,6 +499,7 @@ Keep:
 - one compact credibility bridge grounded in established Experience, using the standard two-column introduction rather than a custom band, CV or proof card
 - one contextual Case study link inside each engagement model, so evidence is available where its relationship is clearest
 - one restrained Case studies section using the standard section header, descriptive copy and collection link without becoming another panel
+- the three working principles as a compact numbered ruled list: three columns on desktop and one stacked list with internal dividers on smaller screens
 - one low-pressure contact panel that combines the next-step explanation and standard primary button
 - ruled lists with internal dividers only and no duplicate closing boundary
 
@@ -519,10 +522,10 @@ Case studies provide permission-safe evidence for the independent Product & Engi
 Keep:
 
 - one restrained index containing the case title and tagline rather than a grid of promotional tiles
-- one non-numbered structural marker per case; numbering and progression remain Series language
+- one non-numbered structural marker per case; do not imply order or progression between independent cases
 - one dedicated page per case, with a consistent, plain-language anatomy: goal, how we worked, what changed, outcome and boundaries
 - the standard compact hero and cool brand highlight used by other professional pages
-- the canonical compact hero action row: a primary button back to the Case studies index and a ghost button to Work
+- the shared compact Hero Actions pattern, with Work as the primary forward action and the Case studies index as the secondary return action
 - an editorial split between the main evidence and a narrower outcome-and-boundaries column
 - the canonical Two-Column Intro for the service-catalogue boundary and continuation links
 - direct, observable claims; distinguish delivered assessment, adopted change and unvalidated follow-up

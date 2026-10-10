@@ -838,7 +838,6 @@
     padding-top: 2.6rem;
   }
 
-  .case-study-continuation-links,
   .experience-independent-links {
     align-items: flex-start;
     flex-direction: column;
@@ -1230,9 +1229,7 @@
   .work-page--motion-observed .work-reveal,
   .work-page--motion-observed .work-reveal.is-visible,
   .work-page--motion-observed .work-situation-list > li:not(:last-child)::after,
-  .work-page--motion-observed .work-situation-list.is-visible > li:not(:last-child)::after,
-  .work-page--motion-observed .step-flow__marker::after,
-  .work-page--motion-observed .step-flow.is-visible .step-flow__marker::after {
+  .work-page--motion-observed .work-situation-list.is-visible > li:not(:last-child)::after {
     transform: none;
     transition: none;
   }
