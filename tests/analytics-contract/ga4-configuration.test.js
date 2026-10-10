@@ -11,6 +11,7 @@ const ga4 = JSON.parse(await readFile(
   "utf8"
 ));
 const workLayout = await readFile(new URL("../../_layouts/work.html", import.meta.url), "utf8");
+const workContactPanel = await readFile(new URL("../../_includes/work-contact-panel.html", import.meta.url), "utf8");
 
 test("GA4 reporting dimensions have unique event parameters and event scope", () => {
   const parameters = ga4.custom_dimensions.map((dimension) => dimension.event_parameter);
@@ -29,8 +30,9 @@ test("the only configured Key Event is derived from the real Work contact path",
   assert.equal(keyEvents[0].source_event, "contact_open");
   assert.equal(keyEvents[0].conditions.link_context, "work_contact");
   assert.ok(analyticsContract.events.semantic.includes(keyEvents[0].source_event));
-  assert.match(workLayout, /data-analytics-event="contact_open"/);
-  assert.match(workLayout, /data-analytics-link-context="work_contact"/);
+  assert.match(workLayout, /include work-contact-panel\.html contact=page\.contact link_context="work_contact"/);
+  assert.match(workContactPanel, /data-analytics-event="contact_open"/);
+  assert.match(workContactPanel, /data-analytics-link-context="{{ include\.link_context }}"/);
 });
 
 test("GA4 configuration contains no visitor or learner identity fields", () => {

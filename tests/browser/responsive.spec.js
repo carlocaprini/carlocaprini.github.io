@@ -130,7 +130,7 @@ test("Work keeps its recognition and evidence layers readable across breakpoints
   const columns = await page.locator(".work-situation-list").evaluate(
     (element) => getComputedStyle(element).gridTemplateColumns.split(" ").length
   );
-  const principleFlow = await page.locator(".step-flow").evaluate((element) => ({
+  const principleFlow = await page.locator(".work-principles-list").evaluate((element) => ({
     columns: getComputedStyle(element).gridTemplateColumns.split(" ").length,
     left: element.getBoundingClientRect().left,
     right: element.getBoundingClientRect().right,
