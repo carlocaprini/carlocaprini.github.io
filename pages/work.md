@@ -55,8 +55,8 @@ review:
     - Recommended actions
     - Final walkthrough
   case_study:
+    id: release-readiness-review
     label: Read the Review case study
-    url: /work/case-studies/release-readiness-review/
 advisory:
   eyebrow: Product & Engineering Advisory
   title: Work through the changes together.
@@ -77,8 +77,8 @@ advisory:
     - Revisiting a release or testing strategy before investing in a broad rewrite
     - Evaluating whether an AI-assisted workflow should be automated, constrained or left alone
   case_study:
+    id: deliberate-quality-automation
     label: Read the Advisory case study
-    url: /work/case-studies/deliberate-quality-automation/
 principles:
   eyebrow: How I work
   title: Three principles for working through the problem.

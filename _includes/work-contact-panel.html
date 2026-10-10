@@ -1,0 +1,10 @@
+{% assign contact = include.contact %}
+<div class="work-contact-panel{% if include.reveal %} work-reveal{% endif %}"{% if include.reveal %} data-work-reveal{% endif %}>
+  <div>
+    <div class="section-eyebrow">{{ contact.eyebrow }}</div>
+    <h2 class="section-title">{{ contact.title }}</h2>
+    <p>{{ contact.body }}</p>
+    {% if contact.location %}<p class="work-contact-location">{{ contact.location }}</p>{% endif %}
+  </div>
+  <a class="button-primary" href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_open" data-analytics-contact-method="linkedin" data-analytics-link-context="{{ include.link_context }}">{{ contact.action }} <span aria-hidden="true">→</span><span class="visually-hidden"> (opens in new tab)</span></a>
+</div>

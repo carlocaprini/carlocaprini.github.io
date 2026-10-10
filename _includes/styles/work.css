@@ -194,15 +194,13 @@
   line-height: 1.7;
 }
 
-.work-compact-list,
-.work-output-list {
+.work-compact-list {
   margin: 0 0 1.2rem;
   padding: 0;
   list-style: none;
 }
 
-.work-compact-list li,
-.work-output-list li {
+.work-compact-list li {
   position: relative;
   padding: 0.5rem 0 0.5rem 1.1rem;
   color: var(--color-text-secondary);
@@ -210,8 +208,7 @@
   line-height: 1.55;
 }
 
-.work-compact-list li::before,
-.work-output-list li::before {
+.work-compact-list li::before {
   content: "";
   position: absolute;
   top: 0.95rem;
@@ -222,7 +219,8 @@
   background: var(--structural-accent);
 }
 
-.work-outcome {
+.work-outcome,
+.case-study-outcome {
   padding-left: 2rem;
   border-left: 1px solid var(--structural-accent-border);
 }
@@ -236,7 +234,6 @@
 }
 
 .work-engagement-case-link {
-  display: inline-flex;
   margin-top: 1.25rem;
 }
 
@@ -353,8 +350,7 @@
 }
 
 .case-study-marker {
-  display: flex;
-  justify-content: center;
+  justify-self: center;
   padding-top: 0.55rem;
 }
 
@@ -421,11 +417,6 @@
   color: var(--color-text-muted);
   font-size: 0.92rem;
   line-height: 1.75;
-}
-
-.case-study-outcome {
-  padding-left: 2rem;
-  border-left: 1px solid var(--structural-accent-border);
 }
 
 .case-study-outcome section + section {
@@ -528,12 +519,7 @@
   animation: work-engagement-signal 1150ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
 }
 
-.work-page--motion-observed .work-engagement--review.is-visible {
-  border-color: var(--structural-accent-border);
-  box-shadow: 0 16px 42px rgba(2, 6, 23, 0.22);
-}
-
-.work-page--motion-observed .work-engagement--advisory.is-visible {
+.work-page--motion-observed .work-engagement.is-visible {
   border-color: var(--structural-accent-border);
   box-shadow: 0 16px 42px rgba(2, 6, 23, 0.22);
 }
@@ -546,7 +532,7 @@
     transform 220ms ease-out 70ms;
 }
 
-.work-page--motion-observed .work-engagement--review.is-visible .work-outcome {
+.work-page--motion-observed .work-engagement.is-visible .work-outcome {
   opacity: 1;
   transform: translateY(0);
 }
@@ -606,7 +592,7 @@
   .work-page--motion-observed .work-reveal.is-visible,
   .work-page--motion-observed .work-engagement,
   .work-page--motion-observed .work-outcome,
-  .work-page--motion-observed .work-engagement--review.is-visible .work-outcome,
+  .work-page--motion-observed .work-engagement.is-visible .work-outcome,
   .work-page--motion-observed .work-situation-list .work-item-index {
     opacity: 1;
     transform: none;
@@ -636,8 +622,7 @@
     transition: none;
   }
 
-  .work-page--motion-observed .work-engagement--review.is-visible,
-  .work-page--motion-observed .work-engagement--advisory.is-visible {
+  .work-page--motion-observed .work-engagement.is-visible {
     box-shadow: none;
   }
 }

@@ -1,6 +1,8 @@
 ---
 layout: default
 ---
+{% assign review_case_study = site.data.case_studies.items | where: "id", page.review.case_study.id | first %}
+{% assign advisory_case_study = site.data.case_studies.items | where: "id", page.advisory.case_study.id | first %}
 <div class="page work-page">
   <section class="hero hero--compact work-hero">
     <div class="container hero-grid hero-grid--single">
@@ -81,10 +83,10 @@ layout: default
           <section class="work-outcome">
             <div class="section-eyebrow">{{ page.review.outcome_title }}</div>
             <p class="work-outcome-lead">{{ page.review.outcome }}</p>
-            <ul class="work-output-list">
+            <ul class="work-compact-list">
               {% for item in page.review.possible_outputs %}<li>{{ item }}</li>{% endfor %}
             </ul>
-            <a class="section-link work-engagement-case-link" href="{{ page.review.case_study.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="work_review_case_study" data-analytics-destination="{{ page.review.case_study.url }}">{{ page.review.case_study.label }} <span aria-hidden="true">→</span></a>
+            <a class="section-link work-engagement-case-link" href="{{ review_case_study.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="work_review_case_study" data-analytics-destination="{{ review_case_study.url }}">{{ page.review.case_study.label }} <span aria-hidden="true">→</span></a>
           </section>
         </div>
       </article>
@@ -111,7 +113,7 @@ layout: default
             <ul class="work-compact-list">
               {% for item in page.advisory.situations %}<li>{{ item }}</li>{% endfor %}
             </ul>
-            <a class="section-link work-engagement-case-link" href="{{ page.advisory.case_study.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="work_advisory_case_study" data-analytics-destination="{{ page.advisory.case_study.url }}">{{ page.advisory.case_study.label }} <span aria-hidden="true">→</span></a>
+            <a class="section-link work-engagement-case-link" href="{{ advisory_case_study.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="work_advisory_case_study" data-analytics-destination="{{ advisory_case_study.url }}">{{ page.advisory.case_study.label }} <span aria-hidden="true">→</span></a>
           </section>
         </div>
       </article>
@@ -120,25 +122,25 @@ layout: default
 
   <section class="section work-principles-section">
     <div class="container">
-        <div class="work-section-intro work-section-intro--flow work-reveal" data-work-reveal>
-          <div>
-            <div class="section-eyebrow">{{ page.principles.eyebrow }}</div>
-            <h2 class="section-title">{{ page.principles.title }}</h2>
-            <p class="section-description">{{ page.principles.intro }}</p>
-          </div>
+      <div class="work-section-intro work-section-intro--flow work-reveal" data-work-reveal>
+        <div>
+          <div class="section-eyebrow">{{ page.principles.eyebrow }}</div>
+          <h2 class="section-title">{{ page.principles.title }}</h2>
+          <p class="section-description">{{ page.principles.intro }}</p>
         </div>
-        <ol class="work-principles-list work-reveal" data-work-reveal>
-          {% for item in page.principles.items %}
-            <li>
-              <span class="work-principle-index" aria-hidden="true">0{{ forloop.index }}</span>
-              <div>
-                <h3>{{ item.title }}</h3>
-                <p>{{ item.body }}</p>
-              </div>
-            </li>
-          {% endfor %}
-        </ol>
       </div>
+      <ol class="work-principles-list work-reveal" data-work-reveal>
+        {% for item in page.principles.items %}
+          <li>
+            <span class="work-principle-index" aria-hidden="true">0{{ forloop.index }}</span>
+            <div>
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.body }}</p>
+            </div>
+          </li>
+        {% endfor %}
+      </ol>
+    </div>
   </section>
 
   <section class="section work-case-studies-section">
@@ -169,15 +171,7 @@ layout: default
 
   <section class="section work-contact-section">
     <div class="container">
-      <div class="work-contact-panel work-reveal" data-work-reveal>
-        <div>
-          <div class="section-eyebrow">{{ page.contact.eyebrow }}</div>
-          <h2 class="section-title">{{ page.contact.title }}</h2>
-          <p>{{ page.contact.body }}</p>
-          <p class="work-contact-location">{{ page.contact.location }}</p>
-        </div>
-        <a class="button-primary" href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_open" data-analytics-contact-method="linkedin" data-analytics-link-context="work_contact">{{ page.contact.action }} <span aria-hidden="true">→</span><span class="visually-hidden"> (opens in new tab)</span></a>
-      </div>
+      {% include work-contact-panel.html contact=page.contact link_context="work_contact" reveal=true %}
     </div>
   </section>
 </div>

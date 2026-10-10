@@ -1,7 +1,7 @@
 ---
 layout: case-study
 case_study_id: release-readiness-review
-title: Turning a broad release concern into clear priorities
+title: Turning a broad release concern into clear priorities.
 permalink: /work/case-studies/release-readiness-review/
 work_section: true
 meta_title: Release Readiness Review Case Study | Carlo Caprini

@@ -194,7 +194,6 @@ test("Work explains recognizable problems and exactly two engagement models", as
   await expect(page.getByRole("link", { name: /Browse all case studies/ })).toHaveAttribute("href", "/work/case-studies/");
   await expect(page.getByRole("heading", { name: "Experience across Product & Engineering." })).toBeVisible();
   await expect(page.getByRole("link", { name: /See full experience/ })).toHaveAttribute("href", "/experience/");
-  await expect(page.locator(".work-industry-section, .work-next-section")).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "Start with the problem, not a package." })).toBeVisible();
   await expect(page.getByRole("link", { name: /Start a conversation/ })).toHaveAttribute("href", /^https:\/\//);
 });

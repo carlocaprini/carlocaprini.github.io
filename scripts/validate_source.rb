@@ -603,6 +603,9 @@ case_studies.each_with_index do |case_study, index|
   unless detail_page["permalink"] == case_study["url"]
     fail_check("#{relative_path(detail_path)}: permalink must match #{case_study['url']}")
   end
+  unless detail_page["title"] == case_study["title"]
+    fail_check("#{relative_path(detail_path)}: title must match the canonical case study title")
+  end
   fail_check("#{relative_path(detail_path)}: work_section must be true") unless detail_page["work_section"] == true
 end
 
@@ -611,11 +614,11 @@ work_data = page_records.fetch(work_path).first
 unless work_data.dig("case_studies", "action", "url") == case_studies_page["permalink"]
   fail_check("pages/work.md: case_studies action must point to /work/case-studies/")
 end
-unless work_data.dig("review", "case_study", "url") == case_study_by_id.dig("release-readiness-review", "url")
-  fail_check("pages/work.md: Review must link to its case study")
-end
-unless work_data.dig("advisory", "case_study", "url") == case_study_by_id.dig("deliberate-quality-automation", "url")
-  fail_check("pages/work.md: Advisory must link to its case study")
+%w[review advisory].each do |engagement|
+  case_study_id = work_data.dig(engagement, "case_study", "id")
+  unless case_study_by_id.key?(case_study_id)
+    fail_check("pages/work.md: #{engagement} references unknown case study #{case_study_id}")
+  end
 end
 
 experience_data = page_records.fetch(experience_path).first

@@ -1,7 +1,7 @@
 ---
 layout: case-study
 case_study_id: deliberate-quality-automation
-title: Improving delivery confidence with testing and bounded AI experiments
+title: Improving delivery confidence with testing and bounded AI experiments.
 permalink: /work/case-studies/deliberate-quality-automation/
 work_section: true
 meta_title: Quality and AI Advisory Case Study | Carlo Caprini

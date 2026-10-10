@@ -2,7 +2,7 @@
 layout: default
 ---
 {% assign case_study = site.data.case_studies.items | where: "id", page.case_study_id | first %}
-<div class="page case-study-page">
+<div class="page">
   <section class="hero hero--compact case-study-hero">
     <div class="container hero-grid hero-grid--single">
       <div>
@@ -66,14 +66,7 @@ layout: default
 
   <section class="section work-contact-section">
     <div class="container">
-      <div class="work-contact-panel">
-        <div>
-          <div class="section-eyebrow">{{ site.data.case_studies.contact.eyebrow }}</div>
-          <h2 class="section-title">{{ site.data.case_studies.contact.title }}</h2>
-          <p>{{ site.data.case_studies.contact.body }}</p>
-        </div>
-        <a class="button-primary" href="{{ site.data.person.linkedin }}" target="_blank" rel="noopener noreferrer" data-analytics-event="contact_open" data-analytics-contact-method="linkedin" data-analytics-link-context="case_study_contact">{{ site.data.case_studies.contact.action }} <span aria-hidden="true">→</span><span class="visually-hidden"> (opens in new tab)</span></a>
-      </div>
+      {% include work-contact-panel.html contact=site.data.case_studies.contact link_context="case_study_contact" %}
     </div>
   </section>
 </div>
