@@ -393,10 +393,6 @@
   margin-bottom: 1.2rem;
 }
 
-.case-study-hero .hero-actions .section-link {
-  align-self: center;
-}
-
 .case-study-body {
   display: grid;
   grid-template-columns: minmax(0, 1.55fr) minmax(15rem, 0.8fr);
