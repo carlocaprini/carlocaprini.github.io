@@ -6,13 +6,16 @@ layout: default
   <section class="hero hero--compact case-study-hero">
     <div class="container hero-grid hero-grid--single">
       <div>
-        <a class="section-link case-study-back-link" href="{{ '/work/case-studies/' | relative_url }}">← All case studies</a>
         <div class="hero-label">
           <span class="hero-label-dot"></span>
           <span>{{ case_study.engagement }}</span>
         </div>
         <h1 class="hero-title hero-title--compact">{{ case_study.title_prefix }}<span class="highlight">{{ case_study.title_highlight }}</span>{{ case_study.title_suffix }}</h1>
         <p class="hero-subtitle hero-subtitle--wide">{{ case_study.tagline }}</p>
+        <div class="hero-actions hero-actions--compact">
+          <a class="button-ghost" href="{{ '/work/case-studies/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_hero_index" data-analytics-destination="/work/case-studies/">All case studies</a>
+          <a class="section-link" href="{{ '/work/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_hero_work" data-analytics-destination="/work/">How I can help <span aria-hidden="true">→</span></a>
+        </div>
       </div>
     </div>
   </section>
@@ -58,7 +61,6 @@ layout: default
         <p class="section-description">This example shows one collaboration. Work explains where this kind of engagement can be useful.</p>
         <div class="case-study-continuation-links">
           <a class="section-link" href="{{ '/work/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_work" data-analytics-destination="/work/">How I can help <span aria-hidden="true">→</span></a>
-          <a class="section-link" href="{{ '/work/case-studies/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_index" data-analytics-destination="/work/case-studies/">All case studies <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>

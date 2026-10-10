@@ -389,13 +389,12 @@
   line-height: 1.7;
 }
 
-.case-study-back-link {
-  display: inline-flex;
-  margin-bottom: 1.8rem;
-}
-
 .case-study-hero .hero-label {
   margin-bottom: 1.2rem;
+}
+
+.case-study-hero .hero-actions .section-link {
+  align-self: center;
 }
 
 .case-study-body {

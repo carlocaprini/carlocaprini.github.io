@@ -522,11 +522,12 @@ Keep:
 - one non-numbered structural marker per case; numbering and progression remain Series language
 - one dedicated page per case, with a consistent, plain-language anatomy: goal, how we worked, what changed, outcome and boundaries
 - the standard compact hero and cool brand highlight used by other professional pages
+- a canonical compact hero action row: a ghost button back to the Case studies index and a restrained contextual link to Work
 - an editorial split between the main evidence and a narrower outcome-and-boundaries column
 - the canonical Two-Column Intro for the service-catalogue boundary and continuation links
 - direct, observable claims; distinguish delivered assessment, adopted change and unvalidated follow-up
 - an explicit reminder that the case is evidence rather than a service catalogue
-- restrained links back to Work and the Case studies index, followed by the standard low-pressure contact panel
+- one restrained link back to Work in the service-catalogue boundary, followed by the standard low-pressure contact panel
 
 Avoid:
 
