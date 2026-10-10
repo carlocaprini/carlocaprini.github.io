@@ -92,6 +92,7 @@ principles:
       body: The purpose is to understand the system, not to grade the people who built it. Existing decisions should be considered in the context and constraints that produced them.
 case_studies:
   eyebrow: Case studies
+  title: Two examples of the work in practice.
   body: Two anonymised examples show the goal, collaboration, outcome and boundaries of a Review and an Advisory engagement.
   action:
     label: Browse all case studies

@@ -163,7 +163,6 @@
   .work-section-intro,
   .work-engagement-details,
   .work-contact-panel,
-  .work-context-band,
   .case-study-body,
   .case-study-continuation-inner,
   .industry-expertise-area-grid,
@@ -205,17 +204,6 @@
 
   .work-principles-list > li + li {
     border-top: 1px solid var(--color-line);
-  }
-
-  .work-case-studies-link {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.65rem;
-    padding-top: 1.25rem;
-  }
-
-  .work-case-studies-link .section-link,
-  .work-context-band > .section-link {
-    white-space: normal;
   }
 
   .case-study-body {

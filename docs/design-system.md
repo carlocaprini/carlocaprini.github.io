@@ -494,9 +494,9 @@ Keep:
 - calm grouped surfaces for the engagement models, with the Review output more prominent than activity lists
 - present Review scope and outcome as an editorial split rather than nested cards
 - explicit technical evidence balanced with product and organisational context
-- one compact credibility bridge grounded in established Experience, presented as a quiet context band rather than a CV or proof card
+- one compact credibility bridge grounded in established Experience, using the standard two-column introduction rather than a custom band, CV or proof card
 - one contextual Case study link inside each engagement model, so evidence is available where its relationship is clearest
-- one lightweight Case studies link after the working principles; it points to the complete evidence index without becoming another full page section
+- one restrained Case studies section using the standard section header, descriptive copy and collection link without becoming another panel
 - one low-pressure contact panel that combines the next-step explanation and standard primary button
 - ruled lists with internal dividers only and no duplicate closing boundary
 

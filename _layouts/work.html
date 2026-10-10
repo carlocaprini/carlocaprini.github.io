@@ -138,22 +138,32 @@ layout: default
             </li>
           {% endfor %}
         </ol>
-        <div class="work-case-studies-link work-reveal" data-work-reveal>
-          <div class="section-eyebrow">{{ page.case_studies.eyebrow }}</div>
-          <p>{{ page.case_studies.body }}</p>
-          <a class="section-link" href="{{ page.case_studies.action.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="work_case_studies" data-analytics-destination="{{ page.case_studies.action.url }}">{{ page.case_studies.action.label }} <span aria-hidden="true">→</span></a>
-        </div>
       </div>
   </section>
 
+  <section class="section work-case-studies-section">
+    <div class="container">
+      <div class="section-header work-reveal" data-work-reveal>
+        <div class="work-case-studies-summary">
+          <div class="section-eyebrow">{{ page.case_studies.eyebrow }}</div>
+          <h2 class="section-title">{{ page.case_studies.title }}</h2>
+          <p class="section-description">{{ page.case_studies.body }}</p>
+        </div>
+        <a class="section-link" href="{{ page.case_studies.action.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="work_case_studies" data-analytics-destination="{{ page.case_studies.action.url }}">{{ page.case_studies.action.label }} <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
   <section class="section work-evidence-section">
-    <div class="container work-context-band work-reveal" data-work-reveal>
+    <div class="container work-section-intro work-reveal" data-work-reveal>
       <div>
         <div class="section-eyebrow">{{ page.experience.eyebrow }}</div>
         <h2 class="section-title">{{ page.experience.title }}</h2>
-        <p class="work-evidence-copy">{{ page.experience.body }}</p>
       </div>
-      <a class="section-link" href="{{ page.experience.action.url | relative_url }}" data-analytics-event="experience_open" data-analytics-link-context="work_experience">{{ page.experience.action.label }} <span aria-hidden="true">→</span></a>
+      <div>
+        <p class="section-description">{{ page.experience.body }}</p>
+        <a class="section-link" href="{{ page.experience.action.url | relative_url }}" data-analytics-event="experience_open" data-analytics-link-context="work_experience">{{ page.experience.action.label }} <span aria-hidden="true">→</span></a>
+      </div>
     </div>
   </section>
 

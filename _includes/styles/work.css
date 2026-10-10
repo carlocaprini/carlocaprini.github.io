@@ -31,6 +31,7 @@
   margin-bottom: 3.2rem;
 }
 
+.work-case-studies-section,
 .work-evidence-section {
   margin-bottom: 3.2rem;
 }
@@ -217,14 +218,6 @@
   background: var(--structural-accent);
 }
 
-.work-evidence-copy {
-  max-width: 46rem;
-  margin: 1rem 0 0;
-  color: var(--color-text-muted);
-  font-size: 0.92rem;
-  line-height: 1.75;
-}
-
 .work-outcome {
   padding-left: 2rem;
   border-left: 1px solid var(--structural-accent-border);
@@ -281,53 +274,24 @@
   line-height: 1.45;
 }
 
-.work-principles-list p,
-.work-case-studies-link p {
+.work-principles-list p {
   margin: 0;
   color: var(--color-text-muted);
   font-size: 0.88rem;
   line-height: 1.65;
 }
 
-.work-case-studies-link {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: 1.5rem;
-  align-items: center;
-  margin-top: 1.5rem;
-  padding: 1.1rem 0;
+.work-case-studies-summary {
+  max-width: 38rem;
 }
 
-.work-case-studies-link .section-eyebrow {
-  margin: 0;
+.work-case-studies-summary .section-description,
+.work-evidence-section .section-description {
+  margin: 0.75rem 0 0;
 }
 
-.work-case-studies-link p {
-  max-width: 44rem;
-}
-
-.work-case-studies-link .section-link {
-  white-space: nowrap;
-}
-
-.work-context-band {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 2.5rem;
-  align-items: end;
-  padding-top: 2.4rem;
-  padding-bottom: 2.4rem;
-  border-top: 1px solid var(--color-line);
-  border-bottom: 1px solid var(--color-line);
-}
-
-.work-context-band .section-title {
-  margin-top: 0.55rem;
-}
-
-.work-context-band > .section-link {
-  margin-bottom: 0.2rem;
-  white-space: nowrap;
+.work-evidence-section .section-link {
+  margin-top: 1rem;
 }
 
 .work-contact-panel {
