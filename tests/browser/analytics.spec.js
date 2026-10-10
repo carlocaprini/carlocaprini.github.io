@@ -116,6 +116,12 @@ test("Aggregate measurement maps semantic events without personal fields", async
       page_id: "/",
       link_context: "home_selected_work"
     }),
+    caseStudy: window.siteAggregateAnalytics.buildEvent("work_open", {
+      page_type: "work",
+      page_id: "/work/",
+      destination: "/work/case-studies/release-readiness-review/",
+      link_context: "work_review_case_study"
+    }),
     industryExpertise: window.siteAggregateAnalytics.buildEvent("industry_expertise_open", {
       page_type: "experience",
       page_id: "/experience/",
@@ -201,6 +207,15 @@ test("Aggregate measurement maps semantic events without personal fields", async
     target_type: "work",
     target_id: "work",
     link_context: "home_selected_work"
+  });
+  expect(mapped.caseStudy).toEqual({
+    version: 1,
+    event_name: "work_open",
+    source_type: "work",
+    source_id: "/work/",
+    target_type: "work",
+    target_id: "/work/case-studies/release-readiness-review/",
+    link_context: "work_review_case_study"
   });
   expect(mapped.industryExpertise).toEqual({
     version: 1,

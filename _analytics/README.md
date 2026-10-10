@@ -4,7 +4,7 @@ This directory contains the privacy-preserving measurement service for the publi
 
 The browser sends a fixed semantic payload to a Cloudflare Worker. The Worker validates it and increments one daily D1 counter. It does not store raw events, IP addresses, user agents, referrers, cookies, users, sessions or precise timestamps.
 
-Work uses the same semantic contract as the rest of the site. `work_open` records which site context led to `/work/`; `work_section_view` records a first meaningful view of Review or Advisory; `contact_open` with `work_contact` identifies the outbound conversation path. These remain coarse allowlisted transitions and never include problem descriptions or other visitor prose.
+Work and Case studies use the same semantic contract as the rest of the site. `work_open` records which site context led to Work, the Case studies index or a dedicated case, with the allowlisted destination path retained as the aggregate target when one is present. `work_section_view` records a first meaningful view of Review or Advisory; `contact_open` identifies the outbound conversation path. These remain coarse allowlisted transitions and never include problem descriptions or other visitor prose.
 
 `social_profile_open` records a deliberate move to an author's external profile and preserves the allowlisted platform plus the site context that prompted it. It is relationship exploration, not contact intent: `contact_open` remains reserved for opening an actual contact channel.
 
@@ -13,7 +13,7 @@ Work uses the same semantic contract as the rest of the site. `work_open` record
 The site measures meaningful transitions rather than every click:
 
 - page and content views establish which public destinations were reached;
-- global navigation and in-page entry points distinguish movement into Thinking, Explore, Influences, Experience and Work;
+- global navigation and in-page entry points distinguish movement into Thinking, Explore, Influences, Experience and Work, including its Case studies evidence;
 - note, question, series, topic and external-reading events preserve the discovery context that led to them;
 - Work-section visibility and contact events separate professional exploration from opening a contact channel;
 - social-profile events keep relationship exploration distinct from direct contact intent;
@@ -198,4 +198,4 @@ The scheduled Worker task deletes normal and campaign daily rows older than 14 c
 
 `contracts/analytics.json` owns the common and per-event parameter allowlists. The browser filters both DOM attributes and programmatic events before sending them to GA4 or the semantic event bus. Technical configuration, unknown parameters, objects and free prose are discarded. The consent-ready content event uses the same filter. This boundary concerns custom semantic events, not Google's independently collected native fields.
 
-Automatic note-body tracking distinguishes collection indexes from individual notes/questions/series and recognizes Work and Experience. Same-page links, unsupported internal routes and non-HTTP links are not automatically tracked. External reading destinations preserve the public origin and path to distinguish publishers, but omit credentials, query strings and fragments. Existing explicit event annotations take precedence.
+Automatic note-body tracking distinguishes collection indexes from individual notes/questions/series and recognizes Work and Experience. Case studies use explicit `work_open` annotations so their destination path remains available to both GA4 and the aggregate collector. Same-page links, unsupported internal routes and non-HTTP links are not automatically tracked. External reading destinations preserve the public origin and path to distinguish publishers, but omit credentials, query strings and fragments. Existing explicit event annotations take precedence.
