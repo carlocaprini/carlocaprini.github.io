@@ -19,11 +19,10 @@ layout: default
 
   <section class="section case-studies-index-section">
     <div class="container">
-      <ol class="case-studies-index">
+      <ul class="case-studies-index">
         {% for case in site.data.case_studies.items %}
           <li>
             <span class="case-study-marker" aria-hidden="true">
-              <span>{{ case.index }}</span>
               <span class="case-study-node"></span>
             </span>
             <div class="case-study-index-copy">
@@ -33,12 +32,12 @@ layout: default
             </div>
           </li>
         {% endfor %}
-      </ol>
+      </ul>
     </div>
   </section>
 
   <section class="section case-study-continuation">
-    <div class="container case-study-continuation-inner">
+    <div class="container work-section-intro case-study-continuation-inner">
       <div>
         <div class="section-eyebrow">{{ page.continuation.eyebrow }}</div>
         <h2 class="section-title">{{ page.continuation.title }}</h2>

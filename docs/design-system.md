@@ -519,9 +519,11 @@ Case studies provide permission-safe evidence for the independent Product & Engi
 Keep:
 
 - one restrained index containing the case title and tagline rather than a grid of promotional tiles
+- one non-numbered structural marker per case; numbering and progression remain Series language
 - one dedicated page per case, with a consistent, plain-language anatomy: goal, how we worked, what changed, outcome and boundaries
 - the standard compact hero and cool brand highlight used by other professional pages
 - an editorial split between the main evidence and a narrower outcome-and-boundaries column
+- the canonical Two-Column Intro for the service-catalogue boundary and continuation links
 - direct, observable claims; distinguish delivered assessment, adopted change and unvalidated follow-up
 - an explicit reminder that the case is evidence rather than a service catalogue
 - restrained links back to Work and the Case studies index, followed by the standard low-pressure contact panel

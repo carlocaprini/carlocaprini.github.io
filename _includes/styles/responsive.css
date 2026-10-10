@@ -164,7 +164,6 @@
   .work-engagement-details,
   .work-contact-panel,
   .case-study-body,
-  .case-study-continuation-inner,
   .industry-expertise-area-grid,
   .industry-expertise-split,
   .industry-expertise-boundaries-panel,
@@ -814,13 +813,9 @@
   }
 
   .case-studies-index > li {
-    grid-template-columns: 2rem minmax(0, 1fr);
+    grid-template-columns: 1rem minmax(0, 1fr);
     gap: 0.75rem;
     padding: 2.6rem 0;
-  }
-
-  .case-study-marker {
-    gap: 0.55rem;
   }
 
   .case-study-index-copy h2 {
@@ -841,11 +836,6 @@
 
   .case-study-continuation {
     padding-top: 2.6rem;
-  }
-
-  .case-study-continuation-inner {
-    gap: 1rem;
-    padding-top: 2.8rem;
   }
 
   .case-study-continuation-links,

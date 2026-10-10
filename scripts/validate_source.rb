@@ -578,10 +578,15 @@ end
 case_study_by_id = case_studies.to_h { |case_study| [case_study["id"], case_study] }
 
 case_studies.each_with_index do |case_study, index|
-  %w[id index url engagement title tagline goal collaboration changed outcome boundaries].each do |field|
+  %w[id url engagement title title_prefix title_highlight title_suffix tagline goal collaboration changed outcome boundaries].each do |field|
     unless present?(case_study[field])
       fail_check("_data/case_studies.yml: case study #{index + 1} is missing #{field}")
     end
+  end
+
+  composed_title = "#{case_study['title_prefix']}#{case_study['title_highlight']}#{case_study['title_suffix']}"
+  unless composed_title == case_study["title"]
+    fail_check("_data/case_studies.yml: #{case_study['id']} hero title parts must reconstruct title")
   end
 
   detail_path = File.join(SOURCE_DIR, "pages/case-studies/#{case_study['id']}.md")
