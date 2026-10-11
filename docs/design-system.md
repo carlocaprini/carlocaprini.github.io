@@ -157,6 +157,7 @@ The current image family establishes four reusable composition roles:
 | `assets/og-thinking-v2.png` | Editorial collection | Collection title, short subject description and multi-Topic path-and-node grammar. |
 | `assets/og-product-judgment-series-v1.png` | Restrained single-territory Series | Small Series eyebrow, title, five short concepts and an amber branching topology. |
 | `assets/og-ai-operating-system-series-v1.png` | High-emphasis featured Series | Title-led composition, warm highlighted phrase and a more expressive connected-system graphic. |
+| `assets/og-case-studies-v1.png` and case-specific variants | Professional evidence collection | Shared cool composition with a concrete engagement title and distinct evidence, decision or bounded-experiment topology. |
 
 `assets/og-site.png` and `assets/og-thinking.png` are legacy 1536 × 1024 assets. Their light blue field, centred serif typography and 3:2 composition are not references for new work.
 
