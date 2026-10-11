@@ -4,8 +4,8 @@ title: Case studies
 permalink: /work/case-studies/
 work_section: true
 meta_title: Product & Engineering Case Studies | Carlo Caprini
-meta_description: Two anonymised Product & Engineering case studies showing the goal, collaboration, outcome and boundaries of completed engagements.
-last_modified_at: 2026-10-09
+meta_description: Two anonymised Product & Engineering case studies on release readiness, delivery confidence, testing and bounded AI adoption.
+last_modified_at: 2026-10-11
 hero:
   label: Case studies
   title_prefix: "Product & Engineering work, "

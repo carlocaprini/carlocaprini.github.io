@@ -525,6 +525,7 @@ Keep:
 - one primary hero action from the Case studies index to Work, using the shared compact Hero Actions pattern
 - one non-numbered structural marker per case; do not imply order or progression between independent cases
 - one dedicated page per case, with a consistent, plain-language anatomy: goal, how we worked, what changed, outcome and boundaries
+- a compact hero label that identifies both the `Case study` format and the specific Review or Advisory engagement
 - the standard compact hero and cool brand highlight used by other professional pages
 - the shared compact Hero Actions pattern, with Work as the primary forward action and the Case studies index as the secondary return action
 - an editorial split between the main evidence and a narrower outcome-and-boundaries column
