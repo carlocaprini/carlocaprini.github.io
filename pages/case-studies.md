@@ -5,6 +5,8 @@ permalink: /work/case-studies/
 work_section: true
 meta_title: Product & Engineering Case Studies | Carlo Caprini
 meta_description: Two anonymised Product & Engineering case studies on release readiness, delivery confidence, testing and bounded AI adoption.
+meta_image: /assets/og-case-studies-v1.png
+meta_image_alt: Product and Engineering case studies by Carlo Caprini, covering review, advisory, evidence and decisions.
 last_modified_at: 2026-10-11
 hero:
   label: Case studies
