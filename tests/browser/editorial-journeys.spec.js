@@ -228,13 +228,35 @@ test("Experience leads with direct work and leaves credentials out of the public
 test("Case studies provide a concise index and dedicated evidence pages", async ({ page }) => {
   await page.goto("/work/case-studies/");
 
+  await expect(page).toHaveTitle("Product & Engineering Case Studies | Carlo Caprini");
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    "Two anonymised Product & Engineering case studies on release readiness, delivery confidence, testing and bounded AI adoption."
+  );
   await expect(page.getByRole("heading", { level: 1, name: "Product & Engineering work, made concrete." })).toBeVisible();
   await expect(page.locator(".case-studies-index > li")).toHaveCount(2);
   await expect(page.getByRole("link", { name: "Turning a broad release concern into clear priorities." })).toHaveAttribute("href", "/work/case-studies/release-readiness-review/");
   await expect(page.getByRole("link", { name: "Improving delivery confidence with testing and bounded AI experiments." })).toHaveAttribute("href", "/work/case-studies/deliberate-quality-automation/");
   await expect(page.locator('a[href="/work/"][aria-current="page"]').first()).toBeAttached();
+  const collectionData = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>
+    scripts.map((script) => JSON.parse(script.textContent))
+  );
+  const collection = collectionData.find((entry) => entry["@type"] === "CollectionPage");
+  const collectionBreadcrumbs = collectionData.find((entry) => entry["@type"] === "BreadcrumbList");
+  expect(collection.mainEntity["@type"]).toBe("ItemList");
+  expect(collection.mainEntity.numberOfItems).toBe(2);
+  expect(collection.mainEntity.itemListElement.map((item) => new URL(item.url).pathname)).toEqual([
+    "/work/case-studies/release-readiness-review/",
+    "/work/case-studies/deliberate-quality-automation/"
+  ]);
+  expect(collectionBreadcrumbs.itemListElement.map((item) => item.name)).toEqual([
+    "Home",
+    "Work",
+    "Case studies"
+  ]);
 
   await page.goto("/work/case-studies/release-readiness-review/");
+  await expect(page.locator(".case-study-hero .hero-label")).toHaveText("Case study · Product & Engineering Review");
   await expect(page.getByRole("heading", { level: 1, name: "Turning a broad release concern into clear priorities." })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Goal", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "How we worked", exact: true })).toBeVisible();
@@ -243,8 +265,27 @@ test("Case studies provide a concise index and dedicated evidence pages", async 
   await expect(page.getByRole("heading", { name: "Boundaries", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "A case study, not a service catalogue." })).toBeVisible();
   await expect(page.getByRole("link", { name: /Start a conversation/ })).toHaveAttribute("href", /^https:\/\//);
+  const detailData = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>
+    scripts.map((script) => JSON.parse(script.textContent))
+  );
+  const caseArticle = detailData.find((entry) => entry["@type"] === "Article");
+  const detailBreadcrumbs = detailData.find((entry) => entry["@type"] === "BreadcrumbList");
+  expect(caseArticle.headline).toBe("Turning a broad release concern into clear priorities.");
+  expect(new URL(caseArticle.isPartOf.url).pathname).toBe("/work/case-studies/");
+  expect(detailBreadcrumbs.itemListElement.map((item) => item.name)).toEqual([
+    "Home",
+    "Work",
+    "Case studies",
+    "Turning a broad release concern into clear priorities."
+  ]);
 
   await page.goto("/work/case-studies/deliberate-quality-automation/");
+  await expect(page).toHaveTitle("Software Quality & AI Advisory Case Study | Carlo Caprini");
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    "An anonymised advisory case study on automated testing, delivery confidence and bounded AI experiments that kept ownership with the team."
+  );
+  await expect(page.locator(".case-study-hero .hero-label")).toHaveText("Case study · Product & Engineering Advisory");
   await expect(page.getByRole("heading", { level: 1, name: "Improving delivery confidence with testing and bounded AI experiments." })).toBeVisible();
 });
 
