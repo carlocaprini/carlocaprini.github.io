@@ -500,11 +500,20 @@ class ValidatorTest < Minitest::Test
     end
   end
 
-  def test_source_rejects_wrong_series_social_image_dimensions
+  def test_source_rejects_wrong_social_image_dimensions
     assert_invalid_source(/must be 1200x627, found 1199x627/) do |directory|
       path = File.join(directory, "assets/og-product-judgment-series-v1.png")
       image = File.binread(path)
       image[16, 4] = [1199].pack("N")
+      File.binwrite(path, image)
+    end
+  end
+
+  def test_source_rejects_wrong_case_study_social_image_dimensions
+    assert_invalid_source(/pages\/case-studies\.md: meta image .* must be 1200x627, found 1200x626/) do |directory|
+      path = File.join(directory, "assets/og-case-studies-v1.png")
+      image = File.binread(path)
+      image[20, 4] = [626].pack("N")
       File.binwrite(path, image)
     end
   end

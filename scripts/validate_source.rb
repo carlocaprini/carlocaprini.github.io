@@ -10,7 +10,7 @@ SOURCE_DIR = ENV["SITE_SOURCE_DIR"] ? File.expand_path(ENV.fetch("SITE_SOURCE_DI
 
 @errors = []
 PNG_SIGNATURE = "\x89PNG\r\n\x1a\n".b
-SERIES_SOCIAL_IMAGE_DIMENSIONS = [1200, 627].freeze
+SOCIAL_IMAGE_DIMENSIONS = [1200, 627].freeze
 
 def fail_check(message)
   @errors << message
@@ -50,6 +50,26 @@ rescue URI::InvalidURIError
   false
 end
 
+def validate_social_image_dimensions(path, value)
+  return unless present?(value) && value.start_with?("/")
+
+  asset = File.join(SOURCE_DIR, value.delete_prefix("/"))
+  return unless File.file?(asset)
+
+  header = File.binread(asset, 24)
+  unless header.byteslice(0, 8) == PNG_SIGNATURE && header.byteslice(12, 4) == "IHDR"
+    fail_check("#{relative_path(path)}: meta image #{value} must be a PNG with verifiable dimensions")
+    return
+  end
+
+  dimensions = header.byteslice(16, 8).unpack("NN")
+  return if dimensions == SOCIAL_IMAGE_DIMENSIONS
+
+  fail_check(
+    "#{relative_path(path)}: meta image #{value} must be 1200x627, found #{dimensions.join('x')}"
+  )
+end
+
 def validate_local_asset(path, value, alt)
   return unless present?(value)
 
@@ -61,26 +81,7 @@ def validate_local_asset(path, value, alt)
   asset = File.join(SOURCE_DIR, value.delete_prefix("/"))
   fail_check("#{relative_path(path)}: missing meta image #{value}") unless File.file?(asset)
   fail_check("#{relative_path(path)}: meta_image_alt is required with meta_image") unless present?(alt)
-end
-
-def validate_series_social_image_dimensions(path, value)
-  return unless present?(value) && value.start_with?("/")
-
-  asset = File.join(SOURCE_DIR, value.delete_prefix("/"))
-  return unless File.file?(asset)
-
-  header = File.binread(asset, 24)
-  unless header.byteslice(0, 8) == PNG_SIGNATURE && header.byteslice(12, 4) == "IHDR"
-    fail_check("#{relative_path(path)}: Series meta image #{value} must be a PNG with verifiable dimensions")
-    return
-  end
-
-  dimensions = header.byteslice(16, 8).unpack("NN")
-  return if dimensions == SERIES_SOCIAL_IMAGE_DIMENSIONS
-
-  fail_check(
-    "#{relative_path(path)}: Series meta image #{value} must be 1200x627, found #{dimensions.join('x')}"
-  )
+  validate_social_image_dimensions(path, value)
 end
 
 def validate_markdown_list_spacing(path, body)
@@ -390,7 +391,6 @@ series_data.each do |slug, series|
     fail_check("_data/series.yml: #{slug} is missing #{field}") unless present?(series[field])
   end
   validate_local_asset(series_path, series["meta_image"], series["meta_image_alt"])
-  validate_series_social_image_dimensions(series_path, series["meta_image"])
   unless series["url"] == "/series/#{slug}/"
     fail_check("#{label} URL must match its Series slug")
   end

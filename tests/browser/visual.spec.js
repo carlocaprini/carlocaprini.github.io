@@ -11,7 +11,9 @@ const surfaces = [
   { name: "product-series-article", route: "/thinking/most-product-disagreements-come-from-missing-information/", viewport: { width: 1440, height: 900 } },
   { name: "experience", route: "/experience/", viewport: { width: 1440, height: 900 } },
   { name: "industry-expertise", route: "/industry-expertise/", viewport: { width: 1440, height: 900 } },
-  { name: "work", route: "/work/", viewport: { width: 1440, height: 900 } }
+  { name: "work", route: "/work/", viewport: { width: 1440, height: 900 } },
+  { name: "case-studies", route: "/work/case-studies/", viewport: { width: 1440, height: 900 } },
+  { name: "case-study", route: "/work/case-studies/release-readiness-review/", viewport: { width: 1440, height: 900 } }
 ];
 
 test.beforeEach(async ({ page }) => {
