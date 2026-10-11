@@ -1,7 +1,7 @@
 # Site Design System
 
 Date: 2026-07-14
-Last updated: 2026-10-07
+Last updated: 2026-10-11
 Status: Reference for future site changes
 
 ## Implementation ownership
@@ -142,6 +142,81 @@ Rules:
 - keep Series identity in sequence and Question identity in connections rather than in this motif.
 
 Do not reuse complete Article topic-motif compositions for Work, Experience, Contact, global navigation, generic decoration or other non-editorial pages. Shared path-and-node primitives may support a dedicated composition only when it has its own documented purpose and remains decorative; the missing-page recovery is the current exception. Do not place Article topic motifs inside cards or panels, and never encode essential information in an SVG.
+
+## Social / Open Graph Images
+
+Social images are compact editorial covers, not screenshots or miniature page layouts. They should make the subject and Carlo Caprini's authorship recognizable when a link appears outside the site, while remaining legible at thumbnail size.
+
+### Canonical references
+
+The current image family establishes four reusable composition roles:
+
+| Asset | Role | Defining treatment |
+|---|---|---|
+| `assets/og-site-v2.png` | Site-wide fallback and professional identity | Name-led composition, concise positioning line and a cool structural graphic. |
+| `assets/og-thinking-v2.png` | Editorial collection | Collection title, short subject description and multi-Topic path-and-node grammar. |
+| `assets/og-product-judgment-series-v1.png` | Restrained single-territory Series | Small Series eyebrow, title, five short concepts and an amber branching topology. |
+| `assets/og-ai-operating-system-series-v1.png` | High-emphasis featured Series | Title-led composition, warm highlighted phrase and a more expressive connected-system graphic. |
+
+`assets/og-site.png` and `assets/og-thinking.png` are legacy 1536 × 1024 assets. Their light blue field, centred serif typography and 3:2 composition are not references for new work.
+
+### File and export contract
+
+- Export new images as `1200 × 627` PNG files, matching the dimensions declared by social metadata. This is the canonical approximately `1.91:1` composition.
+- Use an RGB/sRGB result with no required transparency. DPI metadata is immaterial for social delivery; pixel dimensions are the contract.
+- Keep the final file reasonably optimized and preferably below 1 MB without introducing visible banding around gradients or glows.
+- Name files `og-<scope>-v<n>.png`, using a stable descriptive scope. Increment the version for a materially new composition instead of silently replacing an already shared and cached asset.
+- Store canonical social images directly under `assets/` unless a future asset architecture explicitly creates another owner.
+- Wire each image through `meta_image` and provide a matching `meta_image_alt`. Page-level metadata may override a collection or Series default; inherited defaults should remain the normal path for related content.
+
+### Composition and safe area
+
+- Use the established near-black navy base: primarily `ink-950`, `ink-900` and restrained `slate-900` depth.
+- Keep essential content at least 60 px from every edge. Treat the outer 48 px as an absolute exclusion area because social platforms may crop or overlay the image.
+- Reserve roughly the left 55–65% for copy and the right 35–45% for the semantic graphic. The graphic may extend beyond the image and be cropped; text may not.
+- Align copy to a consistent left edge, normally 64–72 px from the canvas edge. Keep lower attribution or domain text approximately 48–64 px from the bottom.
+- Preserve generous negative space. Do not fill the canvas merely because room remains.
+- Verify that the hierarchy survives a reduction to approximately `300 × 157`; this is closer to how many previews are first encountered than the source resolution.
+
+### Typography and hierarchy
+
+- Use Inter, the site's canonical type family. Do not revive the serif treatment used by the legacy assets.
+- The subject or title is always the first read: white or near-white, weight 700–800, generally 72–104 px with a compact `0.9–1.0` line height.
+- Prefer two or three title lines. Four are acceptable only for a deliberately featured composition whose words remain large; simplify the wording before shrinking the title below the established range.
+- Optional eyebrows use 18–24 px uppercase text with approximately `0.18–0.24em` tracking.
+- Optional supporting text uses 26–34 px. Attribution, byline or domain text uses 20–26 px in `text-secondary` or `text-muted`.
+- Use sentence or title case for the primary message. Reserve all caps for short eyebrows and signatures.
+- Preserve this reading order: title or identity, semantic graphic, short qualifier, attribution or domain.
+
+### Content density
+
+An image should communicate one subject, one optional qualifier and one authorship signal:
+
+- keep the main title to roughly 7–10 words where possible;
+- limit a supporting concept line to no more than five short items;
+- aim for 18–28 visible words in total, excluding the domain, and treat roughly 35 words as a practical ceiling;
+- use either a byline or the site domain when one is useful; both are rarely necessary;
+- do not copy a meta description, paragraph or article summary into the image;
+- do not add calls to action, navigation, dates, client names, client logos, confidential context or decorative badges.
+
+The social title may be a concise editorial rendering of the canonical page title, but it must not change the claim or imply evidence that the page does not provide.
+
+### Color and graphic language
+
+- Keep the title white and supporting text muted; color is an accent and structural signal, not a substitute for contrast.
+- Prefer one established semantic or brand accent family per image. Site and Thinking collection images may use the established multi-Topic palette; a single-Topic article or Series should not blend Topic colors.
+- Product-decision material uses amber, AI and automation uses cyan, software systems uses indigo, and teams and collaboration uses emerald when Topic semantics genuinely own the image.
+- Non-Topic professional pages may use the cool brand range of cyan and indigo. Do not invent a new palette for each service, engagement or case study.
+- The established AI Series is a deliberate featured exception: its warm spectrum and cool anchors express the Series identity rather than Topic classification.
+- Use abstract editorial geometry built from paths, layers, boundaries and small nodes. It should express relationships or structure without becoming a literal flowchart, stock illustration, UI screenshot or technology cliché.
+- Keep lines thin, glows soft and the graphic secondary to the title. Do not rely on color alone to distinguish essential branches or states.
+
+### Accessibility and review
+
+- `meta_image_alt` should identify the page or collection and its editorial purpose. Keep it concise; do not narrate every decorative line or repeat the filename.
+- Any text visible in the image must remain high contrast and readable at thumbnail scale. Decorative structure must not carry information missing from the page title and metadata.
+- Before committing a new asset, inspect the full-size export, a `300 × 157` reduction and representative centre crops. Confirm the title is intact, no essential element sits in the exclusion area, and the visual does not expose private or client-identifying information.
+- Confirm the output is exactly `1200 × 627`, the filename follows the versioned convention, and the page resolves both the intended `meta_image` and `meta_image_alt`.
 
 ## Surfaces
 
