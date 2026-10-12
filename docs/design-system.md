@@ -572,7 +572,7 @@ Keep:
 - explicit technical evidence balanced with product and organisational context
 - one compact credibility bridge grounded in established Experience, using the standard two-column introduction rather than a custom band, CV or proof card
 - one contextual Case study link inside each engagement model, so evidence is available where its relationship is clearest
-- one restrained Case studies section using the standard section header, descriptive copy and collection link without becoming another panel
+- one restrained Case studies section using the canonical two-column introduction shared with the Experience bridge: title on the left, descriptive copy and collection link on the right
 - the three working principles as a compact numbered ruled list: three columns on desktop and one stacked list with internal dividers on smaller screens
 - one low-pressure contact panel that combines the next-step explanation and standard primary button
 - ruled lists with internal dividers only and no duplicate closing boundary

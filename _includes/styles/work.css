@@ -282,15 +282,12 @@
   line-height: 1.65;
 }
 
-.work-case-studies-summary {
-  max-width: 38rem;
-}
-
-.work-case-studies-summary .section-description,
+.work-case-studies-section .section-description,
 .work-evidence-section .section-description {
-  margin: 0.75rem 0 0;
+  margin: 0;
 }
 
+.work-case-studies-section .section-link,
 .work-evidence-section .section-link {
   margin-top: 1rem;
 }
