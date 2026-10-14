@@ -6,9 +6,9 @@ items:
     title_prefix: "Turning a broad release concern into "
     title_highlight: clear priorities
     title_suffix: "."
-    tagline: A software company needed to decide what to address before relying on a product more broadly.
+    tagline: A software company needed to identify and decide what to address before publicly launching their product.
     goal: Replace the broad question “is this ready?” with concrete decisions about product behaviour, technical foundations, delivery confidence and ownership.
-    collaboration: I reviewed the repository and available documentation, linked each finding to evidence and used focused conversations to fill important gaps. Together, we separated immediate concerns from accepted risks, later improvements and questions needing specialist input. Priorities remained the client’s decision.
+    collaboration: I interviewed team to learn about their concerns and doubts, reviewed the repository and available documentation, linked each finding to evidence and used focused conversations to fill important gaps. Together, we separated immediate concerns from accepted risks, later improvements and questions needing specialist input. Priorities remained the client’s decision.
     changed: The team received a structured review, prioritised actions and a guided walkthrough. Follow-up analysis made the evidence easier to reuse without treating every finding as mandatory work.
     outcome: The client had a clear basis for deciding what to address first, what could wait and what needed separate validation.
     boundaries: The work was an assessment, not remediation or certification. I did not change the product, verify production behaviour or take ownership of product, release or risk decisions.

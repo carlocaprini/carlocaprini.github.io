@@ -14,8 +14,7 @@ hero:
   title_highlight: "made concrete"
   title_suffix: "."
   paragraphs:
-    - Two anonymised examples of how I have worked with software teams on difficult Product & Engineering problems.
-    - Names, sectors, systems and other identifying details have been removed. Each case describes only what the available evidence supports.
+    - Anonymised examples of how I have worked with software teams on complex Product & Engineering problems.
 continuation:
   eyebrow: How I can help
   title: Examples of the work, not a service catalogue.
