@@ -472,6 +472,13 @@ class ValidatorTest < Minitest::Test
     end
   end
 
+  def test_source_rejects_case_study_without_article_social_type
+    assert_invalid_source(/pages\/case-studies\/release-readiness-review\.md: meta_type must be article/) do |directory|
+      path = File.join(directory, "pages/case-studies/release-readiness-review.md")
+      replace!(path, "meta_type: article\n", "meta_type: website\n")
+    end
+  end
+
   def test_source_rejects_invalid_series_order
     assert_invalid_source(/series_order values must be sequential/) do |directory|
       path = File.join(directory, "pages/thinking/i-stopped-trying-to-build-jarvis.md")

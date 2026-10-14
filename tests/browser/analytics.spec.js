@@ -528,6 +528,103 @@ test("Work discovery and meaningful section views expose their context", async (
   });
 });
 
+test("Case study entry points and next steps preserve meaningful Work context", async ({ page }) => {
+  await captureAnalytics(page);
+
+  async function expectTrackedLink({ route, selector, index = 0, event = "work_open", pageType = "work", parameters }) {
+    await page.goto(route);
+    const consentPanel = page.getByRole("complementary", { name: "Help me understand how the site is used" });
+    if (await consentPanel.isVisible()) {
+      await consentPanel.getByRole("button", { name: "No thanks" }).click();
+    }
+    const link = page.locator(selector).nth(index);
+    await link.evaluate((element) => element.addEventListener("click", (clickEvent) => clickEvent.preventDefault()));
+    await link.click();
+    await expect.poll(async () => page.evaluate(
+      ({ eventName, linkContext }) => window.__analyticsEvents.findLast((entry) =>
+        entry.name === eventName && entry.parameters.link_context === linkContext
+      ),
+      { eventName: event, linkContext: parameters.link_context }
+    )).toMatchObject({
+      name: event,
+      parameters: {
+        page_type: pageType,
+        ...parameters
+      }
+    });
+  }
+
+  const reviewPath = "/work/case-studies/release-readiness-review/";
+  const advisoryPath = "/work/case-studies/deliberate-quality-automation/";
+
+  await expectTrackedLink({
+    route: "/work/",
+    selector: '[data-analytics-link-context="work_review_case_study"]',
+    parameters: { link_context: "work_review_case_study", destination: reviewPath }
+  });
+  await expectTrackedLink({
+    route: "/work/",
+    selector: '[data-analytics-link-context="work_advisory_case_study"]',
+    parameters: { link_context: "work_advisory_case_study", destination: advisoryPath }
+  });
+  await expectTrackedLink({
+    route: "/experience/",
+    selector: '[data-analytics-link-context="experience_case_studies"]',
+    pageType: "experience",
+    parameters: { link_context: "experience_case_studies", destination: "/work/case-studies/" }
+  });
+  await expectTrackedLink({
+    route: "/work/case-studies/",
+    selector: '[data-analytics-link-context="case_studies_hero_work"]',
+    parameters: { link_context: "case_studies_hero_work", destination: "/work/" }
+  });
+  await expectTrackedLink({
+    route: "/work/case-studies/",
+    selector: '[data-analytics-link-context="case_studies_index"]',
+    parameters: { link_context: "case_studies_index", destination: reviewPath }
+  });
+  await expectTrackedLink({
+    route: "/work/case-studies/",
+    selector: '[data-analytics-link-context="case_studies_index"]',
+    index: 1,
+    parameters: { link_context: "case_studies_index", destination: advisoryPath }
+  });
+  await expectTrackedLink({
+    route: "/work/case-studies/",
+    selector: '[data-analytics-link-context="case_studies_work"]',
+    parameters: { link_context: "case_studies_work", destination: "/work/" }
+  });
+  await expectTrackedLink({
+    route: reviewPath,
+    selector: '[data-analytics-link-context="case_study_hero_work"]',
+    parameters: { link_context: "case_study_hero_work", destination: "/work/" }
+  });
+  await expectTrackedLink({
+    route: reviewPath,
+    selector: '[data-analytics-link-context="case_study_hero_index"]',
+    parameters: { link_context: "case_study_hero_index", destination: "/work/case-studies/" }
+  });
+  await expectTrackedLink({
+    route: reviewPath,
+    selector: '[data-analytics-link-context="case_study_navigation"]',
+    parameters: { link_context: "case_study_navigation", destination: advisoryPath }
+  });
+  await expectTrackedLink({
+    route: advisoryPath,
+    selector: '[data-analytics-link-context="case_study_navigation"]',
+    parameters: { link_context: "case_study_navigation", destination: reviewPath }
+  });
+  await expectTrackedLink({
+    route: reviewPath,
+    selector: '[data-analytics-link-context="case_study_contact"]',
+    event: "contact_open",
+    parameters: {
+      link_context: "case_study_contact",
+      contact_method: "linkedin"
+    }
+  });
+});
+
 test("Industry Expertise paths and contact intent expose their source context", async ({ page }) => {
   await captureAnalytics(page);
   await page.goto("/experience/");

@@ -265,6 +265,7 @@ test("Case studies provide a concise index and dedicated evidence pages", async 
   ]);
 
   await page.goto("/work/case-studies/release-readiness-review/");
+  await expect(page.locator('meta[property="og:type"]')).toHaveAttribute("content", "article");
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
     "content",
     "https://carlocaprini.github.io/assets/og-case-study-release-readiness-review-v1.png"
@@ -303,6 +304,7 @@ test("Case studies provide a concise index and dedicated evidence pages", async 
 
   await page.goto("/work/case-studies/deliberate-quality-automation/");
   await expect(page).toHaveTitle("Software Quality & AI Advisory Case Study | Carlo Caprini");
+  await expect(page.locator('meta[property="og:type"]')).toHaveAttribute("content", "article");
   await expect(page.locator('meta[name="description"]')).toHaveAttribute(
     "content",
     "An anonymised advisory case study on automated testing, delivery confidence and bounded AI experiments that kept ownership with the team."

@@ -606,6 +606,9 @@ case_studies.each_with_index do |case_study, index|
   unless detail_page["title"] == case_study["title"]
     fail_check("#{relative_path(detail_path)}: title must match the canonical case study title")
   end
+  unless detail_page["meta_type"] == "article"
+    fail_check("#{relative_path(detail_path)}: meta_type must be article")
+  end
   fail_check("#{relative_path(detail_path)}: work_section must be true") unless detail_page["work_section"] == true
 end
 
