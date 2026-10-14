@@ -280,7 +280,11 @@ test("Case studies provide a concise index and dedicated evidence pages", async 
   await expect(page.getByRole("heading", { name: "What changed", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Outcome", exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Boundaries", exact: true })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "A case study, not a service catalogue." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "A case study, not a service catalogue." })).toHaveCount(0);
+  await expect(page.getByRole("link", { name: /Next case study Improving delivery confidence/ })).toHaveAttribute(
+    "href",
+    "/work/case-studies/deliberate-quality-automation/"
+  );
   await expect(page.getByRole("link", { name: /Start a conversation/ })).toHaveAttribute("href", /^https:\/\//);
   const detailData = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>
     scripts.map((script) => JSON.parse(script.textContent))
@@ -313,6 +317,11 @@ test("Case studies provide a concise index and dedicated evidence pages", async 
   );
   await expect(page.locator(".case-study-hero .hero-label")).toHaveText("Case study · Product & Engineering Advisory");
   await expect(page.getByRole("heading", { level: 1, name: "Improving delivery confidence with testing and bounded AI experiments." })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Previous case study Turning a broad release concern/ })).toHaveAttribute(
+    "href",
+    "/work/case-studies/release-readiness-review/"
+  );
+  await expect(page.getByRole("link", { name: /Next case study/ })).toHaveCount(0);
   const advisoryData = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>
     scripts.map((script) => JSON.parse(script.textContent))
   );

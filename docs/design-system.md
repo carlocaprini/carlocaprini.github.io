@@ -346,6 +346,16 @@ This pattern works well in Experience and should be reused for Home entry points
 
 When the intro is the only content inside its section, use the flush variant to remove the otherwise useful trailing margin rather than adding a page-specific spacing override.
 
+### Sequential Navigation
+
+Use for explicit movement between adjacent items in one curated collection, such as Series episodes or Case studies.
+
+- use the shared two-column Previous/Next structure on desktop and one reading column on smaller screens
+- name both the direction and destination; never rely on an arrow alone
+- show only links that have a real adjacent item and do not wrap the last item back to the first
+- let the owning collection define order, while avoiding numbering when that order does not express progression
+- keep the navigation secondary to the content and place it before the page's final continuation or contact surface
+
 ### Editorial Split
 
 Use when two parts belong to the same argument but need a clear hierarchy, such as scope and outcome, premise and judgment, or evidence and continuation.
@@ -597,16 +607,16 @@ Keep:
 
 - one restrained index containing the case title and tagline rather than a grid of promotional tiles
 - one primary hero action from the Case studies index to Work, using the shared compact Hero Actions pattern
-- one non-numbered structural marker per case; do not imply order or progression between independent cases
+- one non-numbered structural marker per case; the data order supports adjacent-case discovery but must not imply maturity or progression between independent cases
 - one dedicated page per case, with a consistent, plain-language anatomy: goal, how we worked, what changed, outcome and boundaries
 - a compact hero label that identifies both the `Case study` format and the specific Review or Advisory engagement
 - the standard compact hero and cool brand highlight used by other professional pages
 - the shared compact Hero Actions pattern, with Work as the primary forward action and the Case studies index as the secondary return action
 - an editorial split between the main evidence and a narrower outcome-and-boundaries column
-- the canonical Two-Column Intro for the service-catalogue boundary and continuation links
+- the shared sequential-navigation pattern for explicit Previous/Next links between adjacent Case studies, using the canonical data order without wrapping the last case back to the first
 - direct, observable claims; distinguish delivered assessment, adopted change and unvalidated follow-up
-- an explicit reminder that the case is evidence rather than a service catalogue
-- one restrained link back to Work in the service-catalogue boundary, followed by the standard low-pressure contact panel
+- the Case studies index retains the explicit reminder that the evidence is not a service catalogue
+- the standard low-pressure contact panel after adjacent-case navigation
 
 Avoid:
 

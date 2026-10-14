@@ -2,6 +2,20 @@
 layout: default
 ---
 {% assign case_study = site.data.case_studies.items | where: "id", page.case_study_id | first %}
+{% assign previous_case_study = nil %}
+{% assign next_case_study = nil %}
+{% for item in site.data.case_studies.items %}
+  {% if item.id == page.case_study_id %}
+    {% assign previous_case_study_index = forloop.index0 | minus: 1 %}
+    {% assign next_case_study_index = forloop.index0 | plus: 1 %}
+    {% if previous_case_study_index >= 0 %}
+      {% assign previous_case_study = site.data.case_studies.items[previous_case_study_index] %}
+    {% endif %}
+    {% if next_case_study_index < site.data.case_studies.items.size %}
+      {% assign next_case_study = site.data.case_studies.items[next_case_study_index] %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
 <div class="page">
   <section class="hero hero--compact case-study-hero">
     <div class="container hero-grid hero-grid--single">
@@ -51,18 +65,26 @@ layout: default
     </div>
   </article>
 
-  <section class="section case-study-continuation">
-    <div class="container work-section-intro work-section-intro--flush">
-      <div>
-        <div class="section-eyebrow">Continue</div>
-        <h2 class="section-title">A case study, not a service catalogue.</h2>
-      </div>
-      <div>
-        <p class="section-description">This example shows one collaboration. Work explains where this kind of engagement can be useful.</p>
-        <a class="section-link" href="{{ '/work/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_work" data-analytics-destination="/work/">How I can help <span aria-hidden="true">→</span></a>
-      </div>
+  {% if previous_case_study or next_case_study %}
+  <section class="section case-study-navigation-section">
+    <div class="container">
+      <nav class="sequential-navigation case-study-navigation" aria-label="Case study navigation">
+        {% if previous_case_study %}
+        <a class="sequential-navigation-link sequential-navigation-link--previous" href="{{ previous_case_study.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_navigation" data-analytics-destination="{{ previous_case_study.url }}">
+          <span class="sequential-navigation-label">Previous case study</span>
+          <span>{{ previous_case_study.title }}</span>
+        </a>
+        {% endif %}
+        {% if next_case_study %}
+        <a class="sequential-navigation-link sequential-navigation-link--next" href="{{ next_case_study.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_navigation" data-analytics-destination="{{ next_case_study.url }}">
+          <span class="sequential-navigation-label">Next case study</span>
+          <span>{{ next_case_study.title }}</span>
+        </a>
+        {% endif %}
+      </nav>
     </div>
   </section>
+  {% endif %}
 
   <section class="section work-contact-section">
     <div class="container">
