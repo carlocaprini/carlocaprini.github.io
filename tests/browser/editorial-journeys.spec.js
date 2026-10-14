@@ -176,11 +176,10 @@ test("Work explains recognizable problems and exactly two engagement models", as
   await expect(page.locator(".work-situation-list > li")).toHaveCount(6);
   await expect(page.locator(".work-engagement")).toHaveCount(2);
   await expect(page.getByRole("heading", { name: "Understand the system before changing it." })).toBeVisible();
-  await expect(page.getByText("Depending on the problem, I may look directly at repositories, tests, CI/CD configuration and technical documentation, not just interviews or presentations.", { exact: true })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Work through the changes together." })).toBeVisible();
   await expect(page.getByText("Illustrative example", { exact: true })).toHaveCount(0);
   await expect(page.locator(".work-engagement--advisory").getByText("Outcome", { exact: true })).toHaveCount(0);
-  const principleFlow = page.locator("ol.step-flow");
+  const principleFlow = page.locator("ol.work-principles-list");
   await expect(principleFlow).toHaveCount(1);
   await expect(principleFlow.locator(":scope > li")).toHaveCount(3);
   await expect(principleFlow.locator(":scope > li h3")).toHaveText([
@@ -189,20 +188,13 @@ test("Work explains recognizable problems and exactly two engagement models", as
     "Review the system, not the team"
   ]);
   await expect(page.getByRole("heading", { name: "Review the system, not the team" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Read the Review case study" })).toHaveAttribute("href", "/work/case-studies/release-readiness-review/");
+  await expect(page.getByRole("link", { name: "Read the Advisory case study" })).toHaveAttribute("href", "/work/case-studies/deliberate-quality-automation/");
+  await expect(page.getByRole("heading", { name: "Two examples of the work in practice." })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Browse all case studies/ })).toHaveAttribute("href", "/work/case-studies/");
   await expect(page.getByRole("heading", { name: "Experience across Product & Engineering." })).toBeVisible();
-  await expect(page.locator(".work-evidence-signals > li")).toHaveCount(3);
   await expect(page.getByRole("link", { name: /See full experience/ })).toHaveAttribute("href", "/experience/");
-  await expect(page.getByRole("heading", { name: "Expert interviews and industry research." })).toBeVisible();
-  await expect(page.locator(".work-industry-section").getByRole("list")).toHaveCount(0);
-  await expect(page.getByText("I occasionally contribute to selected expert interviews, primary research and market studies when my experience with software products, platforms and developer-facing systems is relevant.", { exact: true })).toBeVisible();
-  await expect(page.getByRole("link", { name: /See research topics and boundaries/ })).toHaveAttribute("href", "/industry-expertise/");
-  const workSectionOrder = await page.locator(".work-evidence-section, .work-industry-section, .work-next-section")
-    .evaluateAll((sections) => sections.map((section) => section.className));
-  expect(workSectionOrder).toEqual([
-    "section work-evidence-section",
-    "section work-industry-section",
-    "section work-next-section"
-  ]);
+  await expect(page.getByRole("heading", { name: "Start with the problem, not a package." })).toBeVisible();
   await expect(page.getByRole("link", { name: /Start a conversation/ })).toHaveAttribute("href", /^https:\/\//);
 });
 
@@ -213,6 +205,7 @@ test("Experience leads with direct work and leaves credentials out of the public
   await expect(page.locator(".experience-evidence-card")).toHaveCount(4);
   await expect(page.getByText("Career context", { exact: true })).toBeVisible();
   await expect(page.getByRole("link", { name: "How I can help", exact: true })).toHaveAttribute("href", "/work/");
+  await expect(page.getByRole("link", { name: "Read the case studies", exact: true })).toHaveAttribute("href", "/work/case-studies/");
   await expect(page.getByRole("link", { name: /See research topics and boundaries/ })).toHaveAttribute("href", "/industry-expertise/");
   const independentOptionStyles = await page.locator(".experience-independent-option").evaluateAll((options) =>
     options.map((option) => {
@@ -230,6 +223,113 @@ test("Experience leads with direct work and leaves credentials out of the public
   expect(independentOptionStyles[1]).toEqual(independentOptionStyles[0]);
   await expect(page.getByRole("heading", { name: "Credentials and certifications" })).toHaveCount(0);
   await expect(page.locator("#credentials")).toHaveCount(0);
+});
+
+test("Case studies provide a concise index and dedicated evidence pages", async ({ page }) => {
+  await page.goto("/work/case-studies/");
+
+  await expect(page).toHaveTitle("Product & Engineering Case Studies | Carlo Caprini");
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    "Two anonymised Product & Engineering case studies on release readiness, delivery confidence, testing and bounded AI adoption."
+  );
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+    "content",
+    "https://carlocaprini.github.io/assets/og-case-studies-v1.png"
+  );
+  await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute(
+    "content",
+    "Product and Engineering case studies by Carlo Caprini, covering review, advisory, evidence and decisions."
+  );
+  await expect(page.getByRole("heading", { level: 1, name: "Product & Engineering work, made concrete." })).toBeVisible();
+  await expect(page.locator(".case-studies-index > li")).toHaveCount(2);
+  await expect(page.getByRole("link", { name: "Turning a broad release concern into clear priorities." })).toHaveAttribute("href", "/work/case-studies/release-readiness-review/");
+  await expect(page.getByRole("link", { name: "Improving delivery confidence with testing and bounded AI experiments." })).toHaveAttribute("href", "/work/case-studies/deliberate-quality-automation/");
+  await expect(page.locator('a[href="/work/"][aria-current="page"]').first()).toBeAttached();
+  const collectionData = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>
+    scripts.map((script) => JSON.parse(script.textContent))
+  );
+  const collection = collectionData.find((entry) => entry["@type"] === "CollectionPage");
+  const collectionBreadcrumbs = collectionData.find((entry) => entry["@type"] === "BreadcrumbList");
+  expect(collection.mainEntity["@type"]).toBe("ItemList");
+  expect(collection.image).toBe("https://carlocaprini.github.io/assets/og-case-studies-v1.png");
+  expect(collection.mainEntity.numberOfItems).toBe(2);
+  expect(collection.mainEntity.itemListElement.map((item) => new URL(item.url).pathname)).toEqual([
+    "/work/case-studies/release-readiness-review/",
+    "/work/case-studies/deliberate-quality-automation/"
+  ]);
+  expect(collectionBreadcrumbs.itemListElement.map((item) => item.name)).toEqual([
+    "Home",
+    "Work",
+    "Case studies"
+  ]);
+
+  await page.goto("/work/case-studies/release-readiness-review/");
+  await expect(page.locator('meta[property="og:type"]')).toHaveAttribute("content", "article");
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+    "content",
+    "https://carlocaprini.github.io/assets/og-case-study-release-readiness-review-v1.png"
+  );
+  await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute(
+    "content",
+    "Release Readiness Review case study by Carlo Caprini, from a broad release concern to clear priorities."
+  );
+  await expect(page.locator(".case-study-hero .hero-label")).toHaveText("Case study · Product & Engineering Review");
+  await expect(page.getByRole("heading", { level: 1, name: "Turning a broad release concern into clear priorities." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Goal", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "How we worked", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "What changed", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Outcome", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Boundaries", exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "A case study, not a service catalogue." })).toHaveCount(0);
+  await expect(page.getByRole("link", { name: /Next case study Improving delivery confidence/ })).toHaveAttribute(
+    "href",
+    "/work/case-studies/deliberate-quality-automation/"
+  );
+  await expect(page.getByRole("link", { name: /Start a conversation/ })).toHaveAttribute("href", /^https:\/\//);
+  const detailData = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>
+    scripts.map((script) => JSON.parse(script.textContent))
+  );
+  const caseArticle = detailData.find((entry) => entry["@type"] === "Article");
+  const detailBreadcrumbs = detailData.find((entry) => entry["@type"] === "BreadcrumbList");
+  expect(caseArticle.headline).toBe("Turning a broad release concern into clear priorities.");
+  expect(caseArticle.image).toBe("https://carlocaprini.github.io/assets/og-case-study-release-readiness-review-v1.png");
+  expect(new URL(caseArticle.isPartOf.url).pathname).toBe("/work/case-studies/");
+  expect(detailBreadcrumbs.itemListElement.map((item) => item.name)).toEqual([
+    "Home",
+    "Work",
+    "Case studies",
+    "Turning a broad release concern into clear priorities."
+  ]);
+
+  await page.goto("/work/case-studies/deliberate-quality-automation/");
+  await expect(page).toHaveTitle("Software Quality & AI Advisory Case Study | Carlo Caprini");
+  await expect(page.locator('meta[property="og:type"]')).toHaveAttribute("content", "article");
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    "An anonymised advisory case study on automated testing, delivery confidence and bounded AI experiments that kept ownership with the team."
+  );
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+    "content",
+    "https://carlocaprini.github.io/assets/og-case-study-deliberate-quality-automation-v1.png"
+  );
+  await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute(
+    "content",
+    "Product and Engineering Advisory case study by Carlo Caprini, improving delivery confidence through testing and bounded AI experiments."
+  );
+  await expect(page.locator(".case-study-hero .hero-label")).toHaveText("Case study · Product & Engineering Advisory");
+  await expect(page.getByRole("heading", { level: 1, name: "Improving delivery confidence with testing and bounded AI experiments." })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Previous case study Turning a broad release concern/ })).toHaveAttribute(
+    "href",
+    "/work/case-studies/release-readiness-review/"
+  );
+  await expect(page.getByRole("link", { name: /Next case study/ })).toHaveCount(0);
+  const advisoryData = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>
+    scripts.map((script) => JSON.parse(script.textContent))
+  );
+  expect(advisoryData.find((entry) => entry["@type"] === "Article").image).toBe(
+    "https://carlocaprini.github.io/assets/og-case-study-deliberate-quality-automation-v1.png"
+  );
 });
 
 test("Expert interviews and industry research distinguish professional experience from applied experiments", async ({ page }) => {

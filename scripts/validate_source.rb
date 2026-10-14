@@ -10,7 +10,7 @@ SOURCE_DIR = ENV["SITE_SOURCE_DIR"] ? File.expand_path(ENV.fetch("SITE_SOURCE_DI
 
 @errors = []
 PNG_SIGNATURE = "\x89PNG\r\n\x1a\n".b
-SERIES_SOCIAL_IMAGE_DIMENSIONS = [1200, 627].freeze
+SOCIAL_IMAGE_DIMENSIONS = [1200, 627].freeze
 
 def fail_check(message)
   @errors << message
@@ -50,6 +50,26 @@ rescue URI::InvalidURIError
   false
 end
 
+def validate_social_image_dimensions(path, value)
+  return unless present?(value) && value.start_with?("/")
+
+  asset = File.join(SOURCE_DIR, value.delete_prefix("/"))
+  return unless File.file?(asset)
+
+  header = File.binread(asset, 24)
+  unless header.byteslice(0, 8) == PNG_SIGNATURE && header.byteslice(12, 4) == "IHDR"
+    fail_check("#{relative_path(path)}: meta image #{value} must be a PNG with verifiable dimensions")
+    return
+  end
+
+  dimensions = header.byteslice(16, 8).unpack("NN")
+  return if dimensions == SOCIAL_IMAGE_DIMENSIONS
+
+  fail_check(
+    "#{relative_path(path)}: meta image #{value} must be 1200x627, found #{dimensions.join('x')}"
+  )
+end
+
 def validate_local_asset(path, value, alt)
   return unless present?(value)
 
@@ -61,26 +81,7 @@ def validate_local_asset(path, value, alt)
   asset = File.join(SOURCE_DIR, value.delete_prefix("/"))
   fail_check("#{relative_path(path)}: missing meta image #{value}") unless File.file?(asset)
   fail_check("#{relative_path(path)}: meta_image_alt is required with meta_image") unless present?(alt)
-end
-
-def validate_series_social_image_dimensions(path, value)
-  return unless present?(value) && value.start_with?("/")
-
-  asset = File.join(SOURCE_DIR, value.delete_prefix("/"))
-  return unless File.file?(asset)
-
-  header = File.binread(asset, 24)
-  unless header.byteslice(0, 8) == PNG_SIGNATURE && header.byteslice(12, 4) == "IHDR"
-    fail_check("#{relative_path(path)}: Series meta image #{value} must be a PNG with verifiable dimensions")
-    return
-  end
-
-  dimensions = header.byteslice(16, 8).unpack("NN")
-  return if dimensions == SERIES_SOCIAL_IMAGE_DIMENSIONS
-
-  fail_check(
-    "#{relative_path(path)}: Series meta image #{value} must be 1200x627, found #{dimensions.join('x')}"
-  )
+  validate_social_image_dimensions(path, value)
 end
 
 def validate_markdown_list_spacing(path, body)
@@ -390,7 +391,6 @@ series_data.each do |slug, series|
     fail_check("_data/series.yml: #{slug} is missing #{field}") unless present?(series[field])
   end
   validate_local_asset(series_path, series["meta_image"], series["meta_image_alt"])
-  validate_series_social_image_dimensions(series_path, series["meta_image"])
   unless series["url"] == "/series/#{slug}/"
     fail_check("#{label} URL must match its Series slug")
   end
@@ -559,6 +559,74 @@ questions.each do |question|
   unless experience_url.start_with?("/experience/#") && experience_ids.include?(fragment)
     fail_check("_data/questions.yml: #{question['slug']} references unknown Experience anchor #{experience_url}")
   end
+end
+
+case_studies_path = File.join(SOURCE_DIR, "pages/case-studies.md")
+case_studies_page = page_records.fetch(case_studies_path).first
+fail_check("pages/case-studies.md: layout must be case-studies") unless case_studies_page["layout"] == "case-studies"
+fail_check("pages/case-studies.md: permalink must be /work/case-studies/") unless case_studies_page["permalink"] == "/work/case-studies/"
+fail_check("pages/case-studies.md: work_section must be true") unless case_studies_page["work_section"] == true
+
+case_studies_data = read_yaml(File.join(SOURCE_DIR, "_data/case_studies.yml")) || {}
+case_studies = Array(case_studies_data["items"])
+fail_check("_data/case_studies.yml: must define at least one case study") if case_studies.empty?
+case_study_ids = case_studies.map { |case_study| case_study["id"] }.compact
+duplicate_case_study_ids = case_study_ids.group_by(&:itself).select { |_, values| values.size > 1 }.keys
+unless duplicate_case_study_ids.empty?
+  fail_check("_data/case_studies.yml: duplicate case study ids: #{duplicate_case_study_ids.join(', ')}")
+end
+case_study_by_id = case_studies.to_h { |case_study| [case_study["id"], case_study] }
+
+case_studies.each_with_index do |case_study, index|
+  %w[id url engagement title title_prefix title_highlight title_suffix tagline goal collaboration changed outcome boundaries].each do |field|
+    unless present?(case_study[field])
+      fail_check("_data/case_studies.yml: case study #{index + 1} is missing #{field}")
+    end
+  end
+
+  composed_title = "#{case_study['title_prefix']}#{case_study['title_highlight']}#{case_study['title_suffix']}"
+  unless composed_title == case_study["title"]
+    fail_check("_data/case_studies.yml: #{case_study['id']} hero title parts must reconstruct title")
+  end
+
+  detail_path = File.join(SOURCE_DIR, "pages/case-studies/#{case_study['id']}.md")
+  unless page_records.key?(detail_path)
+    fail_check("_data/case_studies.yml: #{case_study['id']} is missing its detail page")
+    next
+  end
+
+  detail_page = page_records.fetch(detail_path).first
+  fail_check("#{relative_path(detail_path)}: layout must be case-study") unless detail_page["layout"] == "case-study"
+  unless detail_page["case_study_id"] == case_study["id"]
+    fail_check("#{relative_path(detail_path)}: case_study_id must match #{case_study['id']}")
+  end
+  unless detail_page["permalink"] == case_study["url"]
+    fail_check("#{relative_path(detail_path)}: permalink must match #{case_study['url']}")
+  end
+  unless detail_page["title"] == case_study["title"]
+    fail_check("#{relative_path(detail_path)}: title must match the canonical case study title")
+  end
+  unless detail_page["meta_type"] == "article"
+    fail_check("#{relative_path(detail_path)}: meta_type must be article")
+  end
+  fail_check("#{relative_path(detail_path)}: work_section must be true") unless detail_page["work_section"] == true
+end
+
+work_path = File.join(SOURCE_DIR, "pages/work.md")
+work_data = page_records.fetch(work_path).first
+unless work_data.dig("case_studies", "action", "url") == case_studies_page["permalink"]
+  fail_check("pages/work.md: case_studies action must point to /work/case-studies/")
+end
+%w[review advisory].each do |engagement|
+  case_study_id = work_data.dig(engagement, "case_study", "id")
+  unless case_study_by_id.key?(case_study_id)
+    fail_check("pages/work.md: #{engagement} references unknown case study #{case_study_id}")
+  end
+end
+
+experience_data = page_records.fetch(experience_path).first
+unless experience_data.dig("independent_work", "case_studies_action", "url") == case_studies_page["permalink"]
+  fail_check("pages/experience.md: case_studies_action must point to /work/case-studies/")
 end
 
 influence_paths = Dir.glob(File.join(SOURCE_DIR, "_influences/*.md")).sort

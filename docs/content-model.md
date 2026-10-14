@@ -10,6 +10,7 @@
 - The three canonical Start Here Notes live in `_data/start_here.yml` and are shared by Home, Thinking and recovery surfaces.
 - Home editorial modules live in `_data/home.yml`.
 - The Work proposition lives in `pages/work.md`. It owns the recognizable situations, Review, Advisory, working principles and contact path; client proof must not be inferred or generated from it.
+- Applied-work evidence lives in `_data/case_studies.yml`. `pages/case-studies.md` provides the index at `/work/case-studies/`, and one source page under `pages/case-studies/` exposes each dedicated case route. The ordered data list also defines Previous/Next discovery between adjacent cases without turning them into a numbered progression. Every case must state the goal, show how the collaboration worked, distinguish observed change from outcome and make the engagement boundaries explicit. Work may link directly to the relevant case from each engagement model; Work and Experience may also link to the index, but must not duplicate the case narratives.
 - Home’s `Where I can help` module lives in `_data/home.yml`. It is a selective preview of the problem spaces described by Work, not a second service catalogue or a source of independent engagement definitions.
 
 ## Relationships
@@ -28,6 +29,7 @@ Work is a first-class professional destination, but it does not redefine Thinkin
 - **Influences** is the named collection. A **reading** is one external item; “external ideas”, “arguments” and “research” describe what those readings contribute rather than alternate collection names.
 - **Experience** is Carlo's professional context. Prefer “professional experience” when copy points to that site section; reserve generic “experience” for personal knowledge or a specific lived example.
 - **Work** is the independent Product & Engineering proposition. Do not use “Work” or “the work” as a generic label for the editorial corpus, professional Experience or Notes.
+- **Case studies** are evidence from completed independent engagements. They are not a service catalogue: cases remain anonymous by default, describe only directly supported outcomes and state what was outside the engagement. Use “case study” for the public evidence format; reserve “use case” for a scenario in which a product or system is used.
 - **Start here** identifies a recommended first Note or a small curated set of Notes. It does not name a separate collection.
 
 ## Intentional editorial ordering

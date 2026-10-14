@@ -4,7 +4,7 @@ title: Work
 permalink: /work/
 meta_title: Product & Engineering Work | Carlo Caprini
 meta_description: Independent Product & Engineering reviews and advisory work for software teams facing difficult product, technical, delivery or AI decisions.
-last_modified_at: 2026-10-07
+last_modified_at: 2026-10-09
 hero:
   label: Work
   title_prefix: "Working through difficult "
@@ -45,7 +45,6 @@ review:
     - Product & Engineering interfaces
     - Platform and API evolution
     - AI-assisted development where relevant
-  scope_evidence: Depending on the problem, I may look directly at repositories, tests, CI/CD configuration and technical documentation, not just interviews or presentations.
   outcome_title: Outcome
   outcome: A structured assessment connecting the most important findings to supporting evidence, priorities and recommended actions.
   possible_outputs:
@@ -55,6 +54,9 @@ review:
     - Risks and opportunities
     - Recommended actions
     - Final walkthrough
+  case_study:
+    id: release-readiness-review
+    label: Read the Review case study
 advisory:
   eyebrow: Product & Engineering Advisory
   title: Work through the changes together.
@@ -74,6 +76,9 @@ advisory:
     - Helping prioritize Review findings into incremental changes
     - Revisiting a release or testing strategy before investing in a broad rewrite
     - Evaluating whether an AI-assisted workflow should be automated, constrained or left alone
+  case_study:
+    id: deliberate-quality-automation
+    label: Read the Advisory case study
 principles:
   eyebrow: How I work
   title: Three principles for working through the problem.
@@ -85,37 +90,24 @@ principles:
       body: Depending on the problem, this can include repositories, tests, CI/CD configuration, technical documentation, architecture decisions and conversations with the people closest to the system.
     - title: Review the system, not the team
       body: The purpose is to understand the system, not to grade the people who built it. Existing decisions should be considered in the context and constraints that produced them.
+case_studies:
+  eyebrow: Case studies
+  title: Two examples of the work in practice.
+  body: Two anonymised examples show the goal, collaboration, outcome and boundaries of a Review and an Advisory engagement.
+  action:
+    label: Browse all case studies
+    url: /work/case-studies/
 experience:
   eyebrow: Experience behind this work
   title: Experience across Product & Engineering.
   body: I started in software engineering and have spent more than a decade working across product management, APIs, platforms and developer-facing software.
-  signals:
-    - From software engineering to product management
-    - B2B platforms and APIs
-    - Startup and global product organisations
   action:
     label: See full experience
     url: /experience/
-industry_research:
-  eyebrow: Selected research conversations
-  title: Expert interviews and industry research.
-  body: I occasionally contribute to selected expert interviews, primary research and market studies when my experience with software products, platforms and developer-facing systems is relevant.
-  action:
-    label: See research topics and boundaries
-    url: /industry-expertise/
-next_steps:
-  eyebrow: What happens next
-  title: Start with the problem, not a package.
-  paragraphs:
-    - Send me a short description of what is getting difficult.
-    - If I think I can help, we start with a short conversation to understand the context and decide whether a focused Review or Advisory engagement makes sense.
-    - If a Review is useful, we agree on the question to answer and the minimum context needed, such as repositories, documentation and conversations with the people closest to the system.
-    - If I am not the right person, I will tell you.
 contact:
   eyebrow: Start a conversation
-  title: Have a problem like this?
-  intro: Tell me what is getting difficult.
-  body: If you are working through something similar, send me a short description of the problem.
+  title: Start with the problem, not a package.
+  body: Send me a short description of what is getting difficult. If I think I can help, we can start with a short conversation. If I am not the right person, I will tell you.
   action: Start a conversation
   location: Based in Italy, working with software teams in Italy and internationally.
 ---

@@ -67,6 +67,18 @@ Routes, descriptions and viewport membership live only in [`manifest.json`](mani
 - [Portrait tablet](work/tablet.webp)
 - [Mobile](work/mobile.webp)
 
+### Case studies — anonymised engagement evidence
+
+- [Desktop](case-studies/desktop.webp)
+- [Portrait tablet](case-studies/tablet.webp)
+- [Mobile](case-studies/mobile.webp)
+
+### Case study detail — representative Review engagement
+
+- [Desktop](case-study-detail/desktop.webp)
+- [Portrait tablet](case-study-detail/tablet.webp)
+- [Mobile](case-study-detail/mobile.webp)
+
 ### 404 — missing-page recovery
 
 - [Desktop](404/desktop.webp)

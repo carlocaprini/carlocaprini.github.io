@@ -163,6 +163,7 @@
   .work-section-intro,
   .work-engagement-details,
   .work-contact-panel,
+  .case-study-body,
   .industry-expertise-area-grid,
   .industry-expertise-split,
   .industry-expertise-boundaries-panel,
@@ -187,6 +188,31 @@
     padding-top: 1.5rem;
     padding-left: 0;
     border-top: 1px solid var(--color-line);
+    border-left: 0;
+  }
+
+  .work-principles-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .work-principles-list > li,
+  .work-principles-list > li + li {
+    padding: 1.2rem 0;
+    border-left: 0;
+  }
+
+  .work-principles-list > li + li {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .case-study-body {
+    gap: 2rem;
+  }
+
+  .case-study-outcome {
+    padding-top: 2rem;
+    padding-left: 0;
+    border-top: 1px solid var(--structural-accent-border);
     border-left: 0;
   }
 
@@ -751,15 +777,6 @@
     gap: 0.7rem;
   }
 
-  .work-page--motion-observed .step-flow__marker::after {
-    transform: scaleY(0);
-    transform-origin: top;
-  }
-
-  .work-page--motion-observed .step-flow.is-visible .step-flow__marker::after {
-    transform: scaleY(1);
-  }
-
   .work-engagement {
     padding: 1.25rem 1.1rem;
   }
@@ -787,6 +804,53 @@
     width: 100%;
     justify-content: center;
     white-space: normal;
+  }
+
+  .case-studies-index-section,
+  .case-study-detail {
+    padding-top: 3rem;
+    padding-bottom: 3.4rem;
+  }
+
+  .case-study-detail {
+    padding-bottom: 2rem;
+  }
+
+  .case-studies-index > li {
+    grid-template-columns: 1rem minmax(0, 1fr);
+    gap: 0.75rem;
+    padding: 2.6rem 0;
+  }
+
+  .case-study-index-copy h2 {
+    font-size: 1.35rem;
+  }
+
+  .case-study-index-copy p {
+    font-size: 0.94rem;
+  }
+
+  .case-study-body {
+    gap: 1.6rem;
+  }
+
+  .case-study-outcome {
+    padding-top: 1.6rem;
+  }
+
+  .case-study-continuation {
+    padding-top: 2.6rem;
+  }
+
+  .case-study-navigation-section {
+    padding-top: 0;
+    padding-bottom: 2.6rem;
+  }
+
+  .experience-independent-links {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0;
   }
 
   .industry-expertise-section-intro {
@@ -1058,11 +1122,11 @@
     grid-row: 2;
   }
 
-  .article-series-navigation {
+  .sequential-navigation {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .article-series-navigation-link--next {
+  .sequential-navigation-link--next {
     grid-column: 1;
     text-align: left;
   }
@@ -1174,9 +1238,7 @@
   .work-page--motion-observed .work-reveal,
   .work-page--motion-observed .work-reveal.is-visible,
   .work-page--motion-observed .work-situation-list > li:not(:last-child)::after,
-  .work-page--motion-observed .work-situation-list.is-visible > li:not(:last-child)::after,
-  .work-page--motion-observed .step-flow__marker::after,
-  .work-page--motion-observed .step-flow.is-visible .step-flow__marker::after {
+  .work-page--motion-observed .work-situation-list.is-visible > li:not(:last-child)::after {
     transform: none;
     transition: none;
   }

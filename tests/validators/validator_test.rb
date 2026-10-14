@@ -465,6 +465,20 @@ class ValidatorTest < Minitest::Test
     end
   end
 
+  def test_source_rejects_incomplete_case_study
+    assert_invalid_source(/_data\/case_studies\.yml: case study 1 is missing outcome/) do |directory|
+      path = File.join(directory, "_data/case_studies.yml")
+      replace!(path, "    outcome: The client had a clear basis for deciding what to address first, what could wait and what needed separate validation.\n", "")
+    end
+  end
+
+  def test_source_rejects_case_study_without_article_social_type
+    assert_invalid_source(/pages\/case-studies\/release-readiness-review\.md: meta_type must be article/) do |directory|
+      path = File.join(directory, "pages/case-studies/release-readiness-review.md")
+      replace!(path, "meta_type: article\n", "meta_type: website\n")
+    end
+  end
+
   def test_source_rejects_invalid_series_order
     assert_invalid_source(/series_order values must be sequential/) do |directory|
       path = File.join(directory, "pages/thinking/i-stopped-trying-to-build-jarvis.md")
@@ -493,11 +507,20 @@ class ValidatorTest < Minitest::Test
     end
   end
 
-  def test_source_rejects_wrong_series_social_image_dimensions
+  def test_source_rejects_wrong_social_image_dimensions
     assert_invalid_source(/must be 1200x627, found 1199x627/) do |directory|
       path = File.join(directory, "assets/og-product-judgment-series-v1.png")
       image = File.binread(path)
       image[16, 4] = [1199].pack("N")
+      File.binwrite(path, image)
+    end
+  end
+
+  def test_source_rejects_wrong_case_study_social_image_dimensions
+    assert_invalid_source(/pages\/case-studies\.md: meta image .* must be 1200x627, found 1200x626/) do |directory|
+      path = File.join(directory, "assets/og-case-studies-v1.png")
+      image = File.binread(path)
+      image[20, 4] = [626].pack("N")
       File.binwrite(path, image)
     end
   end

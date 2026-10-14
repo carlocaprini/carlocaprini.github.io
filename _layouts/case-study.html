@@ -1,0 +1,94 @@
+---
+layout: default
+---
+{% assign case_study = site.data.case_studies.items | where: "id", page.case_study_id | first %}
+{% assign previous_case_study = nil %}
+{% assign next_case_study = nil %}
+{% for item in site.data.case_studies.items %}
+  {% if item.id == page.case_study_id %}
+    {% assign previous_case_study_index = forloop.index0 | minus: 1 %}
+    {% assign next_case_study_index = forloop.index0 | plus: 1 %}
+    {% if previous_case_study_index >= 0 %}
+      {% assign previous_case_study = site.data.case_studies.items[previous_case_study_index] %}
+    {% endif %}
+    {% if next_case_study_index < site.data.case_studies.items.size %}
+      {% assign next_case_study = site.data.case_studies.items[next_case_study_index] %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+<div class="page">
+  <section class="hero hero--compact case-study-hero">
+    <div class="container hero-grid hero-grid--single">
+      <div>
+        <div class="hero-label">
+          <span class="hero-label-dot"></span>
+          <span>Case study · {{ case_study.engagement }}</span>
+        </div>
+        <h1 class="hero-title hero-title--compact">{{ case_study.title_prefix }}<span class="highlight">{{ case_study.title_highlight }}</span>{{ case_study.title_suffix }}</h1>
+        <p class="hero-subtitle hero-subtitle--wide">{{ case_study.tagline }}</p>
+        <div class="hero-actions hero-actions--compact">
+          <a class="button-primary" href="{{ '/work/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_hero_work" data-analytics-destination="/work/">How I can help</a>
+          <a class="button-ghost" href="{{ '/work/case-studies/' | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_hero_index" data-analytics-destination="/work/case-studies/">All case studies</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <article class="section case-study-detail">
+    <div class="container">
+      <div class="case-study-body">
+        <div class="case-study-evidence">
+          <section>
+            <h2>Goal</h2>
+            <p>{{ case_study.goal }}</p>
+          </section>
+          <section>
+            <h2>How we worked</h2>
+            <p>{{ case_study.collaboration }}</p>
+          </section>
+          <section>
+            <h2>What changed</h2>
+            <p>{{ case_study.changed }}</p>
+          </section>
+        </div>
+        <aside class="case-study-outcome" aria-label="Outcome and boundaries">
+          <section>
+            <h2 class="section-eyebrow">Outcome</h2>
+            <p>{{ case_study.outcome }}</p>
+          </section>
+          <section>
+            <h2 class="section-eyebrow">Boundaries</h2>
+            <p>{{ case_study.boundaries }}</p>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </article>
+
+  {% if previous_case_study or next_case_study %}
+  <section class="section case-study-navigation-section">
+    <div class="container">
+      <nav class="sequential-navigation case-study-navigation" aria-label="Case study navigation">
+        {% if previous_case_study %}
+        <a class="sequential-navigation-link sequential-navigation-link--previous" href="{{ previous_case_study.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_navigation" data-analytics-destination="{{ previous_case_study.url }}">
+          <span class="sequential-navigation-label">Previous case study</span>
+          <span>{{ previous_case_study.title }}</span>
+        </a>
+        {% endif %}
+        {% if next_case_study %}
+        <a class="sequential-navigation-link sequential-navigation-link--next" href="{{ next_case_study.url | relative_url }}" data-analytics-event="work_open" data-analytics-link-context="case_study_navigation" data-analytics-destination="{{ next_case_study.url }}">
+          <span class="sequential-navigation-label">Next case study</span>
+          <span>{{ next_case_study.title }}</span>
+        </a>
+        {% endif %}
+      </nav>
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="section work-contact-section">
+    <div class="container">
+      {% include work-contact-panel.html contact=site.data.case_studies.contact link_context="case_study_contact" %}
+    </div>
+  </section>
+</div>

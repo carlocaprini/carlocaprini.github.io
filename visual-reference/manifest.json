@@ -57,6 +57,18 @@
       "viewports": ["desktop", "tablet", "mobile"]
     },
     {
+      "id": "case-studies",
+      "path": "/work/case-studies/",
+      "description": "Case studies collection for anonymised Product & Engineering engagement evidence",
+      "viewports": ["desktop", "tablet", "mobile"]
+    },
+    {
+      "id": "case-study-detail",
+      "path": "/work/case-studies/release-readiness-review/",
+      "description": "Representative Product & Engineering case study detail",
+      "viewports": ["desktop", "tablet", "mobile"]
+    },
+    {
       "id": "industry-expertise",
       "path": "/industry-expertise/",
       "description": "Research-oriented profile for selected industry expertise conversations",

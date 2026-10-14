@@ -55,7 +55,7 @@ Chromium behavioral specs are named by domain:
 
 - `routes.spec.js` owns sitemap-derived public-route integrity and overflow.
 - `navigation.spec.js` owns primary/mobile navigation and legacy-route behavior.
-- `editorial-journeys.spec.js` owns Home, Thinking, Explore, Questions, Influences and the Work proposition.
+- `editorial-journeys.spec.js` owns Home, Thinking, Explore, Questions, Influences, the Work proposition and Case studies journeys.
 - `responsive.spec.js` owns breakpoint-dependent interaction and visibility.
 - `accessibility.spec.js` owns focused keyboard/focus basics; it is not a complete accessibility audit.
 - `analytics.spec.js` and `privacy-analytics.spec.js` own browser instrumentation, consent and local-safety behavior.
@@ -70,7 +70,7 @@ The repository static server and Docker development both serve `_site` directly 
 
 ### Visual regression
 
-The curated Playwright suite in `tests/browser/visual.spec.js` detects unexpected rendered changes on production-representative surfaces. It is browser-rendered, compares screenshots, runs in pull-request CI and blocks deployment. `bin/check visual-regression` is the canonical command; `bin/check visual` is only an alias. Keep the suite intentionally small: add a screenshot for a genuinely new rendering model such as a top-level layout, article type or materially different responsive component, not for another route using an existing layout.
+The curated Playwright suite in `tests/browser/visual.spec.js` detects unexpected rendered changes on production-representative surfaces. It is browser-rendered, compares screenshots, runs in pull-request CI and blocks deployment. `bin/check visual-regression` is the canonical command; `bin/check visual` is only an alias. Work, the Case studies collection and one representative Case study detail are separate protected rendering models. Keep the suite intentionally small: add a screenshot for a genuinely new rendering model such as a top-level layout, article type or materially different responsive component, not for another route using an existing layout.
 
 The tests use fixed viewports, deny analytics consent, wait for the repository-owned Inter font and visible images, and disable animation and transitions before capture. The site and tests load the same versioned WOFF2 asset, so runner font availability cannot silently select a different primary typeface. Platform-specific Darwin and Linux baselines remain deliberate for the remaining browser rasterization differences. Screenshot comparisons stay strict; do not add broad pixel tolerances to mask failures.
 

@@ -15,6 +15,7 @@
     { "name": "Page series", "event_parameter": "page_series", "scope": "event" },
     { "name": "Page episode", "event_parameter": "page_episode", "scope": "event" },
     { "name": "Link context", "event_parameter": "link_context", "scope": "event" },
+    { "name": "Destination", "event_parameter": "destination", "scope": "event" },
     { "name": "Collection", "event_parameter": "collection", "scope": "event" },
     { "name": "Note ID", "event_parameter": "note_id", "scope": "event" },
     { "name": "Question ID", "event_parameter": "question_id", "scope": "event" },

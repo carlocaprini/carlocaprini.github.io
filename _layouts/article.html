@@ -220,16 +220,16 @@ layout: default
           {{ content }}
         </div>
         {% if series_previous or series_next %}
-        <nav class="article-series-navigation" aria-label="Series navigation">
+        <nav class="sequential-navigation article-series-navigation" aria-label="Series navigation">
           {% if series_previous %}
-          <a class="article-series-navigation-link article-series-navigation-link--previous" href="{{ series_previous.url | relative_url }}" data-analytics-event="series_episode_open" data-analytics-series-id="{{ page.series | escape }}" data-analytics-episode-number="{{ series_previous.series_order }}" data-analytics-direction="previous" data-analytics-link-context="note_series_navigation">
-            <span class="article-series-navigation-label">Previous episode</span>
+          <a class="sequential-navigation-link sequential-navigation-link--previous article-series-navigation-link article-series-navigation-link--previous" href="{{ series_previous.url | relative_url }}" data-analytics-event="series_episode_open" data-analytics-series-id="{{ page.series | escape }}" data-analytics-episode-number="{{ series_previous.series_order }}" data-analytics-direction="previous" data-analytics-link-context="note_series_navigation">
+            <span class="sequential-navigation-label article-series-navigation-label">Previous episode</span>
             <span>{{ series_previous.title }}</span>
           </a>
           {% endif %}
           {% if series_next %}
-          <a class="article-series-navigation-link article-series-navigation-link--next" href="{{ series_next.url | relative_url }}" data-analytics-event="series_episode_open" data-analytics-series-id="{{ page.series | escape }}" data-analytics-episode-number="{{ series_next.series_order }}" data-analytics-direction="next" data-analytics-link-context="note_series_navigation">
-            <span class="article-series-navigation-label">Next episode</span>
+          <a class="sequential-navigation-link sequential-navigation-link--next article-series-navigation-link article-series-navigation-link--next" href="{{ series_next.url | relative_url }}" data-analytics-event="series_episode_open" data-analytics-series-id="{{ page.series | escape }}" data-analytics-episode-number="{{ series_next.series_order }}" data-analytics-direction="next" data-analytics-link-context="note_series_navigation">
+            <span class="sequential-navigation-label article-series-navigation-label">Next episode</span>
             <span>{{ series_next.title }}</span>
           </a>
           {% endif %}

@@ -4,7 +4,7 @@ Each invariant has one canonical owner.
 
 ## Source contracts
 
-`scripts/validate_source.rb` answers whether repository source is internally coherent without building Jekyll. It owns front matter, permalinks, taxonomy, note and Influence metadata, editorial listing membership, Questions, Series, Home and Experience references, dependency configuration, and the source-side privacy/analytics contract.
+`scripts/validate_source.rb` answers whether repository source is internally coherent without building Jekyll. It owns front matter, permalinks, taxonomy, note and Influence metadata, editorial listing membership, Questions, Series, Home, Experience and Case studies references, social-image existence, alt text and canonical `1200 × 627` dimensions, dependency configuration, and the source-side privacy/analytics contract.
 
 Editorial ordering in `pages/thinking.md` is intentional source data: the complete `notes` list must contain every published note once. `_data/start_here.yml` separately owns exactly three valid, unique curated selections shared by Home, Thinking and missing-page recovery.
 

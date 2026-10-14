@@ -1,0 +1,33 @@
+items:
+  - id: release-readiness-review
+    url: /work/case-studies/release-readiness-review/
+    engagement: Product & Engineering Review
+    title: Turning a broad release concern into clear priorities.
+    title_prefix: "Turning a broad release concern into "
+    title_highlight: clear priorities
+    title_suffix: "."
+    tagline: A software company needed to identify and decide what to address before publicly launching their product.
+    goal: Replace the broad question “is this ready?” with concrete decisions about product behaviour, technical foundations, delivery confidence and ownership.
+    collaboration: I interviewed the team to learn about their concerns and doubts, reviewed the repository and available documentation, linked each finding to evidence and used focused conversations to fill important gaps. Together, we separated immediate concerns from accepted risks, later improvements and questions needing specialist input. Priorities remained the client’s decision.
+    changed: The team received a structured review, prioritised actions and a guided walkthrough. Follow-up analysis made the evidence easier to reuse without treating every finding as mandatory work.
+    outcome: The client had a clear basis for deciding what to address first, what could wait and what needed separate validation.
+    boundaries: The work was an assessment, not remediation or certification. I did not change the product, verify production behaviour or take ownership of product, release or risk decisions.
+  - id: deliberate-quality-automation
+    url: /work/case-studies/deliberate-quality-automation/
+    engagement: Product & Engineering Advisory
+    title: Improving delivery confidence with testing and bounded AI experiments.
+    title_prefix: "Improving "
+    title_highlight: delivery confidence
+    title_suffix: " with testing and bounded AI experiments."
+    tagline: A software team wanted to improve delivery confidence and explore AI without introducing automation it could not yet trust or own.
+    goal: Reduce recurring manual friction, improve feedback during development and identify practical uses for AI with clear limits.
+    collaboration: Across recurring working sessions, we reviewed workflows, built small prototypes, demonstrated them with the team and decided what to pursue next. We looked at testing, assisted review, access to system information and clearer checks and rules in the repository.
+    changed: A fast testing layer moved into regular use. AI-assisted prototypes produced useful review feedback and answered operational questions in demonstrations. The team selected nearer-term quality priorities and deferred options likely to create more noise than value.
+    outcome: "The team turned a broad interest in AI into a practical sequence: what should protect delivery, where AI could assist people and what was not yet worth automating."
+    boundaries: The AI prototypes remained advisory, and the work did not establish broad or measured adoption. Implementation, rollout and release ownership remained with the client.
+
+contact:
+  eyebrow: Start a conversation
+  title: Working through something similar?
+  body: Send me a short description of what is getting difficult. If I think I can help, we can start with a short conversation.
+  action: Start a conversation
