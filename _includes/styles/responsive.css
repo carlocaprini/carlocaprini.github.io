@@ -834,6 +834,7 @@
     padding-top: 1.6rem;
   }
 
+  .case-study-navigation-section,
   .case-study-continuation {
     padding-top: 2.6rem;
   }
@@ -1113,11 +1114,11 @@
     grid-row: 2;
   }
 
-  .article-series-navigation {
+  .sequential-navigation {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .article-series-navigation-link--next {
+  .sequential-navigation-link--next {
     grid-column: 1;
     text-align: left;
   }
