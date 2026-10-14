@@ -812,6 +812,10 @@
     padding-bottom: 3.4rem;
   }
 
+  .case-study-detail {
+    padding-bottom: 2rem;
+  }
+
   .case-studies-index > li {
     grid-template-columns: 1rem minmax(0, 1fr);
     gap: 0.75rem;
@@ -834,9 +838,13 @@
     padding-top: 1.6rem;
   }
 
-  .case-study-navigation-section,
   .case-study-continuation {
     padding-top: 2.6rem;
+  }
+
+  .case-study-navigation-section {
+    padding-top: 0;
+    padding-bottom: 2.6rem;
   }
 
   .experience-independent-links {

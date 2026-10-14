@@ -614,6 +614,7 @@ Keep:
 - the shared compact Hero Actions pattern, with Work as the primary forward action and the Case studies index as the secondary return action
 - an editorial split between the main evidence and a narrower outcome-and-boundaries column
 - the shared sequential-navigation pattern for explicit Previous/Next links between adjacent Case studies, using the canonical data order without wrapping the last case back to the first
+- a compact transition from case evidence into adjacent-case navigation; omit the shared top rule here because the detail section already provides sufficient separation
 - direct, observable claims; distinguish delivered assessment, adopted change and unvalidated follow-up
 - the Case studies index retains the explicit reminder that the evidence is not a service catalogue
 - the standard low-pressure contact panel after adjacent-case navigation
