@@ -51,7 +51,7 @@ Use separate tabs rather than one artificial funnel:
 1. **Acquisition** — Landing page + query string, Session source / medium; Sessions, Engaged sessions and Average engagement time.
 2. **Content** — Page path and screen class, Page type, Page ID and Page topic; Views, Sessions, Engaged sessions and Average engagement time.
 3. **Depth** — Event name, Link context, Social platform and the relevant target dimension; Event count. Include `social_profile_open` here as relationship exploration rather than contact intent.
-4. **Professional intent** — Event name, Work section, Link context and Contact method; Event count and Key events. Filter event name to `experience_open`, `work_open`, `industry_expertise_open`, `work_section_view`, `contact_section_open`, `contact_open` and `work_contact_open`. The `work_open` destination separates the Work proposition, Case studies index and individual cases without introducing a second professional-intent event family.
+4. **Professional intent** — Event name, Destination, Work section, Link context and Contact method; Event count and Key events. Filter event name to `experience_open`, `work_open`, `industry_expertise_open`, `work_section_view`, `contact_section_open`, `contact_open` and `work_contact_open`. The `work_open` destination separates the Work proposition, Case studies index and individual cases without introducing a second professional-intent event family.
 5. **Audience diagnostics** — Device category and Country; Active users and Sessions. Use city only to investigate an anomaly.
 
 Export each tab for the exact month. Do not blend GA4 users or sessions with aggregate D1 counters.

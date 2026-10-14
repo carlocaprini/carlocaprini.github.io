@@ -18,6 +18,7 @@ test("GA4 reporting dimensions have unique event parameters and event scope", ()
   assert.equal(new Set(parameters).size, parameters.length);
   assert.ok(parameters.includes("page_id"));
   assert.ok(parameters.includes("link_context"));
+  assert.ok(parameters.includes("destination"));
   assert.ok(parameters.includes("work_section"));
   assert.ok(parameters.includes("contact_method"));
   assert.ok(parameters.includes("platform"));

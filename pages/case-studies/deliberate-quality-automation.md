@@ -9,5 +9,5 @@ meta_description: An anonymised advisory case study on automated testing, delive
 meta_type: article
 meta_image: /assets/og-case-study-deliberate-quality-automation-v1.png
 meta_image_alt: Product and Engineering Advisory case study by Carlo Caprini, improving delivery confidence through testing and bounded AI experiments.
-last_modified_at: 2026-10-11
+last_modified_at: 2026-10-14
 ---
