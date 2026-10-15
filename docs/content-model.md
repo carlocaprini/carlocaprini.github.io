@@ -15,7 +15,7 @@
 
 ## Relationships
 
-Shared topics can rank related Notes and Influences. An Influence may select one internal Note explicitly through `related_note`. Question membership is always explicit in `_data/questions.yml`; topic overlap never adds an item to a Question automatically.
+Standalone Thinking Notes define exactly two `related_notes` as deliberate next-reading suggestions. These relationships are editorially curated rather than derived from Topic similarity and do not need to be reciprocal. Series Notes use their ordered Series navigation instead and must not expose generic Related Notes. An Influence may select one internal Note explicitly through `related_note`. Question membership is always explicit in `_data/questions.yml`; topic overlap never adds an item to a Question automatically.
 
 Explore exposes curated Questions first, deliberate editorial Series second and complete Topic views third. It is the canonical Series collection surface; individual Series pages live under `/series/series-slug/`, but there is no `/series/` index. Stable Topic URLs use hashes on `/explore/`; the `#series` section anchor is not Topic state. `/knowledge/` remains only as a compatibility redirect.
 
