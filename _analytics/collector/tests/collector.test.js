@@ -83,7 +83,11 @@ function request(payload = validPayload(), options = {}) {
 test("accepts an allowlisted event and increments one aggregate row", async () => {
   const DB = new FakeDatabase();
   const result = await handleRequest(
-    request(),
+    request(validPayload(), {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/140.0.0.0 Safari/537.36"
+      }
+    }),
     { DB, ALLOWED_ORIGIN: origin },
     new Date("2026-08-10T12:00:00Z")
   );
@@ -297,15 +301,31 @@ test("does not expose a fallback route", async () => {
   assert.equal(result.headers.get("Access-Control-Allow-Origin"), null);
 });
 
-test("drops obvious automated traffic without storing it", async () => {
-  const DB = new FakeDatabase();
-  const result = await handleRequest(
-    request(validPayload(), { headers: { "User-Agent": "ExampleBot/1.0" } }),
-    { DB, ALLOWED_ORIGIN: origin }
-  );
+test("drops known crawler, inspection, preview and automated traffic without storing it", async (t) => {
+  const userAgents = [
+    "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    "Mozilla/5.0 (compatible; Google-InspectionTool/1.0;)",
+    "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; GoogleOther)",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Google-Read-Aloud",
+    "Mozilla/5.0 (compatible; Google-Site-Verification/1.0)",
+    "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)",
+    "facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)",
+    "LinkedInBot/1.0"
+  ];
 
-  assert.equal(result.status, 204);
-  assert.equal(DB.calls.length, 0);
+  for (const userAgent of userAgents) {
+    await t.test(userAgent, async () => {
+      const DB = new FakeDatabase();
+      const result = await handleRequest(
+        request(validPayload(), { headers: { "User-Agent": userAgent } }),
+        { DB, ALLOWED_ORIGIN: origin }
+      );
+
+      assert.equal(result.status, 204);
+      assert.equal(await result.text(), "");
+      assert.equal(DB.calls.length, 0);
+    });
+  }
 });
 
 test("fails closed when D1 is unavailable", async () => {
