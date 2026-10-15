@@ -4,6 +4,8 @@ This directory contains the privacy-preserving measurement service for the publi
 
 The browser sends a fixed semantic payload to a Cloudflare Worker. The Worker validates it and increments one daily D1 counter. It does not store raw events, IP addresses, user agents, referrers, cookies, users, sessions or precise timestamps.
 
+Before parsing an analytics payload or writing to D1, the collector ignores known crawler, inspection, link-preview and automated-tool User-Agents. This reduces non-human inflation in coarse aggregate counts without blocking indexing, verification or access to the public site. The explicit User-Agent filter is a narrow measurement safeguard, not a comprehensive bot-detection system.
+
 Work and Case studies use the same semantic contract as the rest of the site. `work_open` records which site context led to Work, the Case studies index or a dedicated case, with the allowlisted destination path retained as the aggregate target when one is present. `work_section_view` records a first meaningful view of Review or Advisory; `contact_open` identifies the outbound conversation path. Internal Case study links do not use UTM parameters: their allowlisted `link_context` and `destination` values already distinguish the journey, while UTM remains reserved for inbound distribution. These remain coarse allowlisted transitions and never include problem descriptions or other visitor prose.
 
 `social_profile_open` records a deliberate move to an author's external profile and preserves the allowlisted platform plus the site context that prompted it. It is relationship exploration, not contact intent: `contact_open` remains reserved for opening an actual contact channel.

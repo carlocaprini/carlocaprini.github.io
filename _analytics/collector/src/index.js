@@ -12,7 +12,7 @@ const MEASURE_PATH = "/v1/measure";
 const DEFAULT_ORIGIN = "https://carlocaprini.github.io";
 const DEFAULT_RETENTION_MONTHS = 14;
 
-const BOT_PATTERN = /(?:bot|crawler|spider|slurp|headlesschrome|lighthouse|pagespeed|facebookexternalhit|linkedinbot)/i;
+const BOT_PATTERN = /(?:bot|crawler|spider|slurp|headlesschrome|lighthouse|pagespeed|facebookexternalhit|linkedinbot|google-inspectiontool|googleother|google-read-aloud|google-site-verification)/i;
 const IDENTIFIER_PATTERN = /^[a-zA-Z0-9_./:#-]+$/;
 const TYPE_PATTERN = /^[a-z][a-z0-9_]{0,31}$/;
 const CONTEXT_PATTERN = /^[a-z][a-z0-9_/-]{0,63}$/;
