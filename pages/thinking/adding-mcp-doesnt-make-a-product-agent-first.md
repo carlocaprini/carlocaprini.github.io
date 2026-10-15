@@ -7,6 +7,9 @@ summary: Adding MCP to an existing API can create enormous value by making an es
 topics:
   - ai-and-automation
   - software-systems
+related_notes:
+  - /thinking/an-api-is-not-an-agent-interface/
+  - /thinking/i-stopped-trying-to-build-jarvis/
 intro:
   - MCP can make years of existing product functionality accessible to agents without requiring the underlying product to be redesigned.
   - This alone can create significant value.

@@ -9,6 +9,9 @@ meta_description: AI helps people contribute to software systems earlier, but fa
 topics:
   - ai-and-automation
   - teams-and-collaboration
+related_notes:
+  - /thinking/better-output-makes-shallow-review-more-dangerous/
+  - /thinking/shared-context-is-not-shared-understanding/
 intro:
   - Traditionally, becoming productive in a new environment required time.
   - AI changes the cost of accessing context and makes earlier contribution possible.

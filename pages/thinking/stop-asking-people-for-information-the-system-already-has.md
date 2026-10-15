@@ -10,6 +10,9 @@ meta_image: /assets/og-thinking-v2.png
 meta_image_alt: Thinking by Carlo Caprini, notes on product decisions, AI, software systems and teams.
 topics:
   - software-systems
+related_notes:
+  - /thinking/friday-connects-the-services-without-owning-their-work/
+  - /thinking/shared-context-is-not-shared-understanding/
 intro:
   - A lot of what looks like process work is just moving facts by hand.
 ---

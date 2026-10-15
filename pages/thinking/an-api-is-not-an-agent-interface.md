@@ -7,6 +7,9 @@ summary: An existing API can make an agent prototype possible, but the useful ag
 topics:
   - ai-and-automation
   - software-systems
+related_notes:
+  - /thinking/adding-mcp-doesnt-make-a-product-agent-first/
+  - /thinking/friday-connects-the-services-without-owning-their-work/
 ---
 
 When a product already has an API, it is tempting to treat the first agent integration as plumbing. The data is available, the operations exist and MCP gives an AI client a standard way to reach them. This was enough for us to get a prototype working quickly when I recently helped a software company connect an AI client to one of its internal operational systems.
