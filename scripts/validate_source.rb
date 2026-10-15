@@ -337,6 +337,40 @@ note_records.each do |path, (data, body)|
   validate_markdown_list_spacing(path, body)
 end
 
+note_records.each do |path, (data, _)|
+  if present?(data["series"])
+    if data.key?("related_notes")
+      fail_check("#{relative_path(path)}: Series notes must not define related_notes")
+    end
+    next
+  end
+
+  related_notes = data["related_notes"]
+  unless related_notes.is_a?(Array) && related_notes.size == 2
+    fail_check("#{relative_path(path)}: standalone notes must define exactly two related_notes")
+    next
+  end
+
+  duplicate_related_notes = related_notes.group_by(&:itself).select { |_, values| values.size > 1 }.keys
+  unless duplicate_related_notes.empty?
+    fail_check("#{relative_path(path)}: duplicate related_notes: #{duplicate_related_notes.join(', ')}")
+  end
+
+  if related_notes.include?(data["permalink"])
+    fail_check("#{relative_path(path)}: related_notes must not reference the note itself")
+  end
+
+  unknown_related_notes = related_notes.reject do |url|
+    url.is_a?(String) && note_by_permalink.key?(url)
+  end
+  unless unknown_related_notes.empty?
+    fail_check(
+      "#{relative_path(path)}: related_notes do not match Thinking permalinks: " \
+      "#{unknown_related_notes.map(&:inspect).join(', ')}"
+    )
+  end
+end
+
 questions.each do |question|
   question_note_urls = [question.dig("entry_point", "note")] +
     Array(question["sections"]).flat_map { |section| Array(section["notes"]) }

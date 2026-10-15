@@ -80,6 +80,10 @@ class ValidatorTest < Minitest::Test
     File.join(directory, "pages/thinking/waiting-as-product-decision.md")
   end
 
+  def standalone_note_path(directory)
+    File.join(directory, "pages/thinking/adding-mcp-doesnt-make-a-product-agent-first.md")
+  end
+
   def influence_path(directory)
     File.join(directory, "_influences/ai-coding-is-not-the-same-as-software-engineering-and-it-matters.md")
   end
@@ -401,6 +405,56 @@ class ValidatorTest < Minitest::Test
   def test_source_rejects_missing_related_note
     assert_invalid_source(/related_note does not match/) do |directory|
       replace!(influence_path(directory), /^related_note:.*$/, "related_note: /thinking/missing-note/")
+    end
+  end
+
+  def test_source_rejects_standalone_note_without_two_related_notes
+    assert_invalid_source(/standalone notes must define exactly two related_notes/) do |directory|
+      replace!(
+        standalone_note_path(directory),
+        "related_notes:\n  - /thinking/an-api-is-not-an-agent-interface/\n  - /thinking/i-stopped-trying-to-build-jarvis/\n",
+        "related_notes:\n  - /thinking/an-api-is-not-an-agent-interface/\n"
+      )
+    end
+  end
+
+  def test_source_rejects_duplicate_related_notes
+    assert_invalid_source(/duplicate related_notes/) do |directory|
+      replace!(
+        standalone_note_path(directory),
+        "  - /thinking/i-stopped-trying-to-build-jarvis/",
+        "  - /thinking/an-api-is-not-an-agent-interface/"
+      )
+    end
+  end
+
+  def test_source_rejects_self_referencing_related_note
+    assert_invalid_source(/related_notes must not reference the note itself/) do |directory|
+      replace!(
+        standalone_note_path(directory),
+        "  - /thinking/i-stopped-trying-to-build-jarvis/",
+        "  - /thinking/adding-mcp-doesnt-make-a-product-agent-first/"
+      )
+    end
+  end
+
+  def test_source_rejects_unknown_related_note
+    assert_invalid_source(/related_notes do not match Thinking permalinks/) do |directory|
+      replace!(
+        standalone_note_path(directory),
+        "  - /thinking/i-stopped-trying-to-build-jarvis/",
+        "  - /thinking/missing-note/"
+      )
+    end
+  end
+
+  def test_source_rejects_related_notes_on_series_note
+    assert_invalid_source(/Series notes must not define related_notes/) do |directory|
+      replace!(
+        note_path(directory),
+        "series: product-judgment-in-practice\n",
+        "series: product-judgment-in-practice\nrelated_notes:\n  - /thinking/an-api-is-not-an-agent-interface/\n  - /thinking/shared-context-is-not-shared-understanding/\n"
+      )
     end
   end
 

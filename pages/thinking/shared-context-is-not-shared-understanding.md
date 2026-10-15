@@ -10,6 +10,9 @@ meta_description: Why easier access to information does not automatically create
 topics:
   - teams-and-collaboration
   - ai-and-automation
+related_notes:
+  - /thinking/most-product-disagreements-come-from-missing-information/
+  - /thinking/ai-accelerates-contribution-not-mastery/
 intro:
   - AI is dramatically reducing the cost of accessing context inside organizations.
   - But shared access to information does not automatically produce shared understanding.

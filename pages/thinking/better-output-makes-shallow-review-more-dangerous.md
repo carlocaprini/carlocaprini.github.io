@@ -9,6 +9,9 @@ meta_description: Polished AI-generated code can make weak reasoning harder to n
 topics:
   - ai-and-automation
   - teams-and-collaboration
+related_notes:
+  - /thinking/ai-accelerates-contribution-not-mastery/
+  - /thinking/designing-for-unattended-development/
 ---
 
 AI does more than reduce the time required to produce something. It also changes when the work begins to look ready.

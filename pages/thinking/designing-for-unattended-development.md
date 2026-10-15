@@ -12,6 +12,9 @@ meta_image_alt: Thinking by Carlo Caprini, notes on product decisions, AI, softw
 topics:
   - ai-and-automation
   - software-systems
+related_notes:
+  - /thinking/better-output-makes-shallow-review-more-dangerous/
+  - /thinking/friday-connects-the-services-without-owning-their-work/
 intro:
   - I no longer need to be present while every line of code is being written.
   - That makes the boundaries around the work more important, not less.
