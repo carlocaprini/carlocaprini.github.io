@@ -4,7 +4,7 @@ This is a Jekyll editorial site with a small browser runtime and an optional Clo
 
 ## Canonical sources
 
-- Notes: `_thinking/*.md`; Influences: `_influences/*.md`.
+- Notes: `pages/thinking/*.md`; Influences: `_influences/*.md`.
 - Topics: `_data/topics.yml`; Questions: `_data/questions.yml`; Series: `_data/series.yml` plus the relevant page/layout.
 - Curated Home and Thinking selections: `_data/home.yml` and `pages/thinking.md`. These explicit lists are intentional editorial ordering, not disposable duplication.
 - Work proposition: `pages/work.md`; presentation: `_layouts/work.html` and `_includes/styles/work.css`. Keep it selective and evidence-led; do not turn Thinking into a commercial funnel.
