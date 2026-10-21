@@ -1,53 +1,54 @@
-# carlocaprini.github.io
+# carlocaprini.github.io legacy compatibility
 
-Carlo Caprini’s professional body of work: product judgment, experience, occasional independent Product & Engineering work and connected editorial thinking, built with Jekyll and deployed through GitHub Pages.
+This repository is the compatibility layer for links previously published under `https://carlocaprini.github.io`. The complete site is served from `https://carlocaprini.com`; this repository intentionally contains no editorial source, site presentation, analytics runtime, cookies, or application assets.
 
-## Run locally
+## Redirect contract
 
-Docker keeps the Ruby/Jekyll runtime isolated:
+`legacy/routes.json` is the versioned route manifest. It records the reconciled public route set and the fixed canonical origin. `scripts/build_legacy_site.mjs` produces:
 
-```bash
-docker compose up site
-```
+- one minimal HTML redirect document for every known route;
+- an accessible visible fallback link;
+- a canonical link and one automatic redirect mechanism;
+- a small fixed-origin script that preserves query parameters and fragments when JavaScript is enabled;
+- a genuine `404.html` fallback that tries the same unknown path on the canonical origin;
+- legacy sitemaps, robots policy, the Google verification file, and the RSS bridge.
 
-Open [http://localhost:4000](http://localhost:4000). Content and layout changes rebuild automatically; refresh the browser to see the rebuilt artifact.
-The local preview routes unknown paths through the generated custom `404.html`, matching the published recovery experience while preserving the `404` response status.
+Known redirect pages remain indexable so search engines can process the canonical relationship. Only the 404 document uses `noindex`. The redirect destination cannot be supplied by a query parameter or another external input.
 
-Ordinary local development sends no analytics. To exercise the isolated aggregate-measurement environment, follow [`_analytics/README.md`](_analytics/README.md).
+With JavaScript disabled, a known route does not navigate automatically: it remains on the legacy URL and offers a static link to the same canonical path. Static HTML cannot copy an arbitrary incoming query string or fragment into that link, so dynamic suffix preservation is explicitly a JavaScript-only guarantee. On an unknown route, the no-JavaScript emergency fallback links to the canonical homepage; with JavaScript enabled, the 404 script tries the same path, query string, and fragment on the fixed canonical origin.
 
-## Verify a change
+## Development and pull requests
 
-The repository-owned check interface is:
+All changes use a branch and pull request. Update `legacy/routes.json` only after reconciling the public path with the canonical site. Run the narrow check while editing, then the complete gate:
 
-```bash
+```sh
 bin/check source
 bin/check generated
-bin/check sitemap
-bin/check analytics
-bin/check browser
-bin/check visual-regression
-bin/check visual-docs
 bin/check all
 ```
 
-Use the narrowest relevant check while iterating and the full relevant gate before completion. [`docs/testing.md`](docs/testing.md) explains prerequisites, focused variants and the CI mapping.
+`bin/check generated` recreates `_site`; never edit `_site` directly. Pull requests validate source, generated output, desktop behavior, and mobile behavior. A merge to `main` publishes the exact validated `_site` artifact to GitHub Pages. Repository contents are read-only in CI; only the deployment job receives temporary Pages and identity permissions.
 
-## Repository map
+## Feed bridge
 
-- [`AGENTS.md`](AGENTS.md): concise operational map for humans and coding agents.
-- [`docs/architecture.md`](docs/architecture.md): runtime, build, analytics and deployment boundaries.
-- [`docs/content-model.md`](docs/content-model.md): Notes, Influences, Questions, Series, Topics and curated ordering.
-- [`docs/testing.md`](docs/testing.md): verification layers and command matrix.
-- [`docs/validation.md`](docs/validation.md): ownership of source and generated-site invariants.
-- [`docs/design-system.md`](docs/design-system.md): canonical visual language.
-- [`contracts/analytics.json`](contracts/analytics.json): machine-readable analytics and campaign vocabulary.
-- [`_analytics/README.md`](_analytics/README.md): aggregate collector, privacy model and operational setup.
-- [`_sitemap/README.md`](_sitemap/README.md): external static sitemap delivery, Cloudflare setup, cost guardrail and Search Console experiment.
-- [`_analytics/measurement/README.md`](_analytics/measurement/README.md): GA4 reporting configuration and repeatable monthly and quarterly evidence workflow.
-- [`visual-reference/README.md`](visual-reference/README.md): versioned representative screenshots.
+GitHub Pages continues to expose `/feed.xml`. The checked-in `legacy/feed.xml` is a valid initial canonical feed. Every six hours, and on manual dispatch, `.github/workflows/feed-bridge.yml` fetches only `https://carlocaprini.com/feed.xml`, verifies RSS 2.0 and canonical absolute URLs, rebuilds the complete compatibility artifact, and deploys it.
 
-Canonical values such as topic slugs and analytics events live in machine-readable source, not in this README.
+The replacement is atomic. A network, HTTP, XML, or URL validation failure stops the workflow before deployment, so the last valid Pages artifact remains live. The workflow does not commit generated feed changes to `main`.
 
-## Editorial ownership
+## Release and rollback
 
-AI helps with research, critique, drafting and implementation. The experience, positions and final editorial decisions remain Carlo’s.
+Deployment is deliberately separate from DNS or canonical-site cutover. Merging a pull request changes only this repository and starts the GitHub Pages workflow; it does not modify domain configuration.
+
+The complete pre-cutover public site is preserved by the annotated tag `pre-cloudflare-cutover-2026-10-21`. Restore it without rewriting history:
+
+```sh
+git switch main
+git pull --ff-only
+git switch -c restore/pre-cloudflare-cutover
+git restore --source pre-cloudflare-cutover-2026-10-21 -- .
+git add -A
+git commit -m "Restore the pre-cutover GitHub Pages site"
+git push -u origin restore/pre-cloudflare-cutover
+```
+
+Then open, review, and merge a normal pull request. Do not reset `main`, force-push, or delete the rollback tag.

@@ -1,0 +1,2266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+
+
+
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Carlo Caprini — Thinking</title>
+    <description>Notes and curated paths on product decisions, software platforms, AI adoption, engineering collaboration, and complex systems.</description>
+    <link>https://carlocaprini.com/thinking/</link>
+    <atom:link href="https://carlocaprini.com/feed.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Thu, 08 Oct 2026 00:00:00 +0200</lastBuildDate>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>An API is not an agent interface</title>
+      <description>An existing API can make an agent prototype possible, but the useful agent interface still depends on deliberate choices about intent, context, permissions and authority.</description>
+      <link>https://carlocaprini.com/thinking/an-api-is-not-an-agent-interface/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/an-api-is-not-an-agent-interface/</guid>
+
+      <pubDate>Thu, 08 Oct 2026 00:00:00 +0200</pubDate>
+
+      <content:encoded><![CDATA[<p>When a product already has an API, it is tempting to treat the first agent integration as plumbing. The data is available, the operations exist and MCP gives an AI client a standard way to reach them. This was enough for us to get a prototype working quickly when I recently helped a software company connect an AI client to one of its internal operational systems.</p>
+
+<p>The uncertainty started only when we asked it to do actual work. Some responses had been shaped for the existing application and were awkward for an agent to use, while reading information worked with the initial permissions but changing it required different access. Several operations were available as well, although their names assumed that the caller already knew the system.</p>
+
+<p>All of those problems could be fixed, but the right interface could not be derived automatically from the API. We still had to decide how the agent should interpret a request, what it needed to know before acting and how much authority it should have.</p>
+
+<h2 id="an-api-assumes-a-knowledgeable-caller">An API assumes a knowledgeable caller</h2>
+
+<p>API operations tend to describe implementation through actions such as search, retrieve, create or update. That works well for a developer who understands the domain and knows why several similar operations exist.</p>
+
+<p>An agent, however, starts from a sentence written by a user and has to translate it into an operation. It often does so without the background knowledge that makes the API obvious to its usual callers.</p>
+
+<p>A method called <em>search</em> may return several kinds of records, while two update operations may look interchangeable even though they have different consequences. Even a field used safely by an internal application may be a poor choice to expose through a general AI client. The schema can describe the input and output, but it does not necessarily explain the product reasoning behind them.</p>
+
+<p>In this case, thinking about the user’s complete job was more helpful than copying the API surface. “Find the information needed to understand this case” gave the agent a clearer task than a collection of search and retrieval methods, while “update these fields without replacing the rest” expressed a boundary that would otherwise have remained implicit.</p>
+
+<p>Those tools can still call several endpoints behind the scenes, so the API remains useful and stable while the agent receives a smaller vocabulary shaped around the work it is expected to perform.</p>
+
+<p>I do not think every endpoint needs to be hidden or combined, and a direct mapping is perfectly sensible when an operation is simple and unambiguous. However, exposing everything by default leaves the model to reconstruct choices that the product team is better placed to make. The <a href="https://blog.modelcontextprotocol.io/posts/mcp-roadmap/">MCP maintainers have noted</a> a related problem, as selecting the right tool becomes harder when tool surfaces grow.</p>
+
+<h2 id="a-permission-error-raised-a-product-question">A permission error raised a product question</h2>
+
+<p>During the prototype, one write operation failed because the token did not have the required permission. At first this looked like an ordinary configuration problem, but even after fixing it we still needed to answer a more important question: which operations did we actually want the agent to perform?</p>
+
+<p>Saying that an agent “has access” was not precise enough because reading a record, creating one and changing an existing one have different consequences. Some changes may be safe to make directly, whereas others should require confirmation or stop when the information supporting the action is incomplete.</p>
+
+<p>Permissions therefore stopped feeling like infrastructure configuration and became part of the product experience. The technical mechanism could enforce a boundary, but we still had to choose where to place it.</p>
+
+<p>MCP provides common mechanisms for exposing tools and handling authorization. Nevertheless, it does not know whether changing a particular record is routine, sensitive or potentially expensive to undo. That knowledge remains with the people building and operating the product.</p>
+
+<h2 id="the-failed-tasks-showed-us-the-interface">The failed tasks showed us the interface</h2>
+
+<p>We did not discover the useful agent surface by reading the API documentation more carefully. Instead, it emerged while we watched the agent attempt real tasks and noticed where it hesitated, chose badly or reached a limit we had not made explicit.</p>
+
+<p>For this system, I expect the API to remain the integration layer, with agent-facing tools sitting on top of it and providing clearer names, more useful results and narrower permissions. The API can continue serving its existing callers, while the agent receives an interface suited to a different kind of interaction.</p>
+
+<p>I would not add that layer to every API. Although direct exposure may be enough when the operations are obvious and the user already understands the system, the additional interface becomes worthwhile when the agent is expected to interpret a goal, choose among similar actions or change something on the user’s behalf.</p>
+
+<p>The API got us to a working prototype, but trying to use it showed us what the interface still needed.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>Adding MCP doesn&apos;t make a product agent-first</title>
+      <description>Adding MCP to an existing API can create enormous value by making an established product accessible to agents. Designing a product with agents as first-class users is a different problem.</description>
+      <link>https://carlocaprini.com/thinking/adding-mcp-doesnt-make-a-product-agent-first/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/adding-mcp-doesnt-make-a-product-agent-first/</guid>
+
+      <pubDate>Mon, 07 Sep 2026 00:00:00 +0200</pubDate>
+
+      <content:encoded><![CDATA[<h2 id="making-existing-software-accessible-to-agents">Making existing software accessible to agents</h2>
+
+<p>I’ve been <a href="https://carlocaprini.com/series/building-my-ai-operating-system/">building a few small services as part of a personal AI operating system</a> where I want AI agents to be first-class users.</p>
+
+<p>And that immediately raised an architectural question for me.</p>
+
+<p>Should I build a standard API and expose it to agents through the Model Context Protocol (MCP)? Or should the fact that agents will use the product influence how the product itself is designed?</p>
+
+<p>At first, these two approaches can look very similar.</p>
+
+<p>If a service already exposes an API, adding an MCP server on top of it can make selected operations available to an agent.</p>
+
+<p>The agent can discover tools, retrieve information, perform actions, and interact with functionality that previously required a human or a custom integration.</p>
+
+<p>The product becomes accessible to agents.</p>
+
+<p>But I’m increasingly convinced that this is different from designing the product for them.</p>
+
+<h2 id="accessibility-alone-can-create-enormous-value">Accessibility alone can create enormous value</h2>
+
+<p>This distinction doesn’t make adding MCP to an existing API less valuable.</p>
+
+<p>There are countless existing services with mature APIs and years of accumulated functionality, but no interface designed for agents. And a well-designed MCP server can make selected capabilities from those APIs discoverable and usable by agents.</p>
+
+<p>The underlying product doesn’t become agent-first, and it doesn’t need to.</p>
+
+<p>Making an existing product accessible to agents is already a significant improvement. And in many cases, redesigning the product around agents would probably be unnecessary.</p>
+
+<p>If the existing API represents the domain well and the operations exposed through MCP give an agent what it needs to accomplish its goals, an MCP layer may be exactly the right architecture.</p>
+
+<p>MCP-enabled and agent-first describe different kinds of value. One extends the reach of an existing product; the other can influence how the product itself is designed.</p>
+
+<h2 id="existing-apis-often-expose-operations">Existing APIs often expose operations</h2>
+
+<p>Traditional APIs are often shaped by the systems and interfaces around them.</p>
+
+<p>They expose resources and operations: retrieve a document, create a comment, update a status, search a collection.</p>
+
+<p>There is nothing inherently wrong with this model. In many cases, exposing the same operations through MCP may be exactly what is needed.</p>
+
+<p>But an agent approaching the system has a slightly different problem.</p>
+
+<p>It needs to understand not only which operations exist, but how they relate to what it is trying to accomplish.</p>
+
+<p>What can I do here? What context do I need? What are the boundaries? What will happen if I perform this action? When should I ask for confirmation?</p>
+
+<p>That is where access to operations can stop being enough.</p>
+
+<h2 id="march-as-a-concrete-case">March as a concrete case</h2>
+
+<p><a href="https://carlocaprini.com/thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/">March is the publishing runway service I built to plan with AI without turning the plan into a commitment</a>.</p>
+
+<p>Its API can expose months, available slots, intentional gaps, planned pieces, their states, and links to the documents behind them. An MCP server can make those operations available to an agent.</p>
+
+<p>But the job I care about is not simply retrieving or updating a content item. I want an agent to inspect the runway, question the sequence, surface gaps or inconsistencies, and propose changes without treating every empty slot as work that must be filled.</p>
+
+<p>That requires more than knowing which endpoint changes a status.</p>
+
+<p>The agent needs to understand that a gap can be intentional, that document maturity and publication planning belong to different services, and that a proposal is not permission to change the plan.</p>
+
+<p>The March case does not show that the domain model had to be rebuilt around agents. It supports a narrower claim: MCP can expose the operations, but it does not decide which context, authority boundaries, or confirmation rules make those operations safe and useful. Those decisions still have to be designed deliberately, whether they live in the API, the MCP tool contract, or both.</p>
+
+<p>March still has an API, and MCP still exposes its operations. What changes when I design for agents is the attention given to that operating contract, not necessarily the architecture underneath it.</p>
+
+<h2 id="api-first-mcp-enabled-and-agent-first">API-first, MCP-enabled, and agent-first</h2>
+
+<p>This is the distinction I currently find most useful.</p>
+
+<p>A product can be <strong>API-first</strong>: its important capabilities are available programmatically, often before they appear in a UI.</p>
+
+<p>It can also be <strong>MCP-enabled</strong>: selected capabilities can be discovered and used by agents through MCP.</p>
+
+<p>And it can be <strong>agent-first</strong>: capabilities, context, permissions, and workflows have been designed considering agents as first-class consumers of the product.</p>
+
+<p>These aren’t maturity levels, and I don’t think every product should try to move from one to the next. They solve different problems.</p>
+
+<p>A mature product with a good API may get enormous value from becoming MCP-enabled without redesigning the underlying product.</p>
+
+<p>But a new product expected to be used primarily by agents may have reasons to make different decisions much earlier.</p>
+
+<h2 id="the-question-changes-when-agents-are-there-from-the-beginning">The question changes when agents are there from the beginning</h2>
+
+<p>When agents are expected to be a primary way a system is used, I find a different question more useful:</p>
+
+<blockquote>
+  <p>If an agent had been one of the intended users from the beginning, would I have designed these capabilities the same way?</p>
+</blockquote>
+
+<p>For March, that question changed what the agent needs to know before an operation and where human judgment remains explicit. The current case does not prove that the product needed a different domain model. It shows that adding the protocol did not answer those design questions.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>Better output makes shallow review more dangerous</title>
+      <description>AI can make work look ready before its reasoning deserves trust. Review depth should follow the consequences of the decision, not the polish of the output.</description>
+      <link>https://carlocaprini.com/thinking/better-output-makes-shallow-review-more-dangerous/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/better-output-makes-shallow-review-more-dangerous/</guid>
+
+      <pubDate>Tue, 01 Sep 2026 00:00:00 +0200</pubDate>
+
+      <content:encoded><![CDATA[<p>AI does more than reduce the time required to produce something. It also changes when the work begins to look ready.</p>
+
+<p>A summary reads clearly. A proposal has a sensible structure. A product requirement includes scope, acceptance criteria, and open questions. A technical plan uses the right vocabulary and explains the architecture with confidence.</p>
+
+<p>The result may genuinely be useful but its presentation can mature faster than the reasoning behind it.</p>
+
+<p>And that changes the review.</p>
+
+<h2 id="polished-work-changes-the-reviewers-posture">Polished work changes the reviewer’s posture</h2>
+
+<p>A rough draft makes some of its uncertainty visible. Missing sections, awkward transitions, and unresolved questions signal that the work is still being formed. The natural response is to challenge it, add context, and ask what is missing.</p>
+
+<p>A polished draft feels closer to approval and completion. And there’s a risk that reviewers move from examining the reasoning to checking the wording, filling small gaps, or confirming that the structure looks reasonable.</p>
+
+<p>Roughness is not evidence of honesty, and polish is not evidence of weak thinking. But polish removes some of the friction that used to make people slow down.</p>
+
+<p>The result is work that looks coherent at a glance and might be easier to trust. So it becomes easier to review the document in front of us than to investigate the decision underneath it.</p>
+
+<h2 id="what-a-polished-draft-can-hide">What a polished draft can hide</h2>
+
+<p>A product requirement can describe a solution clearly while relying on weak evidence about the customer problem.</p>
+
+<p>An implementation plan may name the right components but say little about failure modes, migration constraints, or operational ownership.</p>
+
+<p>A customer summary can be accurate sentence by sentence and still compress the disagreement or uncertainty that would change the priority.</p>
+
+<p>Making these documents clearer helps the discussion but it does not resolve what is missing.</p>
+
+<p>A deeper review needs to ask where the evidence ends, which decision has already been embedded in the framing, and what has been excluded or treated as somebody else’s problem. It also needs someone who can take responsibility for the trade-off being approved.</p>
+
+<p>These questions matter without AI too. But AI raises the stakes because it can create a convincing bridge before anyone has examined the gap underneath it.</p>
+
+<h2 id="seven-comments-did-not-create-seven-insights">Seven comments did not create seven insights</h2>
+
+<p>I encountered a smaller version of this while reviewing this note in <a href="https://carlocaprini.com/thinking/i-built-august-because-copy-and-paste-was-not-collaboration/">August</a>.</p>
+
+<p>Several reviewer profiles stopped at almost the same passage. They all saw the same weakness: the article said that fluent output changes review behavior, but did not explain clearly enough what a stronger review should examine.</p>
+
+<p>And they were right.</p>
+
+<p>But seven similar comments did not give me seven different insights. Repeating that review needed stronger verification and clearer boundaries still left the editorial decision unresolved.</p>
+
+<p>I had to consolidate those reactions and decide what the article was missing. That led to a more useful distinction between surface quality, evidence, hidden decisions, boundaries, and ownership.</p>
+
+<p>Review output can suffer from the same problem as generated content. It can be fluent, reasonable, and repetitive without moving the decision forward.</p>
+
+<p>My take-away: the number of comments is not evidence of depth.</p>
+
+<h2 id="a-working-reviewer-still-needs-calibration">A working reviewer still needs calibration</h2>
+
+<p>I recently helped a software company introduce an AI reviewer into its merge-request workflow.</p>
+
+<p>The technical loop worked. During the tests, the reviewer placed comments on the relevant lines and proposed changes that could be applied directly.</p>
+
+<p>That was not enough to make the review useful.</p>
+
+<p>The initial prompt was generic. Some comments created noise, while repository-specific rules and failure modes still had to be made explicit. The team needed to observe false positives, notice what the reviewer missed, and refine the instructions against real changes.</p>
+
+<p>A comment arriving in the correct place is not evidence that it deserves attention.</p>
+
+<p>This is the same distinction at a different scale. Generating a plausible review is relatively easy. Calibrating that review so it changes the right decisions requires context, feedback, and ownership over time.</p>
+
+<h2 id="public-evidence-points-to-the-same-calibration-problem">Public evidence points to the same calibration problem</h2>
+
+<p>This is not only a property of one internal implementation.</p>
+
+<p><a href="https://docs.github.com/en/copilot/concepts/agents/code-review">GitHub’s documentation for Copilot code review</a> says that the reviewer is not guaranteed to find every problem, may make mistakes, and should be supplemented with human review. The same documentation recommends repository-level instructions and context to improve the usefulness of its comments.</p>
+
+<p>A July 2026 study by Lin et al., <a href="https://arxiv.org/abs/2607.03316">“Is Agentic Code Review Helpful?”</a>, examined 31,073 agentic review and developer-feedback pairs across 239 public repositories using CodeRabbit. Developers rejected 56.3% of the reviewed suggestions. The reported reasons included false positives, redundant or out-of-scope comments, and mismatch with developer intent or repository practices.</p>
+
+<p>That result belongs to one product and an open-source dataset, so it should not be treated as a universal rejection rate for AI review. It does reinforce the narrower point: producing a plausible comment is not the same as earning a place in the team’s review process.</p>
+
+<h2 id="review-should-follow-the-consequence">Review should follow the consequence</h2>
+
+<p>Not every AI-assisted output needs an investigation.</p>
+
+<p>An early outline, a private summary, or an exploratory comparison may only need a quick check. Other artifacts create commitments or dependencies. A requirement shapes what a team builds. A customer summary can change a priority. An architecture proposal may constrain future changes.</p>
+
+<p>The prose should not decide how deeply these artifacts are reviewed. The cost of being wrong is a better signal.</p>
+
+<p>For consequential work, I would want at least four things to remain visible:</p>
+
+<ul>
+  <li>
+    <p>the source material behind the output;</p>
+  </li>
+  <li>
+    <p>the difference between assumptions and verified facts;</p>
+  </li>
+  <li>
+    <p>the important exclusions and boundaries;</p>
+  </li>
+  <li>
+    <p>the person responsible for approving the consequences.</p>
+  </li>
+</ul>
+
+<p>This is why “human in the loop” often feels insufficient. A person can be present and still perform little more than a final glance.</p>
+
+<p>What matters is whether that person has the context and authority required by the decision, and whether the review is designed to use them.</p>
+
+<h2 id="contribution-and-review-now-separate-more-clearly">Contribution and review now separate more clearly</h2>
+
+<p>This extends the distinction I explored in <a href="https://carlocaprini.com/thinking/ai-accelerates-contribution-not-mastery/">AI accelerates contribution, not mastery</a>.</p>
+
+<p>AI makes it possible to retrieve context, form a proposal, and express it clearly much earlier. That is valuable.</p>
+
+<p>It also means reviewers increasingly encounter work that looks mature before the contributor has built a complete mental model of the system.</p>
+
+<p>A useful contribution, a well-presented artifact, and reasoning that deserves to be trusted often arrive in the same package. They are still different things.</p>
+
+<p>Review has to preserve that distinction.</p>
+
+<h2 id="a-less-comfortable-review">A less comfortable review</h2>
+
+<p>Clearer proposals, summaries, and plans can make collaboration much better. I do not think the answer is to distrust polished work or deliberately make it rough.</p>
+
+<p>But a polished draft should still be allowed to feel unfinished where the evidence is incomplete or the decision remains uncertain.</p>
+
+<p>That may mean exposing assumptions instead of smoothing them into prose. It may mean leaving a question open, asking for the source, or naming the person who has to accept the trade-off.</p>
+
+<p>I am still working out how much structure is enough without turning every review into bureaucracy. Different work deserves different levels of scrutiny.</p>
+
+<p>But I no longer want the finish of the output to make that decision for me.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>Stop asking people for information the system already has</title>
+      <description>Much process work moves facts between tools. Useful automation connects what is already recorded while keeping system interpretations separate from source truth and human judgment.</description>
+      <link>https://carlocaprini.com/thinking/stop-asking-people-for-information-the-system-already-has/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/stop-asking-people-for-information-the-system-already-has/</guid>
+
+      <pubDate>Thu, 20 Aug 2026 00:00:00 +0200</pubDate>
+
+      <content:encoded><![CDATA[<p>A ticket says one thing while the real status lives in another tool. Someone asks an engineer for a delivery date because the dashboard is stale. A decision has already been recorded, but people downstream still need a message before they can act on it.</p>
+
+<p>We tend to describe these situations as missing information but often the information is there. It is simply not where the process expects to find it.</p>
+
+<p>Once people stop trusting the official view, a private checklist usually appears somewhere: someone keeps a parallel document up to date or meetings are required to fill the remaining gaps. And the shared process becomes a little less reliable each time.</p>
+
+<p>A <a href="https://refactoring.fm/p/good-relationships-automation-and">newsletter by Luca Rossi</a>, drawing on a conversation with Antonia Scheidel, separates information that already exists somewhere from information that still lives only in people’s heads. Rossi’s practical advice was to connect what is already recorded and ask people only for what is still in their heads.</p>
+
+<p>I found that I needed one more category because systems now produce their own reading of the information they collect.</p>
+
+<p>The due date may be a recorded fact. So calling the item urgent is something the system concluded.</p>
+
+<figure class="article-figure">
+  <a class="article-figure-link" href="https://carlocaprini.com/assets/facts-are-not-interpretations.jpg" aria-label="Open the facts, system interpretations and human judgment diagram at full size">
+    <img src="https://carlocaprini.com/assets/facts-are-not-interpretations.jpg" alt="Diagram showing a recorded fact leading to a system interpretation and then human judgment, with the message that facts are not interpretations." width="1280" height="853" loading="lazy" decoding="async" />
+  </a>
+  <figcaption>Recorded facts, system interpretations and human judgment are different layers. Correcting one should not silently rewrite another.</figcaption>
+</figure>
+
+<h2 id="when-the-alert-is-wrong-but-the-data-is-right">When the alert is wrong but the data is right</h2>
+
+<p>I ran into this while building Friday, a small system that <a href="https://carlocaprini.com/thinking/friday-connects-the-services-without-owning-their-work/">connects several services without owning their work</a> and decides what may deserve my attention.</p>
+
+<p>August stores my documents and review decisions. Friday reads them and chooses what to show me.</p>
+
+<p>At one point Friday kept presenting a document as requiring action after I had rejected it in August.</p>
+
+<p>The evidence was real. A failed review was associated with the document. Friday was treating that history as work I still intended to continue.</p>
+
+<p>I considered adding a rule for rejected documents. It would have removed the alert, but every similar mistake would eventually need its own exception.</p>
+
+<p>Instead, I added a general dismiss action for anything Friday surfaces.</p>
+
+<p>Dismissing an alert does not touch the document or its review history in August: it simply records that I no longer find Friday’s interpretation useful.</p>
+
+<p>I wanted Friday to remember the dismissal without gaining permission to rewrite the service it had read from. Otherwise I would either lose the review history or find myself filtering the same noise again tomorrow.</p>
+
+<p>The architectural pattern <a href="https://martinfowler.com/articles/patterns-legacy-displacement/revert-to-source.html">Revert to Source</a> follows a related principle. Information should remain attributable to where it originated. Friday adds a wrinkle because its signal has a lifecycle of its own.</p>
+
+<p>Connecting existing facts can remove a lot of copying. Judgment is still needed when a system ranks work or raises an alert.</p>
+
+<p>When Friday makes a suggestion I want to see enough of its reasoning to challenge it. And if the suggestion is wrong I need to correct the suggestion or the rule that produced it. The source should change only when the source itself is wrong.</p>
+
+<p>Moving facts between tools is work I want to remove.
+Letting Friday’s interpretation quietly become another fact would create a different problem.</p>
+
+<p>I now look at where each correction lands. Dismissing an item should make Friday quieter and leave August untouched. If the document changes too, Friday has crossed a boundary it was never meant to own.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>I need my AI dashboard to leave things out</title>
+      <description>A useful AI dashboard should reduce the first pass over the work, not reproduce every open item. Its omissions, priorities, and explanations all need to remain inspectable.</description>
+      <link>https://carlocaprini.com/thinking/i-need-my-ai-dashboard-to-leave-things-out/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/i-need-my-ai-dashboard-to-leave-things-out/</guid>
+
+      <pubDate>Sat, 01 Aug 2026 11:00:00 +0200</pubDate>
+
+      <content:encoded><![CDATA[<p>Most dashboards try to help by showing more. That works when the problem is access. It works less well when the problem is attention.</p>
+
+<p>When work is spread across different tools, I can usually find every open item myself. The expensive part is repeatedly scanning those systems, comparing their state, and deciding what deserves attention first.</p>
+
+<p>An attention layer should take that first pass. It should collect the available signals, reduce them to a short list, and explain why those items appear now. The benefit is not discovering something I could never have found. It is letting me begin with the closest or most important decisions instead of reconstructing the whole landscape each time.</p>
+
+<p>That makes omission part of the product. A system that shows everything has transferred information, but it has not reduced the work of deciding.</p>
+
+<h2 id="a-shortlist-is-already-a-decision">A shortlist is already a decision</h2>
+
+<p>Prioritization cannot be treated as neutral presentation.</p>
+
+<p>Every slot given to one item makes another item less visible. A useful attention layer therefore needs an opinion about urgency, proximity, and consequence. It also needs limits. Otherwise weaker signals gradually fill the available space and the shortlist becomes another inbox.</p>
+
+<p>Those choices must remain inspectable. For each item, I should be able to understand why it appeared, what may happen if I ignore it, and where the underlying state comes from.</p>
+
+<p>I do not need the system to make the final decision. I need it to perform enough of the first reading that my judgment starts from a smaller, better-organized set of options.</p>
+
+<h2 id="the-morning-bridge-as-a-test">The Morning Bridge as a test</h2>
+
+<p>Two private services currently feed <a href="https://carlocaprini.com/thinking/why-i-started-building-friday/">Friday</a>: March holds my publishing plan, while August holds documents and their review state.</p>
+
+<p>Friday’s first live synchronization read 22 entities from March and 23 documents from August. The Morning Bridge showed four signals: two publishing-runway items and two documents with unresolved review work.</p>
+
+<p>The reduction from 45 records to four signals proved that the adapters, links, and initial suppression rules worked. It did not prove that the ranking was right, but it created a small enough surface for me to evaluate it.</p>
+
+<figure class="article-figure">
+  <a class="article-figure-link" href="https://carlocaprini.com/assets/friday-presence-mode-public-demo.png" aria-label="Open the Friday Presence Mode interface image at full size">
+    <img src="https://carlocaprini.com/assets/friday-presence-mode-public-demo.png" alt="Friday Presence Mode showing one primary August decision, three peripheral signals, one hidden signal and an expanded explanation of the priority." width="1639" height="960" loading="lazy" decoding="async" />
+  </a>
+  <figcaption>Presence Mode keeps one decision central while secondary and hidden signals remain recoverable. Its reasoning can be opened without turning the dashboard back into an inbox. The interface is shown with fictional demonstration data. Snapshot from 1 August 2026.</figcaption>
+</figure>
+
+<p>Friday shows no more than seven items on the Bridge. Seven is not a magic number. It simply makes it harder to fill the page with weaker signals.</p>
+
+<p>Completed work belongs in the Timeline. Integration health belongs in status. A document assigned to a future month can remain quiet if nothing needs to happen yet. Empty space does not need to be filled.</p>
+
+<h2 id="correct-information-can-still-be-noise">Correct information can still be noise</h2>
+
+<p>Friday has already produced a useful negative example.</p>
+
+<p>It surfaced a failed-review signal from August for a document I had demoted to source material. August really reported the failure, so the signal was not invented. But I no longer intended to advance that document.</p>
+
+<p>I dismissed the item.</p>
+
+<p>Friday remembered the dismissal without changing the document in August. The failed review still exists in the system that owns it; it simply no longer occupies my attention queue.</p>
+
+<p>This matters because filtering stale data is not enough. Current, source-backed information can still be noise when it no longer relates to work I intend to continue. An attention layer needs a way to learn that distinction without rewriting the source.</p>
+
+<h2 id="the-benefit-i-am-looking-for">The benefit I am looking for</h2>
+
+<p>I would probably notice the things Friday shows me anyway.</p>
+
+<p>The useful change is that I no longer have to give every signal the same initial attention. Friday can examine the state across services, bring the nearer or more important items forward, and leave the rest where it belongs.</p>
+
+<p>The quality of the Morning Bridge will depend on whether its priorities continue to make sense, its omissions remain recoverable, and its explanations are good enough to challenge. A quiet Bridge could mean that nothing needs me. It could also mean that Friday missed something.</p>
+
+<p>Trust will have to come from comparing its shortlist with the source systems over time.</p>
+
+<p>I do not need Friday to know something I could never know. I need it to make the first pass well enough that I can concentrate on what deserves me now.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>Friday connects the services without owning their work</title>
+      <description>A coordinating layer can compare state, explain disagreement, and direct attention without becoming the source of truth for the services it connects.</description>
+      <link>https://carlocaprini.com/thinking/friday-connects-the-services-without-owning-their-work/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/friday-connects-the-services-without-owning-their-work/</guid>
+
+      <pubDate>Sat, 01 Aug 2026 10:00:00 +0200</pubDate>
+
+      <content:encoded><![CDATA[<p>When several systems contribute to the same work, putting them in one view solves only half of the problem.</p>
+
+<p>The other half is deciding who owns each fact, which system is allowed to change it, and what should happen when the sources disagree.</p>
+
+<p>A convenient shared view can become dangerous. A status may be current in one source and stale in another. A coordinating layer may infer a conclusion that neither source actually owns. If it can also write, ambiguity can quietly turn into an unauthorized decision.</p>
+
+<p>Coordination therefore needs a narrow contract. The shared layer can compare state, explain disagreement, and propose where attention should go. The underlying facts remain with the systems that produced them, while uncertainty stays visible until something with the right authority resolves it.</p>
+
+<p>This separation also leaves an escape route. If the coordinating layer disappears, the original work remains usable. If an integration fails, its last observation becomes suspect rather than becoming truth by default.</p>
+
+<p>The goal is coordination without creating a shadow system that every other tool must eventually obey.</p>
+
+<p>In this setup, <a href="https://carlocaprini.com/thinking/why-i-started-building-friday/">Friday</a> currently observes two private services I use for editorial work: March holds my publishing plan, while August holds documents and their review state. Friday applies explicit rules to surface what may deserve my attention.</p>
+
+<p>It can centralize attention without becoming the canonical home for the document or the plan. Its view must be rebuildable, each source must remain independently usable, and ambiguity must not silently become permission to write.</p>
+
+<h2 id="the-combined-view-is-not-the-source">The combined view is not the source</h2>
+
+<p>Suppose a note has a target month in March and an unresolved review in August. Friday can turn those facts into a signal: the publication window is approaching, but the document still needs attention.</p>
+
+<p>The signal is Friday’s. The facts are not.</p>
+
+<p>If the document changes, August remains authoritative. If the target month changes, March remains authoritative. Friday can rebuild its view from both sources instead of becoming the canonical home for either.</p>
+
+<h2 id="different-signals-require-different-responses">Different signals require different responses</h2>
+
+<p>Friday has started producing several kinds of signals from the same underlying services.</p>
+
+<p>It can raise the priority of developing an article based on its position in the runway and the work still required. When the source state changes, Friday can reconsider that priority.</p>
+
+<p>It can notice that an article has a place in March while its document is still a draft in August. This may be a normal stage of the work rather than an inconsistency, but it becomes relevant as the publication window approaches.</p>
+
+<p>A document can also appear complete while still waiting for a decision about whether it is ready. Friday can surface that decision without making it for me.</p>
+
+<p>These situations may look similar in a queue, but they do not authorize the same action. One requires development, another may only need monitoring, and another must stop at human judgment.</p>
+
+<h2 id="sometimes-the-correct-integration-does-nothing">Sometimes the correct integration does nothing</h2>
+
+<p>One of the first live reconciliation cycles compared nine uniquely linked March–August records.</p>
+
+<p>It changed nothing.</p>
+
+<p>That was the correct result. The records were consistent, no publication window was open, and Friday had no authorized reason to touch either service.</p>
+
+<p>The useful behavior was not writing. It was recognizing when no write was justified and leaving evidence of that decision.</p>
+
+<p>When a signal does become work, Friday can prepare a bounded handoff for Codex. The work happens in the appropriate service or workspace; Friday retains the trigger and result.</p>
+
+<h2 id="attention-without-lock-in">Attention without lock-in</h2>
+
+<p>I can continue using March and August directly through their interfaces, or through AI clients such as Codex using their MCP tools. I can revise a document in August or change the runway in March without routing the action through Friday.</p>
+
+<p>When the integrations are healthy, Friday observes those changes and refreshes its view. When one is not, the underlying source remains available and the stale observation can be treated as a problem rather than silently becoming truth.</p>
+
+<p>This is the most practical test of the ownership boundary: coordination has not made the underlying services unsafe to use on their own.</p>
+
+<h2 id="the-first-real-disagreement">The first real disagreement</h2>
+
+<p>While reviewing another note, I marked it ready in August. March still described the same note as drafting.</p>
+
+<p>Friday had already observed August’s new editorial state, but its March integration was offline after a contract mismatch. It therefore continued to hold March’s last observed state and showed a high-priority readiness risk instead of presenting the two systems as synchronized.</p>
+
+<p>From Friday alone, I could not tell whether the document still needed work or the planning state was stale. I opened August and confirmed that the document had the <code class="language-plaintext highlighter-rouge">ready</code> tag, no <code class="language-plaintext highlighter-rouge">draft</code> tag, and no unresolved review work. I then checked March and confirmed that its item had not changed.</p>
+
+<p>That distinction determined the next step. The document did not need another editorial pass. The propagation between services needed attention. Friday had identified the condition, but it did not have enough current authority and evidence to repair it by inference.</p>
+
+<p>This also exposed the maintenance cost I can already see. Independent services keep their responsibilities clear, but their interfaces and state mappings have to remain compatible. A changed contract can leave one observation current and another stale. The coordination layer must preserve that uncertainty, explain where each fact came from, and stop short of turning a partial view into an automatic write.</p>
+
+<figure class="article-figure">
+  <a class="article-figure-link" href="https://carlocaprini.com/assets/friday-source-ownership-public-demo.png" aria-label="Open the Friday authority and editorial reconciliation image at full size">
+    <img src="https://carlocaprini.com/assets/friday-source-ownership-public-demo.png" alt="Friday authority interface showing an observe-only default, scoped capability policies and a reversible August-to-March editorial reconciliation." width="1639" height="960" loading="lazy" decoding="async" />
+  </a>
+  <figcaption>Friday makes authority explicit before showing a reversible reconciliation between services. The interface is shown with fictional demonstration data. Snapshot from 1 August 2026.</figcaption>
+</figure>
+
+<h2 id="integration-without-erasure">Integration without erasure</h2>
+
+<p>The practical test is simple: if Friday disappeared tomorrow, could I still understand and use the work in March and August?</p>
+
+<p>So far, yes. The harder test is whether Friday can keep earning trust when the sources disagree, an integration fails, and doing nothing is no longer the whole answer.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>Designing for unattended development</title>
+      <description>Unattended development is not the same as leaving an agent alone. It requires explicit eligibility, isolation, verification, stop conditions, and a separate decision about what may enter the stable codebase.</description>
+      <link>https://carlocaprini.com/thinking/designing-for-unattended-development/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/designing-for-unattended-development/</guid>
+
+      <pubDate>Sat, 01 Aug 2026 00:00:00 +0200</pubDate>
+
+      <content:encoded><![CDATA[<p>I already use AI for much of the implementation work in my personal projects on GitHub. The process now runs in two modes.</p>
+
+<p>Sometimes I drive it manually: I choose an issue, start the agent, follow the work, review the pull request, run manual or visual checks, and merge it.</p>
+
+<p>Other work runs on a schedule at night. The agent can implement a prepared issue, respond to CI failures, and leave a pull request for me to review in the morning. I no longer need to be present while the code is being written.</p>
+
+<p>Both modes use the same conventional boundaries. <code class="language-plaintext highlighter-rouge">main</code> is protected. Work starts from a descriptive issue, gets its own branch, and reaches the stable codebase through a pull request. CI runs the repository’s tests. <code class="language-plaintext highlighter-rouge">AGENTS.md</code> explains the project, commands, constraints, and stop conditions.</p>
+
+<p>This already gives the agent substantial ability without giving it control over the stable state. But the workflow is still paced by transitions that I manage: deciding what may start, recognizing when a run is blocked, and preparing the next piece of work.</p>
+
+<p>The next step I am preparing is automation at the repository level.</p>
+
+<h2 id="autonomy-depends-on-the-decision">Autonomy depends on the decision</h2>
+
+<p>In this workflow, autonomy means allowing the system to advance from an approved issue to a reviewable result without my supervision. It does not mean delegating every decision.</p>
+
+<p>The system may select eligible work, implement it, and verify the result. Whether that result may enter <code class="language-plaintext highlighter-rouge">main</code> remains a separate decision.</p>
+
+<p>I want the system to continue through a small queue of approved work without requiring me to supervise every transition. An orchestrator should claim an eligible issue, create an isolated workspace, start the agent, track retries, and leave a legible result: ready for review, blocked, safe to retry, or waiting for a decision.</p>
+
+<p>OpenAI’s <a href="https://openai.com/index/open-source-codex-orchestration-symphony/">Symphony specification</a> uses an issue tracker as the control plane for a similar workflow. It combines isolated workspaces, bounded concurrency, explicit retries, and handoff states such as <code class="language-plaintext highlighter-rouge">Human Review</code>.</p>
+
+<p>That model matters because unattended development is not the same as leaving an agent alone. A useful system must know what it may start, why it stopped, and when authority returns to a person.</p>
+
+<h2 id="discovery-should-not-become-authorization">Discovery should not become authorization</h2>
+
+<p>Implementation often reveals adjacent work: a missing test, a nearby bug, a useful refactoring, or a larger opportunity outside the issue.</p>
+
+<p>I want agents to preserve those discoveries without expanding the current task or creating their own mandate.</p>
+
+<p>An agent may create a linked issue containing the evidence, likely impact, risks, and possible acceptance criteria. That issue must remain mechanically ineligible for unattended execution until I approve it.</p>
+
+<p>This separates discovery from commitment. It also limits the effect of mistakes, stale assumptions, or untrusted instructions inside issues and comments. Being present in the tracker cannot be enough to make work executable.</p>
+
+<h2 id="instructions-need-executable-support">Instructions need executable support</h2>
+
+<p><code class="language-plaintext highlighter-rouge">AGENTS.md</code> is useful because it places expectations close to the code, but prose is still interpreted.</p>
+
+<p>A recurring review correction may first become a clearer instruction. If it is important and mechanically checkable, it should later become a lint, test, branch rule, smoke test, or inspectable preview.</p>
+
+<p>OpenAI’s account of <a href="https://openai.com/index/harness-engineering/">harness engineering</a> describes this progression from written expectations toward structural tests and environments agents can inspect. GitHub <a href="https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets">rulesets</a> provide another layer by requiring pull requests and status checks and restricting changes to protected branches.</p>
+
+<p>Since publishing <a href="https://carlocaprini.com/thinking/why-i-started-building-friday/">that Friday note</a>, I have started extracting these rules into a private repository and integrating them into Friday. The repository is intended to make issue eligibility, scope, discovery, verification, escalation, and merge authority reusable across projects.</p>
+
+<p>This is work in progress, not a proven system. The integration exists, but I have not yet tested the complete unattended cycle enough to treat the contract as settled.</p>
+
+<h2 id="the-merge-remains-a-separate-experiment">The merge remains a separate experiment</h2>
+
+<p>For now, I review and merge every pull request.</p>
+
+<p>I am curious about agentic merge, but I do not see it as the automatic destination of this work. Generating a change and authorizing it are different responsibilities. GitHub applies the same conservative boundary to its <a href="https://docs.github.com/en/copilot/concepts/agents/cloud-agent/risks-and-mitigations">cloud coding agent</a>, which cannot approve or merge its own pull requests.</p>
+
+<p>I may experiment with automatic merge for narrow, mechanically recognizable changes with comprehensive checks, limited diffs, and straightforward rollback. Dependencies, permissions, workflows, data, infrastructure, and product behavior would remain outside that experiment.</p>
+
+<p>The boundary should move because repeated evidence shows that a class of work is contained, not because models have become more capable in general.</p>
+
+<h2 id="making-judgment-reusable">Making judgment reusable</h2>
+
+<p>The most valuable result of a review may not be the merged code. It may be an improvement to the system that handles the next issue.</p>
+
+<p>A repeated correction can become an instruction. An ignored instruction can become a test. A recurring manual check can become a preview or smoke test. A blocked run can reveal missing context or a missing stop condition.</p>
+
+<p>My role does not disappear. It shifts toward approving intent, examining exceptions, judging product choices, and improving the environment in which agents work.</p>
+
+<p>The next experiment is not to remove the human gate. It is to make everything before that gate more continuous, observable, and capable of stopping for the right reasons.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>Why I started building Friday</title>
+      <description>Friday is my second attempt at the original Jarvis ambition. It began when August and March created a concrete coordination problem between them.</description>
+      <link>https://carlocaprini.com/thinking/why-i-started-building-friday/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/why-i-started-building-friday/</guid>
+
+      <pubDate>Wed, 22 Jul 2026 09:00:00 +0200</pubDate>
+
+      <content:encoded><![CDATA[<p>I <a href="https://carlocaprini.com/thinking/i-stopped-trying-to-build-jarvis/">stopped building Jarvis</a> because it had no recurring job.</p>
+
+<p>Then I built <a href="https://carlocaprini.com/thinking/i-built-august-because-copy-and-paste-was-not-collaboration/">August</a> and <a href="https://carlocaprini.com/thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/">March</a>.</p>
+
+<p>Friday is my second attempt at the original ambition. It began when those two useful services created a new problem between them.</p>
+
+<h2 id="the-problem-was-not-asking">The problem was not asking</h2>
+
+<p>August knew the state of my documents and reviews. March knew the publishing plan.</p>
+
+<p>Both exposed MCP tools, so I could ask an agent to inspect them together. Once I knew the question, active orchestration was already quite simple. Codex could collect the relevant context without making me copy information from one screen to another.</p>
+
+<p>I was still responsible for noticing that there was a question to ask.</p>
+
+<p>March could show an article in a publication slot while August still had an open thread on the draft. Neither service was wrong. They were answering different questions.</p>
+
+<p>To understand what deserved attention, I still had to look at both, reconstruct the situation, and decide what mattered next.</p>
+
+<p>That was the missing job.</p>
+
+<p>I did not need another way to ask my tools for information. I needed a signal before the question: something that could notice a relevant change, explain why it mattered, and bring me to the right place.</p>
+
+<p>That was my trigger to start building Friday.</p>
+
+<figure class="article-figure">
+  <a class="article-figure-link" href="https://carlocaprini.com/assets/friday-morning-bridge-public-demo.png" aria-label="Open the Friday Morning Bridge interface image at full size">
+    <img src="https://carlocaprini.com/assets/friday-morning-bridge-public-demo.png" alt="Friday dashboard combining fictional March, August, Home and GitHub signals into a Morning Bridge and priority queue." width="1639" height="960" loading="lazy" decoding="async" />
+  </a>
+  <figcaption>Friday brings signals from separate services into one attention queue. The interface is shown with fictional demonstration data. Snapshot from 22 July 2026.</figcaption>
+</figure>
+
+<h2 id="the-same-ambition-had-a-different-starting-point">The same ambition had a different starting point</h2>
+
+<p>Jarvis had started from the center. I imagined a general orchestration system and kept adding decisions, action items, context, and agents before any recurring work had earned that structure.</p>
+
+<p>August and March developed in the opposite direction. Each began with work I was already doing and a problem I could recognize without explaining the future platform around it.</p>
+
+<p>They also changed how I thought about the technical boundary.</p>
+
+<p>Markdown had made the first direction especially tempting. AI agents eat Markdown for breakfast, and I am comfortable working with it too. But an artifact that an AI can read is not automatically a reliable operational contract.</p>
+
+<p>August and March could now expose their state and supported operations without asking a consumer to interpret private folders. That mattered because I no longer had to begin by inventing every concept and owning every workflow.</p>
+
+<p>The useful pieces already existed. The new question was whether something smaller could coordinate them.</p>
+
+<p>This is what made the second attempt feel different. I was not rebuilding Jarvis because the original feature list had become more achievable. I was returning to the ambition because a concrete job had finally appeared.</p>
+
+<h2 id="one-job-before-the-platform">One job before the platform</h2>
+
+<p>Friday begins with one question: what deserves my attention now?</p>
+
+<p>That is intentionally smaller than “build my personal AI operating system.” It gives me something I can observe and disagree with. A signal can be useful, irrelevant, late, or simply wrong. Those outcomes are more informative than a long list of capabilities waiting for a reason to exist.</p>
+
+<p>It also gives me a reason to resist the fun part.</p>
+
+<p>Once several services can be queried by AI, it is easy to imagine connecting everything. The more useful constraint is to test one connection at a time, starting with August and March.</p>
+
+<p>I do not know the answer yet.</p>
+
+<p>The next experiment is about integration: can Friday connect services without owning their work?</p>
+
+<p>After that comes attention: can the Morning Bridge be useful because of what it leaves out?</p>
+
+<p>I have not earned either answer yet. For now, they are promises to test, not conclusions.</p>
+
+<p>Jarvis started as a platform looking for its first job. Friday starts with a job and has to earn the platform around it.</p>
+
+<p>For now, that is enough to keep building and tinkering.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>I built March to plan with AI without becoming a content machine</title>
+      <description>I wanted a view of the publishing runway without turning empty space into pressure. March keeps the plan visible so AI can help question it while the editorial decisions remain mine.</description>
+      <link>https://carlocaprini.com/thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/</guid>
+
+      <pubDate>Tue, 21 Jul 2026 11:00:00 +0200</pubDate>
+
+      <content:encoded><![CDATA[<p><a href="https://carlocaprini.com/thinking/i-built-august-because-copy-and-paste-was-not-collaboration/">August</a> gave me a better way to develop documents with AI.</p>
+
+<p>Then I had a different problem.</p>
+
+<p>I could see the state of one document, but not the shape of the work around it.</p>
+
+<p>Which pieces were close to ready? Which ones still needed development? Was I putting effort into material for a distant month while an earlier part of the plan remained empty? Had an idea earned a place in the publishing sequence, or was I turning it into a commitment too early?</p>
+
+<p>I wanted a clear view of the months ahead.</p>
+
+<p>I did not want a content calendar telling me to feed the machine.</p>
+
+<p>That tension became March.</p>
+
+<h2 id="a-plan-is-not-a-promise">A plan is not a promise</h2>
+
+<p>I want to publish with some continuity.</p>
+
+<p>I also do not want my personal site to become a production target.</p>
+
+<p>When I use a traditional content calendar, every visible date can start to feel like a commitment. Empty space begins to look like failure. A perfectly filled calendar can become a very tidy way to produce work I do not believe in.</p>
+
+<p>March treats the plan differently.</p>
+
+<p>It gives me a runway: a view of what may be published over the coming months and the state of each piece.</p>
+
+<figure class="article-figure">
+  <a class="article-figure-link" href="https://carlocaprini.com/assets/march-publishing-runway-july-2026.png" aria-label="Open the March publishing runway image at full size">
+    <img src="https://carlocaprini.com/assets/march-publishing-runway-july-2026.png" alt="March coverage horizon from June to October 2026, showing published and planned work alongside available future slots." width="987" height="385" loading="lazy" decoding="async" />
+  </a>
+  <figcaption>March keeps the publishing runway visible without treating every available slot as a commitment. Snapshot from 21 July 2026.</figcaption>
+</figure>
+
+<p>Something can be only an idea. It can be in development, ready, or already published. A planned month gives the work context without granting permission to publish it.</p>
+
+<p>The distinction is simple, but it protects the quality of the work from the appearance of the plan.</p>
+
+<h2 id="the-document-and-the-plan-have-different-jobs">The document and the plan have different jobs</h2>
+
+<p>August knows the document.</p>
+
+<p>It contains the current text, the versions, the review, and the questions that still need an answer.</p>
+
+<p>March knows where that work may fit.</p>
+
+<p>A planned item can point back to its document in August, but the two services do not need to become the same application.</p>
+
+<p>That keeps two questions separate:</p>
+
+<ul>
+  <li>
+    <p>Is the document ready?</p>
+  </li>
+  <li>
+    <p>Does it have a place in the publishing plan?</p>
+  </li>
+</ul>
+
+<p>The answers do not always move together.</p>
+
+<p>A document may be ready while its planned month is still far away. Another may occupy the next available slot while still requiring substantial work. An early idea may be valuable without deserving a publication commitment yet.</p>
+
+<p>Seeing those differences helps me decide what deserves attention without asking either tool to make the editorial decision for me.</p>
+
+<h2 id="march-is-a-dashboard-not-the-planner">March is a dashboard, not the planner</h2>
+
+<p>March does not decide what I should publish.</p>
+
+<p>It exposes the state of the runway clearly enough that I can plan with AI.</p>
+
+<p>In fact, March exposes an interface for AI agents through MCP, a protocol that gives them access to specific tools and data exposed by the service. Today, I can ask ChatGPT, Claude, or another agent to inspect the months, available publishing slots, intentional gaps, planned pieces, and links back to August.</p>
+
+<p>An agent can surface a gap, compare possible sequences, or propose moving an item earlier or later.</p>
+
+<p>I make the planning decision.</p>
+
+<p>I may know that two topics are too similar to publish close together. I may want to leave space for something that has not happened yet. A draft may need time even when moving it forward would make the runway look healthier.</p>
+
+<p>March keeps the facts visible. I can use AI to question the arrangement and explore alternatives, but the priorities and final decision remain mine.</p>
+
+<p>The shared state remains visible, so neither I nor the AI has to reconstruct the plan from memory. That does not make March self-maintaining: the plan remains useful only if decisions and changes return to it.</p>
+
+<h2 id="changing-the-plan-can-begin-as-a-conversation">Changing the plan can begin as a conversation</h2>
+
+<p>Before March, changing direction meant mentally rebuilding the sequence or maintaining another document that would become stale.</p>
+
+<p>Now an agent and I can inspect the same runway, discuss what changed, and arrive at a different arrangement. Once I decide, the agent can update March, and the next conversation starts from that new state.</p>
+
+<p>The useful part is not that AI rearranges a calendar for me. It is that the planning conversation no longer disappears when the chat ends.</p>
+
+<p>That matters because the plan should respond to the work.</p>
+
+<p>An article may take longer than expected. A new idea may become more relevant. A planned piece may stop feeling worth publishing. Something ready may remain deliberately parked.</p>
+
+<p>Changing the plan is part of keeping it honest.</p>
+
+<h2 id="empty-space-is-part-of-the-game">Empty space is part of the game</h2>
+
+<p>An empty slot is not an instruction to create something quickly.</p>
+
+<p>It tells me that a part of the future runway is thin. I may develop an existing idea, do more research, change the expected cadence, or leave the space empty.</p>
+
+<p>A filled slot also carries information. It gives a piece a possible place and may bring it into focus before work planned further away.</p>
+
+<p>March makes both states visible without deciding what happens next.</p>
+
+<p>There is also a light game-like quality to it.</p>
+
+<p>The months form a runway. Progress is visible. Moving a piece toward readiness feels satisfying, and watching the plan take shape makes me more likely to return to it.</p>
+
+<p>I like that.</p>
+
+<p>It can also become a trap. If I start creating articles because March looks hungry, I have rebuilt the content machine with a nicer dashboard.</p>
+
+<p>Empty space has to remain a valid state. The game should make progress visible, not manufacture pressure to publish.</p>
+
+<p><a href="https://carlocaprini.com/thinking/i-built-august-because-copy-and-paste-was-not-collaboration/">August helped me collaborate with AI on the work itself</a>. March gives that work a possible place in the plan.</p>
+
+<p>The test is whether I can still look at an empty month and leave it alone.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>I built August because copy and paste was not collaboration</title>
+      <description>AI could help with a document, but the work around each answer kept falling apart. I built August to keep the draft, its review state and my decisions in one place.</description>
+      <link>https://carlocaprini.com/thinking/i-built-august-because-copy-and-paste-was-not-collaboration/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/i-built-august-because-copy-and-paste-was-not-collaboration/</guid>
+
+      <pubDate>Tue, 21 Jul 2026 10:00:00 +0200</pubDate>
+
+      <content:encoded><![CDATA[<p>After <a href="https://carlocaprini.com/thinking/i-stopped-trying-to-build-jarvis/">I stopped trying to build Jarvis</a>, I did not immediately need another platform. But I still wanted to build.</p>
+
+<p>I needed a way to keep working on a document with AI without rebuilding the context in every conversation.</p>
+
+<p>AI models were already useful. I could paste a draft into a conversation and ask for a different structure, a critical reading, a clearer paragraph, or questions I had not considered.</p>
+
+<p>The frustrating part was everything around the answer.</p>
+
+<p>I had to copy the document into the conversation, copy useful suggestions back into my editor, decide which changes I had already applied, and remember which questions were still unresolved. If I started another session, I had to reconstruct the state again.</p>
+
+<p>The AI could help with the text. But we did not have a comfortable place to continue the work together.</p>
+
+<h2 id="the-missing-part-was-continuity">The missing part was continuity</h2>
+
+<p>A document rarely improves in one pass.</p>
+
+<p>One review may reveal a weak argument. Another may challenge an assumption. A suggestion can be useful without being correct. A question can remain open because I do not yet have the evidence or because I have not decided what I think.</p>
+
+<p>A chat is good at producing the next response, but it is less good at showing the state of the collaboration around the document.</p>
+
+<p>Which version are we discussing? Which suggestion did I accept? Which one did I reject? Is a question still open because I missed it, or because it genuinely needs more work?</p>
+
+<p>I was spending too much time carrying those answers between the AI, the conversation, and the document.</p>
+
+<p>That work was not intellectually difficult, but it was constant.</p>
+
+<p>I started building a private, local workspace around that friction. I called it August.</p>
+
+<h2 id="i-did-not-want-the-ai-to-write-instead-of-me">I did not want the AI to write instead of me</h2>
+
+<p>The objective was never to put a document into a machine and receive a finished and polished version.</p>
+
+<p>I wanted the AI to participate in the work without quietly becoming the author.</p>
+
+<p>That means it can propose a rewrite, point out a contradiction, ask for evidence, or show me how a reader may interpret a passage.</p>
+
+<p>But it is still me who decides what the document is trying to say.</p>
+
+<p>I provide the experiences, opinions, constraints, and examples. I can reject a suggestion even when it sounds better. I can leave a question unresolved rather than accepting the most plausible answer the model can generate.</p>
+
+<p>AI is very good at making a draft look complete. It can smooth over a missing argument or invent a convincing bridge between two ideas. The result may read better while representing my thinking less honestly.</p>
+
+<p>A useful review may improve a paragraph. It may also leave an honest gap visible until I know what belongs there.</p>
+
+<h2 id="august-became-my-review-workspace">August became my review workspace</h2>
+
+<p>Document collaboration, comments, suggestions, and version history are established patterns. My professional experience around document products has also shaped how I think about review, permissions, and ownership.</p>
+
+<p>August is not a claim to have invented those ideas. It is my private, local implementation of a narrower workflow: continuing document review with AI while keeping the state of the work and the final decisions under my control.</p>
+
+<p>I built it around the way I wanted to work, and I keep improving it as that work changes.</p>
+
+<p>The document remains easy to read and edit. Around it, August keeps the parts that are otherwise scattered across conversations and editors:</p>
+
+<ul>
+  <li>
+    <p>versions of the document;</p>
+  </li>
+  <li>
+    <p>comments attached to the relevant passage;</p>
+  </li>
+  <li>
+    <p>proposed changes that I can accept or reject;</p>
+  </li>
+  <li>
+    <p>questions that remain open;</p>
+  </li>
+  <li>
+    <p>the current state of the review.</p>
+  </li>
+</ul>
+
+<p>I do not need to explain the whole history every time. An agent can work from the current document and its visible review state. Its feedback returns to the same place instead of becoming another block of text I have to reconcile by hand.</p>
+
+<p>I can inspect what changed and decide what to keep.</p>
+
+<h2 id="review-does-not-belong-to-one-model">Review does not belong to one model</h2>
+
+<p>Once the review state lives with the document, I am not limited to the model or interface I happen to have open.</p>
+
+<p>Because August is part of my private system, I added a dedicated MCP interface for the agents I use. MCP gives them access to a limited set of tools and data exposed by August.</p>
+
+<p>Agents such as ChatGPT or Claude can read the current document and its review state, then return comments or proposed changes to the same workspace. I do not need to give them a pasted copy or reconstruct the previous session.</p>
+
+<p>I also use specialized reviewer profiles that run locally. Each profile is a reusable set of review instructions, not a separate model.</p>
+
+<p>Some are deliberately general: an editor looks at the writing, while a reader looks for the points where the argument becomes difficult to follow. Others use a more specific perspective, such as a developer, a founder, or my future self.</p>
+
+<p>I do not treat these profiles as a panel that votes on the correct version. They are different ways to put pressure on the same draft. A developer may notice that an architectural claim is vague. A founder may question why the problem matters. My future self may ask whether the document will still make sense after the current implementation changes.</p>
+
+<p>Their feedback still arrives as comments and suggestions. I can compare conflicting readings, accept a precise change, reject an elegant one, or leave the question open.</p>
+
+<p>The useful part is not having more reviewers. More feedback also creates more filtering work. August helps when it keeps that work visible and lets different reviewers contribute without losing the document’s history or my responsibility for the result.</p>
+
+<h2 id="the-first-job-was-content-i-wanted-to-publish">The first job was content I wanted to publish</h2>
+
+<p>The first job I gave August was deliberately narrow: documents and content I might publish as an article, a longer note, or something that had not found its final format yet.</p>
+
+<p>The job already existed. I was writing, asking AI for feedback, and losing time moving the work between tools.</p>
+
+<p>August did not need to invent a new habit. It made an existing one less fragmented.</p>
+
+<p>This article went through the same process. Feedback from AI helped me recognize that the story needed a different center, while I remained in control of the rewrite.</p>
+
+<h2 id="the-scope-expanded-after-the-job-was-clear">The scope expanded after the job was clear</h2>
+
+<p>I now also use August to develop early ideas and support planning work.</p>
+
+<p>A rough note may accumulate questions and research before becoming a PRD whose assumptions need pressure-testing, a strategy document with unclear trade-offs, or something that has not found its final form yet.</p>
+
+<p>The format changes, but the job remains recognizable: a piece of thinking needs continuity, AI can help explore it, and I need to see what still requires my judgment.</p>
+
+<p>August expanded because that pattern repeated, not because it started as the home for every kind of knowledge work.</p>
+
+<h2 id="smaller-was-the-important-decision">Smaller was the important decision</h2>
+
+<p>Jarvis began with the shape of a large system and then looked for jobs to place inside it.</p>
+
+<p>August did not invent a new kind of document review. It gave established review patterns a smaller job inside my own system: helping me continue a piece of thinking with AI instead of carrying its state through copy and paste.</p>
+
+<p>That was the important difference from Jarvis. I had a specific job, a friction I could observe, and a way to tell whether my implementation was helping.</p>
+
+<p>August can grow, and it already has. But each addition still has to answer the same question: does it help me continue a piece of thinking with AI without losing its state or my ownership of the result?</p>
+
+<p>That question is the boundary <a href="https://carlocaprini.com/thinking/i-stopped-trying-to-build-jarvis/">Jarvis did not have</a>: if an addition does not help me continue a real piece of work, it does not belong in August.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>I stopped trying to build Jarvis</title>
+      <description>I started with a general AI assistant and no recurring job for it. The useful parts appeared only after I built smaller services around work I was already doing.</description>
+      <link>https://carlocaprini.com/thinking/i-stopped-trying-to-build-jarvis/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/i-stopped-trying-to-build-jarvis/</guid>
+
+      <pubDate>Tue, 21 Jul 2026 09:00:00 +0200</pubDate>
+
+      <content:encoded><![CDATA[<p>For years, I have wanted something like Jarvis.</p>
+
+<p>Not necessarily the voice, the holograms, or a system running an Iron Man suit—although that would still be so cool, and I still aim for it. What interested me most was having an intelligence that knew what I was working on, kept track of the moving pieces, and could help without needing the whole situation explained again every time.</p>
+
+<h2 id="the-ambition-came-before-the-job">The ambition came before the job</h2>
+
+<p>When AI agents started appearing everywhere, that old idea suddenly felt achievable.</p>
+
+<p>My social feeds filled up with personal assistants, autonomous teams, and operating systems run by agents. Like many others, I was inspired, and probably a little greedy. I wanted the assistant, the agents, and the orchestration all at once.</p>
+
+<p>So I started building my Jarvis as a general personal orchestration system.</p>
+
+<p>The feature list kept growing because almost everything seemed to fit the idea. That was exciting for a while. It also made it difficult to tell what the system was actually for.</p>
+
+<h2 id="a-system-with-no-first-job">A system with no first job</h2>
+
+<p>Jarvis did have a center. I wanted it to be focused on decisions and action items.</p>
+
+<p>What did I need to do? What was still undecided? What had already been decided?</p>
+
+<p>Those seemed like sensible things for a personal system to remember. I had chosen the objects before I knew which recurring work they were supposed to support.</p>
+
+<p>I wanted a system for decisions and action items, but I could not answer the practical question: decisions and action items for what? I assumed the context would not matter. It did.</p>
+
+<p>In retrospect, those concepts could have been useful inside the workflows that eventually became <a href="https://carlocaprini.com/thinking/i-built-august-because-copy-and-paste-was-not-collaboration/">August</a> and <a href="https://carlocaprini.com/thinking/i-built-march-to-plan-with-ai-without-becoming-a-content-machine/">March</a>. Both deal with work that has a state, unresolved decisions, and clear next actions.</p>
+
+<p>Putting them together inside Jarvis still did not give me a reason to use it for anything repeatedly. The system made sense on paper, but it was not helping me with work I was actually doing. So I left it.</p>
+
+<p>I got further when I started from work already in front of me.</p>
+
+<h2 id="the-useful-turn-was-smaller">The useful turn was smaller</h2>
+
+<p>I wanted to maintain my personal site without turning it into a content machine—if you’re reading this, that’s where you are now. I wanted help developing and reviewing drafts while keeping my own judgment in the loop. I wanted different perspectives during review, control over changes, and the ability to decide what the next version should become.</p>
+
+<p>I also wanted a simple view of the months ahead, so I could see whether I had enough material in progress and where my attention was needed.</p>
+
+<p>That work led to smaller services with actual jobs.</p>
+
+<p><em>August</em> helps me develop and review notes while keeping unresolved questions visible. <em>March</em> gives me a view of what I may publish and what still needs attention, without deciding that something is ready.</p>
+
+<p>This note is one example. It had a place in the plan while the draft was still being reviewed and revised.</p>
+
+<p>Codex helps me move between these tools and the rest of my work. None of them decides what matters or publishes for me.</p>
+
+<h2 id="the-intelligence-is-not-one-application">The intelligence is not one application</h2>
+
+<p>What I have now does not live in one application. August remembers the document and its review state. March remembers the plan. Models can work across both, and I still bring the ideas and make the decisions.</p>
+
+<p>It is a more modest setup than the universal assistant I first imagined. I use it.</p>
+
+<h2 id="maybe-this-is-how-jarvis-starts">Maybe this is how Jarvis starts</h2>
+
+<p>I stopped trying to build Jarvis as the first product. I have not stopped wanting it.</p>
+
+<p>Today, I have a few small services that help with work I genuinely care about, and an AI collaboration layer that helps me work across them.</p>
+
+<p>I do not know whether these pieces will eventually become something I would call Jarvis. For now, I am keeping the parts I actually use. That is already more than I could say about the first version.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>The transition to Product Management starts before the title changes</title>
+      <description>The transition into Product Management often begins before the role changes, when attention shifts from implementation alone to problems, trade-offs, communication, and product judgment.</description>
+      <link>https://carlocaprini.com/thinking/the-transition-to-product-management-starts-before-the-title-changes/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/the-transition-to-product-management-starts-before-the-title-changes/</guid>
+
+      <pubDate>Wed, 15 Jul 2026 00:00:00 +0200</pubDate>
+
+      <content:encoded><![CDATA[<h2 id="becoming-a-product-manager-rarely-starts-with-the-title">Becoming a Product Manager rarely starts with the title</h2>
+
+<p>Sometimes people ask me what they should study before moving into Product Management.</p>
+
+<p>There are definitely many resources on the topic.</p>
+
+<p>Books. Frameworks. Discovery techniques. Roadmaps. Prioritization. Those are all useful. But looking back, I do not think those were the things that made the biggest difference in my own transition. The bigger shift happened earlier, inside the work I was already doing.</p>
+
+<p>I started my career as a software engineer back when I worked at U-Hopper. Over time, I found myself spending more time talking to customers, coordinating work, helping my teammates understand problems, and discussing priorities. In part, I liked it, and in part, it was necessary.</p>
+
+<p>The title changed later, but the transition had already started. I only understood that later.</p>
+
+<h2 id="product-thinking-starts-with-different-questions">Product thinking starts with different questions</h2>
+
+<p>The biggest change was not learning new tools. I was becoming interested in different parts of the work.</p>
+
+<p>What changed was where my attention went.</p>
+
+<p>Over time, I realized I wasn’t spending less time thinking about implementation. I was spending more time thinking about the decisions that happen before implementation begins.</p>
+
+<p><em>What problem are we actually solving? Why now? What makes this worth doing? What happens if we decide to wait? What are we choosing not to do instead?</em></p>
+
+<p>The implementation still mattered. I still enjoyed it. But I was becoming just as interested in the decisions that shaped what should be implemented in the first place.</p>
+
+<p>Those questions slowly changed the way I looked at engineering work. Not because implementation became less interesting. But because understanding why a decision was being made became just as interesting as understanding how to implement it.</p>
+
+<h2 id="communication-becomes-part-of-the-job">Communication becomes part of the job</h2>
+
+<p>Another thing that changed was communication. And I’m not talking about presentations or product updates.</p>
+
+<p>As an engineer, I was used to explaining how something worked or why a certain implementation made sense. Over time, the communication became different. It was more about making sure people were looking at the same problem, with the same constraints in mind.</p>
+
+<p>That meant collecting information, connecting discussions that were happening separately, and making trade-offs explicit before the team moved too far into the solution.</p>
+
+<p>It was not communication around the work. It was part of the work itself.</p>
+
+<h2 id="product-judgment-develops-before-product-ownership">Product judgment develops before product ownership</h2>
+
+<p>One misconception about Product Management is that judgment comes with the role. But I think the opposite is often true.</p>
+
+<p>One of the best ways to build product judgment is simply by talking to people already making product decisions. Not to learn the answers. To understand how they think.</p>
+
+<p>What mattered was not only asking better questions, but observing how experienced product people answered them.</p>
+
+<p>How they separated real requirements from preferences. How they weighed customer urgency against long-term product direction. How they decided when a trade-off was acceptable, and when waiting was the better choice.</p>
+
+<p>Those questions can be explored from almost any role.</p>
+
+<p>Engineers, designers, customer success, support, and sales all encounter them every day.</p>
+
+<p>The title simply gives someone more responsibility for answering them consistently.</p>
+
+<h2 id="the-title-often-arrives-last">The title often arrives last</h2>
+
+<p>Becoming a Product Manager didn’t feel like switching careers. It felt more like formalizing a way of thinking that had already been developing for years.</p>
+
+<p>Looking back, I don’t think the change started when I got the title.</p>
+
+<p>It started when I became as interested in why a decision was being made as in how the solution would eventually be built.</p>
+
+<p>I have seen the same pattern in Product Managers I’ve worked with and respect.</p>
+
+<p>They did not suddenly become curious when they got the role. The curiosity was already there.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>Shared context is not shared understanding</title>
+      <description>AI makes context easier to retrieve, but access to the same information does not automatically create shared understanding, alignment, or better decisions.</description>
+      <link>https://carlocaprini.com/thinking/shared-context-is-not-shared-understanding/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/shared-context-is-not-shared-understanding/</guid>
+
+      <pubDate>Sat, 13 Jun 2026 00:00:00 +0200</pubDate>
+
+      <content:encoded><![CDATA[<h2 id="ai-changes-the-cost-of-accessing-context">AI changes the cost of accessing context</h2>
+
+<p>AI is changing something important in how teams work with information.
+It is becoming easier to access context without knowing exactly where everything lives.</p>
+
+<p>People can now ask questions that used to require manual investigation:</p>
+
+<ul>
+  <li>
+    <p>what changed recently in a workflow</p>
+  </li>
+  <li>
+    <p>which systems are involved in a problem</p>
+  </li>
+  <li>
+    <p>what customers are saying about a feature</p>
+  </li>
+  <li>
+    <p>what recently changed in a specific area</p>
+  </li>
+</ul>
+
+<p>and get useful answers much faster than before.</p>
+
+<p>That changes the cost of exploration.
+But it does not automatically change the quality of understanding.</p>
+
+<p>Two people can have access to the same dashboards, the same customer feedback, and the same documents, and still walk away with very different interpretations of what matters.</p>
+
+<p>One person sees a signal worth reshaping the roadmap around.
+Another sees temporary pressure that should not influence long-term direction.</p>
+
+<p>The disagreement is no longer necessarily about access to information.
+It becomes a disagreement about interpretation.</p>
+
+<h2 id="more-information-is-not-always-better-context">More information is not always better context</h2>
+
+<p>This matters because easier access can also expand the conversation too much.</p>
+
+<p>There is a difference between <em>information relevant to the problem space</em> and simply <em>more information</em>.</p>
+
+<p>Additional perspectives and discussion points can feel useful because they expand the conversation.</p>
+
+<p>But if they do not directly contribute to the original problem definition or the goal of the initiative, they can also become a distraction.</p>
+
+<p>As more loosely related concerns enter the discussion, the problem space itself expands.</p>
+
+<p>And once the problem space expands too much, finding a solution to the original problem becomes significantly harder.</p>
+
+<p>This does not mean different perspectives should be ignored.
+But it does mean that not every signal should carry the same weight within a specific decision context.</p>
+
+<p>Part of product work is maintaining clarity around the actual problem being solved, the constraints that matter, and the goal the team is optimizing for.</p>
+
+<p>Otherwise discussions slowly drift from solving a specific problem to debating every adjacent concern that could possibly matter.</p>
+
+<h2 id="better-access-does-not-remove-disagreement">Better access does not remove disagreement</h2>
+
+<p>Better access to information improves discussions in many situations because important facts become easier to retrieve.</p>
+
+<p>But many product discussions were never only about access to facts.</p>
+
+<p>They were also about priorities, trade-offs, interpretation, risk tolerance, and deciding which parts of the context should carry the most weight.</p>
+
+<p>When information was harder to access, missing context was an obvious explanation for disagreement.
+I wrote about this in <a href="https://carlocaprini.com/thinking/most-product-disagreements-come-from-missing-information/">most product disagreements come from missing information</a>.</p>
+
+<p>Now teams can have much richer context available and still disagree.</p>
+
+<p>Not because someone is uninformed.
+But because understanding is not produced by access alone.</p>
+
+<p>Understanding depends on how people connect signals, frame the problem, evaluate constraints, and judge consequences.</p>
+
+<p>This is one reason why structured customer research matters so much.</p>
+
+<p>It does not eliminate interpretation.
+But it reduces ambiguity and improves the quality of the discussion.</p>
+
+<h2 id="retrieval-becomes-cheaper-prioritization-becomes-harder">Retrieval becomes cheaper, prioritization becomes harder</h2>
+
+<p>There is another shift.</p>
+
+<p>In many situations, agreeing on a possible solution becomes easier than agreeing on when the solution should actually be prioritized.</p>
+
+<p>The proposal itself is often no longer the hardest part.
+The harder discussion becomes deciding what matters most, comparing competing priorities, evaluating opportunity cost, and understanding where this sits relative to every other request, escalation, opportunity, and strategic initiative already competing for attention.</p>
+
+<p>This is also why AI-assisted contribution can create false confidence.</p>
+
+<p>People can contribute much earlier because context becomes easier to query.
+But as I wrote in <a href="https://carlocaprini.com/thinking/ai-accelerates-contribution-not-mastery/">AI accelerates contribution, not mastery</a>, contributing earlier is not the same as understanding the system more deeply.</p>
+
+<p>Earlier contribution does not necessarily mean deeper understanding, stronger prioritization judgment, or shared interpretation of the trade-offs involved.</p>
+
+<p>Better access to context helps.</p>
+
+<p>But shared context is not shared understanding.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>AI accelerates contribution, not mastery</title>
+      <description>AI makes it possible to contribute much earlier in a new environment. But contributing faster is not the same as deeply understanding the system.</description>
+      <link>https://carlocaprini.com/thinking/ai-accelerates-contribution-not-mastery/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/ai-accelerates-contribution-not-mastery/</guid>
+
+      <pubDate>Fri, 08 May 2026 00:00:00 +0200</pubDate>
+
+      <content:encoded><![CDATA[<h2 id="contribution-starts-earlier">Contribution starts earlier</h2>
+
+<p>Traditionally, becoming productive in a new environment required time.</p>
+
+<p>People needed to understand where information lived, how systems were structured, which teams owned what, and why certain decisions had been made in the past.</p>
+
+<p>Before contributing meaningfully, they first needed to build a mental model of the system.</p>
+
+<p>AI changes this dynamic significantly.</p>
+
+<p>Today, it is possible to start exploring and contributing much earlier.
+Instead of manually navigating documentation, repositories, dashboards or internal tools, people can describe what they are trying to understand and do, and let AI help retrieve and connect the relevant information.</p>
+
+<p>People no longer need to know exactly where information lives before starting the analysis.</p>
+
+<p>In practice, this can compress weeks or months of ramp-up into days.</p>
+
+<h2 id="accessing-context-becomes-easier">Accessing context becomes easier</h2>
+
+<p>There are topics and questions that can now be explored conversationally, and much faster than before.</p>
+
+<ul>
+  <li>
+    <p>Which customers are most affected by this problem?</p>
+  </li>
+  <li>
+    <p>What changed recently around this workflow?</p>
+  </li>
+  <li>
+    <p>How is this feature actually being used?</p>
+  </li>
+  <li>
+    <p>What systems and APIs are involved in this process?</p>
+  </li>
+</ul>
+
+<p>As a result, contribution happens earlier.</p>
+
+<p>People can investigate problems, analyze systems, propose solutions and sometimes even implement changes before fully understanding all the underlying details.</p>
+
+<p>The difference compared to a few years ago is hard to ignore.</p>
+
+<h2 id="contribution-is-not-mastery">Contribution is not mastery</h2>
+
+<p>But contribution and mastery are not the same thing.</p>
+
+<p>Mastery still requires understanding:</p>
+
+<ul>
+  <li>
+    <p>system boundaries</p>
+  </li>
+  <li>
+    <p>historical trade-offs</p>
+  </li>
+  <li>
+    <p>operational constraints</p>
+  </li>
+  <li>
+    <p>second-order effects</p>
+  </li>
+  <li>
+    <p>why certain decisions exist in the first place</p>
+  </li>
+</ul>
+
+<p>AI helps navigate complexity.
+It does not remove complexity itself.</p>
+
+<h2 id="the-illusion-of-understanding">The illusion of understanding</h2>
+
+<p>This new way of accessing information and addressing complexity creates an interesting tension.</p>
+
+<p>Organizations may start expecting faster onboarding and earlier impact because meaningful contribution becomes visible much sooner.</p>
+
+<p>But early contribution can also create the illusion of understanding.</p>
+
+<p>Access to information becomes easier.
+Building accurate mental models remains difficult.</p>
+
+<p>This is similar to what happens when <a href="https://carlocaprini.com/thinking/temporary-solutions-become-permanent/">temporary solutions become permanent</a>.
+Lower friction makes action easier, but it does not remove the long-term consequences of acting on partial understanding.</p>
+
+<h2 id="a-new-distinction-that-matters">A new distinction that matters</h2>
+
+<p>As AI reduces the friction of interacting with systems, distinguishing between being productive and deeply understanding the system may become increasingly important.</p>
+
+<p>AI is making the gap between contribution and understanding much more visible than before.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>Temporary solutions become permanent</title>
+      <description>Temporary solutions are often necessary, but once adopted they become part of the product and can quietly turn into long-term constraints.</description>
+      <link>https://carlocaprini.com/thinking/temporary-solutions-become-permanent/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/temporary-solutions-become-permanent/</guid>
+
+      <pubDate>Wed, 01 Apr 2026 00:00:00 +0200</pubDate>
+
+      <content:encoded><![CDATA[<h2 id="why-temporary-solutions-exist">Why temporary solutions exist</h2>
+
+<p>Temporary solutions are often the right choice.</p>
+
+<p>They usually emerge when speed becomes more important than completeness.</p>
+
+<p>This can happen under business pressure, when a specific customer request needs to be addressed quickly. It can also happen when the product lacks certain capabilities, and a workaround is introduced instead of addressing the limitation directly. In other cases, it takes the form of quick integrations or shortcuts between systems, created to move forward without investing in a more robust solution.</p>
+
+<p>Temporary solutions are also commonly used to test or validate ideas that are not yet proven. Building something quickly allows teams to gather feedback and understand whether a direction is worth pursuing.</p>
+
+<p>And sometimes, they are simply necessary. Fixing a bug, resolving an incident, or unblocking a customer often requires acting quickly rather than perfectly. This often happens under pressure, when <a href="https://carlocaprini.com/thinking/the-urgency-of-customer-requests/">urgency is perceived before it is fully understood</a>.</p>
+
+<p>In all these situations, speed matters. And that is exactly why they are so easy to accept.</p>
+
+<p>But what all these cases have in common is that they optimise for the short term.</p>
+
+<p>And short-term optimisations often turn into long-term constraints.</p>
+
+<h2 id="when-temporary-becomes-permanent">When temporary becomes permanent</h2>
+
+<p>Problems start when temporary solutions are adopted.</p>
+
+<p>If a prototype starts being used by customers, it becomes much harder to change or replace.
+What was meant to be a quick experiment turns into something people rely on.</p>
+
+<p>And at that point, the cost of removing or reworking it increases significantly.</p>
+
+<p>The same happens with quick fixes for urgent issues.
+A workaround that solves a problem in the short term can remain in place much longer than expected.</p>
+
+<p>And once something is in production, it becomes part of the system.</p>
+
+<h2 id="the-point-of-no-return">The point of no return</h2>
+
+<p>There is usually a moment when a temporary solution becomes difficult to undo.</p>
+
+<p>It might be when:</p>
+
+<ul>
+  <li>
+    <p>Customers start depending on it.</p>
+  </li>
+  <li>
+    <p>Other parts of the system integrate with it.</p>
+  </li>
+  <li>
+    <p>Replacing it requires significantly more effort than keeping it.</p>
+  </li>
+</ul>
+
+<p>After that point, the “temporary” nature of the solution is mostly theoretical.</p>
+
+<h2 id="the-illusion-of-progress">The illusion of progress</h2>
+
+<p>Temporary solutions can create the impression that progress has been made.</p>
+
+<p>The problem appears solved. The feature seems delivered.</p>
+
+<p>But in reality, what has been built might not be designed to evolve, scale, or integrate properly with the rest of the product.</p>
+
+<p>This is especially evident in areas like AI, where rapid experimentation is common, and customer expectations remain unclear.
+It is often difficult to understand how a solution will be used in practice, and early implementations can easily become something they were never meant to be.</p>
+
+<h2 id="a-hidden-trade-off">A hidden trade-off</h2>
+
+<p>Choosing a temporary solution is always a trade-off.</p>
+
+<p>It trades speed for future flexibility. It trades immediate relief for long-term complexity. This connects closely to how <a href="https://carlocaprini.com/thinking/product-decisions-are-mostly-trade-offs/">product decisions are mostly trade-offs</a>.</p>
+
+<p>In many cases, it is the right decision. But it should also be a conscious one.</p>
+
+<p>What looks like a quick fix is often a decision that will shape the product for a long time.</p>
+
+<h2 id="managing-temporary-solutions">Managing temporary solutions</h2>
+
+<p>Temporary solutions are therefore not the problem.</p>
+
+<p>Their uncontrolled adoption is.</p>
+
+<p>When building something temporary, it is important to:</p>
+
+<ul>
+  <li>
+    <p>Limit its exposure.</p>
+  </li>
+  <li>
+    <p>Be careful with its adoption.</p>
+  </li>
+  <li>
+    <p>Make its limitations explicit and clear from the very beginning.</p>
+  </li>
+</ul>
+
+<p>Otherwise, what started as a way to learn and fix quickly can turn into a constraint that slows down future work.</p>
+
+<h2 id="closing">Closing</h2>
+
+<p>Temporary solutions become permanent when they are allowed to spread.</p>
+
+<p>Once they are used, relied upon, and integrated, they are not temporary anymore.</p>
+
+<p>They simply become part of the product, together with their limitations.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>The urgency of customer requests</title>
+      <description>Not everything that feels urgent is a real priority. In product work, reacting before urgency is understood can lead teams to the wrong decisions.</description>
+      <link>https://carlocaprini.com/thinking/the-urgency-of-customer-requests/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/the-urgency-of-customer-requests/</guid>
+
+      <pubDate>Fri, 20 Mar 2026 00:00:00 +0100</pubDate>
+
+      <content:encoded><![CDATA[<h2 id="the-problem-with-urgency">The problem with urgency</h2>
+
+<p>Urgency can come from different directions.</p>
+
+<p>From customers, especially when a request is framed as a deal breaker.
+From sales or business pressure tied to specific opportunities.
+From leadership, where priorities shift quickly, and expectations follow.</p>
+
+<p>And sometimes, it comes from the system itself, when something is broken or not working as expected.</p>
+
+<p>Not all of these signals have the same weight, even if they often sound equally urgent.</p>
+
+<p>The biggest mistake teams make is allowing stress and pressure to reach engineers before any real decision has been made.</p>
+
+<p>When a request is framed as urgent, it creates immediate uncertainty.
+Should we stop what we are doing?
+Do we need to change priorities right away?</p>
+
+<p>Focus is lost, and the discussion becomes driven by pressure instead of clarity.</p>
+
+<p>This often happens when information is shared too early, or when stakeholders bypass product and engineering leadership and go directly to teams.
+When urgency comes from higher up, it immediately influences the conversation because few people are comfortable pushing back.</p>
+
+<h2 id="when-urgency-is-not-real">When urgency is not real</h2>
+
+<p>Some of the strongest urgency signals come from high-value customers.</p>
+
+<p>A request is framed as a deal breaker and: if we don’t act, they will leave.</p>
+
+<p>High-value customers raising urgent requests are not the problem.
+Their needs are often real and important.</p>
+
+<p>The challenge is how those requests are interpreted and translated into product decisions.</p>
+
+<p>To avoid creating pressure to react quickly, it is worth asking a few simple questions.</p>
+
+<ul>
+  <li>
+    <p>Would this still feel urgent if it came from a different customer?</p>
+  </li>
+  <li>
+    <p>How many other customers would benefit from it?</p>
+  </li>
+  <li>
+    <p>Is this improving the product, or solving a single use case?</p>
+  </li>
+</ul>
+
+<p>In those moments, what looks like an urgent request is often a <a href="https://carlocaprini.com/thinking/product-decisions-are-mostly-trade-offs/">trade-off decision in disguise</a>.
+And in many cases, reacting quickly leads to building something very specific for one customer.</p>
+
+<p>That is not a product improvement.
+That is closer to what consultants or integrators would build.</p>
+
+<p>I have seen requests that looked urgent not being addressed simply because other priorities were more important.
+Months later, nothing happened.
+The customer was still there, and the request was no longer urgent.</p>
+
+<h2 id="real-urgency-looks-different">Real urgency looks different</h2>
+
+<p>Real urgency usually comes from problems.</p>
+
+<p>Something is broken.
+Something is slow.
+Something prevents customers from using the product.</p>
+
+<p>When this happens, the impact is clear.</p>
+
+<ul>
+  <li>
+    <p>Adoption is affected</p>
+  </li>
+  <li>
+    <p>Key metrics move</p>
+  </li>
+  <li>
+    <p>Multiple customers are impacted</p>
+  </li>
+</ul>
+
+<p>And when addressed, the value is immediate.</p>
+
+<h2 id="managing-urgency">Managing urgency</h2>
+
+<p>Not all urgent requests should be treated the same.</p>
+
+<p>Some can be handled quickly using existing support or maintenance capacity.<br />
+Others require proper planning and should be scheduled like any other piece of work.
+In some cases, the right response is to <a href="https://carlocaprini.com/thinking/waiting-as-product-decision/">wait rather than act immediately</a>.</p>
+
+<p>Urgency often compresses the time available to think and react.
+Decisions are made faster, but not necessarily better.
+And what is gained in speed is often lost in clarity.</p>
+
+<p>When neither is possible, and plans need to change, the disruption should be explicit.
+The reason behind the decision should be clear and shared with the team.
+Alignment matters. Without it, there is a risk of losing focus, motivation, and trust.</p>
+
+<h2 id="the-role-of-product-and-engineering-leadership">The role of product and engineering leadership</h2>
+
+<p>Product managers and engineering managers are responsible not only for deciding what to do, but also for how and when information reaches the team.</p>
+
+<p>Their role is to filter noise without hiding information.</p>
+
+<p>It is not the same to say:</p>
+
+<p><em>We might need to do this quickly.</em></p>
+
+<p>and:</p>
+
+<p><em>Here is a new request. Let’s understand if it is something we should address, and when.</em></p>
+
+<p>The difference is subtle, but the impact on the team is significant.</p>
+
+<h2 id="choosing-not-to-react">Choosing not to react</h2>
+
+<p>Urgency often pushes teams to act immediately. But not acting is also a decision.</p>
+
+<p>In many cases, waiting allows teams to validate whether a request is truly important. This connects closely to how product decisions are mostly trade-offs, and why waiting can sometimes be the most responsible choice.</p>
+
+<h2 id="closing">Closing</h2>
+
+<p>Real urgency comes from clear problems that demand action.</p>
+
+<p>Everything else should be treated as a decision, not as an emergency.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>Product decisions are mostly trade-offs</title>
+      <description>Product discussions often look like debates about the right solution. In reality they are usually debates about which trade-off a team is willing to accept.</description>
+      <link>https://carlocaprini.com/thinking/product-decisions-are-mostly-trade-offs/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/product-decisions-are-mostly-trade-offs/</guid>
+
+      <pubDate>Sun, 15 Mar 2026 00:00:00 +0100</pubDate>
+
+      <content:encoded><![CDATA[<h2 id="the-illusion-of-the-right-solution">The illusion of the right solution</h2>
+
+<p>Product discussions often look like debates about the best solution.
+But in reality, they are usually debates about trade-offs.</p>
+
+<p>Teams weigh different approaches, assess their implications, and select the most acceptable option given the constraints and circumstances.
+What seems like a debate over the best solution is often about which compromise the team is willing to accept.</p>
+
+<h2 id="the-pressure-for-quick-solutions">The pressure for quick solutions</h2>
+
+<p>One of the most common trade-offs appears when dealing with urgent customer requests.</p>
+
+<p>There’s usually a quick solution that meets urgent needs. The demand for speed is intense because customers want results immediately.</p>
+
+<p>At the same time, it is worth questioning how urgent these requests really are.
+The sense of immediacy around customer needs can easily turn into unnecessary pressure on teams.</p>
+
+<p>In many organisations, the perception of urgency also changes over time.
+There are periods when customer requests dominate the agenda, and teams feel constant pressure to respond quickly.
+At other times, attention shifts toward broader strategic initiatives or new technological trends.
+When this happens, requests that once seemed urgent can quickly move to the background.</p>
+
+<p>Providing a quick solution can remove some of that pressure in the short term. But it comes with a cost.</p>
+
+<p>The cost usually appears later, when the functionality needs to be maintained, extended, or generalised for other customers.
+Once something is released, customers start treating it as a stable capability of the product.
+Changing it later becomes much harder, especially if adoption has already started, regardless of any <em>early adopter</em> or <em>beta</em> labels.</p>
+
+<p>Sometimes these shortcuts are acceptable. Sometimes they’re not.</p>
+
+<p>As it always happens, transparency helps in those situations.
+If everyone understands that the solution is temporary and that additional work will be required later, the trade-off can be managed consciously.</p>
+
+<p>In practice, however, these trade-offs are not always discussed explicitly.</p>
+
+<h2 id="customers-propose-solutions">Customers propose solutions</h2>
+
+<p>Customer requests rarely come as pure descriptions of a problem.
+They often come as and include a proposed solution as well.</p>
+
+<p>This is natural. Customers understand their needs very well, but they usually have limited visibility into how a product is built internally.</p>
+
+<p>Part of the work of product and engineering teams is to detach from the proposed solution and go back to the underlying problem.
+Only then can the team determine whether the suggested approach actually makes sense.</p>
+
+<p>Accepting the customer’s proposed solution might still be the right choice. However, it should be a deliberate decision, made after considering the alternatives.</p>
+
+<h2 id="different-perspectives-different-priorities">Different perspectives, different priorities</h2>
+
+<p>Trade-offs also exist because different roles evaluate success in different ways.</p>
+
+<p>Engineers often focus on stability and long-term maintainability.
+Product teams often focus on time to market and delivering value quickly.
+Business and leadership perspectives add another dimension, focusing on revenue and the needs of the most important customers.</p>
+
+<p>Each role optimises for a different outcome.</p>
+
+<p>When these perspectives meet, disagreements are almost inevitable.</p>
+
+<p>In many cases, these disagreements are not really about the right solution, but about which trade-off a team is willing to accept.
+I explored this dynamic more in a separate <a href="https://carlocaprini.com/thinking/managing-disagreements/">note on managing disagreements</a>.</p>
+
+<p>Strong teams recognise this and actively explore alternative solutions instead of assuming that a single perfect answer exists.</p>
+
+<h2 id="choosing-the-trade-off">Choosing the trade-off</h2>
+
+<p>In my experience, it is rare to encounter a product problem with a single solution that everyone immediately agrees on.</p>
+
+<p>Healthy teams understand that there are always multiple ways forward, none of them perfect. Instead of searching for the ideal solution, they try to understand the implications of each option and decide which compromise is acceptable.</p>
+
+<p>Because, in product work, the real question is rarely about what the perfect solution is.</p>
+
+<p>The real question is which trade-off are we willing to accept?</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>Most product disagreements come from missing information</title>
+      <description>Product discussions often look like disagreements of opinion. In reality, teams are often missing the same piece of information.</description>
+      <link>https://carlocaprini.com/thinking/most-product-disagreements-come-from-missing-information/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/most-product-disagreements-come-from-missing-information/</guid>
+
+      <pubDate>Thu, 12 Mar 2026 00:00:00 +0100</pubDate>
+
+      <content:encoded><![CDATA[<p>Early in my career I worked in a small company with very little structure.</p>
+
+<p>There was a lot of energy, very few formal processes and not many layers of leadership. Decisions were easy to make. Sometimes they were right, sometimes they were wrong, but they were fast.</p>
+
+<p>If there was data supporting a decision, great. If there wasn’t, and there was still time to try something, the instinct was simple: just build it and see what happens.
+Discussion and alignment were not major constraints.</p>
+
+<p>Things started to change when I moved to a larger and more structured organization.</p>
+
+<p>Suddenly there were more stakeholders, more teams and more layers of leadership involved in product decisions. Each group had its own perspective, goals and priorities.</p>
+
+<p>In that environment, alignment became much more important.</p>
+
+<p>And disagreements became much more common.</p>
+
+<h2 id="when-strategy-is-too-broad">When strategy is too broad</h2>
+
+<p>One of the most common sources of disagreement is the absence of a clear strategic direction.</p>
+
+<p>Company strategy is supposed to guide product decisions. But sometimes strategy is written at such a high level that almost anything can fit into it.</p>
+
+<p>I have often found myself looking for the right company-level initiative to attach a piece of work to. When that happens, it is usually a sign that the strategy is too broad.</p>
+
+<p>If everything fits the strategy, then the strategy is not really helping teams make decisions.</p>
+
+<p>In these situations it becomes much harder to reach agreement.
+Different teams can reasonably interpret the same strategic direction in completely different ways.</p>
+
+<h2 id="missing-customer-signals">Missing customer signals</h2>
+
+<p>Another common source of missing information is the absence of strong customer signals.</p>
+
+<p>Customer feedback and real requests should be among the most important inputs for product decisions, especially when combined with a clear strategy.</p>
+
+<p>When those signals are missing, discussions tend to become more speculative.</p>
+
+<p>Product managers and designers are often asked to gather more information: run discovery, talk with customers and try to validate assumptions.</p>
+
+<p>This is where collaboration with customer success and support teams becomes extremely valuable. They often have the closest view of what customers are actually struggling with.</p>
+
+<p>Talking with customers sounds simple, but in practice it can be difficult.</p>
+
+<p>Customers are busy. Reaching them takes time. And sometimes they are focused on problems completely unrelated to the topic you want to discuss.</p>
+
+<p>Interestingly, even the absence of interest can be a signal.</p>
+
+<p>If customers consistently show no interest in discussing a problem, that might be an indicator that the problem is not as important as we initially thought.</p>
+
+<h2 id="when-information-is-incomplete">When information is incomplete</h2>
+
+<p>When important information is missing, product discussions tend to change in nature.</p>
+
+<p>Instead of data and signals guiding the conversation, personal perspectives start to carry more weight.</p>
+
+<p>Ownership of a topic can influence how people interpret the same situation. Technical and non-technical stakeholders may evaluate risks differently. Also, leadership priorities and yearly goals can also shape how decisions are perceived.</p>
+
+<p>In these situations disagreements often become louder, even if everyone involved is acting in good faith.</p>
+
+<p>When information is incomplete, opinions become louder.</p>
+
+<h2 id="moving-forward-despite-uncertainty">Moving forward despite uncertainty</h2>
+
+<p>Of course teams cannot wait for perfect information before making decisions.</p>
+
+<p>Sometimes the only way to move forward is through discovery, customer conversations or small experiments that generate new signals.</p>
+
+<p>In other situations the most responsible choice may simply be to wait and observe how the problem evolves.</p>
+
+<p>Product work often happens under uncertainty. The challenge is not eliminating that uncertainty, but understanding when decisions are based on strong signals and when they are based mostly on assumptions.</p>
+
+<p>Recognizing the difference can make product disagreements much easier to navigate.</p>
+
+<p>Product teams often try to resolve uncertainty by pushing forward and building something quickly.</p>
+
+<p>But sometimes the better option is to <a href="https://carlocaprini.com/thinking/waiting-as-product-decision/">wait and observe</a> how the situation evolves before committing to a solution.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>Waiting is one of the most underrated product decisions</title>
+      <description>Product teams are often rewarded for shipping new things. But building something is not always progress. Sometimes the smartest decision is simply to wait.</description>
+      <link>https://carlocaprini.com/thinking/waiting-as-product-decision/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/waiting-as-product-decision/</guid>
+
+      <pubDate>Fri, 20 Feb 2026 00:00:00 +0100</pubDate>
+
+      <content:encoded><![CDATA[<p>Early in my career I was always excited about the things I was building.</p>
+
+<p>I had ideas constantly. I wanted to create them, put them out there and see if they actually worked. I wanted to see something real come out of the work we were doing.</p>
+
+<p>At the time I was working in a small company, building products from scratch. Everything was new. Everything felt possible.</p>
+
+<p>Part of that energy came from excitement and the desire to contribute. But part of it was also something else: the fear that simple things might look incomplete to customers.</p>
+
+<p>So the instinct was always the same. Add more. Build more. Improve more.</p>
+
+<p>And often do it before anyone even asked for it.</p>
+
+<p>Over time, and especially after moving to a larger and more structured product organization, I started seeing the other side of that mindset.</p>
+
+<p>Building things that no one really needed.</p>
+
+<h2 id="the-cost-of-building-the-wrong-things">The cost of building the wrong things</h2>
+
+<p>In most companies there is already a long list of things customers are asking for.</p>
+
+<p>There are bugs to fix, improvements to make, features customers are waiting for. And there is never enough time to do all of them.</p>
+
+<p>So why spend months building something no one is asking for?</p>
+
+<p>In most companies, the real problem is not finding things to build.<br />
+It’s deciding what not to build.</p>
+
+<p>This is partly a prioritization problem, but it is also a question of respect for the work that engineering teams put into building products.</p>
+
+<p>Engineers should see the impact of what they build. They should see customers using it, benefiting from it, relying on it.</p>
+
+<p>I have seen many teams invest months building large and complex solutions only to later discover that they were too expensive to maintain or simply not used.</p>
+
+<p>Sometimes this happens because product research was not strong enough. But often the reason is simpler.</p>
+
+<p>The world changes.</p>
+
+<p>Requirements change. The domain evolves. Customer needs shift.</p>
+
+<p>And if it takes a year to deliver something, the original assumptions may no longer hold by the time the solution is ready.</p>
+
+<p>The smartest teams understand this and are willing to stop investing in something that no longer makes sense.</p>
+
+<p>Less mature organizations often do the opposite. They stick to an outdated decision and keep investing simply because the decision was already made.</p>
+
+<p>The most expensive product decisions are often the ones we refuse to revisit.</p>
+
+<h2 id="why-waiting-is-difficult">Why waiting is difficult</h2>
+
+<p>Despite this, waiting is one of the hardest decisions for product teams.</p>
+
+<p>Technology hype plays a big role. When a new trend appears, everything suddenly feels urgent.</p>
+
+<p>AI is a recent example. In some situations I have seen strong pressure from leadership to explore and plan initiatives that, based on research and customer signals, were not actually a priority.</p>
+
+<p>Sometimes teams also struggle with waiting because they feel the need to show progress.</p>
+
+<p>Building something feels like moving forward.
+But building something is not always progress.
+Sometimes it simply means investing time and energy in the wrong direction.</p>
+
+<p>These situations often lead to strong discussions within product teams. Different people see the problem from different angles and the pressure to move forward quickly can amplify disagreements.</p>
+
+<p>This is not unusual. In fact, much of product work is about <a href="https://carlocaprini.com/thinking/managing-disagreements/">helping teams navigate these disagreements and still find a way forward</a>.</p>
+
+<h2 id="when-waiting-is-the-better-decision">When waiting is the better decision</h2>
+
+<p>Waiting can be the smartest decision in several situations.</p>
+
+<ul>
+  <li>
+    <p>When research and customer conversations show no clear demand for a certain feature.</p>
+  </li>
+  <li>
+    <p>When there are other initiatives that are clearly more valuable.</p>
+  </li>
+  <li>
+    <p>When the technological landscape is still evolving and there is no clear direction yet.</p>
+  </li>
+</ul>
+
+<p>In these situations rushing into implementation can easily lead to wasted effort.</p>
+
+<p>Waiting allows teams to observe how the landscape evolves, collect better signals and make a more informed decision later.</p>
+
+<h2 id="waiting-requires-active-attention">Waiting requires active attention</h2>
+
+<p>Waiting does not mean ignoring the problem.</p>
+
+<p>Product managers still need to monitor signals: customer feedback, product metrics, changes in the market and the evolution of the technology itself.</p>
+
+<p>If the situation changes, the decision should change as well.</p>
+
+<p>Sometimes that means starting something new.
+Other times it means stopping something that is already in progress.</p>
+
+<p>Stopping work can be painful. Teams invest time and energy in what they build, and shutting something down can feel frustrating.</p>
+
+<p>But continuing to invest in something that no longer makes sense is usually far more damaging.</p>
+
+<p>Clear communication and transparency help teams understand why decisions change and why the focus needs to shift.</p>
+
+<p>For a company to succeed, people need to remain convinced that the work they are doing matters.</p>
+
+<h2 id="sometimes-the-right-decision-is-to-do-nothing">Sometimes the right decision is to do nothing</h2>
+
+<p>Product teams are often rewarded for shipping things.</p>
+
+<p>But sometimes the most responsible product decision is simply to do nothing.
+Waiting gives teams time to learn, observe and understand what actually matters.</p>
+
+<p>And in product work, understanding the problem is often more valuable than rushing to solve it.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>The real job of a Product Manager is managing disagreements</title>
+      <description>Much of product work is about helping smart people who see the problem differently find a way forward.</description>
+      <link>https://carlocaprini.com/thinking/managing-disagreements/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/managing-disagreements/</guid>
+
+      <pubDate>Sun, 12 Jan 2025 00:00:00 +0100</pubDate>
+
+      <content:encoded><![CDATA[<h2 id="when-prioritization-becomes-difficult">When prioritization becomes difficult</h2>
+
+<p>In theory, prioritization should not be that complicated.</p>
+
+<p>A company should have a strategy that gives direction to the work of product and engineering. When that direction is clear, many decisions become easier. Teams know what they are contributing to and why.</p>
+
+<p>But this is not always the case.</p>
+
+<p>Sometimes the strategy is unclear. Sometimes a new technology or trend suddenly shifts the conversation and everything starts feeling urgent.</p>
+
+<p>When that happens, prioritization becomes harder than it should be. Discussions shift from purpose to opinion.</p>
+
+<p>Internally, teams start questioning why certain initiatives matter more than others. Externally, customers and partners may feel that the product lacks a clear long-term direction.</p>
+
+<p>Without strategy, prioritization often turns into debate instead of decision.</p>
+
+<h2 id="implementation-disagreements-are-about-trade-offs">Implementation disagreements are about trade-offs</h2>
+
+<p>Disagreements about how something should be built are usually more complex.</p>
+
+<p>From a technical perspective, many things are possible. The real question is how much time, effort and risk a certain approach introduces.</p>
+
+<p>This is where many discussions actually happen.
+Should we build something quickly and iterate later? Or should we spend more time designing a more robust solution?</p>
+
+<p>Speed often comes at the cost of stability, performance or security. Doing things more carefully often comes at the cost of time.</p>
+
+<p>There is rarely a perfect answer. Most implementation decisions are simply trade-offs.</p>
+
+<h2 id="when-data-is-missing">When data is missing</h2>
+
+<p>In many cases disagreements are not really about opinions. They are about missing information.</p>
+
+<p>When good data exists, decisions tend to become clearer. Numbers help remove part of the subjectivity that often fuels debates.</p>
+
+<p>But sometimes the data simply does not exist yet.</p>
+
+<p>Maybe the product is new. Maybe customers have not used a feature yet. Maybe the team is exploring a new area where feedback is still limited.</p>
+
+<p>In those situations there are usually two possible paths.</p>
+
+<ul>
+  <li>
+    <p>One option is to build something small and quick to test an assumption.</p>
+  </li>
+  <li>
+    <p>The other option is to wait.</p>
+  </li>
+</ul>
+
+<p>Waiting is often underrated. If customers truly need something that does not exist, they will usually ask for it. That signal alone can be extremely valuable.</p>
+
+<p>Experience and intuition still matter, of course. Looking at how other companies approach similar problems can also provide useful signals.
+But when information is limited, resisting the urge to overbuild is often a reasonable choice.</p>
+
+<p>In situations like these, teams often feel pressure to move forward anyway and build something just to reduce the uncertainty.</p>
+
+<p>But sometimes the more responsible decision is simply to wait and gather better signals before committing to a solution. I wrote more about this in another note on <a href="https://carlocaprini.com/thinking/waiting-as-product-decision/">why waiting is often one of the most underrated product decisions</a>.</p>
+
+<h2 id="taking-a-stand-without-making-it-personal">Taking a stand without making it personal</h2>
+
+<p>One thing I’ve learned over time is that product managers need to take a stand.</p>
+
+<p>If you are responsible for an area, you should have a point of view. That point of view should come after listening to engineers, designers and other stakeholders, but at some point you need to form your own opinion and be ready to defend it.</p>
+
+<p>At the same time, it’s important not to become attached to that opinion.</p>
+
+<p>The goal is not to win an argument. The goal is to build something meaningful and valuable.</p>
+
+<p>For that to happen, disagreements must not become personal.</p>
+
+<p>Assuming good intent from colleagues is essential. Most of the time people are trying to solve the same problem from different angles.</p>
+
+<p>It also helps to remember that work relationships are still human relationships. Understanding the context other people are working in — the pressure they are under, the constraints they face — often makes discussions healthier and more productive.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>In the end, product work is not just about deciding what to build.
+It is about helping teams move forward when smart people disagree.</p>
+]]></content:encoded>
+    </item>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <item>
+      <title>When should Machine Learning be used?</title>
+      <description>Machine Learning should only be used when there is enough meaningful data available. Without the right data, a rule engine is often the smarter choice.</description>
+      <link>https://carlocaprini.com/thinking/when-should-machine-learning-be-used/</link>
+      <guid isPermaLink="true">https://carlocaprini.com/thinking/when-should-machine-learning-be-used/</guid>
+
+      <pubDate>Thu, 27 Aug 2020 00:00:00 +0200</pubDate>
+
+      <content:encoded><![CDATA[<p>A couple of examples taken by my own experience? Estimating the number of people in a particular and well-defined environment and providing predictive maintenance have been for sure two of the most challenging and captivating use cases.</p>
+
+<p>However, Machine Learning is not for all! There are situations in which it cannot help. Not because it is not the right solution to use, but just because the right conditions for making it work properly are missing. So “When should Machine Learning be used”? The answer is simple and should never be forgotten: <strong>“Only when there is enough meaningful data available”</strong>.</p>
+
+<p>The training of a Machine Learning model requires access to a big-enough amount of data — and unfortunately, this data is not always easy to get! When available, such data makes sure that the rules necessary for identifying a particular situation do not need to be defined and set by engineers or, more in general, by domain specialists. In fact, it is sufficient for data scientists to correctly set all the parameters of that extremely complicated mathematical formula that — luckily — no one needs to even know.</p>
+
+<p>Yes, the data science work is definitely complex — Harvard is saying that the <a href="https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century">data scientist is the sexiest job of the 21st Century</a>. But I am getting more and more convinced that the most difficult step to achieve when organising and carrying on a project is actually making sure that prospects and clients truly understand how important data availability is. Data that, let’s not give this for granted, should describe in details the use case we are trying to cover.</p>
+
+<p>An example I often propose is the following: if we are trying to take advantage of Machine Learning for predicting possible malfunctions in a production plant, having a lot of data collected while the process is running smoothly is not going to help much. The model will definitely need data describing the malfunctioning cases — how else is it going to be able to identify and predict such cases?</p>
+
+<p>This is the reason why there are situations in which Machine Learning could — and probably should — be used and others that definitely require the application of an alternative solution.</p>
+
+<h2 id="when-not-to-apply-machine-learning">When not to apply Machine Learning</h2>
+
+<p>So here’s when a Machine Learning solution should not be applied:</p>
+
+<ol>
+  <li>
+    <p>There is no historical data available and it is not possible to collect any new information.</p>
+  </li>
+  <li>
+    <p>There is not enough data available: this should be decided taking into account the experience of data scientists — their gut feelings will most likely be correct.</p>
+  </li>
+  <li>
+    <p>Enough data is available but it is not describing the use case we are covering.</p>
+  </li>
+</ol>
+
+<p>In all such cases, the accuracy offered by the trained model is not going to be acceptable. Actually, the proposed result is probably going to resemble a random choice — definitely not a good solution. The smartest choice would be to apply right away an alternative solution to Machine Learning. It is going to save not only time but also — and especially — money. Software engineers and domain experts should be able to easily come up with everything needed for setting up a rule engine that is going to work well enough.</p>
+
+<h2 id="when-machine-learning-makes-sense">When Machine Learning makes sense</h2>
+
+<p>On the contrary, if there is enough data describing in detail the use case we want to cover, we are in the perfect place to apply Machine Learning. Some patience is going to be required — we may call it also <em>hammering</em> — but, once ready, the solution is for sure going to automatise and greatly simplify everyday work.</p>
+
+<p>Because, yes, the objective of Machine Learning is providing tools able to predict and anticipate issues while supporting decision making. So, if you have the chance, give it a try while remembering and taking into consideration the key importance that data is going to have on the end result.</p>
+]]></content:encoded>
+    </item>
+
+
+  </channel>
+</rss>

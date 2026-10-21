@@ -1,90 +1,26 @@
 #!/usr/bin/env bash
-
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-cd "$ROOT"
-
-usage() {
-  cat <<'EOF'
-Usage: bin/check <command>
-
-Commands:
-  source                 Ruby syntax, validator fixtures and source contracts
-  generated              Production Jekyll build and generated-site validation
-  sitemap                Generated sitemap protocol and canonical-host validation
-  analytics              Analytics contract and unit tests
-  analytics-integration  Browser -> Worker -> D1 integration
-  infrastructure         Docker Compose configuration
-  browser                Chromium desktop/mobile/tablet suite
-  webkit                 Focused WebKit smoke suite
-  visual-regression      Playwright visual-regression suite
-  visual-docs            Structural integrity of committed visual documentation
-  visual                 Alias for visual-regression
-  all                    Closest practical local equivalent of the merge gate
-EOF
-}
-
-check_source() {
-  ruby -c scripts/lib/validation.rb
-  ruby -c scripts/validate_source.rb
-  ruby -c scripts/validate_sitemap.rb
-  ruby -c scripts/validate_site.rb
-  ruby tests/validators/validator_test.rb
-  ruby scripts/validate_source.rb
-}
-
-check_generated() {
-  if bundle exec jekyll --version >/dev/null 2>&1; then
-    JEKYLL_ENV=production bundle exec jekyll build --strict_front_matter
-  else
-    docker compose run --rm -e JEKYLL_ENV=production site bundle exec jekyll build --strict_front_matter
-  fi
-  ruby scripts/validate_site.rb
-}
-
-check_sitemap() {
-  ruby scripts/validate_sitemap.rb
-  npm run sitemap:check
-}
-
-check_analytics() { npm run test:analytics; }
-check_analytics_integration() { npm run test:analytics:integration; }
-check_infrastructure() { docker compose config >/dev/null; }
-check_browser() { npm run test:browser; }
-check_webkit() { npm run test:browser:webkit; }
-check_visual_regression() { npm run test:browser:visual; }
-check_visual_docs() {
-  npm run test:visual-docs
-  npm run visual-reference:verify
-  npm run topic-motif-reference:verify
-}
-
-check_all() {
-  check_source
-  check_generated
-  check_sitemap
-  check_analytics
-  check_analytics_integration
-  check_infrastructure
-  check_browser
-  check_webkit
-  check_visual_regression
-}
-
-case "${1:-}" in
-  source) check_source ;;
-  generated) check_generated ;;
-  sitemap) check_sitemap ;;
-  analytics) check_analytics ;;
-  analytics-integration) check_analytics_integration ;;
-  infrastructure) check_infrastructure ;;
-  browser) check_browser ;;
-  webkit) check_webkit ;;
-  visual-regression) check_visual_regression ;;
-  visual-docs) check_visual_docs ;;
-  visual) check_visual_regression ;;
-  all) check_all ;;
-  -h|--help|help) usage ;;
-  *) usage >&2; exit 2 ;;
+case "${1:-all}" in
+  source)
+    node --test tests/legacy/source.test.js
+    ruby tests/legacy/feed_test.rb
+    ;;
+  generated)
+    node scripts/build_legacy_site.mjs
+    node --test tests/legacy/generated.test.js
+    ruby scripts/validate_feed.rb _site/feed.xml
+    ;;
+  browser)
+    npx playwright test
+    ;;
+  all)
+    "$0" source
+    "$0" generated
+    "$0" browser
+    ;;
+  *)
+    echo "Usage: bin/check [source|generated|browser|all]" >&2
+    exit 2
+    ;;
 esac
