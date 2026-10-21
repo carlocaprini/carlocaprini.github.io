@@ -12,7 +12,7 @@ test("every known route has a minimal fixed-origin redirect stub", () => {
     assert.ok(fs.existsSync(file), `missing ${file}`);
     const html = fs.readFileSync(file, "utf8");
     const target = new URL(route, manifest.canonical_origin).href;
-    assert.match(html, new RegExp(`<meta http-equiv="refresh" content="0; url=${target.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}">`));
+    assert.doesNotMatch(html, /http-equiv="refresh"/i);
     assert.ok(html.includes(`<link rel="canonical" href="${target}">`));
     assert.ok(html.includes(`href="${target}"`));
     assert.match(html, /target\.search=location\.search;target\.hash=location\.hash/);
@@ -38,6 +38,7 @@ test("404 keeps a true fallback document and constructs only a fixed-origin targ
   assert.doesNotMatch(html, /http-equiv="refresh"/i);
   assert.match(html, /new URL\("https:\/\/carlocaprini\.com"\)/);
   assert.match(html, /target\.pathname=location\.pathname/);
+  assert.match(html, /Go to the carlocaprini\.com homepage/);
   assert.match(html, /noindex,follow/);
   assert.doesNotMatch(html, /location\.href\s*\+|URLSearchParams|redirect=/);
 });

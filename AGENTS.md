@@ -16,7 +16,7 @@ Never edit `_site`; it is generated and ignored. Do not add editorial content, c
 ## Change map
 
 - Route addition/removal: reconcile the canonical public path, edit `legacy/routes.json`, run `bin/check source`, then `bin/check generated` and `bin/check browser`.
-- Redirect behavior or markup: edit `scripts/build_legacy_site.mjs`, preserve the fixed destination origin and accessible fallback, then run `bin/check generated` and `bin/check browser`.
+- Redirect behavior or markup: edit `scripts/build_legacy_site.mjs`, preserve the single JavaScript navigation mechanism, fixed destination origin, and accessible static fallback. Dynamic query/fragment preservation is JavaScript-only; no-JavaScript known routes remain in place and unknown routes link to the canonical homepage. Then run `bin/check generated` and `bin/check browser` when verification is explicitly authorized.
 - Feed behavior: edit the Ruby feed code and tests; preserve atomic replacement and last-valid deployment semantics; run `bin/check source` and `bin/check generated`.
 - Workflows: retain repository-level `contents: read`; grant `pages: write` and `id-token: write` only to deploy jobs; publish only the validated artifact.
 

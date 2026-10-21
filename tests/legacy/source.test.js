@@ -12,6 +12,11 @@ test("route inventory is explicit, unique, and reconciled", () => {
   assert.deepEqual(manifest.legacy_only_routes, []);
   assert.deepEqual(manifest.canonical_only_routes, []);
   assert.deepEqual(manifest.fragment_contracts, ["/#contact"]);
+  assert.deepEqual(manifest.redirect_contract, {
+    automatic_navigation: "javascript",
+    dynamic_suffix_preservation: "javascript",
+    no_javascript_behavior: "remain_on_legacy_url_with_canonical_path_link"
+  });
   assert.ok(manifest.routes.every((route) => route.startsWith("/") && route.endsWith("/")));
 });
 

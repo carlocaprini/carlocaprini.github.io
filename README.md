@@ -8,12 +8,14 @@ This repository is the compatibility layer for links previously published under 
 
 - one minimal HTML redirect document for every known route;
 - an accessible visible fallback link;
-- an immediate meta refresh and a canonical link;
-- a small fixed-origin script that preserves query parameters and fragments;
+- a canonical link and one automatic redirect mechanism;
+- a small fixed-origin script that preserves query parameters and fragments when JavaScript is enabled;
 - a genuine `404.html` fallback that tries the same unknown path on the canonical origin;
 - legacy sitemaps, robots policy, the Google verification file, and the RSS bridge.
 
 Known redirect pages remain indexable so search engines can process the canonical relationship. Only the 404 document uses `noindex`. The redirect destination cannot be supplied by a query parameter or another external input.
+
+With JavaScript disabled, a known route does not navigate automatically: it remains on the legacy URL and offers a static link to the same canonical path. Static HTML cannot copy an arbitrary incoming query string or fragment into that link, so dynamic suffix preservation is explicitly a JavaScript-only guarantee. On an unknown route, the no-JavaScript emergency fallback links to the canonical homepage; with JavaScript enabled, the 404 script tries the same path, query string, and fragment on the fixed canonical origin.
 
 ## Development and pull requests
 
