@@ -13,6 +13,6 @@
     "serve": "node scripts/serve_site.mjs"
   },
   "devDependencies": {
-    "@playwright/test": "1.63.0"
+    "@playwright/test": "1.64.1"
   }
 }
